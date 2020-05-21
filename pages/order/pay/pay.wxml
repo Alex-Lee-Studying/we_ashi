@@ -1,0 +1,24 @@
+<view class="container">
+
+  <view class="payWrap">
+    <radio-group bindchange="radioChange" class="payList">
+      <label class="payItem">
+        <text class="iconfont iconweixinzhifu" style="color: #41b035;"></text>
+        <text class="title">微信</text>
+        <radio value="wechat" checked="true" color="#033150" wx:if="{{pay === 'wechat'}}"/>
+        <radio value="wechat" wx:else/>
+      </label>
+      <label class="payItem">
+        <text class="iconfont iconpayIcon-aliPay" style="color: #1296db;"></text>
+        <text class="title">支付宝</text>
+        <radio value="alipay" checked="true" color="#033150" wx:if="{{pay === 'alipay'}}"/>
+        <radio value="alipay" wx:else/>
+      </label>
+    </radio-group>
+  </view>
+
+  <view class="subWrap">
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="topay">立即支付</button>
+  </view>
+
+</view>

@@ -1,0 +1,55 @@
+<view class="container">
+  <view class="orderItem orderDetailCX">
+    <navigator url="/pages/my/travelDetail/travelDetail" class="orderinfo">
+      <view class="left"><text class="year">2020</text><text class="date">03-27</text></view>
+      <view class="main">
+        <view class="country"><text>上海 <text class="iconfont icon-_danjiantou"></text> 洛杉矶</text></view>
+        <view class="mark"><text>5kg以内I接受代买</text></view>
+        <view class="mark"><text>备注：要2019年经典款</text></view>
+      </view>
+      <view class="right"><text class="iconfont iconshare"></text></view>
+    </navigator>
+  </view>
+
+  <view class="subWrap">
+    <button type="primary" class="btnPrimary" hover-class="btnHover">向我申请</button>
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover">已接受</button>
+  </view>
+
+  <view class="listQD">
+    <view class="title"><text>求带列表</text></view>
+    <view class="listWrap">
+
+      <view class="orderItem orderItemQD">
+        <navigator url="" class="orderinfo">
+          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
+          <view class="main">
+            <view class="mark"><text>2020-03-24</text></view>
+            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
+          </view>
+          <view class="right"><text class="iconfont iconshare"></text></view>
+        </navigator>
+      </view>
+      <view class="orderItem orderItemQD">
+        <navigator url="" class="orderinfo">
+          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
+          <view class="main">
+            <view class="mark"><text>2020-03-24</text></view>
+            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
+          </view>
+          <view class="right"><text class="iconfont iconshare"></text></view>
+        </navigator>
+      </view>
+      <view class="orderItem orderItemQD">
+        <navigator url="" class="orderinfo">
+          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
+          <view class="main">
+            <view class="mark"><text>2020-03-24</text></view>
+            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
+          </view>
+          <view class="right"><text class="iconfont iconshare"></text></view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>

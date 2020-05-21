@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="logoWrap">
+    <image src="/images/logo-login.png" mode="heightFix"></image>
+  </view>
+  <view class="loginForm">
+    <view class="formItem">
+      <input type="text" value="{{mobile}}" placeholder="请输入手机号" placeholder-style="color: #c2c2c2"></input>
+    </view>
+    <view class="formItem">
+      <input type="text" value="{{code}}" placeholder="请输入验证码" placeholder-style="color: #c2c2c2"></input>
+      <button type="primary" class="send" hover-class="btnHover">获取验证码</button>
+    </view>
+    <view class="formItem">
+      <input type="password" value="{{password}}" placeholder="请输入密码" placeholder-style="color: #c2c2c2"></input>
+    </view>
+    <view class="formItem">
+      <input type="repassword" value="{{password}}" placeholder="请确认密码" placeholder-style="color: #c2c2c2"></input>
+    </view>
+    <view class="subWrap">
+      <button type="primary" class="btnPrimary" hover-class="btnHover">立即注册</button>
+    </view>
+  </view>
+
+  <view class="agreeWrap">
+    <checkbox value="" checked="true" color="#033150"/><navigator url="" class="text">我已阅读并同意用户隐私政策</navigator>
+  </view>
+</view>

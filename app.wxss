@@ -1,0 +1,246 @@
+/**app.wxss**/
+@import 'font/iconfont.wxss';
+/* 登录注册 */
+.logoWrap {
+  margin: 90rpx 44rpx 36rpx;
+}
+.logoWrap image {
+  height: 76rpx;
+}
+.loginForm {
+  margin: 0 44rpx;
+}
+.loginForm .formItem {
+  position: relative;
+  margin-top: 30rpx;
+  height: 110rpx;
+  line-height: 110rpx;
+  border-bottom: 1rpx solid #f2f2f2;
+  font-size: 32rpx;
+}
+.loginForm .formItem input {
+  display: block;
+  height: 110rpx;
+  line-height: 110rpx;
+  color: #333;
+}
+
+.loginForm .subWrap {
+  margin: 40rpx 0;
+}
+.loginForm .subWrap .btnPrimary {
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 34rpx;
+  font-weight: normal;
+}
+
+.agreeWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 120rpx;
+}
+.agreeWrap .text {
+  font-size: 26rpx;
+  color: #8f8f8f;
+  margin-left: 10rpx;
+}
+/* 发布求带 发布行程 表单 */
+.formWrap .formItem {
+  display: flex;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-bottom: 2rpx solid #f2f2f2;  
+  font-size: 28rpx;
+}
+.formWrap .formItem label {
+  width: 260rpx;
+  height: 90rpx;
+  color: #333;
+}
+.formWrap .formItem input {
+  height: 90rpx;
+  color: #989898;
+}
+.formWrap .formItem picker {
+  height: 90rpx;
+  color: #989898;
+}
+.subWrap {
+  display: flex;
+  margin: 195rpx 0 50rpx;
+}
+.subWrap .btnPrimary {
+  flex: 1;
+  font-size: 32rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  padding: 0;
+  border-radius: 45rpx;
+  color: #fff;
+  background-color: #033150;
+  letter-spacing: 4rpx;
+}
+.subWrap .btnPrimary+.btnPrimary {
+  margin-left: 30rpx;
+}
+.subWrap .btnPrimary.btnHover {
+  background-color: #033150;
+}
+.subWrap .btnPrimary[plain] {
+  color: #033150;
+  border-color: #033150;
+}
+.subWrap .btnPrimary[plain].btnHover {
+  background-color: #fff;
+}
+/* 首页求带/帮带 列表，我的出行/求带 列表 公用部分*/
+.orderItem {
+  padding: 20rpx 0;
+  background-color: #fff;
+  border-radius: 20rpx;
+  color: #333;
+  margin-bottom: 30rpx;
+}
+.orderItem:last-child {
+  margin-bottom: 0;
+}
+.orderItem .orderinfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.orderItem .orderinfo .left {
+  width: 146rpx;
+  text-align: right;
+}
+.orderItem .orderinfo .left image {
+  width: 112rpx;
+  height: 105rpx;
+}
+.orderItem .orderinfo .main {
+  flex: 1;
+  margin-left:35rpx;
+}
+.orderItem .orderinfo .main .country {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.orderItem .orderinfo .main .country .icon-_danjiantou {
+  font-size: 30rpx;
+}
+.orderItem .orderinfo .main .mark {
+  margin: 10rpx 0;  
+  font-size: 20rpx;
+  color: #989898;
+}
+.orderItem .orderinfo .main .fee {
+  font-size: 20rpx;
+}
+.orderItem .orderinfo .main .fee .iconw_jinbi{
+  color: #ffba03;
+  font-size: 25rpx;
+}
+.orderItem .orderinfo .right {
+  width: 170rpx;
+  height: 74rpx;
+  line-height: 74rpx;
+  text-align: center;
+  border-left: 1rpx solid #f2f2f2;
+}
+.orderItem .orderinfo .right .iconxiaoxi {
+  font-size: 30rpx;
+  color: #033150;
+}
+.orderItemQD {
+  padding: 25rpx 0;
+}
+.orderItemQD .main {
+  text-align: center;
+}
+.orderItemQD .main .mark {
+  font-size: 28rpx !important;
+}
+/* 出行/求带卡片头部 */
+.uwrap {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+}
+.uwrap .uimg {
+  width: 86rpx;
+  height: 86rpx;
+  border-radius: 86rpx;
+  margin-right: 20rpx;
+}
+.uwrap .utext {
+  flex: 1;
+}
+.uwrap .utext text {
+  display: block;
+  font-size: 24rpx;
+  line-height: 42rpx;
+}
+.uwrap .utext text:first-child {
+  color: #033150;
+}
+.uwrap .utext text:last-child {
+  color: #989898;
+}
+.uwrap .share {
+  padding: 20rpx;
+}
+.uwrap .share .iconshare {
+  font-size: 24rpx;
+}
+/* 设置页面 列表项*/
+.linkWrap {
+  margin: 20rpx 0;
+  background-color: #fff;
+}
+.linkWrap .linkItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 60rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-bottom: 2rpx solid #f2f2f2;
+}
+.linkWrap .linkItem .title {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+}
+.linkWrap .linkItem .iconfont {
+  font-size: 28rpx;
+  color: #989898;
+}
+/* 下单支付方式 */
+.payWrap {
+  margin: 30rpx;
+}
+.payList {
+  display: flex;
+  flex-direction: column;
+}
+.payList .payItem {
+  display: flex;
+  align-items: center;
+  height: 90rpx;
+  line-height: 90rpx;
+}
+.payList .payItem .iconfont {
+  font-size: 45rpx;
+}
+.payList .payItem .title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  margin-left: 20rpx;
+}
+.payList .payItem radio {
+  flex: 1;
+  text-align: right;
+  margin-top: -10rpx;
+}

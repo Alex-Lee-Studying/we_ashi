@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="noAddressWrap">
+    <image src="/images/location.png" class="location" mode="widthFix"></image>
+    <text class="notice">您还没有设置收货地址哦~</text>
+    <navigator url="/pages/my/address/add/add" class="addBtn">添加收货地址<text class="iconfont iconjiantou"></text></navigator>
+  </view>
+</view>

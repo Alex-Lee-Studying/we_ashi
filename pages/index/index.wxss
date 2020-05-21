@@ -1,0 +1,97 @@
+/**index.wxss**/
+page {
+  background-color: #f2f2f2;
+}
+.bannerWrap image {
+  display: block;
+  width: 750rpx;
+  height: 300rpx;
+}
+.btn-area {
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+.btn-area .btn-item {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 90rpx 0 144rpx;
+  height: 120rpx;
+  font-size: 32rpx;
+  color: #333;
+  line-height: 120rpx;
+  border-bottom: 2rpx solid #f2f2f2;
+}
+.btn-area .btn-item .btn-icon {
+  position: absolute;
+  top: 37rpx;
+  left: 90rpx;
+  height: 46rpx;
+  width: 46rpx;
+}
+.btn-area .btn-item .iconjiantou {
+  font-size: 24rpx;
+  color: #656565;
+}
+.tabs-index {
+  padding: 17rpx 30rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 24rpx;
+  color: #989898;
+}
+.tabs-index .tab {
+  margin-left: 30rpx;
+}
+.tabs-index .checked {
+  color: #033150;
+  font-size: 28rpx;
+}
+.tabs-index .search {
+  float: right;
+}
+.tabs-index .iconfilter {
+  float: right;
+  font-size: 26rpx;
+  color: #989898;
+  margin: 0 30rpx 0 10rpx;
+}
+.orders-index {
+  margin: 0 30rpx;
+  padding-bottom: 30rpx;
+}
+.orderItem .uinfo {
+  position: relative;
+  padding-left: 50rpx;
+  margin: 0 0 20rpx 35rpx;  
+  line-height: 38rpx;
+}
+.orderItem .uinfo .uimg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 38rpx;
+  height: 38rpx;
+  border-radius: 38rpx;
+}
+.orderItem .uinfo .uname {
+  font-size: 24rpx;
+}
+
+.orderItemKBD {
+  padding: 40rpx 0;
+}
+.orderItemKBD .orderinfo .left {
+  margin-right: 20rpx;
+}
+.orderItemKBD .orderinfo .left image {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 90rpx;
+}
+.orderItemKBD .orderinfo .left text {
+  display: block;
+  font-size: 24rpx;
+  margin-top: 10rpx;
+}

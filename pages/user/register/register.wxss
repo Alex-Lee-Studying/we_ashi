@@ -1,0 +1,18 @@
+.container {  
+  padding: 30rpx;
+}
+.send {
+  position: absolute;
+  right: 0;
+  top: 30rpx;
+  margin: 0;
+  padding: 0;
+  width: 190rpx !important;
+  height: 50rpx;
+  line-height: 50rpx;
+  border-radius: 25rpx;
+  background-color: #033150 !important;
+  font-size: 24rpx;
+  color: #fff;
+  font-weight: normal;
+}

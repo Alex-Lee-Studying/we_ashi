@@ -1,0 +1,28 @@
+page {
+  background-color: #f2f2f2;
+}
+.locationWrap {
+  height: 100rpx;
+  line-height: 100rpx;
+  margin: 20rpx 0;
+  font-size: 32rpx;
+  color: #033150;
+  background-color: #fff;
+  text-align: center;
+}
+.locationWrap .iconfont {
+  margin-right: 10rpx;
+}
+.formWrap {
+  background-color: #fff;
+}
+.formWrap .formItem {
+  padding: 0 30rpx;
+}
+.formWrap .formItem .switch {
+  flex: 1;
+  text-align: right;
+}
+.subWrap {
+  margin: 60rpx 30rpx;
+}

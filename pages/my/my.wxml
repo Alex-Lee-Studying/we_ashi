@@ -1,0 +1,91 @@
+<view class="container">
+  <view class="header">
+    <image src="/images/myHeaderBg.png" class="absimg" mode="widthFix"></image>
+    <view class="infoWrap">
+      <view>
+        <image src="/images/uimg.jpg" class="uimg" mode="aspectFill"></image>
+      </view>
+      <view style="flex: 1;">
+        <text class="uname">王天霸</text>
+        <text class="location"><text class="iconfont iconlocation"></text>上海市</text>
+      </view>
+      <view>
+        <navigator url="/pages/my/setup/index" class="iconfont iconshezhi"></navigator>
+      </view>
+    </view>
+  </view>
+  <view class="navWrap">
+    <navigator url="" class="navItem">
+      <text class="iconfont iconicon--copy"></text>
+      <text class="navText">我的订单</text>
+    </navigator>
+    <navigator url="/pages/my/wallet/index" class="navItem">
+      <text class="iconfont iconqianbao"></text>
+      <text class="navText">我的钱包</text>
+    </navigator>
+    <navigator url="/pages/help/index" class="navItem">
+      <text class="iconfont iconfaq"></text>
+      <text class="navText">帮助中心</text>
+    </navigator>
+    <navigator url="/pages/feedback/feedback" class="navItem">
+      <text class="iconfont iconarticle"></text>
+      <text class="navText">用户反馈</text>
+    </navigator>
+  </view>
+  <view class="ordersWrap">
+    <view class="tabs-my">
+      <view class="tabItem selected" wx:if="{{tabname === 'delivery'}}">
+        <view class="tabLeft"><text class="iconfont iconplane"></text></view>
+        <view class="tabRight"><text class="t1">求带</text><text class="t2">Take things</text></view>
+      </view>
+      <view class="tabItem" data-tab="delivery" bindtap="changeTab" wx:else>
+        <view class="tabLeft"><text class="iconfont iconplane"></text></view>
+        <view class="tabRight"><text class="t1">求带</text><text class="t2">Take things</text></view>
+      </view>
+      <view class="tabItem selected" wx:if="{{tabname === 'travel'}}">
+        <view class="tabLeft"><text class="iconfont iconsuitcase-2-fill"></text></view>
+        <view class="tabRight"><text class="t1">出行</text><text class="t2">Travel</text></view>
+      </view>
+      <view class="tabItem" data-tab="travel" bindtap="changeTab" wx:else>
+        <view class="tabLeft"><text class="iconfont iconsuitcase-2-fill"></text></view>
+        <view class="tabRight"><text class="t1">出行</text><text class="t2">Travel</text></view>
+      </view>
+    </view>
+
+    <view class="orders-my" wx:if="{{tabname === 'delivery'}}">
+      <view class="orderItem orderItemQD">
+        <navigator url="/pages/my/deliveryDetail/deliveryDetail" class="orderinfo">
+          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
+          <view class="main">
+            <view class="mark"><text>2020-03-24</text></view>
+            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
+          </view>
+          <view class="right"><text class="iconfont iconshare"></text></view>
+        </navigator>
+      </view>
+      <view class="orderItem orderItemQD">
+        <navigator url="/pages/my/deliveryDetail/deliveryDetail" class="orderinfo">
+          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
+          <view class="main">
+            <view class="mark"><text>2020-03-24</text></view>
+            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
+          </view>
+          <view class="right"><text class="iconfont iconshare"></text></view>
+        </navigator>
+      </view>
+    </view>
+
+    <view class="orders-my" wx:if="{{tabname === 'travel'}}">
+      <view class="orderItem orderItemCX">
+        <navigator url="/pages/my/travelDetail/travelDetail" class="orderinfo">
+          <view class="left"><text class="year">2020</text><text class="date">03-27</text></view>
+          <view class="main">
+            <view class="mark"><text>19837722385</text></view>
+            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
+          </view>
+          <view class="right"><text class="iconfont iconshare"></text></view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>

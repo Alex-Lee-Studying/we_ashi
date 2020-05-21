@@ -1,0 +1,63 @@
+<view class="container">
+  <view wx:if="{{!complete}}">
+    <image src="/images/travel-banner.jpg" class="travelBanner" mode="aspectFill"></image>
+    <view class="travelWrap">
+      <view class="country">
+        <text>韩国</text>
+        <text class="iconfont icon-_danjiantou"></text>
+        <text>中国上海</text>
+      </view>
+      <view class="countryMark">中转：（天津）</view>
+      <view class="formWrap">
+        <view class="formItem">
+          <label>出发日期</label>
+          <picker mode="date" value="{{dt_departure}}" bindchange="bindDateChange">{{dt_departure || "请选择"}}</picker>
+        </view>
+        <view class="formItem">
+          <label>可带行李重量</label>
+          <input value="{{weight}}"></input>
+        </view>
+        <view class="formItem">
+          <label>价格</label>
+          <input value="{{unit_price}}"></input>
+        </view>
+        <view class="formItem">
+          <label>备注</label>
+          <input value="{{remark}}"></input>
+        </view>
+      </view>
+    </view>
+    <view class="subWrap">
+      <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="submitTravel">发布出行</button>
+    </view>
+  </view>
+
+  <view class="travelResult" wx:if="{{complete}}">
+    <view class="successWrap">
+      <text class="iconfont iconsuccess"></text>
+      <text class="msg1">发布行程成功</text>
+      <text class="msg2">去验证下您的行程吧</text>
+      <text class="msg3">温馨提示：您的信息不会被所有用户看到</text>
+    </view>
+    <view class="checkWrap">
+      <view class="checkItem">
+        <label>姓名</label>
+        <text>{{traveler}}</text>
+        <text class="iconfont iconsuccess"></text>
+      </view>
+      <view class="checkItem">
+        <label>航班号</label>
+        <text>{{flight_no}}</text>
+        <text class="iconfont iconsuccess"></text>
+      </view>
+      <view class="checkItem">
+        <label>出发时间</label>
+        <text>{{dt_departure}}</text>
+        <text class="iconfont iconsuccess"></text>
+      </view>
+    </view>
+    <view class="subWrap">
+      <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="completeTravel">完成</button>
+    </view>
+  </view>
+</view>

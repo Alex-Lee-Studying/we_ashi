@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="addressWrap">
+    <view class="item">
+      <text class="iconfont iconuser"></text>
+      <text>王天霸</text>
+    </view>
+    <view class="item">
+      <text class="iconfont iconlocation"></text>
+      <text>北京市昌平区新苑小区</text>
+    </view>
+    <view class="item">
+      <text class="iconfont icondianhua"></text>
+      <text>联系电话：12345678910</text>
+    </view>
+  </view>
+
+  <view class="proWrap">
+    <view class="left"><image src="/images/shoes.jpg" mode="aspectFill"></image></view>
+    <view class="right">
+      <text class="name">2019年经典款板鞋</text>
+      <text class="date">2018-09-08 7:30-19:30</text>
+      <text class="price">￥697.00</text>
+    </view>
+  </view>
+
+  <view class="totalWrap">
+    <view class="item">
+      <text class="label">运费</text>
+      <text class="value">￥100</text>
+    </view>
+    <view class="item">
+      <text class="label">商品金额</text>
+      <text class="value">￥697</text>
+    </view>
+    <view class="item">
+      <text class="label">实付金额</text>
+      <text class="value">￥797</text>
+    </view>
+  </view>
+
+  <view class="subWrap">
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toOrder">去支付</button>
+  </view>
+</view>

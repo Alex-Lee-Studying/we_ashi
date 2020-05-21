@@ -1,0 +1,45 @@
+.container {
+  padding: 0 60rpx;
+}
+.flightWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 30rpx auto;
+  padding: 30rpx;
+  font-size: 32rpx;
+  border-radius: 25rpx;
+  box-shadow: 0 0 35rpx 0 rgba(51,51,51,.09)
+}
+.flightWrap .msgItem {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.flightWrap text {
+  display: block;
+}
+.flightWrap .plane {
+  display: block;
+  width: 90rpx;
+}
+.flightWrap .flightno {  
+  color: #033150;
+  font-weight: bold;
+}
+.flightWrap .time {
+  color: #333;
+  font-weight: bold;
+}
+.flightWrap .country {
+  color: #989898;
+}
+.flightWrap .icon-_danjiantou {
+  color: #989898;
+}
+.remarkWrap {
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #989898;
+  text-align: center;
+}

@@ -1,0 +1,54 @@
+page {
+  background-color: #f2f2f2;
+}
+.formWrap {
+  background-color: #fff;
+  margin-top: 20rpx;
+}
+.formWrap .formLine {
+  display: flex;
+  align-items: center;
+  height: 90rpx;
+  line-height: 90rpx;
+  padding: 0 30rpx 0 60rpx;
+  border-bottom: 2rpx solid #f2f2f2;
+  font-size: 32rpx;
+  color: #333;
+}
+.formWrap .formLine .payRadio radio {
+  margin-left: 10rpx;
+}
+.formWrap .formLine .payRadio .iconfont {
+  font-size: 34rpx;
+  margin-right: 10rpx;
+}
+.formWrap .formLine .payRadio .iconwechat {
+  color: #45c45d;
+}
+.formWrap .formLine .payRadio .iconpayIcon-aliPay {
+  color: #198cff;
+}
+.formWrap .formLine .total {
+  color: #033150;
+}
+.formWrap .formLine .input {
+  flex: 1;
+  display: block;
+  height: 90rpx;
+  font-size: 24rpx;
+  margin: 0 30rpx;
+}
+.formWrap .formLine .btnAll {
+  padding: 0;
+  margin: 0;
+  width: 130rpx;
+  height: 46rpx;
+  line-height: 46rpx;
+  background-color: #033150;
+  border-radius: 23rpx;
+  font-size: 20rpx;
+  font-weight: normal;
+}
+.subWrap {
+  margin: 60rpx 30rpx 0;
+}

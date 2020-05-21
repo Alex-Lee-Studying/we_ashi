@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="uwrap">
+    <view><image src="/images/uimg.jpg" class="uimg"></image></view>
+    <view class="utext">
+      <text>王天霸</text>
+      <text>2020-03-20·俄罗斯</text>
+    </view>
+    <view class="share"><text class="iconfont iconshare"></text></view>
+  </view>
+  <view class="flightWrap">
+    <view class="msgItem" style="margin-right: 30rpx;">
+      <image src="/images/plane.png" class="plane" mode="widthFix"></image>
+      <text class="flightno">G54356</text>
+    </view>
+    <view class="msgItem">
+      <text class="time">13:30</text>
+      <text class="country">韩国</text>
+    </view>
+    <view class="msgItem">
+      <text class="iconfont icon-_danjiantou"></text>
+    </view>
+    <view class="msgItem">
+      <text class="time">15:00</text>
+      <text class="country">中国上海</text>
+    </view>
+  </view>
+  <view class="remarkWrap">
+    <text>备注：需要2019经典款</text>
+  </view>
+  <view class="subWrap">
+    <button type="primary" class="btnPrimary" hover-class="btnHover">立即联系</button>
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover">请求帮带</button>
+  </view>
+</view>

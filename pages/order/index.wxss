@@ -1,0 +1,86 @@
+.container {
+  padding: 0 30rpx;
+}
+.uploadWrap {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 30rpx 0 60rpx;
+  border-bottom: 2rpx solid #f2f2f2;
+}
+.uploadWrap view {
+  width: 170rpx;
+  height: 170rpx;
+  line-height: 170rpx;
+  text-align: center;
+}
+.uploadWrap .uploadImg {
+  position: relative;
+}
+.uploadWrap .uploadImg image {
+  width: 170rpx;
+  height: 170rpx;
+}
+.uploadWrap .uploadImg .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  background-color: #989898;
+  font-size: 12rpx;
+  color: #fff;
+}
+.uploadWrap .plus {
+  border: 1rpx solid #f2f2f2;
+}
+.deliveryWrap {
+  margin: 0 30rpx;
+}
+.deliveryWrap .country {
+  margin-top: 65rpx;
+  margin-bottom: 35rpx;
+  font-size: 32rpx;
+  color: #033150;
+  font-weight: bold;
+  text-align: left;
+}
+.deliveryWrap .country .icon-_danjiantou {
+  margin: 0 30rpx;
+  color: #989898;
+}
+
+.notice {
+  margin-top: 30rpx;
+  font-size: 20rpx;
+  color: #989898;
+}
+.notice .iconfont {
+  font-size: 20rpx;
+  margin-right: 10rpx;
+}
+.subWrap {
+  margin-top: 80rpx;
+}
+
+.addressWrap {
+  margin: 20rpx 0;
+}
+.addressWrap .title {
+  font-size: 32rpx;
+  color: #033150;
+  font-weight: bold;
+}
+.addressWrap .info {
+  margin-top: 20rpx;
+}
+.addressWrap .info .infoItem {
+  font-size: 20rpx;
+  margin-top: 10rpx;
+}
+.addressWrap .info .label {
+  color: #333;
+}
+.addressWrap .info .value {
+  color: #989898;
+}

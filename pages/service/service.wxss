@@ -1,0 +1,90 @@
+.tabWrap {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20rpx 0 60rpx;
+}
+.tabWrap .tabItem {
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  border-bottom: 6rpx solid #fff;
+}
+.tabWrap .tabItem.selected {
+  color: #033150;
+  border-bottom: 6rpx solid #033150;
+}
+.expressWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 60rpx 30rpx 90rpx;
+}
+.countryWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.countryWrap image {
+  height: 36rpx;
+  margin-bottom: 20rpx;
+}
+.countryWrap text {
+  font-size: 24rpx;
+  color: #333;
+}
+.expressList {
+  width: 480rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 30rpx;
+  background-color: #fff;
+  box-shadow: 0 0 29rpx 0 rgba(51,51,51,.1);
+  border-radius: 20rpx;
+}
+.expressList .expressItem {
+  width: 120rpx;
+  text-align: center;
+  margin-top: 30rpx;
+}
+.expressList .expressItem image {
+  margin-bottom: 10rpx;
+  height: 44rpx;
+}
+.expressList .expressItem text {
+  display: block;
+  font-size: 24rpx;
+  color: #333;
+}
+.expressList .expressItem image.emsImg {
+  height: 20rpx;
+}
+
+.networkWrap {
+  display: flex;
+  margin: 0 60rpx 30rpx 90rpx;
+}
+
+.networkWrap .flag image {
+  width: 55rpx;
+}
+.networkWrap .content {
+  flex: 1;
+  margin-left: 20rpx;
+}
+.networkWrap .content .country {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+}
+.networkWrap .content .other {
+  display: block;
+  font-size: 20rpx;
+  color: #989898;
+  margin-top: 15rpx;
+}
+.mb30 {
+  margin-bottom: 30rpx;
+}

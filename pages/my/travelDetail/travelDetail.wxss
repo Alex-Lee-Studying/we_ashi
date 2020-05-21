@@ -1,0 +1,44 @@
+page {
+  background-color: #f2f2f2;
+}
+.container {
+  padding: 0 30rpx;
+}
+.orderDetailCX {
+  padding: 40rpx 0;
+  margin-top: 30rpx;
+}
+.orderDetailCX .orderinfo .main .country {
+  color: #033150;
+}
+.orderDetailCX .orderinfo .left {
+  height: 74rpx;
+  border-right: 1rpx solid #f2f2f2;
+  text-align: center;
+}
+.orderDetailCX .orderinfo .left .year {
+  display: block;
+  font-size: 28rpx;
+  color: #033150;
+}
+.orderDetailCX .orderinfo .left .date {
+  display: block;
+  margin-top: 15rpx;
+  font-size: 24rpx;
+  color: #989898;  
+}
+.subWrap {
+  margin: 60rpx 0;
+}
+.subWrap .btnPrimary {
+  height: 90rpx;
+  line-height: 90rpx;
+}
+
+.listQD .title {
+  margin-bottom: 30rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #033150;
+  font-weight: bold;
+}

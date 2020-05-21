@@ -1,0 +1,45 @@
+page {
+  background-color: #f2f2f2;
+}
+
+.avatarWrap {
+  display: flex;
+  align-items: center;
+  padding: 30rpx 60rpx;
+  margin: 20rpx 0;
+  background-color: #fff;
+}
+.avatarWrap .title {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+}
+.avatarWrap .avatar {
+  width: 66rpx;
+  height: 66rpx;
+  border-radius: 66rpx;
+  margin-right: 20rpx;
+}
+.avatarWrap .iconfont {
+  font-size: 28rpx;
+  color: #989898;
+}
+
+.formWrap {
+  margin: 20rpx 0;
+  background-color: #fff;
+}
+.formWrap .formItem {
+  justify-content: space-between;
+  padding: 0 60rpx;
+}
+.formWrap .formItem label {
+  width: auto;
+}
+.formWrap .formItem input {
+  text-align: right;
+}
+
+.subWrap {
+  margin: 60rpx 30rpx;
+}

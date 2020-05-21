@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="proWrap">
+    <view class="imgWrap">
+      <image src="/images/shoes.jpg" mode="aspectFill"></image>
+    </view>
+    <view class="pname"><text>2019年经典款板鞋</text></view>
+    <view class="info">
+      <text>重量 1kg</text>
+      <text>数量1</text>
+    </view>
+    <view class="price"><text>￥240</text></view>
+  </view>
+
+  <view class="addressWrap">
+    <navigator url="">我的地址</navigator>
+  </view>
+
+  <view class="cellWrap">
+    <view class="label"><text>是否带买</text></view>
+    <view class="value">
+      <radio-group bindchange="radioChange">
+        <label>
+          是 <radio value="1" color="#033150" checked="true" wx:if="{{take === 1}}"/><radio value="1" color="#033150" wx:else />
+          否 <radio value="0" color="#033150" checked="true" wx:if="{{take === 0}}"/><radio value="0" color="#033150" wx:else />
+        </label>
+      </radio-group>
+    </view>
+  </view>
+  <view class="cellWrap">
+    <view class="label"><text>运费</text></view>
+    <view class="value"><text>￥100</text></view>
+  </view>
+
+  <view class="subWrap">
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toOrder">下单</button>
+  </view>
+
+</view>

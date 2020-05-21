@@ -1,0 +1,168 @@
+page {
+  background-color: #f2f2f2;
+}
+.container {
+}
+.header {
+  position: relative;
+  background-color: #033150;
+  padding: 30rpx 60rpx 120rpx;
+  border-bottom-left-radius: 60rpx;
+  border-bottom-right-radius: 60rpx;
+}
+.absimg {
+  position: absolute;
+  right: 0;
+  bottom: -100rpx;
+  width: 400rpx;
+  z-index: 1;
+}
+.infoWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+.infoWrap .uimg {
+  width: 106rpx;
+  height: 106rpx;
+  border-radius: 106rpx;
+  margin-right: 30rpx;
+}
+.infoWrap .uname {
+  display: block;
+  font-size: 32rpx;
+  color: #fff;
+}
+.infoWrap .location {
+  margin-top: 10rpx;
+  display: block;
+  font-size: 24rpx;
+  color: #fff;
+}
+.infoWrap .location .iconlocation {
+  font-size: 24rpx;
+  margin-right: 5rpx;
+}
+.infoWrap .iconshezhi {
+  font-size: 45rpx;
+  color: #fff;
+  margin-right: 45rpx;
+}
+
+.navWrap {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  margin: -85rpx 30rpx 0;
+  background-color: #fff;
+  border-radius: 20rpx;
+  z-index: 2;
+  box-shadow: 0 0 84rpx 0 rgba(45,45,45,.11)
+}
+.navWrap .navItem {
+  flex: 1;
+  padding: 35rpx 0;
+  text-align: center;
+}
+.navWrap .navItem .iconfont {
+  display: block;
+  font-size: 50rpx;
+  background-image: -webkit-gradient(linear, left 0, right 0, from(rgb(255, 186, 3)), to(rgb(255, 214, 104)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.navWrap .navItem .navText {
+  display: block;
+  font-size: 24rpx;
+  color: #333;
+  font-weight: bold;
+  margin-top: 15rpx;
+}
+
+.tabs-my {
+  display: flex;
+  margin: 30rpx;
+}
+.tabs-my .tabItem {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  box-shadow: 0 0 84rpx 0 rgba(45,45,45,.11);
+}
+.tabs-my .tabItem+.tabItem {
+  margin-left: 20rpx;
+}
+.tabs-my .tabItem text {
+  display: block;
+}
+.tabs-my .tabItem .tabLeft {
+  margin-right: 25rpx;
+}
+.tabs-my .tabItem .tabRight {
+
+}
+.tabs-my .tabItem .iconfont {
+  font-size: 60rpx;  
+  background-image: -webkit-gradient(linear, left 0, right 0, from(#033150), to(#1281cb));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 5rpx 6rpx rgba(3,49,80,.53);
+}
+.tabs-my .tabItem .t1 {
+  font-size: 28rpx;
+  color: #033150;
+  font-weight: bold
+}
+.tabs-my .tabItem .t2 {
+  font-size: 20rpx;
+  color: #989898;
+  margin-top: 10rpx;
+}
+.tabs-my .tabItem.selected {
+  background-color: #033150;
+}
+.tabs-my .tabItem.selected .iconfont {
+  -webkit-text-fill-color: #fff;
+  color: #fff;
+}
+.tabs-my .tabItem.selected .t1 {
+  color: #fff;
+}
+.tabs-my .tabItem.selected .t2 {
+  color: #fff;
+}
+.orders-my {
+  margin: 0 30rpx;
+  padding-bottom: 30rpx;
+}
+
+.orderItemCX {
+  padding: 40rpx 0;
+}
+.orderItemCX .orderinfo .main {
+  text-align: center;
+}
+.orderItemCX .orderinfo .main .mark {
+  font-size: 28rpx !important;
+}
+.orderItemCX .orderinfo .left {
+  height: 74rpx;
+  border-right: 1rpx solid #f2f2f2;
+  text-align: center;
+}
+.orderItemCX .orderinfo .left .year {
+  display: block;
+  font-size: 28rpx;
+  color: #033150;
+}
+.orderItemCX .orderinfo .left .date {
+  display: block;
+  margin-top: 15rpx;
+  font-size: 24rpx;
+  color: #989898;  
+}

@@ -1,0 +1,84 @@
+.container {
+  padding: 0 30rpx;
+}
+.travelBanner {
+  width: 690rpx;
+  height: 300rpx;
+  border-radius: 15rpx;
+}
+.travelWrap {
+  margin: 0 30rpx;
+}
+.travelWrap .country {
+  margin-top: 65rpx;
+  font-size: 32rpx;
+  color: #033150;
+  font-weight: bold;
+  text-align: center;
+}
+.travelWrap .country .icon-_danjiantou {
+  margin: 0 30rpx;
+  color: #989898;
+}
+.travelWrap .countryMark {
+  margin-bottom: 25rpx;
+  font-size: 24rpx;
+  color: #989898;
+  line-height: 64rpx;
+  text-align: center;
+}
+
+.successWrap {
+}
+.successWrap text {
+  display: block;
+  text-align: center;
+}
+.successWrap .iconsuccess {
+  margin-top: 65rpx;
+  font-size: 112rpx;
+  color: #033150;
+}
+.successWrap .msg1 {
+  margin-top: 26rpx;
+  font-size: 32rpx;
+  color: #333;
+}
+.successWrap .msg2 {
+  margin-top: 40rpx;
+  font-size: 28rpx;
+  color: #033150;
+}
+.successWrap .msg3 {
+  margin-top: 20rpx;
+  margin-bottom: 75rpx;
+  font-size: 20rpx;
+  color: #989898;
+}
+.checkWrap {
+  margin: 0 30rpx;
+}
+.checkWrap .checkItem {
+  position: relative;
+  display: flex;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-bottom: 2rpx solid #f2f2f2;  
+  font-size: 28rpx;
+}
+.checkWrap .checkItem label {
+  width: 260rpx;
+  height: 90rpx;
+  color: #333;
+}
+.checkWrap .checkItem text {
+  height: 90rpx;
+  color: #989898;
+}
+.checkWrap .checkItem .iconsuccess {
+  font-size: 32rpx;
+  color: #1ad25f;
+  position: absolute;
+  right: 0;
+  top: 0;
+}

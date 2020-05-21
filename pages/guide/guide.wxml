@@ -1,0 +1,11 @@
+<!--index.wxml-->
+<swiper autoplay="true">
+  <block wx:for="{{imgs}}" wx:key="*this">
+    <swiper-item class="swiper-items">
+      <image class="swiper-image" src="{{item}}" mode="aspectFill"></image>
+    </swiper-item>
+  </block>
+</swiper>
+<view class="time-btn" bindtap="start">
+  <text class="second">{{second}}</text><text class="jump"> | 跳过</text>
+</view>

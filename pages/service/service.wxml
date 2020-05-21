@@ -1,0 +1,107 @@
+<view class="container">
+  <view class="tabWrap">
+    <text class="tabItem selected" data-tab="express" wx:if="{{tabname === 'express'}}">各国快递</text>
+    <text class="tabItem" data-tab="express" bindtap="changeTab" wx:else>各国快递</text>
+    <text class="tabItem selected" data-tab="network" wx:if="{{tabname === 'network'}}">脚递网点</text>
+    <text class="tabItem" data-tab="network" bindtap="changeTab" wx:else>脚递网点</text>
+  </view>
+
+  <view class="expressCont" wx:if="{{tabname === 'express'}}">
+    <view class="expressWrap">
+      <view class="countryWrap">
+        <image src="/images/china.png" mode="heightFix"></image>
+        <text>中国</text>
+      </view>
+      <view class="expressList">
+        <view class="expressItem">
+          <image src="/images/sf.png" mode="heightFix"></image>
+          <text>顺丰</text>
+        </view>
+        <view class="expressItem">
+          <image src="/images/zto.png" mode="heightFix"></image>
+          <text>中通</text>
+        </view>
+        <view class="expressItem">
+          <image src="/images/yd.png" mode="heightFix"></image>
+          <text>韵达</text>
+        </view>
+        <view class="expressItem">
+          <image src="/images/yt.png" mode="heightFix"></image>
+          <text>圆通</text>
+        </view>
+      </view>
+    </view>
+    <view class="expressWrap">
+      <view class="countryWrap">
+        <image src="/images/usa.png" mode="heightFix"></image>
+        <text>美国</text>
+      </view>
+      <view class="expressList">
+        <view class="expressItem">
+          <image src="/images/ups.png" mode="heightFix"></image>
+          <text>UPS</text>
+        </view>
+        <view class="expressItem">
+          <image src="/images/ups.png" mode="heightFix"></image>
+          <text>UPS</text>
+        </view>
+        <view class="expressItem">
+          <image src="/images/ups.png" mode="heightFix"></image>
+          <text>UPS</text>
+        </view>
+        <view class="expressItem">
+          <image src="/images/ups.png" mode="heightFix"></image>
+          <text>UPS</text>
+        </view>
+      </view>
+    </view>
+    <view class="expressWrap">
+      <view class="countryWrap">
+        <image src="/images/russia.png" mode="heightFix"></image>
+        <text>俄罗斯</text>
+      </view>
+      <view class="expressList">
+        <view class="expressItem">
+          <image src="/images/ems.png" mode="heightFix" class="emsImg"></image>
+          <text>EMS</text>
+        </view>
+        <view class="expressItem">
+          <image src="/images/ems.png" mode="heightFix" class="emsImg"></image>
+          <text>EMS</text>
+        </view>
+        <view class="expressItem">
+          <image src="/images/ems.png" mode="heightFix" class="emsImg"></image>
+          <text>EMS</text>
+        </view>
+        <view class="expressItem">
+          <image src="/images/ems.png" mode="heightFix" class="emsImg"></image>
+          <text>EMS</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="networkCont" wx:if="{{tabname === 'network'}}">
+    <view class="networkWrap">
+      <view class="flag"><image src="/images/china.png" mode="widthFix"></image></view>
+      <view class="content">
+        <text class="country">中国</text>
+        <text class="other">北京朝阳区建华南路19号楼长安6号102室</text>
+        <text class="other mb30">电话：18518501618/西西</text>
+      </view>
+    </view>
+    <view class="networkWrap">
+      <view class="flag"><image src="/images/russia.png" mode="widthFix"></image></view>
+      <view class="content">
+        <text class="country">俄罗斯</text>
+        <text class="other">叶卡捷琳堡</text>
+        <text class="other">YEKALINJIEBAO OWOGKV,X.ZCD</text>
+        <text class="other mb30">电话：+7（982）662-77-89/李哲凯</text>
+
+        <text class="other">叶卡捷琳堡</text>
+        <text class="other">YEKALINJIEBAO OWOGKV,X.ZCD</text>
+        <text class="other mb30">电话：+7（982）662-77-89/李哲凯</text>
+      </view>
+    </view>
+  </view>
+</view>

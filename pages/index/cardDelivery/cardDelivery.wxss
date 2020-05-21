@@ -1,0 +1,44 @@
+.container {
+  padding: 0 60rpx;
+}
+.proImgWrap {
+  margin: 30rpx auto;
+  height: 405rpx;
+}
+.proImgWrap .proImg {
+  width: 100%;
+  height: 100%;
+}
+
+.orderTitle {
+  display: flex;
+  justify-content: space-between;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-bottom: 2rpx solid #f2f2f2;
+}
+.orderTitle .country {
+  font-size: 28rpx;
+  color: #333;
+}
+.orderTitle .country .iconfont {
+  font-size: 28rpx;
+  color: #033150;
+}
+.orderTitle .fee {
+  font-size: 32rpx;
+  color: #033150;
+  font-weight: bold;
+}
+.orderMain {
+  padding-top: 13rpx;
+}
+.orderMain .msgLine {
+  font-size: 28rpx;
+  line-height: 54rpx;
+  color: #989898;
+}
+.orderMain .msgLine label {
+  color: #333;
+  margin-right: 20rpx;
+}

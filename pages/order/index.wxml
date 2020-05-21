@@ -1,0 +1,61 @@
+<view class="container">
+  <view class="uploadWrap">
+    <view class="uploadImg">
+      <image src="/images/temp.png" mode="aspectFill"></image>
+      <view class="close">
+        <text class="iconfont iconclose"></text>
+      </view>
+    </view>
+    <view class="plus"><text class="iconfont iconplus"></text></view>
+    <view class="plus"><text class="iconfont iconplus"></text></view>
+  </view>
+  <view class="deliveryWrap">
+    <view class="country">
+      <text>中国</text>
+      <text class="iconfont icon-_danjiantou"></text>
+      <text>马来西亚（槟城）</text>
+    </view>
+
+    <view class="addressWrap">
+      <view class="title"><text>收件人信息</text></view>
+      <view class="info">
+        <view class="infoItem">
+          <text class="label">联系人：</text>
+          <text class="value">lee peiying </text>
+        </view>
+        <view class="infoItem">
+          <text class="label">电话：</text>
+          <text class="value">+60 0125685715 </text>
+        </view>
+        <view class="infoItem">
+          <text class="label">邮编：</text>
+          <text class="value">14300 </text>
+        </view>
+        <view class="infoItem">
+          <text class="label">地址：</text>
+          <text class="value">58, Lorong Rajawali 13, Taman Berjaya, 14300 nibong tebal, Pulau Pinang, Malaysia</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="formWrap">
+      <view class="formItem">
+        <label>物品类型</label>
+        <input value="{{item_type}}"></input>
+      </view>
+      <view class="formItem">
+        <label>物品价格</label>
+        <input value="{{price}}"></input>
+      </view>
+      <view class="formItem">
+        <label>重量</label>
+        <input value="{{weight}}"></input>
+      </view>
+    </view>
+    <view class="notice"><text class="iconfont iconfaq"></text><text>温馨提示</text></view>
+  </view>
+  <view class="subWrap">
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="submit">确认下单</button>
+  </view>
+</view>
+

@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="avatarWrap">
+    <text class="title">头像</text>
+    <image src="/images/uimg.jpg" class="avatar" mode="aspectFill"></image>
+    <text class="iconfont iconjiantou"></text>
+  </view>
+
+  <view class="formWrap">
+    <view class="formItem">
+      <label>昵称</label>
+      <input type="text" value="{{nick_name}}"></input>
+    </view>
+    <view class="formItem">
+      <label>性别</label>
+      <input type="text" value="{{gender=== 0?'未知': gender===1?'男':'女'}}"></input>
+    </view>
+    <view class="formItem">
+      <label>邮箱</label>
+      <input type="text" value="{{email}}"></input>
+    </view>
+    <view class="formItem">
+      <label>生日</label>
+      <input type="text" value="{{birthday}}"></input>
+    </view>
+    <view class="formItem">
+      <label>简介</label>
+      <input type="text" value="{{intro}}"></input>
+    </view>
+  </view>
+
+  <view class="subWrap">
+    <button type="primary" class="btnPrimary" hover-class="btnHover">保存</button>
+  </view>
+</view>

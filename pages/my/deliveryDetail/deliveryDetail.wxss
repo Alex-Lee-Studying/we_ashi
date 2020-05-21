@@ -1,0 +1,89 @@
+page {
+  background-color: #f2f2f2;
+}
+.container {
+  padding: 0 30rpx;
+}
+.orderDetailQD {
+  margin-top: 30rpx;
+}
+.orderDetailQD .orderinfo .main .mark .iconfont {
+  font-size: 20rpx;
+}
+.orderDetailQD .orderinfo .main .fee {
+  font-size: 28rpx;
+  color: #033150;
+}
+.orderDetailQD .orderinfo .right {
+  border-left-width: 0;
+  height: auto;
+  padding-right: 20rpx;
+  text-align: center;
+}
+.orderDetailQD .orderinfo .right .btnPrimary {
+  padding: 0;
+  margin-top: 20rpx;
+  width: 144rpx;
+  height: 54rpx;
+  line-height: 54rpx;
+  font-size: 24rpx;
+  color: #fff;
+  background-color: #033150;
+  border-radius: 27rpx;
+}
+
+.listStatus .title {
+  margin-bottom: 30rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+}
+.listStatus .listWrap {
+  padding: 40rpx 30rpx 40rpx 40rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+}
+.listStatus .listWrap .listItem {
+  display: flex;
+  position: relative;
+  padding-bottom: 60rpx;
+  padding-left: 35rpx;
+  border-left: 4rpx solid #cccccc;
+}
+.listStatus .listWrap .listItem text {
+  display: block;
+  line-height: 40rpx;
+}
+.listStatus .listWrap .listItem .iconfont {
+  position: absolute;
+  top: 0;
+  left: -20rpx;
+  background-color: #fff;
+  font-size: 40rpx;
+  color: #cccccc;
+}
+.listStatus .listWrap .listItem .info {
+  flex: 1;
+  font-size: 30rpx;
+  color: #999;
+}
+.listStatus .listWrap .listItem .datetime {
+  font-size: 24rpx;
+  color: #999;
+}
+.listStatus .listWrap .listItem:first-child {
+  border-left: 4rpx solid #033150;
+}
+.listStatus .listWrap .listItem:first-child .iconfont {
+  color: #033150;
+}
+.listStatus .listWrap .listItem:first-child .info {
+  color: #033150;
+}
+.listStatus .listWrap .listItem:first-child .datetime {
+  color: #666;
+}
+.listStatus .listWrap .listItem:last-child {
+  padding-bottom: 0;
+}

@@ -1,0 +1,39 @@
+<view class="container">
+  <view class="totalWrap">
+    <view class="remainder"><text class="title">余额（元）</text><text class="number">102.8</text></view>
+    <view class="other">
+      <view><text class="title">交易中余额</text><text class="number">56.2</text></view>
+      <view><text class="title">累计赚取</text><text class="number">368.9</text></view>
+    </view>
+    <image src="/images/wallerBg1.png" class="bottomimg" mode="widthFix"></image>
+  </view>
+
+  <view class="recordWrap">
+    <view class="recordTitle">
+      <text>收支明细</text><text class="iconfont iconIcon-KeyboardArrow-Down-Rounded"></text>
+      <view class="downMenu">
+        <text class="iconfont iconarrow-up"></text>
+        <view class="menu">支出</view><view class="menu">收入</view><view class="menu">提现</view>
+      </view>
+    </view>
+    <view class="recordList">
+      <view class="recordItem">
+        <view class="line1"><text class="type">求带报酬</text><text class="money">+100</text></view>
+        <view class="line2"><text class="desc">求带报酬收益到账</text><text class="time">03-01 22:00</text></view>
+      </view>
+      <view class="recordItem">
+        <view class="line1"><text class="type">提现</text><text class="money">-1000</text></view>
+        <view class="line2"><text class="desc">成功提现到银行卡</text><text class="time">03-01 22:00</text></view>
+      </view>
+      <view class="recordItem">
+        <view class="line1"><text class="type">求带报酬</text><text class="money">+100</text></view>
+        <view class="line2"><text class="desc">求带报酬收益到账</text><text class="time">03-01 22:00</text></view>
+      </view>
+    </view>
+  </view>
+
+  <navigator url="/pages/my/wallet/pickup/pickup" class="subWrap">
+    <button type="primary" class="btnPrimary" hover-class="btnHover">提现</button>
+  </navigator>
+
+</view>

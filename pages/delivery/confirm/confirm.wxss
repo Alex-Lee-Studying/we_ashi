@@ -1,0 +1,70 @@
+.addressWrap {
+  padding: 40rpx 60rpx;
+  background-color: #033150;
+}
+.addressWrap .item {
+  margin-top: 40rpx;
+  font-size: 28rpx;
+  color: #fff;
+}
+.addressWrap .item:first-child {
+  margin-top: 0;
+}
+.addressWrap .item .iconfont {
+  font-size: 30rpx;
+  margin-right: 20rpx;
+}
+
+.proWrap {
+  margin: 50rpx 60rpx;
+  display: flex;
+  align-items: center;
+}
+.proWrap .left {
+  margin-right: 40rpx;
+}
+.proWrap .left image {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 20rpx;
+}
+.proWrap .right {
+  display: flex;
+  flex-direction: column;
+}
+.proWrap .right .name {
+  font-size: 28rpx;
+  color: #033150;
+  font-weight: bold;
+}
+.proWrap .right .date {
+  font-size: 20rpx;
+  color: #989898;
+  margin-top: 30rpx;
+}
+.proWrap .right .price {
+  font-size: 28rpx;
+  color: #033150;
+  margin-top: 30rpx;
+}
+
+.totalWrap {
+
+}
+.totalWrap .item {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 60rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 28rpx;
+}
+.totalWrap .item .label {
+  color: #333;
+}
+.totalWrap .item .value {
+  color: #033150;
+}
+.subWrap {
+  margin: 40rpx 30rpx;
+}

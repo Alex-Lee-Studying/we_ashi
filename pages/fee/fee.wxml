@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="bannerWrap">
+    <image src="/images/banner.jpg" mode="aspectFill"></image>
+  </view>
+  <view class="country">
+    <text>中国<text class="iconfont icon-_danjiantou"></text>俄罗斯</text>
+  </view>
+  <view class="formWrap">
+    <view class="formItem">
+      <label>物品类型</label>
+      <input type="text" value="{{type}}" placeholder="请输入物品类型"></input>
+    </view>
+    <view class="formItem">
+      <label>物品价格</label>
+      <input type="text" value="{{price}}" placeholder="请输入物品价格"></input>
+    </view>
+    <view class="formItem">
+      <label>重量</label>
+      <input type="text" value="{{weight}}" placeholder="请输入物品重量"></input>
+    </view>
+    <view class="formItem">
+      <label>快递类型</label>
+      <input type="text" value="{{express}}" placeholder="请输入快递类型"></input>
+    </view>
+  </view>
+
+  <view class="priceWrap">
+    <text>运费：¥100</text><text>服务费：¥5</text><text class="total">总计运费：¥105</text>
+  </view>
+
+</view>

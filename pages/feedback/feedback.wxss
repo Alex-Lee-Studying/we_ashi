@@ -1,0 +1,88 @@
+page {
+  background-color: #f2f2f2;
+}
+.headerWrap {
+  margin: 20rpx 0;
+  padding: 20rpx 30rpx 50rpx;
+  background-color: #fff;
+}
+.headerWrap .textareaWrap textarea {
+  width: 100%;
+  height: 110rpx;
+  font-size: 24rpx;
+  color: #333;
+  line-height: 36rpx;
+}
+.headerWrap .textareaWrap .count {
+  display: block;
+  text-align: right;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #989898;
+}
+.headerWrap .uploadWrap {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+}
+.headerWrap .uploadWrap .uploadItem {
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 16rpx;
+  margin-top: 15rpx;
+  background-color: #f2f2f2;
+}
+.headerWrap .uploadWrap .uploadItem:nth-child(4n) {
+  margin-right: 0;
+}
+.headerWrap .uploadWrap .uploadItem image {
+  width: 160rpx;
+  height: 160rpx;
+}
+.headerWrap .uploadWrap .uploadItem.add {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #989898;
+}
+.headerWrap .uploadWrap .uploadItem.add .iconfont {
+  font-size: 55rpx;
+}
+.headerWrap .uploadWrap .uploadItem.add .picture {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+}
+
+.footerWrap {
+  padding-bottom: 90rpx;
+  background-color: #fff;
+}
+.footerWrap .radioGroup {
+  padding: 30rpx 60rpx;
+
+}
+.footerWrap .radioGroup .title {
+  font-size: 28rpx;
+  color: #033150;
+  font-weight: bold;
+}
+.footerWrap .radioGroup .radioItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30rpx;
+}
+.footerWrap .radioGroup .radioItem .label {
+  font-size: 26rpx;
+  color: #989898; 
+}
+.footerWrap .radioGroup .radioItem .radio {
+  
+}
+.footerWrap .radioGroup .radioItem.curr .label {
+  color: #033150; 
+}
+.subWrap {
+  margin: 90rpx 30rpx;
+}

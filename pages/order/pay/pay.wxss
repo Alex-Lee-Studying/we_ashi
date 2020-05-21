@@ -1,0 +1,6 @@
+.container{
+  margin: 0 30rpx;
+}
+.subWrap {
+  margin-top: 35rpx;
+}

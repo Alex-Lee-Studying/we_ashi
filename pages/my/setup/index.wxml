@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="linkWrap">
+    <navigator url="/pages/my/setup/profile/profile" class="linkItem">
+      <text class="title">个人资料</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="/pages/my/setup/bind/bind" class="linkItem">
+      <text class="title">账号与绑定设置</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="/pages/my/address/index" class="linkItem">
+      <text class="title">我的地址</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="" class="linkItem">
+      <text class="title">消息设置</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="" class="linkItem">
+      <text class="title">定位权限</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="" class="linkItem">
+      <text class="title">服务条款</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="" class="linkItem">
+      <text class="title">隐私政策</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="" class="linkItem">
+      <text class="title">系统语言</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="" class="linkItem">
+      <text class="title">关于Ashibro</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+  </view>
+
+  <view class="logout" bindtap="logout">
+    <text>退出当前账号</text>
+  </view>
+</view>

@@ -1,0 +1,33 @@
+page {
+  background-color: #f2f2f2;
+}
+.msgWrap {
+  margin: 20rpx 0;
+  background-color: #fff;
+}
+.msgWrap .msgItem {
+  display: flex;
+  align-items: center;
+  height: 130rpx;
+  padding: 0 60rpx;
+  border-bottom: 2rpx solid #f2f2f2;
+}
+.msgWrap .msgItem .left .iconfont {
+  font-size: 74rpx;
+  color: #033150;
+}
+.msgWrap .msgItem .right {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30rpx;
+}
+.msgWrap .msgItem .title {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+}
+.msgWrap .msgItem .desc {
+  font-size: 20rpx;
+  color: #989898;
+  margin-top: 10rpx;
+}

@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="uploadWrap">
+    <view class="uploadImg">
+      <image src="/images/temp.png" mode="aspectFill"></image>
+      <view class="close">
+        <text class="iconfont iconclose"></text>
+      </view>
+    </view>
+    <view class="plus"><text class="iconfont iconplus"></text></view>
+    <view class="plus"><text class="iconfont iconplus"></text></view>
+  </view>
+  <view class="deliveryWrap">
+    <view class="country">
+      <text>韩国</text>
+      <text class="iconfont icon-_danjiantou"></text>
+      <text>中国上海</text>
+    </view>
+    <view class="formWrap">
+      <view class="formItem">
+        <label>物品类型</label>
+        <input value="{{item_type}}"></input>
+      </view>
+      <view class="formItem">
+        <label>物品价格</label>
+        <input value="{{price}}"></input>
+      </view>
+      <view class="formItem">
+        <label>帮带报酬</label>
+        <input value="{{reward}}"></input>
+      </view>
+      <view class="formItem">
+        <label>重量</label>
+        <input value="{{weight}}"></input>
+      </view>
+      <view class="formItem">
+        <label>备注</label>
+        <input value="{{remark}}"></input>
+      </view>
+    </view>
+  </view>
+  <view class="subWrap">
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="submit">发布求带</button>
+  </view>
+</view>

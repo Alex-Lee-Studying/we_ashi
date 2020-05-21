@@ -1,0 +1,24 @@
+<view class="container">
+  <view class="linkWrap">
+    <navigator url="" class="linkItem">
+      <text class="title">手机号</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="" class="linkItem">
+      <text class="title">登录密码</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="" class="linkItem">
+      <text class="title">微信</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="" class="linkItem">
+      <text class="title">支付宝</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+    <navigator url="" class="linkItem">
+      <text class="title">实名认证</text>
+      <text class="iconfont iconjiantou"></text>
+    </navigator>
+  </view>
+</view>

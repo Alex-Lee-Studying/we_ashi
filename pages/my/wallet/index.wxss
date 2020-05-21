@@ -1,0 +1,111 @@
+page {
+  background-color: #f2f2f2;
+}
+.totalWrap {
+  position: relative;
+  padding-top: 40rpx;
+  padding-bottom: 130rpx;
+  background: -webkit-gradient(linear, top left, top right, color-stop(0%,#0d6fb1), color-stop(100%,#033150));
+  background: -webkit-linear-gradient(left, #0d6fb1 0%,#033150 100%);
+  background: linear-gradient(left right, #0d6fb1 0%,#033150 100%);
+}
+.totalWrap .remainder {
+}
+.totalWrap .other {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 70rpx;
+}
+.totalWrap text {
+  display: block;
+  font-size: 30rpx;
+  color: #fff;
+  text-align: center;
+}
+.totalWrap .remainder .number {
+  font-size: 88rpx;
+  margin-top: 15rpx;
+}
+.totalWrap .other .number {
+  font-size: 66rpx;
+  margin-top: 15rpx;
+}
+.totalWrap .bottomimg {
+  position: absolute;
+  bottom: -10rpx;
+  left: 0;
+  width: 100%;
+}
+
+.recordWrap {
+
+}
+.recordTitle {
+  position: relative;
+  margin-bottom: 40rpx;
+  font-size: 36rpx;
+  color: #1a1a1a;
+  text-align: center;
+}
+.recordTitle .iconfont {
+  font-size: 45rpx;
+  margin-left: 15rpx;
+}
+.downMenu {
+  position: absolute;
+  top: 130%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 155rpx;
+  background-color: #969696;
+  border-radius: 10rpx;
+  text-align: center;
+  padding: 10rpx;
+}
+.downMenu .menu {
+  font-size: 24rpx;
+  color: #fff;
+  line-height: 44rpx;
+}
+.downMenu .iconarrow-up {
+  position: absolute;
+  top: -15rpx;
+  right: 20rpx;
+  font-size: 20rpx;
+  color: #969696;
+}
+.recordList {
+  background-color: #fff;
+  box-shadow: 0 0 28rpx 0 rgba(48,48,48,.1);
+}
+.recordList .recordItem {
+  padding: 35rpx 64rpx 35rpx 78rpx;
+  border-bottom: 2rpx solid #f2f2f2;
+}
+.recordList .recordItem:last-child {
+  border-bottom: none;
+}
+.recordList .recordItem .line1,.recordList .recordItem .line2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.recordList .recordItem .type {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+}
+.recordList .recordItem .money {
+  font-size: 38rpx;
+  color: #033150;
+  font-weight: bold;
+}
+.recordList .recordItem .line2 {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: #808080;
+}
+
+.subWrap {
+  margin: 70rpx 30rpx 0;
+}

@@ -1,0 +1,32 @@
+<view class="container">
+  <view class="logoWrap">
+    <image src="/images/logo-login.png" mode="heightFix"></image>
+  </view>
+  <view class="loginForm">
+    <view class="formItem">
+      <input type="text" value="{{mobile}}" placeholder="请输入手机号" placeholder-style="color: #c2c2c2"></input>
+    </view>
+    <view class="formItem">
+      <input type="password" value="{{password}}" placeholder="请输入密码" placeholder-style="color: #c2c2c2"></input>
+    </view>
+    <view class="subWrap">
+      <button type="primary" class="btnPrimary" hover-class="btnHover">登录</button>
+    </view>
+    <view class="linksWrap">
+      <navigator url="/pages/user/register/register">新用户注册</navigator>
+      <navigator url="">忘记密码？</navigator>
+    </view>
+  </view>
+
+  <view class="otherWrap">
+    <view class="title"><text>其他登录方式</text></view>
+    <view class="listWrap">
+      <view class="listItem"><text class="iconfont iconwechat" style="color:#50b674;"></text></view>
+      <view class="listItem"><text class="iconfont iconqq" style="color:#317bff;"></text></view>
+      <view class="listItem"><text class="iconfont iconsina" style="color:#fb5555;"></text></view>
+    </view>
+  </view>
+  <view class="agreeWrap">
+    <checkbox value="" checked="true" color="#033150"/><navigator url="" class="text">我已阅读并同意用户隐私政策</navigator>
+  </view>
+</view>

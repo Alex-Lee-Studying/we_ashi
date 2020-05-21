@@ -1,0 +1,81 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/guide/guide",
+    "pages/service/service",
+    "pages/fee/fee",
+    "pages/message/message",
+    "pages/my/my",
+    "pages/index/cardDelivery/cardDelivery",
+    "pages/index/cardTravel/cardTravel",
+    "pages/travel/travel",
+    "pages/delivery/index",
+    "pages/delivery/order/order",
+    "pages/delivery/confirm/confirm",
+    "pages/delivery/pay/pay",
+    "pages/order/index",
+    "pages/order/pay/pay",
+    "pages/order/result/result",
+    "pages/my/travelDetail/travelDetail",
+    "pages/my/deliveryDetail/deliveryDetail",
+    "pages/my/wallet/index",
+    "pages/my/wallet/pickup/pickup",
+    "pages/my/setup/index",
+    "pages/my/setup/profile/profile",
+    "pages/my/setup/bind/bind",
+    "pages/my/address/index",
+    "pages/my/address/add/add",
+    "pages/help/index",
+    "pages/help/detail/detail",
+    "pages/feedback/feedback",
+    "pages/user/login/login",
+    "pages/user/register/register",
+    "pages/logs/logs"
+  ],
+  "tabBar": {
+    "color": "#333333",
+    "selectedColor": "#033150",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/icon_home.png",
+        "selectedIconPath": "images/icon_home_selected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/service/service",
+        "iconPath": "images/icon_service.png",
+        "selectedIconPath": "images/icon_service_selected.png",
+        "text": "服务"
+      },
+      {
+        "pagePath": "pages/fee/fee",
+        "iconPath": "images/icon_fee.png",
+        "selectedIconPath": "images/icon_fee_selected.png",
+        "text": "运费"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "iconPath": "images/icon_message.png",
+        "selectedIconPath": "images/icon_message_selected.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "images/icon_my.png",
+        "selectedIconPath": "images/icon_my_selected.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "脚递",
+    "navigationBarTextStyle":"black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

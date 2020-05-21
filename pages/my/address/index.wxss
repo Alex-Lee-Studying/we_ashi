@@ -1,0 +1,31 @@
+page {
+  background-color: #f2f2f2;
+}
+.noAddressWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.noAddressWrap .location {
+  margin: 100rpx 0 50rpx;
+  width: 360rpx;
+}
+.noAddressWrap .notice {
+  font-size: 32rpx;
+  color: #999;
+}
+.noAddressWrap .addBtn {
+  margin-top: 50rpx;
+  width: 360rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 32rpx;
+  color: #033150;
+  border-radius: 45rpx;
+  border: 1rpx solid #033150;
+  text-align: center;
+}
+.noAddressWrap .addBtn .iconfont {
+  font-size: 28rpx;
+  margin-left: 10rpx;
+}
