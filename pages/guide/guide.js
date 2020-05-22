@@ -1,3 +1,4 @@
+var interval = null
 Page({
   data: {
     second: 3,
@@ -8,7 +9,7 @@ Page({
   },
   onShow: function() {
     var _this = this
-    var interval = setInterval(function () {
+    interval = setInterval(function () {
       if (_this.data.second === 0) {
         wx.switchTab({
           url: '/pages/index/index'
@@ -21,6 +22,12 @@ Page({
         })
       }      
     }, 1000);
+  },
+  onHide: function() {
+    clearInterval(interval)
+  },
+  onUnload: function() {
+    clearInterval(interval)
   },
   start() {
     wx.switchTab({

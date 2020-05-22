@@ -1,1 +1,50 @@
-/* pages/delivery/pay/pay.wxss */
+.container{
+  margin: 0 30rpx;
+}
+
+.proWrap {
+  margin: 30rpx 0;
+  display: flex;
+  align-items: center;
+  padding: 20rpx 30rpx 20rpx 20rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  box-shadow: 0 0 87rpx 0 rgba(51,51,51,.1);
+}
+.proWrap .left {
+  margin-right: 30rpx;
+}
+.proWrap .left image {
+  width: 130rpx;
+  height: 130rpx;
+  border-radius: 20rpx;
+}
+.proWrap .right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.proWrap .right .name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+}
+.proWrap .right .quantity {
+  text-align: right;
+  font-size: 22rpx;
+  color: #606060;
+  margin-top: 15rpx;
+}
+.proWrap .right .quantity .iconfont {
+  font-size: 22rpx;
+  color: #606060;
+}
+.proWrap .right .price {
+  font-size: 28rpx;
+  color: #033150;
+  margin-top: 20rpx;
+}
+
+.subWrap {
+  margin-top: 35rpx;
+}
