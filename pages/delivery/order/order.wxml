@@ -14,7 +14,7 @@
   </view>
 
   <view class="addressWrap">
-    <navigator url="">我的地址</navigator>
+    <navigator url="/pages/my/address/index">我的地址</navigator>
   </view>
 
   <view class="cellWrap">

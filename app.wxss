@@ -64,6 +64,7 @@
   color: #989898;
 }
 .formWrap .formItem picker {
+  display: block;
   height: 90rpx;
   color: #989898;
 }

@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    item_type: '',
+    price: '',
+    weight: '',
+    typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他']
   },
 
   submit() {
@@ -23,5 +26,9 @@ Page({
         }
       }
     })
+  },
+  bindTypeChange(e) {
+    var idx = e.detail.value
+    this.setData({ 'item_type': this.data.typearray[idx] })
   }
 })

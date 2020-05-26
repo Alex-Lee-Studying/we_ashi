@@ -40,7 +40,11 @@
     <view class="formWrap">
       <view class="formItem">
         <label>物品类型</label>
-        <input value="{{item_type}}"></input>
+        <picker mode="selector" bindchange="bindTypeChange" value="{{item_type}}" range="{{typearray}}">
+          <view class="picker">
+            {{item_type || '请选择'}}
+          </view>
+        </picker>
       </view>
       <view class="formItem">
         <label>物品价格</label>

@@ -5,7 +5,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    selectedAddressId: 123,
+    addressList: [
+      {
+        "recipient": "王天霸",
+        "mobile": "18678786787",
+        "details": "北京市 北京市 朝阳区 花园路甲220号花园路甲25号写字楼230室",
+        "default": true,
+        "id": 123
+      },
+      {
+        "recipient": "王天霸",
+        "mobile": "186755523336",
+        "details": "北京市 北京市 朝阳区 花园路甲220号花园路甲25号写字楼230室",
+        "default": false,
+        "id": 124
+      }
+    ]
+  },
+  use: function(e) {
+    var addId = e.currentTarget.dataset.addressid
+    this.setData({ selectedAddressId: addId })
   },
 
   /**

@@ -23,7 +23,7 @@
   </view>
 
   <view class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover">保存</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="addAddress">保存</button>
   </view>
 </view>
 

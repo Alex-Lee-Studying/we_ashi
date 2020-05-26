@@ -29,3 +29,74 @@ page {
   font-size: 28rpx;
   margin-left: 10rpx;
 }
+
+.addressItemWrap {
+  background-color: #fff;
+  box-shadow: 0 0 84rpx 0 rgba(45,45,45,.11);
+  padding: 30rpx;
+  padding-bottom: 0;
+  margin-bottom: 30rpx;
+}
+.addressItemWrap .itemTop,.addressItemWrap .itemMain {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10rpx;
+  margin-bottom: 20rpx;
+}
+.addressItemWrap .itemTop .right,.addressItemWrap .itemMain .right {
+  width: 100rpx;
+  text-align: right;
+}
+.addressItemWrap .uname {
+  font-size: 34rpx;
+  color: #333;
+}
+.addressItemWrap .mobile {
+  font-size: 30rpx;
+  color: #333;
+  margin-left: 40rpx;
+}
+.addressItemWrap .address {
+  font-size: 28rpx;
+  color: #333;
+}
+.addressItemWrap .itemTop .right .iconfont {
+  height: 47rpx;
+  line-height: 47rpx;
+  font-size: 40rpx;
+  color: #033150;
+}
+.addressItemWrap .itemTop .right .useBtn {
+  font-size: 24rpx;
+  color: #989898;
+  width: 90rpx;
+  height: 45rpx;
+  line-height: 45rpx;
+  border: 1rpx solid #989898;
+  border-radius: 25rpx;
+  text-align: center;
+}
+
+.addressItemWrap .itemBottom {
+  display: flex;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-top: 2rpx solid #f2f2f2;
+  margin-top: 30rpx;
+  color: #989898;
+}
+.addressItemWrap .itemBottom .radio {
+  flex: 1;
+  font-size: 28rpx;
+}
+.addressItemWrap .itemBottom .handleBtn {
+  font-size: 24rpx;
+  padding: 0 20rpx;
+}
+.addressItemWrap .itemBottom .handleBtn .iconfont {
+  margin-right: 5rpx;
+}
+
+.subWrap {
+  margin: 50rpx 30rpx;
+}

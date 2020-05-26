@@ -6,6 +6,20 @@
   "description": "脚递",
   "glyphs": [
     {
+      "icon_id": "10402087",
+      "name": "del",
+      "font_class": "shanchu",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "10241121",
+      "name": "确认 对勾 勾号",
+      "font_class": "checkmark",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
       "icon_id": "2513454",
       "name": "user",
       "font_class": "user",

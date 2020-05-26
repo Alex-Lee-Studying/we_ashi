@@ -13,5 +13,10 @@ Page({
 
   switchDefault(e) {
     console.log(e.detail.value)
+  },
+  addAddress() {
+    wx.navigateBack({
+      delta: 1
+    })
   }
 })

@@ -1,7 +1,39 @@
 <view class="container">
-  <view class="noAddressWrap">
+  <view class="noAddressWrap" wx:if="{{addressList.length === 0}}">
     <image src="/images/location.png" class="location" mode="widthFix"></image>
     <text class="notice">您还没有设置收货地址哦~</text>
     <navigator url="/pages/my/address/add/add" class="addBtn">添加收货地址<text class="iconfont iconjiantou"></text></navigator>
+  </view>
+
+  <view class="addressListWrap" wx:else>
+    <view class="addressItemWrap" wx:for="{{addressList}}" wx:key="id">
+      <view class="itemTop">
+        <view class="left">
+          <text class="uname">{{item.recipient}}</text><text class="mobile">{{item.mobile}}</text>
+        </view>
+        <view class="right">
+          <text class="iconfont iconcheckmark" wx:if="{{selectedAddressId === item.id}}"></text>
+          <view class="useBtn" wx:else data-addressid="{{item.id}}" bindtap="use">使用</view>
+        </view>
+      </view>
+      <view class="itemMain">
+        <view class="left">
+          <text class="address">{{item.details}}</text>
+        </view>
+        <view class="right">
+        </view>
+      </view>
+      <view class="itemBottom">
+        <label class="radio">
+          <radio value="" checked="{{item.default}}" color="#033150" />{{item.default ? '已设为默认' : '设为默认'}}
+        </label>
+        <view class="handleBtn"><text class="iconfont iconarticle"></text><text>编辑</text></view>
+        <view class="handleBtn"><text class="iconfont iconshanchu"></text><text>删除</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="subWrap">
+    <navigator url="/pages/my/address/add/add" type="primary" class="btnPrimary" hover-class="btnHover">手动添加</navigator>
   </view>
 </view>
