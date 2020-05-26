@@ -1,0 +1,10 @@
+<view class="help-detail-container">
+  <view class="title">如何提现</view>
+  <view class="contentWrap">
+    <view class="cont">寄件人【确认收货】后，系统将自动把寄件人预支付的运费打入出行人账户中。出行人在收到运费之后，可立即提现。</view> 
+    <view class="head1">提现方法：</view>
+    <view class="cont">在个人页面中点击【我的钱包】，选择提现至支付宝或微信钱包，点击【提现】按钮，输入可提现金额即可。 </view>
+    <view class="head1">提现到账时间： </view>
+    <view class="cont">即时到账。 （若有提现相关问题，请联系在线客服）</view>
+  </view>
+</view>

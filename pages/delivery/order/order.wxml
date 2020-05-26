@@ -5,10 +5,12 @@
     </view>
     <view class="pname"><text>2019年经典款板鞋</text></view>
     <view class="info">
-      <text>重量 1kg</text>
-      <text>数量1</text>
+      <text>重量：1kg</text>
     </view>
-    <view class="price"><text>￥240</text></view>
+    <view class="info">
+      <text>数量：1</text>
+    </view>
+    <view class="priceWrap"><text class="label">物品价格：</text><text class="price">￥240</text></view>
   </view>
 
   <view class="addressWrap">
@@ -27,7 +29,7 @@
     </view>
   </view>
   <view class="cellWrap">
-    <view class="label"><text>运费</text></view>
+    <view class="label"><text>帮带报酬</text></view>
     <view class="value"><text>￥100</text></view>
   </view>
 

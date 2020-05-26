@@ -1,12 +1,14 @@
 <view class="container">
   <view class="orderItem orderDetailQD">
     <view class="orderinfo">
-      <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
+      <view class="left">
+        <image src="/images/product.jpg" mode="aspectFill"></image>
+        <!-- <text class="iconfont iconsuitcase-2-fill"></text> -->
+      </view>
       <view class="main">
-        <view class="country"><text>2019年经典款乔丹</text></view>
-        <view class="mark"><text>美国 <text class="iconfont icon-_danjiantou"></text> 中国</text></view>
-        <view class="mark"><text>备注：要灰色的</text></view>
-        <view class="fee"><text>￥100</text></view>
+        <view class="country"><text>美国 <text class="iconfont icon-_danjiantou"></text> 中国</text></view>
+        <view class="mark"><text>备注：2019年经典款乔丹 要灰色的</text></view>
+        <view class="fee"><text class="label">帮带报酬：</text><text>￥100</text></view>
       </view>
       <view class="right"><text class="iconfont iconshare"></text><button type="primary" class="btnPrimary">确认收货</button></view>
     </view>
@@ -17,22 +19,32 @@
     <view class="listWrap">
       <view class="listItem">
         <text class="iconfont iconsuccess"></text>
-        <text class="info">您的订单在美国已出库</text>
+        <text class="info">用户已接单</text>
         <text class="datetime">03-26 15:20</text>
       </view>
       <view class="listItem">
         <text class="iconfont iconsuccess"></text>
-        <text class="info">在海关进行安检</text>
+        <text class="info">等待付款</text>
         <text class="datetime">03-26 15:20</text>
       </view>
       <view class="listItem">
         <text class="iconfont iconsuccess"></text>
-        <text class="info">将很快到达您的地址</text>
+        <text class="info">付款成功</text>
         <text class="datetime">03-26 15:20</text>
       </view>
       <view class="listItem">
         <text class="iconfont iconsuccess"></text>
-        <text class="info">已签收</text>
+        <text class="info">派送中</text>
+        <text class="datetime">03-26 15:20</text>
+      </view>
+      <view class="listItem">
+        <text class="iconfont iconsuccess"></text>
+        <text class="info">等待确认收货</text>
+        <text class="datetime">03-26 15:20</text>
+      </view>
+      <view class="listItem">
+        <text class="iconfont iconsuccess"></text>
+        <text class="info">完成</text>
         <text class="datetime">03-26 15:20</text>
       </view>
     </view>

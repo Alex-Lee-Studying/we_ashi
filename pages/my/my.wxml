@@ -35,19 +35,19 @@
   <view class="ordersWrap">
     <view class="tabs-my">
       <view class="tabItem selected" wx:if="{{tabname === 'delivery'}}">
-        <view class="tabLeft"><text class="iconfont iconplane"></text></view>
+        <view class="tabLeft"><text class="iconfont iconsuitcase-2-fill"></text></view>
         <view class="tabRight"><text class="t1">求带</text><text class="t2">Take things</text></view>
       </view>
       <view class="tabItem" data-tab="delivery" bindtap="changeTab" wx:else>
-        <view class="tabLeft"><text class="iconfont iconplane"></text></view>
+        <view class="tabLeft"><text class="iconfont iconsuitcase-2-fill"></text></view>
         <view class="tabRight"><text class="t1">求带</text><text class="t2">Take things</text></view>
       </view>
       <view class="tabItem selected" wx:if="{{tabname === 'travel'}}">
-        <view class="tabLeft"><text class="iconfont iconsuitcase-2-fill"></text></view>
+        <view class="tabLeft"><text class="iconfont iconplane"></text></view>
         <view class="tabRight"><text class="t1">出行</text><text class="t2">Travel</text></view>
       </view>
       <view class="tabItem" data-tab="travel" bindtap="changeTab" wx:else>
-        <view class="tabLeft"><text class="iconfont iconsuitcase-2-fill"></text></view>
+        <view class="tabLeft"><text class="iconfont iconplane"></text></view>
         <view class="tabRight"><text class="t1">出行</text><text class="t2">Travel</text></view>
       </view>
     </view>
@@ -55,7 +55,7 @@
     <view class="orders-my" wx:if="{{tabname === 'delivery'}}">
       <view class="orderItem orderItemQD">
         <navigator url="/pages/my/deliveryDetail/deliveryDetail" class="orderinfo">
-          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
+          <view class="left"><text class="iconfont iconsuitcase-2-fill"></text></view>
           <view class="main">
             <view class="mark"><text>2020-03-24</text></view>
             <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
@@ -78,9 +78,9 @@
     <view class="orders-my" wx:if="{{tabname === 'travel'}}">
       <view class="orderItem orderItemCX">
         <navigator url="/pages/my/travelDetail/travelDetail" class="orderinfo">
-          <view class="left"><text class="year">2020</text><text class="date">03-27</text></view>
+          <view class="left"><text class="iconfont iconplane"></text></view>
           <view class="main">
-            <view class="mark"><text>19837722385</text></view>
+            <view class="mark"><text>2020-03-24</text></view>
             <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
           </view>
           <view class="right"><text class="iconfont iconshare"></text></view>

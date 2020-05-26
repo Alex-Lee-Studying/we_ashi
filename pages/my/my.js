@@ -1,6 +1,6 @@
 Page({
   data: {
-    tabname: 'travel'
+    tabname: 'delivery'
   },
   onLoad: function () {
   },

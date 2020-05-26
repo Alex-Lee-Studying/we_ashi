@@ -1,9 +1,9 @@
 Page({
   data: {
     item_type: 'kindle（电子产品）',
-    price: '1000RMB',
+    price: '1000',
     reward: '¥150',
-    weight: '2kg',
+    weight: '2',
     remark: ''
   },
   onLoad: function () {

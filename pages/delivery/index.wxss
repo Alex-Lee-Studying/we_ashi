@@ -3,7 +3,8 @@
 }
 .uploadWrap {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   padding: 30rpx 0 60rpx;
   border-bottom: 2rpx solid #f2f2f2;
 }
@@ -32,7 +33,18 @@
   color: #fff;
 }
 .uploadWrap .plus {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   border: 1rpx solid #f2f2f2;
+}
+.uploadWrap .plus text{
+  font-size: 30rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+.uploadWrap .plus text.iconfont {
+  font-size: 35rpx;
 }
 .deliveryWrap {
   margin: 0 30rpx;

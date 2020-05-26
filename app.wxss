@@ -74,6 +74,8 @@
 .subWrap .btnPrimary {
   flex: 1;
   font-size: 32rpx;
+  font-weight: bold;
+  text-align: center;
   height: 90rpx;
   line-height: 90rpx;
   padding: 0;
@@ -81,6 +83,9 @@
   color: #fff;
   background-color: #033150;
   letter-spacing: 4rpx;
+}
+.subWrap navigator {
+  flex: 1;
 }
 .subWrap .btnPrimary+.btnPrimary {
   margin-left: 30rpx;
@@ -153,13 +158,20 @@
   font-size: 30rpx;
   color: #033150;
 }
+.orderItem .orderinfo .left .iconfont {
+  font-size: 70rpx;
+  background-image: -webkit-gradient(linear, left 0, right 0, from(#033150), to(#1281cb));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 5rpx 6rpx rgba(3,49,80,.53);
+}
 .orderItemQD {
   padding: 25rpx 0;
 }
-.orderItemQD .main {
+.orderItemQD .main, .orderItemCX .main {
   text-align: center;
 }
-.orderItemQD .main .mark {
+.orderItemQD .main .mark, .orderItemCX .main .mark {
   font-size: 28rpx !important;
 }
 /* 出行/求带卡片头部 */
@@ -243,4 +255,37 @@
   flex: 1;
   text-align: right;
   margin-top: -10rpx;
+}
+/* 帮助详情页 */
+.help-detail-container {
+  padding: 30rpx;
+  color: #333;
+}
+.help-detail-container .title {
+  font-size: 36rpx;
+  line-height: 60rpx;
+  font-weight: bold;
+  padding: 0 20rpx 20rpx;
+  border-bottom: 2rpx solid #f2f2f2;
+  margin-bottom: 20rpx;
+}
+.help-detail-container .notice {
+  font-size: 30rpx;
+  line-height: 40rpx;
+  padding: 20rpx;
+}
+.help-detail-container .contentWrap {
+  padding: 0 20rpx;
+}
+.help-detail-container .contentWrap .head1 {
+  font-size: 30rpx;
+  font-weight: bold;
+  line-height: 50rpx;
+  margin: 10rpx 0
+}
+.help-detail-container .contentWrap .cont {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666;
+  margin-bottom: 10rpx;
 }

@@ -20,19 +20,15 @@
       <text class="title">定位权限</text>
       <text class="iconfont iconjiantou"></text>
     </navigator>
-    <navigator url="" class="linkItem">
+    <navigator url="/pages/help/detailService/detailService" class="linkItem">
       <text class="title">服务条款</text>
-      <text class="iconfont iconjiantou"></text>
-    </navigator>
-    <navigator url="" class="linkItem">
-      <text class="title">隐私政策</text>
       <text class="iconfont iconjiantou"></text>
     </navigator>
     <navigator url="" class="linkItem">
       <text class="title">系统语言</text>
       <text class="iconfont iconjiantou"></text>
     </navigator>
-    <navigator url="" class="linkItem">
+    <navigator url="/pages/help/detailAshibro/detailAshibro" class="linkItem">
       <text class="title">关于Ashibro</text>
       <text class="iconfont iconjiantou"></text>
     </navigator>

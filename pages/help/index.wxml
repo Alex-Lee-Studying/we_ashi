@@ -1,22 +1,22 @@
 <view class="container">
   <view class="linkWrap">
-    <navigator url="/pages/help/detail/detail" class="linkItem">
+    <navigator url="/pages/help/detailComplain/detailComplain" class="linkItem">
       <text class="title">如何投诉？</text>
       <text class="iconfont iconjiantou"></text>
     </navigator>
-    <navigator url="/pages/help/detail/detail" class="linkItem">
+    <navigator url="/pages/help/detailContact/detailContact" class="linkItem">
       <text class="title">如何联系在线客服？</text>
       <text class="iconfont iconjiantou"></text>
     </navigator>
-    <navigator url="/pages/help/detail/detail" class="linkItem">
+    <navigator url="/pages/help/detailService/detailService" class="linkItem">
       <text class="title">服务条款</text>
       <text class="iconfont iconjiantou"></text>
     </navigator>
-    <navigator url="/pages/help/detail/detail" class="linkItem">
+    <navigator url="/pages/help/detailCashout/detailCashout" class="linkItem">
       <text class="title">如何提现？</text>
       <text class="iconfont iconjiantou"></text>
     </navigator>
-    <navigator url="/pages/help/detail/detail" class="linkItem">
+    <navigator url="/pages/help/detailPay/detailPay" class="linkItem">
       <text class="title">支付方式？</text>
       <text class="iconfont iconjiantou"></text>
     </navigator>

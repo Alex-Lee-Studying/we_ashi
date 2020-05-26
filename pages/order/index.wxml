@@ -1,13 +1,12 @@
 <view class="container">
   <view class="uploadWrap">
-    <view class="uploadImg">
+    <!-- <view class="uploadImg">
       <image src="/images/temp.png" mode="aspectFill"></image>
       <view class="close">
         <text class="iconfont iconclose"></text>
       </view>
-    </view>
-    <view class="plus"><text class="iconfont iconplus"></text></view>
-    <view class="plus"><text class="iconfont iconplus"></text></view>
+    </view> -->
+    <view class="plus"><text class="iconfont iconplus"></text><text>照片</text></view>
   </view>
   <view class="deliveryWrap">
     <view class="country">
@@ -17,7 +16,7 @@
     </view>
 
     <view class="addressWrap">
-      <view class="title"><text>收件人信息</text></view>
+      <view class="title"><text>收货地址</text></view>
       <view class="info">
         <view class="infoItem">
           <text class="label">联系人：</text>
@@ -45,11 +44,11 @@
       </view>
       <view class="formItem">
         <label>物品价格</label>
-        <input value="{{price}}"></input>
+        <input value="{{price}}" placeholder="RMB"></input>
       </view>
       <view class="formItem">
         <label>重量</label>
-        <input value="{{weight}}"></input>
+        <input value="{{weight}}" placeholder="kg"></input>
       </view>
     </view>
     <view class="notice"><text class="iconfont iconfaq"></text><text>温馨提示</text></view>

@@ -7,7 +7,6 @@
         <text class="iconfont icon-_danjiantou"></text>
         <text>中国上海</text>
       </view>
-      <view class="countryMark">中转：（天津）</view>
       <view class="formWrap">
         <view class="formItem">
           <label>出发日期</label>
@@ -15,11 +14,11 @@
         </view>
         <view class="formItem">
           <label>可带行李重量</label>
-          <input value="{{weight}}"></input>
+          <input value="{{weight}}" placeholder="kg"></input>
         </view>
         <view class="formItem">
           <label>价格</label>
-          <input value="{{unit_price}}"></input>
+          <input value="{{unit_price}}" placeholder="RMB"></input>
         </view>
         <view class="formItem">
           <label>备注</label>
@@ -58,6 +57,10 @@
     </view>
     <view class="subWrap">
       <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="completeTravel">完成</button>
-    </view>
+    </view>    
+    <navigator class="jumpWrap" url="/pages/index/index" open-type="switchTab">
+      <button class="btnPlain" hover-class="btnHover">暂时跳过此步骤</button>
+    </navigator>
+
   </view>
 </view>

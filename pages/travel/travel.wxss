@@ -11,6 +11,7 @@
 }
 .travelWrap .country {
   margin-top: 65rpx;
+  margin-bottom: 40rpx;
   font-size: 32rpx;
   color: #033150;
   font-weight: bold;
@@ -81,4 +82,20 @@
   position: absolute;
   right: 0;
   top: 0;
+}
+.jumpWrap {
+  display: flex;
+  margin: 0 0 50rpx;
+}
+.btnPlain {
+  flex: 1;
+  font-size: 32rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-radius: 45rpx;
+  border: 1rpx solid #033150;
+  color: #033150;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 4rpx;
 }

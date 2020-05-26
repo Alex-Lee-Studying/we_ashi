@@ -1,0 +1,7 @@
+<view class="help-detail-container">
+  <view class="title">支付方式</view>
+  <view class="contentWrap">
+    <view class="cont">目前仅支持微信支付</view> 
+    <view class="cont">其他货币及支付方式即将上线，敬请期待...</view>
+  </view>
+</view>

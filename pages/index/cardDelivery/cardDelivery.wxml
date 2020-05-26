@@ -17,7 +17,7 @@
     </view>
     <view class="orderMain">
       <view class="msgLine">
-        <label>运费</label>
+        <label>帮带报酬</label>
         <text>￥100</text>
       </view>
       <view class="msgLine">
@@ -32,5 +32,6 @@
   </view>
   <view class="subWrap">
     <button type="primary" class="btnPrimary" hover-class="btnHover">立即联系</button>
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover">邀请帮带</button>
   </view>
 </view>

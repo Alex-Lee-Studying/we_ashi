@@ -1,18 +1,18 @@
 <view class="container">
   <view class="orderItem orderDetailCX">
     <navigator url="/pages/my/travelDetail/travelDetail" class="orderinfo">
-      <view class="left"><text class="year">2020</text><text class="date">03-27</text></view>
+      <view class="left"><text class="iconfont iconplane"></text></view>
       <view class="main">
         <view class="country"><text>上海 <text class="iconfont icon-_danjiantou"></text> 洛杉矶</text></view>
-        <view class="mark"><text>5kg以内I接受代买</text></view>
-        <view class="mark"><text>备注：要2019年经典款</text></view>
+        <view class="mark"><text>可带行李重量：5kg</text></view>
+        <view class="mark"><text>备注：可带买</text></view>
       </view>
       <view class="right"><text class="iconfont iconshare"></text></view>
     </navigator>
   </view>
 
   <view class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover">向我申请</button>
+    <navigator url="/pages/index/cardDelivery/cardDelivery" type="primary" class="btnPrimary" hover-class="btnHover">向我申请</navigator>
     <button type="primary" plain class="btnPrimary" hover-class="btnHover">已接受</button>
   </view>
 

@@ -7,12 +7,21 @@ page {
 .orderDetailQD {
   margin-top: 30rpx;
 }
+.orderDetailQD .orderinfo .main .country {
+  color: #033150;
+}
 .orderDetailQD .orderinfo .main .mark .iconfont {
   font-size: 20rpx;
 }
 .orderDetailQD .orderinfo .main .fee {
+  display: flex;
+  align-items: center;
   font-size: 28rpx;
   color: #033150;
+}
+.label {
+  font-size: 20rpx;
+  color: #989898;
 }
 .orderDetailQD .orderinfo .right {
   border-left-width: 0;

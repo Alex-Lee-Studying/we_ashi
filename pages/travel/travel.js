@@ -3,8 +3,8 @@ Page({
     traveler: '王天霸',
     flight_no: 'G1236',
     dt_departure: '2020-05-18',
-    weight: '10kg',
-    unit_price: '70/kg',
+    weight: '10',
+    unit_price: '70',
     remark: '可代买，不接液体',
     complete: false
   },
@@ -26,8 +26,8 @@ Page({
     })
   },
   completeTravel: function () {
-    wx.navigateTo({
-      url: '/pages/my/travelDetail/travelDetail'
+    wx.switchTab({
+      url: '/pages/index/index'
     })
   }
 })
