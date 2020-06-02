@@ -70,7 +70,7 @@ page {
 .orderItem .uinfo .uimg {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 20rpx;
   width: 38rpx;
   height: 38rpx;
   border-radius: 38rpx;
@@ -79,7 +79,16 @@ page {
   font-size: 24rpx;
 }
 
+.orderItemXQD .uinfo {
+  padding-top: 20rpx;
+}
+.orderItemXQD .orderinfo {
+  padding: 0 0 20rpx 0;
+}
+
 .orderItemKBD {
+}
+.orderItemKBD .orderinfo {
   padding: 40rpx 0;
 }
 .orderItemKBD .orderinfo .left {

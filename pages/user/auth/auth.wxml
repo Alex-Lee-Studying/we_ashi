@@ -1,0 +1,16 @@
+<view class="container">
+  <view class="contWrap">
+    <view class="authWrap">
+      <image src="/images/logo.png" mode="widthFix"></image>
+      <text class="company">脚递ashibro</text>
+    </view>
+    <view class="formWrap">
+      <button class="loginWX" wx:if="{{agree}}" open-type="getUserInfo" bindgetuserinfo="doLogin">微信登录</button>
+      <button class="loginWX" disabled="true" wx:else>微信登录</button>
+      <view class="checkWrap">
+        <checkbox value="{{agree}}" checked="{{agree}}" color="#033150" bindtap="changeAgree"/>微信登录表示同意
+        <navigator url="" class="text">《脚递用户使用协议》</navigator>
+      </view>
+    </view>
+  </view>
+</view>

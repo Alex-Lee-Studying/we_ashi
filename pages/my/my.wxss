@@ -29,6 +29,13 @@ page {
   border-radius: 106rpx;
   margin-right: 30rpx;
 }
+.infoWrap .iconuser {
+  width: 106rpx;
+  height: 106rpx;
+  font-size: 70rpx;
+  color: #fff;
+  margin-right: 30rpx;
+}
 .infoWrap .uname {
   display: block;
   font-size: 32rpx;
@@ -48,6 +55,19 @@ page {
   font-size: 45rpx;
   color: #fff;
   margin-right: 45rpx;
+}
+.infoWrap .getuBtn {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  font-size: 32rpx;
+  color: #fff;
+  text-align: left;
+  font-weight: normal;
+}
+.infoWrap .tologin {
+  font-size: 32rpx;
+  color: #fff;
 }
 
 .navWrap {

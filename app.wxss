@@ -103,7 +103,6 @@
 }
 /* 首页求带/帮带 列表，我的出行/求带 列表 公用部分*/
 .orderItem {
-  padding: 20rpx 0;
   background-color: #fff;
   border-radius: 20rpx;
   color: #333;
@@ -113,6 +112,7 @@
   margin-bottom: 0;
 }
 .orderItem .orderinfo {
+  padding: 20rpx 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -166,7 +166,7 @@
   -webkit-text-fill-color: transparent;
   text-shadow: 0 5rpx 6rpx rgba(3,49,80,.53);
 }
-.orderItemQD {
+.orderItemQD .orderinfo {
   padding: 25rpx 0;
 }
 .orderItemQD .main, .orderItemCX .main {

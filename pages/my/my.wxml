@@ -3,13 +3,22 @@
     <image src="/images/myHeaderBg.png" class="absimg" mode="widthFix"></image>
     <view class="infoWrap">
       <view>
-        <image src="/images/uimg.jpg" class="uimg" mode="aspectFill"></image>
+        <image src="{{userInfo.avatarUrl}}" class="uimg" mode="aspectFill" wx:if="{{isLogin && hasUserInfo}}"></image>
+        <text class="iconfont iconuser" wx:else></text>
       </view>
-      <view style="flex: 1;">
-        <text class="uname">王天霸</text>
-        <text class="location"><text class="iconfont iconlocation"></text>上海市</text>
+
+      <view style="flex: 1;" wx:if="{{isLogin && hasUserInfo}}">
+        <text class="uname">{{userInfo.nickName}}</text>
+        <text class="location"><text class="iconfont iconlocation"></text>{{userInfo.country}} {{userInfo.province}} {{userInfo.city}}</text>
       </view>
-      <view>
+      <view style="flex: 1;" wx:elif="{{isLogin && !hasUserInfo}}">
+        <button class="getuBtn" open-type="getUserInfo" bindgetuserinfo="getuserinfo">登录/注册</button>
+      </view>
+      <view style="flex: 1;" wx:elif="{{!isLogin}}">
+        <navigator class="tologin" url="/pages/user/auth/auth">登录/注册</navigator>
+      </view>
+
+      <view wx:if="{{isLogin && hasUserInfo}}">
         <navigator url="/pages/my/setup/index" class="iconfont iconshezhi"></navigator>
       </view>
     </view>
@@ -53,22 +62,13 @@
     </view>
 
     <view class="orders-my" wx:if="{{tabname === 'delivery'}}">
-      <view class="orderItem orderItemQD">
+      <view class="orderItem orderItemQD" wx:for="{{deliveryList}}" wx:key="id">
         <navigator url="/pages/my/deliveryDetail/deliveryDetail" class="orderinfo">
-          <view class="left"><text class="iconfont iconsuitcase-2-fill"></text></view>
+          <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
+          <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
           <view class="main">
-            <view class="mark"><text>2020-03-24</text></view>
-            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
-          </view>
-          <view class="right"><text class="iconfont iconshare"></text></view>
-        </navigator>
-      </view>
-      <view class="orderItem orderItemQD">
-        <navigator url="/pages/my/deliveryDetail/deliveryDetail" class="orderinfo">
-          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
-          <view class="main">
-            <view class="mark"><text>2020-03-24</text></view>
-            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
+            <view class="mark"><text>{{item.travel.dt_departure}}</text></view>
+            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
           </view>
           <view class="right"><text class="iconfont iconshare"></text></view>
         </navigator>
@@ -76,12 +76,12 @@
     </view>
 
     <view class="orders-my" wx:if="{{tabname === 'travel'}}">
-      <view class="orderItem orderItemCX">
+      <view class="orderItem orderItemCX" wx:for="{{travelList}}" wx:key="id">
         <navigator url="/pages/my/travelDetail/travelDetail" class="orderinfo">
           <view class="left"><text class="iconfont iconplane"></text></view>
           <view class="main">
-            <view class="mark"><text>2020-03-24</text></view>
-            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
+            <view class="mark"><text>{{item.dt_departure}}</text></view>
+            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
           </view>
           <view class="right"><text class="iconfont iconshare"></text></view>
         </navigator>
