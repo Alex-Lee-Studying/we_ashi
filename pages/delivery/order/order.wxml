@@ -1,16 +1,16 @@
 <view class="container">
   <view class="proWrap">
     <view class="imgWrap">
-      <image src="/images/shoes.jpg" mode="aspectFill"></image>
+      <image wx:if="{{delivery.cover}}" src="{{delivery.cover}}" mode="aspectFill"></image>
     </view>
-    <view class="pname"><text>2019年经典款板鞋</text></view>
+    <view class="pname"><text>{{delivery.details}}</text></view>
     <view class="info">
-      <text>重量：1kg</text>
+      <text>重量：{{delivery.weight}}kg</text>
     </view>
     <view class="info">
       <text>数量：1</text>
     </view>
-    <view class="priceWrap"><text class="label">物品价格：</text><text class="price">￥240</text></view>
+    <view class="priceWrap"><text class="label">物品价格：</text><text class="price">￥{{delivery.price}}</text></view>
   </view>
 
   <view class="addressWrap">
@@ -30,7 +30,7 @@
   </view>
   <view class="cellWrap">
     <view class="label"><text>帮带报酬</text></view>
-    <view class="value"><text>￥100</text></view>
+    <view class="value"><text>￥{{delivery.reward}}</text></view>
   </view>
 
   <view class="subWrap">

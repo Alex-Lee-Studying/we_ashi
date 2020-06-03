@@ -1,86 +1,138 @@
-// pages/my/address/index.js
+var app = getApp()
+var hasClick = false
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     selectedAddressId: 123,
-    addressList: [
-      {
-        "recipient": "王天霸",
-        "mobile": "18678786787",
-        "details": "北京市 北京市 朝阳区 花园路甲220号花园路甲25号写字楼230室",
-        "default": true,
-        "id": 123
-      },
-      {
-        "recipient": "王天霸",
-        "mobile": "186755523336",
-        "details": "北京市 北京市 朝阳区 花园路甲220号花园路甲25号写字楼230室",
-        "default": false,
-        "id": 124
-      }
-    ]
+    addressList: []
   },
+  
+  onLoad: function() {
+    this.getAddressList()
+  },
+
   use: function(e) {
     var addId = e.currentTarget.dataset.addressid
     this.setData({ selectedAddressId: addId })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  getAddressList: function () {
+    var self = this
 
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/addresses',
+      method: 'GET',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      success: function (res) {
+        if (res.statusCode === 200) {
+          console.log(res.data)// 服务器回包内容
+          self.setData({ addressList: res.data })
+        } else {
+          console.log(res)
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  delAddress: function (e) {
+    if (!e.currentTarget.dataset.id) return
+    var id = e.currentTarget.dataset.id
+    var self = this
 
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/addresses-removal',
+      method: 'PUT',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: [id],
+      success: function (res) {
+        if (res.statusCode === 200) {
+          console.log(res.data)// 服务器回包内容
+          wx.showToast({ title: '删除成功' })
+          self.getAddressList()
+        } else {
+          console.log(res)
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  defaultAddress(e) {
+    if (!e.currentTarget.dataset.id) return
+    var id = e.currentTarget.dataset.id
+    var default_ = !e.currentTarget.dataset.currDefault
+    var params = {
+      default: default_
+    }
+    console.log(params)
 
-  },
+    var self = this
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/addresses/' + id,
+      method: 'PUT',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          console.log(res.data)// 服务器回包内容
+          wx.showToast({ title: '设置成功！' })
+          self.getAddressList()
+        } else {
+          console.log(res)
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
   }
 })

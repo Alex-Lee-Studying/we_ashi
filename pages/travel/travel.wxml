@@ -1,3 +1,4 @@
+<wxs src="../../utils/filter.wxs" module="filter" />
 <view class="container">
   <view wx:if="{{!complete}}">
     <image src="/images/travel-banner.jpg" class="travelBanner" mode="aspectFill"></image>
@@ -10,19 +11,19 @@
       <view class="formWrap">
         <view class="formItem">
           <label>出发日期</label>
-          <picker mode="date" value="{{dt_departure}}" bindchange="bindDateChange">{{dt_departure || "请选择"}}</picker>
+          <picker mode="date" value="{{formdata.dt_departure}}" bindchange="inputInfo" data-obj="formdata" data-item="dt_departure">{{formdata.dt_departure || "请选择"}}</picker>
         </view>
         <view class="formItem">
           <label>可带行李重量</label>
-          <input value="{{weight}}" placeholder="kg"></input>
+          <input type="number" value="{{formdata.weight}}" placeholder="kg" bindinput="inputInfo" data-obj="formdata" data-item="weight"></input>
         </view>
         <view class="formItem">
           <label>价格</label>
-          <input value="{{unit_price}}" placeholder="RMB"></input>
+          <input type="number" value="{{formdata.unit_price}}" placeholder="RMB" bindinput="inputInfo" data-obj="formdata" data-item="unit_price"></input>
         </view>
         <view class="formItem">
           <label>备注</label>
-          <input value="{{remark}}"></input>
+          <input value="{{formdata.details}}" bindinput="inputInfo" data-obj="formdata" data-item="details"></input>
         </view>
       </view>
     </view>
@@ -41,17 +42,17 @@
     <view class="checkWrap">
       <view class="checkItem">
         <label>姓名</label>
-        <text>{{traveler}}</text>
+        <text>{{responseObj.traveler}}</text>
         <text class="iconfont iconsuccess"></text>
       </view>
       <view class="checkItem">
         <label>航班号</label>
-        <text>{{flight_no}}</text>
+        <text>{{responseObj.flight_no}}</text>
         <text class="iconfont iconsuccess"></text>
       </view>
       <view class="checkItem">
         <label>出发时间</label>
-        <text>{{dt_departure}}</text>
+        <text>{{filter.formatTime(responseObj.dt_departure, "date")}}</text>
         <text class="iconfont iconsuccess"></text>
       </view>
     </view>

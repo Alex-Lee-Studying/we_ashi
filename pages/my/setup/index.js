@@ -29,7 +29,7 @@ Page({
               })
             },
             fail: function (res) {
-              console.log('失败')
+              wx.showToast({ title: '失败！', icon: 'none' })
             },
             complete: function (res) {
             }

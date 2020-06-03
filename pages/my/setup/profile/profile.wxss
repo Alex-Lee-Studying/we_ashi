@@ -43,3 +43,10 @@ page {
 .subWrap {
   margin: 60rpx 30rpx;
 }
+
+.genderItem {
+  margin-right: 20rpx;
+}
+.genderItem:last-child {
+  margin-right: 0;
+}

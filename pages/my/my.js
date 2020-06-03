@@ -7,114 +7,14 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isLogin: false,
     tabname: 'delivery',
-    travelList: [
-      {
-        "departure": "BJR@CN",
-        "destination": "BJR@CN",
-        "via": "BJR@CN",
-        "traveler": "mike",
-        "dt_departure": "2020-01-02T15:04:05Z",
-        "flight_no": "CA1234",
-        "details": "wefawef",
-        "weight": 1,
-        "unit_price": 1,
-        "agent": true,
-        "status": "normal",
-        "id": "awefawef",
-        "no": "2342342",
-        "created": "2020-01-02T15:04:05Z",
-        "user": {
-          "first_name": "first_name",
-          "last_name": "last_name",
-          "nick_name": "nick_name",
-          "gender": 0,
-          "language": "en",
-          "avatar": "http://url",
-          "id": "23rlj23r",
-          "mobile": "1238573847",
-          "idc": "310227.....",
-          "email": "awefwe@wef.com",
-          "status": "normal",
-          "token": "3l4ijl4ij34r",
-          "token_expiry": "24h"
-        }
-      }
-    ],
-    deliveryList: [
-      {
-        "travel_id": "id",
-        "item_type": "foo",
-        "price": 1,
-        "freight": 1,
-        "reward": 1,
-        "departure": "BJR@CN",
-        "destination": "BJR@CN",
-        "cover_index": 0,
-        "details": "wefawef",
-        "weight": 1,
-        "status": "normal",
-        "id": "awefawef",
-        "created": "2020-01-02T15:04:05Z",
-        "user": {
-          "first_name": "first_name",
-          "last_name": "last_name",
-          "nick_name": "nick_name",
-          "gender": 0,
-          "language": "en",
-          "avatar": "http://url",
-          "id": "23rlj23r",
-          "mobile": "1238573847",
-          "idc": "310227.....",
-          "email": "awefwe@wef.com",
-          "status": "normal",
-          "token": "3l4ijl4ij34r",
-          "token_expiry": "24h"
-        },
-        "travel": {
-          "departure": "BJR@CN",
-          "destination": "BJR@CN",
-          "via": "BJR@CN",
-          "traveler": "mike",
-          "dt_departure": "2020-01-02T15:04:05Z",
-          "flight_no": "CA1234",
-          "details": "wefawef",
-          "weight": 1,
-          "unit_price": 1,
-          "agent": true,
-          "status": "normal",
-          "id": "awefawef",
-          "no": "2342342",
-          "created": "2020-01-02T15:04:05Z",
-          "user": {
-            "first_name": "first_name",
-            "last_name": "last_name",
-            "nick_name": "nick_name",
-            "gender": 0,
-            "language": "en",
-            "avatar": "http://url",
-            "id": "23rlj23r",
-            "mobile": "1238573847",
-            "idc": "310227.....",
-            "email": "awefwe@wef.com",
-            "status": "normal",
-            "token": "3l4ijl4ij34r",
-            "token_expiry": "24h"
-          }
-        },
-        "resources": [
-          {
-            "name": "http://sefwef.com/waef.png",
-            "mime": "image/png"
-          }
-        ]
-      }
-    ]
+    travelList: [],
+    deliveryList: []
   },
   onShow() {
     if (app.globalData.user && app.globalData.user.id) {
-      this.getTravels()
+      this.getDeliverys()
     }
-    
+
     console.log('app.islogin: ' + app.globalData.isLogin)
     this.setData({ isLogin: app.globalData.isLogin })
     if (app.globalData.userInfo) {
@@ -156,8 +56,14 @@ Page({
   changeTab(e) {
     var tab = e.currentTarget.dataset.tab
     this.setData({ tabname: tab })
+    if (tab === 'delivery') {
+      this.getDeliverys()
+    } else if (tab === 'travel') {
+      this.getTravels()
+    }
   },
   getTravels() {
+    var self = this
     var page = 0
     var pageSize = 20
     var params = {
@@ -175,15 +81,55 @@ Page({
     wx.request({
       url: app.globalData.baseUrl + '/app/v1/travels',
       method: 'GET',
-      header: { 'page': page, 'page-size': pageSize, 'Authorization': wx.getStorageInfoSync('ashibro_Authorization') },
+      header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容
+          self.setData({ travelList: res.data })
+        } else {
+          wx.showToast({ title: res.data.msg, icon: 'none' })
         }
       },
       fail: function (res) {
-        wx.showToast({ title: '系统错误' })
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
+  },
+  getDeliverys() {
+    var self = this
+    var page = 0
+    var pageSize = 20
+    var params = {
+      user_id: app.globalData.user.id,
+      travel_id: '',
+      departure: '',
+      destination: ''
+    }
+
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/deliveries',
+      method: 'GET',
+      header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          console.log(res.data)// 服务器回包内容
+          self.setData({ deliveryList: res.data })
+        } else {
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
       },
       complete: function (res) {
         wx.hideLoading()

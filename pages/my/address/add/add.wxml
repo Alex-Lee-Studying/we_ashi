@@ -6,19 +6,19 @@
   <view class="formWrap">
     <view class="formItem">
       <label>收件人</label>
-      <input type="text" value="{{recipient}}" placeholder="请填写姓名"></input>
+      <input placeholder="请填写姓名" value="{{formdata.recipient}}" bindinput="inputInfo" data-obj="formdata" data-item="recipient"></input>
     </view>
     <view class="formItem">
       <label>手机号</label>
-      <input type="text" value="{{mobile}}" placeholder="请填写手机号"></input>
+      <input type="number" placeholder="请填写手机号" value="{{formdata.mobile}}" bindinput="inputInfo" data-obj="formdata" data-item="mobile"></input>
     </view>
     <view class="formItem">
       <label>详细地址</label>
-      <input type="text" value="{{details}}" placeholder="请填写详细地址"></input>
+      <input placeholder="请填写详细地址" value="{{formdata.details}}" bindinput="inputInfo" data-obj="formdata" data-item="details"></input>
     </view>
     <view class="formItem">
       <label>设为默认地址</label>
-      <view class="switch"><switch checked="{{setDefault}}" bindchange="switchDefault" color="#033150"/></view>      
+      <view class="switch"><switch checked="{{formdata.default}}" bindchange="inputInfo" color="#033150" data-obj="formdata" data-item="default"/></view>      
     </view>
   </view>
 

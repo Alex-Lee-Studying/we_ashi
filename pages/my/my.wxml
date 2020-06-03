@@ -1,3 +1,4 @@
+<wxs src="../../utils/filter.wxs" module="filter" />
 <view class="container">
   <view class="header">
     <image src="/images/myHeaderBg.png" class="absimg" mode="widthFix"></image>
@@ -63,11 +64,11 @@
 
     <view class="orders-my" wx:if="{{tabname === 'delivery'}}">
       <view class="orderItem orderItemQD" wx:for="{{deliveryList}}" wx:key="id">
-        <navigator url="/pages/my/deliveryDetail/deliveryDetail" class="orderinfo">
+        <navigator url="{{'/pages/my/deliveryDetail/deliveryDetail?id=' + item.id}}" class="orderinfo">
           <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
           <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
           <view class="main">
-            <view class="mark"><text>{{item.travel.dt_departure}}</text></view>
+            <view class="mark"><text>{{filter.formatTime(item.created, "date")}}</text></view>
             <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
           </view>
           <view class="right"><text class="iconfont iconshare"></text></view>
@@ -77,10 +78,10 @@
 
     <view class="orders-my" wx:if="{{tabname === 'travel'}}">
       <view class="orderItem orderItemCX" wx:for="{{travelList}}" wx:key="id">
-        <navigator url="/pages/my/travelDetail/travelDetail" class="orderinfo">
+        <navigator url="{{'/pages/my/travelDetail/travelDetail?id=' + item.id}}" class="orderinfo">
           <view class="left"><text class="iconfont iconplane"></text></view>
           <view class="main">
-            <view class="mark"><text>{{item.dt_departure}}</text></view>
+            <view class="mark"><text>{{filter.formatTime(item.dt_departure, "date")}}</text></view>
             <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
           </view>
           <view class="right"><text class="iconfont iconshare"></text></view>

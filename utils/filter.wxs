@@ -1,0 +1,39 @@
+var formatTime = function (date, format) {
+  date = getDate(date)
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  var hour = date.getHours()
+  var minute = date.getMinutes()
+  var second = date.getSeconds()
+
+  if (format === 'date') {
+    return [year, month, day].map(formatNumber).join('-')
+  } else {
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  }
+}
+
+var formatNumber = function (n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+
+var getBirth = function (idCard) {
+  var birthday = ""
+  console.log('是什么：' + idCard)
+  if (idCard != null && idCard != "") {
+    if (idCard.length === 15) {
+      birthday = "19" + idCard.substr(6, 6)
+    } else if (idCard.length === 18) {
+      birthday = idCard.substr(6, 8)
+    }
+    birthday = birthday.substr(0, 4) + '-' + birthday.substr(4, 2) + '-' + birthday.substr(6, 2)
+  }
+  return birthday
+}
+
+module.exports = {
+  formatTime: formatTime,
+  getBirth: getBirth
+}

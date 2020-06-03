@@ -1,66 +1,49 @@
-// pages/my/deliveryDetail/deliveryDetail.js
+var app = getApp()
+var hasClick = false
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    deliveryId: null,
+    delivery: {}
+  },
+  
+  onLoad(option) {
+    console.log(option)
+    if (option.id) {
+      this.setData({ deliveryId: option.id })
+      this.getDelivery()
+    } else {
+      wx.switchTab({
+        url: '/pages/my/my'
+      })
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  getDelivery: function () {
+    var self = this
 
-  },
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/deliveries/' + this.data.deliveryId,
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode === 200) {
+          console.log(res.data)// 服务器回包内容
+          self.setData({ delivery: res.data })
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
   }
 })

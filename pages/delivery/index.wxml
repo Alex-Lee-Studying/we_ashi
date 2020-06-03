@@ -17,31 +17,32 @@
     <view class="formWrap">
       <view class="formItem">
         <label>物品类型</label>
-        <picker mode="selector" bindchange="bindTypeChange" value="{{item_type}}" range="{{typearray}}">
+        <picker mode="selector" range="{{typearray}}" value="{{formdata.item_type}}" bindchange="bindTypeChange" data-obj="formdata" data-item="item_type">
           <view class="picker">
-            {{item_type || '请选择'}}
+            {{formdata.item_type || '请选择'}}
           </view>
         </picker>
       </view>
       <view class="formItem">
         <label>物品价格</label>
-        <input value="{{price}}" placeholder="RMB"></input>
+        <input type="number" value="{{formdata.price}}" placeholder="RMB" bindinput="inputInfo" data-obj="formdata" data-item="price"></input>
       </view>
       <view class="formItem">
         <label>帮带报酬</label>
-        <input value="{{reward}}" placeholder="RMB"></input>
+        <input type="number" value="{{formdata.reward}}" placeholder="RMB" bindinput="inputInfo" data-obj="formdata" data-item="reward"></input>
       </view>
       <view class="formItem">
         <label>重量</label>
-        <input value="{{weight}}" placeholder="kg"></input>
+        <input type="number" value="{{formdata.weight}}" placeholder="kg" bindinput="inputInfo" data-obj="formdata" data-item="weight"></input>
       </view>
       <view class="formItem">
         <label>备注</label>
-        <input value="{{remark}}"></input>
+        <input value="{{formdata.details}}" bindinput="inputInfo" data-obj="formdata" data-item="details"></input>
       </view>
     </view>
   </view>
   <view class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="submit">发布求带</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="submitDelivery">发布求带</button>
+    <navigator url="/pages/delivery/order/order">下一页</navigator>
   </view>
 </view>

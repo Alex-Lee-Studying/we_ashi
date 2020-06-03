@@ -8,6 +8,9 @@ page {
   padding: 40rpx 0;
   margin-top: 30rpx;
 }
+.orderDetailCX .orderinfo {
+  padding: 0;
+}
 .orderDetailCX .orderinfo .main .country {
   color: #033150;
 }

@@ -1,70 +1,118 @@
-// pages/my/setup/profile/profile.js
+var app = getApp()
+var hasClick = false
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    nick_name: '王天霸',
-    gender: 1,
-    email: '189451265@qq.com',
-    birthday: '1992-06-21',
-    intro: '一人一世界'
+    userId: null,
+    user: {},
+    genderarray: [
+      { value: 0, name: '未知' }, { value: 1, name: '男' }, { value: 2, name: '女' }
+    ]
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  onLoad() {
+    console.log(app.globalData.user)
+    if (app.globalData.user.id) {
+      this.setData({ userId: app.globalData.user.id, user: app.globalData.user })
 
+      // this.getUser()
+    } else {
+      wx.switchTab({
+        url: '/pages/my/my'
+      })
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  bindGenderChange(e) {
+    let dataset = e.currentTarget.dataset;
+    let idx = e.detail.value;
+    this.data[dataset.obj][dataset.item] = this.data.genderarray[idx].value;
+    this.setData({
+      user: this.data[dataset.obj]
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  //input表单数据绑定
+  inputInfo: function (e) {
+    let dataset = e.currentTarget.dataset;
+    let value = e.detail.value;
+    this.data[dataset.obj][dataset.item] = value;
+    this.setData({
+      user: this.data[dataset.obj]
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+  getUser: function () {
+    var self = this
 
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/user/v1/users/' + this.data.userId,
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode === 200) {
+          console.log(res.data)// 服务器回包内容
+          self.setData({ user: res.data })
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
+  updateUser: function () {
+    var self = this
 
-  },
+    var params = {
+      first_name: this.data.user.first_name,
+      last_name: this.data.user.last_name,
+      nick_name: this.data.user.nick_name,
+      gender: this.data.user.gender,
+      language: this.data.user.language,
+    }
+    console.log(params)
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
 
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    wx.request({
+      url: app.globalData.baseUrl + '/user/v1/users/' + this.data.userId,
+      method: 'PUT',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          console.log(res.data)// 服务器回包内容
+          wx.showToast({ title: '编辑成功！' })
+        } else {
+          console.log(res)
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
   }
 })

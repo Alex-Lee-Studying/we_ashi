@@ -1,34 +1,39 @@
+<wxs module="filter" src="../../../../utils/filter.wxs" />
 <view class="container">
   <view class="avatarWrap">
     <text class="title">头像</text>
-    <image src="/images/uimg.jpg" class="avatar" mode="aspectFill"></image>
+    <image src="{{user.avatar}}" class="avatar" mode="aspectFill"></image>
     <text class="iconfont iconjiantou"></text>
   </view>
 
   <view class="formWrap">
     <view class="formItem">
       <label>昵称</label>
-      <input type="text" value="{{nick_name}}"></input>
+      <input value="{{user.nick_name}}" bindinput="inputInfo" data-obj="user" data-item="nick_name"></input>
     </view>
     <view class="formItem">
       <label>性别</label>
-      <input type="text" value="{{gender=== 0?'未知': gender===1?'男':'女'}}"></input>
+      <picker mode="selector" range="{{genderarray}}" range-key="name" value="{{user.gender}}" bindchange="bindGenderChange" data-obj="user" data-item="gender">
+        <view class="picker">
+          {{user.gender=== 0?'未知': user.gender===1?'男':'女'}}
+        </view>
+      </picker>
     </view>
     <view class="formItem">
       <label>邮箱</label>
-      <input type="text" value="{{email}}"></input>
+      <input value="{{user.email}}" bindinput="inputInfo" data-obj="user" data-item="email"></input>
     </view>
     <view class="formItem">
       <label>生日</label>
-      <input type="text" value="{{birthday}}"></input>
+      <input value=""></input>
     </view>
     <view class="formItem">
       <label>简介</label>
-      <input type="text" value="{{intro}}"></input>
+      <input value=""></input>
     </view>
   </view>
 
   <view class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover">保存</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="updateUser">保存</button>
   </view>
 </view>

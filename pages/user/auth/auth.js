@@ -67,11 +67,11 @@ Page({
                 })
               } else {
                 app.globalData.isLogin = false
-                wx.showToast({ title: '登录失败！' })
+                wx.showToast({ title: '登录失败！', icon: 'none' })
               }
             },
             fail: function (res) {
-              wx.showToast({ title: '系统错误' })
+              wx.showToast({ title: '系统错误', icon: 'none' })
             },
             complete: function (res) {
               wx.hideLoading()
