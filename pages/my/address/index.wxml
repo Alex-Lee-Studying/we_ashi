@@ -14,7 +14,7 @@
           </view>
           <view class="right">
             <text class="iconfont iconcheckmark" wx:if="{{selectedAddressId === item.id}}"></text>
-            <view class="useBtn" wx:else data-addressid="{{item.id}}" bindtap="use">使用</view>
+            <view class="useBtn" wx:else data-address="{{item}}" bindtap="use">使用</view>
           </view>
         </view>
         <view class="itemMain">

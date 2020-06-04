@@ -97,7 +97,13 @@ Page({
           console.log(res.data)// 服务器回包内容
           self.setData({ travelList: res.data })
         } else {
-          wx.showToast({ title: res.data.msg, icon: 'none' })
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
         }
       },
       fail: function (res) {
@@ -134,7 +140,13 @@ Page({
           console.log(res.data)// 服务器回包内容
           self.setData({ deliveryList: res.data })
         } else {
-          wx.showToast({ title: res.data.msg, icon: 'none' })
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
         }
       },
       fail: function (res) {

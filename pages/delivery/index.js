@@ -67,6 +67,10 @@ Page({
       wx.showToast({ title: '请填写物品重量', icon: 'none' })
       return
     }
+    if (this.data.formdata.details === '' || this.data.formdata.details === null) {
+      wx.showToast({ title: '请填写备注', icon: 'none' })
+      return
+    }
     var params = {
       departure: this.data.formdata.departure,
       destination: this.data.formdata.destination,

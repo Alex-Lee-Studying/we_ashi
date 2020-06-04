@@ -13,11 +13,32 @@
     <view class="priceWrap"><text class="label">物品价格：</text><text class="price">￥{{delivery.price}}</text></view>
   </view>
 
-  <view class="addressWrap">
+  <view class="myAddress" wx:if="{{!address}}">
     <navigator url="/pages/my/address/index">我的地址</navigator>
   </view>
+  <view class="addressWrap" wx:else>
+    <view class="title"><text>收货地址</text></view>
+    <view class="info">
+      <view class="infoItem">
+        <text class="label">联系人：</text>
+        <text class="value">{{address.recipient}} </text>
+      </view>
+      <view class="infoItem">
+        <text class="label">电话：</text>
+        <text class="value">{{address.mobile}} </text>
+      </view>
+      <view class="infoItem">
+        <text class="label">邮编：</text>
+        <text class="value"> </text>
+      </view>
+      <view class="infoItem">
+        <text class="label">地址：</text>
+        <text class="value">{{address.details}}</text>
+      </view>
+    </view>
+  </view>
 
-  <view class="cellWrap">
+  <!-- <view class="cellWrap">
     <view class="label"><text>是否带买</text></view>
     <view class="value">
       <radio-group bindchange="radioChange">
@@ -27,7 +48,7 @@
         </label>
       </radio-group>
     </view>
-  </view>
+  </view> -->
   <view class="cellWrap">
     <view class="label"><text>帮带报酬</text></view>
     <view class="value"><text>￥{{delivery.reward}}</text></view>

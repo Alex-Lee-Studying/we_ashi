@@ -67,7 +67,7 @@ Page({
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容
           self.setData({ responseObj: res.data })
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/my/address/index',
           })
         } else {

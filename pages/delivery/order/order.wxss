@@ -38,7 +38,7 @@ page {
   font-weight: bold;
 }
 
-.addressWrap {
+.myAddress {
   margin: 30rpx 0;
   height: 90rpx;
   line-height: 90rpx;
@@ -64,6 +64,32 @@ page {
   box-shadow: 0 0 87rpx 0 rgba(51,51,51,.1);
   font-size: 28rpx;
   color: #333;
+}
+
+.addressWrap {
+  margin: 30rpx 0;
+  padding: 30rpx 60rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  box-shadow: 0 0 87rpx 0 rgba(51,51,51,.1);
+}
+.addressWrap .title {
+  font-size: 32rpx;
+  color: #033150;
+  font-weight: bold;
+}
+.addressWrap .info {
+  margin-top: 20rpx;
+}
+.addressWrap .info .infoItem {
+  font-size: 20rpx;
+  margin-top: 10rpx;
+}
+.addressWrap .info .label {
+  color: #333;
+}
+.addressWrap .info .value {
+  color: #989898;
 }
 
 .subWrap {

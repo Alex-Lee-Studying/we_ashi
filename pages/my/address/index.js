@@ -2,7 +2,7 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
-    selectedAddressId: 123,
+    selectedAddressId: '',
     addressList: []
   },
   
@@ -11,8 +11,18 @@ Page({
   },
 
   use: function(e) {
-    var addId = e.currentTarget.dataset.addressid
-    this.setData({ selectedAddressId: addId })
+    var address = e.currentTarget.dataset.address
+    this.setData({ selectedAddressId: address.id })
+
+    var pages = getCurrentPages()
+    var prevPage = pages[pages.length - 2]   //上一页
+    prevPage.setData({
+      address: address
+    })
+
+    wx.navigateBack({
+      delta: 1
+    })
   },
 
   getAddressList: function () {

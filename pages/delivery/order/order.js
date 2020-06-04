@@ -2,14 +2,19 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
+    address: null,
     deliveryId: null,
     delivery: {},
     take: 1
   },
+
   onLoad(option) {
     console.log(option)
-    // this.setData({ deliveryId: 'brbkbunbd4mh9oo39500' })
+
+    // this.setData({ deliveryId: 'brc68qnbd4mh9oo3956g' })
     // this.getDelivery()
+    // return
+
     if (option.id) {
       this.setData({ deliveryId: option.id })
       this.getDelivery()
@@ -17,6 +22,17 @@ Page({
       wx.redirectTo({
         url: '/pages/delivery/index'
       })
+    }
+  },
+
+  onShow: function () {
+    var that = this
+    let pages = getCurrentPages()
+    let currPage = pages[pages.length - 1] //当前页
+    if (currPage.data.address) {
+      //调取接口操作
+      console.log('有地址')
+      console.log(currPage.data.address)
     }
   },
 
@@ -54,8 +70,8 @@ Page({
   },
 
   toOrder() {
-    wx.navigateTo({
-      url: '/pages/delivery/confirm/confirm',
+    wx.redirectTo({
+      url: '/pages/delivery/confirm/confirm?id=' + this.data.deliveryId,
     })
   }
 })

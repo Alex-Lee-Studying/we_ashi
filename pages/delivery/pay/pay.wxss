@@ -19,6 +19,13 @@
   height: 130rpx;
   border-radius: 20rpx;
 }
+.proWrap .left .iconfont {
+  font-size: 70rpx;
+  background-image: -webkit-gradient(linear, left 0, right 0, from(#033150), to(#1281cb));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 5rpx 6rpx rgba(3,49,80,.53);
+}
 .proWrap .right {
   flex: 1;
   display: flex;
