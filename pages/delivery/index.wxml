@@ -43,6 +43,5 @@
   </view>
   <view class="subWrap">
     <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="submitDelivery">发布求带</button>
-    <navigator url="/pages/delivery/order/order">下一页</navigator>
   </view>
 </view>

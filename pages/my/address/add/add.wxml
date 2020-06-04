@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="locationWrap">
+  <view class="locationWrap" wx:if="{{!formdata.id}}">
     <text><text class="iconfont iconlocation"></text>定位到当前位置</text>
   </view>
 

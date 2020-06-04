@@ -6,8 +6,8 @@ App({
   globalData: {
     baseUrl: 'https://api.ashibro.com',
     isLogin: false,
-    userInfo: null,
-    user: null
+    userInfo: null, // 微信用户信息
+    user: null // 登录之后服务器返回的用户信息
   },  
   onLaunch: function () {
     var self = this

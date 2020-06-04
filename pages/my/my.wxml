@@ -4,22 +4,22 @@
     <image src="/images/myHeaderBg.png" class="absimg" mode="widthFix"></image>
     <view class="infoWrap">
       <view>
-        <image src="{{userInfo.avatarUrl}}" class="uimg" mode="aspectFill" wx:if="{{isLogin && hasUserInfo}}"></image>
+        <image src="{{user.avatar}}" class="uimg" mode="aspectFill" wx:if="{{isLogin && user}}"></image>
         <text class="iconfont iconuser" wx:else></text>
       </view>
 
-      <view style="flex: 1;" wx:if="{{isLogin && hasUserInfo}}">
+      <view style="flex: 1;" wx:if="{{isLogin && user && hasUserInfo}}">
         <text class="uname">{{userInfo.nickName}}</text>
         <text class="location"><text class="iconfont iconlocation"></text>{{userInfo.country}} {{userInfo.province}} {{userInfo.city}}</text>
       </view>
-      <view style="flex: 1;" wx:elif="{{isLogin && !hasUserInfo}}">
+      <view style="flex: 1;" wx:elif="{{isLogin && user && !hasUserInfo}}">
         <button class="getuBtn" open-type="getUserInfo" bindgetuserinfo="getuserinfo">登录/注册</button>
       </view>
-      <view style="flex: 1;" wx:elif="{{!isLogin}}">
+      <view style="flex: 1;" wx:elif="{{!isLogin || !user}}">
         <navigator class="tologin" url="/pages/user/auth/auth">登录/注册</navigator>
       </view>
 
-      <view wx:if="{{isLogin && hasUserInfo}}">
+      <view wx:if="{{isLogin && user}}">
         <navigator url="/pages/my/setup/index" class="iconfont iconshezhi"></navigator>
       </view>
     </view>

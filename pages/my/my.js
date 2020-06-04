@@ -2,10 +2,11 @@ var hasClick = false
 var app = getApp()
 Page({
   data: {
-    userInfo: {},
+    userInfo: null,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isLogin: false,
+    user: null,
     tabname: 'delivery',
     travelList: [],
     deliveryList: []
@@ -13,6 +14,7 @@ Page({
   onShow() {
     if (app.globalData.user && app.globalData.user.id) {
       this.getDeliverys()
+      this.setData({ user: app.globalData.user })
     }
 
     console.log('app.islogin: ' + app.globalData.isLogin)

@@ -1,14 +1,19 @@
-// pages/order/index.js
+var app = getApp()
+var hasClick = false
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     item_type: '',
     price: '',
     weight: '',
     typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他']
+  },
+
+  onShow: function () {
+    if (!app.globalData.isLogin || !app.globalData.user || !app.globalData.user.id) {
+      wx.redirectTo({
+        url: '/pages/user/auth/auth',
+      })
+    }
   },
 
   submit() {

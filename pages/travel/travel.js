@@ -16,6 +16,13 @@ Page({
   },
   onLoad: function () {
   },
+  onShow: function () {
+    if (!app.globalData.isLogin || !app.globalData.user || !app.globalData.user.id) {
+      wx.redirectTo({
+        url: '/pages/user/auth/auth',
+      })
+    }
+  },
   onHide: function () {
     this.setData({
       complete: false
