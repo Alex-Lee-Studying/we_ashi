@@ -1,28 +1,29 @@
+<wxs src="../../../utils/filter.wxs" module="filter" />
 <view class="container">
   <view class="uwrap">
-    <view><image src="/images/uimg.jpg" class="uimg"></image></view>
+    <view><image src="{{travel.user.avatar}}" class="uimg"></image></view>
     <view class="utext">
-      <text>王天霸</text>
-      <text>2020-03-20·俄罗斯</text>
+      <text>{{travel.user.nick_name}}</text>
+      <text>{{filter.formatTime(travel.created, "date")}}·俄罗斯</text>
     </view>
     <view class="share"><text class="iconfont iconshare"></text></view>
   </view>
   <view class="flightWrap">
     <view class="msgItem" style="margin-right: 30rpx;">
       <image src="/images/plane.png" class="plane" mode="widthFix"></image>
-      <text class="flightno">G54356</text>
+      <text class="flightno">{{travel.flight_no}}</text>
     </view>
     <view class="msgItem flightInfo">
       <view>
-        <text class="time">出发日期：2020-05-18</text>
+        <text class="time">出发日期：{{filter.formatTime(travel.dt_departure, "date")}}</text>
       </view>
       <view style="margin-top: 20rpx;">
-        <text class="country">韩国</text><text class="iconfont icon-_danjiantou"></text><text class="country">中国上海</text>
+        <text class="country">{{travel.departure}}</text><text class="iconfont icon-_danjiantou"></text><text class="country">{{travel.destination}}</text>
       </view>
     </view>
   </view>
   <view class="remarkWrap">
-    <text>备注：可代买接受液体物品</text>
+    <text>备注：{{travel.details}}</text>
   </view>
   <view class="subWrap">
     <button type="primary" class="btnPrimary" hover-class="btnHover">立即联系</button>

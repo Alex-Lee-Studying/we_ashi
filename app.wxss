@@ -118,8 +118,8 @@
   align-items: center;
 }
 .orderItem .orderinfo .left {
-  width: 146rpx;
-  text-align: right;
+  width: 170rpx;
+  text-align: center;
 }
 .orderItem .orderinfo .left image {
   width: 112rpx;
@@ -127,7 +127,6 @@
 }
 .orderItem .orderinfo .main {
   flex: 1;
-  margin-left:35rpx;
 }
 .orderItem .orderinfo .main .country {
   font-size: 28rpx;

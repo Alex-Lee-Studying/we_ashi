@@ -1,3 +1,4 @@
+<wxs src="../../../utils/filter.wxs" module="filter" />
 <view class="container">
   <view class="orderItem orderDetailCX">
     <navigator url="/pages/my/travelDetail/travelDetail" class="orderinfo">
@@ -12,44 +13,44 @@
   </view>
 
   <view class="subWrap">
-    <navigator url="/pages/index/cardDelivery/cardDelivery" type="primary" class="btnPrimary" hover-class="btnHover">向我申请</navigator>
-    <button type="primary" plain class="btnPrimary" hover-class="btnHover">已接受</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" wx:if="{{tabname === 'askfor'}}">向我申请</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" plain wx:else data-tab="askfor" bindtap="changeTab">向我申请</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" wx:if="{{tabname === 'accepted'}}">已接受</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" plain wx:else data-tab="accepted" bindtap="changeTab">已接受</button>
   </view>
 
   <view class="listQD">
     <view class="title"><text>求带列表</text></view>
-    <view class="listWrap">
 
-      <view class="orderItem orderItemQD">
-        <navigator url="" class="orderinfo">
-          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
+    <view class="listWrap" wx:if="{{tabname === 'askfor' && askforList.length}}">
+      <view class="orderItem orderItemQD" wx:for="{{askforList}}" wx:key="id">
+        <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id' + item.id}}" class="orderinfo">
+          <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
+          <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
           <view class="main">
-            <view class="mark"><text>2020-03-24</text></view>
-            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
-          </view>
-          <view class="right"><text class="iconfont iconshare"></text></view>
-        </navigator>
-      </view>
-      <view class="orderItem orderItemQD">
-        <navigator url="" class="orderinfo">
-          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
-          <view class="main">
-            <view class="mark"><text>2020-03-24</text></view>
-            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
-          </view>
-          <view class="right"><text class="iconfont iconshare"></text></view>
-        </navigator>
-      </view>
-      <view class="orderItem orderItemQD">
-        <navigator url="" class="orderinfo">
-          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
-          <view class="main">
-            <view class="mark"><text>2020-03-24</text></view>
-            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
+            <view class="mark"><text>{{filter.formatTime(item.created, "date")}}</text></view>
+            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
           </view>
           <view class="right"><text class="iconfont iconshare"></text></view>
         </navigator>
       </view>
     </view>
+    <view wx:elif="{{tabname === 'askfor' && !askforList.length }}" style="text-align: center;">空空如也</view>
+
+    <view class="listWrap" wx:if="{{tabname === 'accepted' && acceptedList.length}}">
+      <view class="orderItem orderItemQD" wx:for="{{acceptedList}}" wx:key="id">
+        <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id' + item.id}}" class="orderinfo">
+          <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
+          <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
+          <view class="main">
+            <view class="mark"><text>{{filter.formatTime(item.created, "date")}}</text></view>
+            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
+          </view>
+          <view class="right"><text class="iconfont iconshare"></text></view>
+        </navigator>
+      </view>
+    </view>
+    <view wx:elif="{{tabname === 'accepted' && !acceptedList.length }}" style="text-align: center;">空空如也</view>
+
   </view>
 </view>

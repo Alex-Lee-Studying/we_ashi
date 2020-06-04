@@ -1,6 +1,7 @@
 /**index.wxss**/
 page {
   background-color: #f2f2f2;
+  padding-bottom: 50px;
 }
 .bannerWrap image {
   display: block;
@@ -35,11 +36,21 @@ page {
   color: #656565;
 }
 .tabs-index {
+  display: flex;
+  justify-content: space-between;
   padding: 17rpx 30rpx;
   height: 70rpx;
   line-height: 70rpx;
   font-size: 24rpx;
   color: #989898;
+}
+.tabs-index.fixed {
+  position: fixed;
+  width: calc(100% - 60rpx);
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  border-bottom: 1rpx solid #f2f2f2
 }
 .tabs-index .tab {
   margin-left: 30rpx;
@@ -49,10 +60,8 @@ page {
   font-size: 28rpx;
 }
 .tabs-index .search {
-  float: right;
 }
 .tabs-index .iconfilter {
-  float: right;
   font-size: 26rpx;
   color: #989898;
   margin: 0 30rpx 0 10rpx;
@@ -62,18 +71,16 @@ page {
   padding-bottom: 30rpx;
 }
 .orderItem .uinfo {
-  position: relative;
-  padding-left: 50rpx;
   margin: 0 0 20rpx 35rpx;  
   line-height: 38rpx;
+  display: flex;
+  align-items: center;
 }
 .orderItem .uinfo .uimg {
-  position: absolute;
-  left: 0;
-  top: 20rpx;
   width: 38rpx;
   height: 38rpx;
   border-radius: 38rpx;
+  margin-right: 20rpx;
 }
 .orderItem .uinfo .uname {
   font-size: 24rpx;

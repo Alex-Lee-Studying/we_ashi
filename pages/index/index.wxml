@@ -1,4 +1,4 @@
-<!--index.wxml-->
+<wxs src="../../utils/filter.wxs" module="filter" />
 <view class="container">
   <view class="bannerWrap">
     <image src="/images/banner.jpg"></image>
@@ -18,60 +18,52 @@
     </navigator>
   </view>
   <view>
-    <view class="tabs-index">
-      <text class="tab checked" wx:if="{{tabname === 'qiudai'}}">需求带</text>
-      <text class="tab" data-tab="qiudai" bindtap="changeTab" wx:else>需求带</text>
-      <text class="tab checked" wx:if="{{tabname === 'bangdai'}}">可帮带</text>
-      <text class="tab" data-tab="bangdai" bindtap="changeTab" wx:else>可帮带</text>
-      <text class="iconfont iconfilter"></text>
-      <text class="search">筛选</text>
-    </view>
-
-    <view class="orders-index" wx:if="{{tabname === 'qiudai'}}">
-      <view class="orderItem orderItemXQD">
-        <view class="uinfo">
-          <image src="/images/uimg.jpg" class="uimg"></image>
-          <text class="uname">王天霸</text>
-        </view>
-        <navigator url="/pages/index/cardDelivery/cardDelivery" class="orderinfo">
-          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
-          <view class="main">
-            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
-            <view class="mark"><text>备注：要2019经典款</text></view>
-            <view class="fee"><text class="iconfont iconw_jinbi"></text><text>100￥</text></view>
-          </view>
-          <view class="right"><text class="iconfont iconxiaoxi"></text></view>
-        </navigator>
+    <view class="tabs-index {{isFixedTop?'fixed':''}}" id="tabsIndex">
+      <view>
+        <text class="tab checked" wx:if="{{tabname === 'delivery'}}">需求带</text>
+        <text class="tab" data-tab="delivery" bindtap="changeTab" wx:else>需求带</text>
+        <text class="tab checked" wx:if="{{tabname === 'travel'}}">可帮带</text>
+        <text class="tab" data-tab="travel" bindtap="changeTab" wx:else>可帮带</text>
       </view>
-      <view class="orderItem orderItemXQD">
-        <view class="uinfo">
-          <image src="/images/uimg.jpg" class="uimg"></image>
-          <text class="uname">王天霸</text>
-        </view>
-        <navigator url="/pages/index/cardDelivery/cardDelivery" class="orderinfo">
-          <view class="left"><image src="/images/product.jpg" mode="aspectFill"></image></view>
-          <view class="main">
-            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
-            <view class="mark"><text>备注：要2019经典款</text></view>
-            <view class="fee"><text class="iconfont iconw_jinbi"></text><text>100￥</text></view>
-          </view>
-          <view class="right"><text class="iconfont iconxiaoxi"></text></view>
-        </navigator>
+      <view>
+        <text class="search">筛选</text>
+        <text class="iconfont iconfilter"></text>
       </view>
     </view>
 
-    <view class="orders-index" wx:if="{{tabname === 'bangdai'}}">
-      <view class="orderItem orderItemKBD">
-        <navigator url="/pages/index/cardTravel/cardTravel" class="orderinfo">
-          <view class="left"><image src="/images/uimg.jpg"></image><text>王天霸</text></view>
+    <view class="orders-index" wx:if="{{tabname === 'delivery' && deliveryList.length }}">
+      <view class="orderItem orderItemXQD" wx:for="{{deliveryList}}" wx:key="id">
+        <view class="uinfo">
+          <image src="{{item.user.avatar}}" class="uimg"></image>
+          <text class="uname">{{item.user.nick_name}}</text>
+        </view>
+        <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id=' + item.id}}" class="orderinfo">
+          <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
+          <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
           <view class="main">
-            <view class="country"><text>俄罗斯 <text class="iconfont icon-_danjiantou"></text> 中国上海</text></view>
-            <view class="mark"><text>日期：2020-03-09</text></view>
+            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
+            <view class="mark"><text>备注：{{item.details}}</text></view>
+            <view class="fee"><text class="iconfont iconw_jinbi"></text><text>{{item.price}}￥</text></view>
           </view>
           <view class="right"><text class="iconfont iconxiaoxi"></text></view>
         </navigator>
       </view>
     </view>
+    <view wx:elif="{{tabname === 'delivery' && !deliveryList.length }}" style="text-align: center;">空空如也</view>
+
+    <view class="orders-index" wx:if="{{tabname === 'travel' && travelList.length }}">
+      <view class="orderItem orderItemKBD" wx:for="{{travelList}}" wx:key="id">
+        <navigator url="{{'/pages/index/cardTravel/cardTravel?id=' + item.id}}" class="orderinfo">
+          <view class="left"><image src="{{item.user.avatar}}"></image><text>{{item.user.nick_name}}</text></view>
+          <view class="main">
+            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
+            <view class="mark"><text>日期：{{filter.formatTime(item.created, "date")}}</text></view>
+          </view>
+          <view class="right"><text class="iconfont iconxiaoxi"></text></view>
+        </navigator>
+      </view>
+    </view>
+    <view wx:elif="{{tabname === 'travel' && !travelList.length }}" style="text-align: center;">空空如也</view>
 
   </view>
 </view>

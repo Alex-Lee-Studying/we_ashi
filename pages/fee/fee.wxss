@@ -1,5 +1,6 @@
 .bannerWrap {
   margin: 0 30rpx;
+  padding-bottom: 50px;
 }
 .bannerWrap image {
   width: 690rpx;

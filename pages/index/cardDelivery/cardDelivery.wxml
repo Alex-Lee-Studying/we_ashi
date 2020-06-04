@@ -1,32 +1,33 @@
+<wxs src="../../../utils/filter.wxs" module="filter" />
 <view class="container">
   <view class="uwrap">
-    <view><image src="/images/uimg.jpg" class="uimg"></image></view>
+    <view><image src="{{delivery.user.avatar}}" class="uimg"></image></view>
     <view class="utext">
-      <text>王天霸</text>
-      <text>2020-03-20·俄罗斯</text>
+      <text>{{delivery.user.nick_name}}</text>
+      <text>{{filter.formatTime(delivery.created, "date")}}·俄罗斯</text>
     </view>
     <view class="share"><text class="iconfont iconshare"></text></view>
   </view>
   <view class="proImgWrap">
-    <image src="/images/shoes.jpg" class="proImg" mode="aspectFit"></image>
+    <image wx:if="{{delivery.resources.length}}" src="{{delivery.resources[0].name}}" class="proImg" mode="aspectFit"></image>
   </view>
   <view class="orderWrap">
     <view class="orderTitle">
-      <text class="country">韩国 <text class="iconfont icon-_danjiantou"></text> 中国上海</text>
-      <text class="fee">￥ 240</text>
+      <text class="country">{{delivery.departure}} <text class="iconfont icon-_danjiantou"></text> {{delivery.destination}}</text>
+      <text class="fee">￥ {{delivery.price}}</text>
     </view>
     <view class="orderMain">
       <view class="msgLine">
         <label>帮带报酬</label>
-        <text>￥100</text>
+        <text>￥{{delivery.reward}}</text>
       </view>
       <view class="msgLine">
         <label>重量</label>
-        <text>1KG</text>
+        <text>{{delivery.weight}}KG</text>
       </view>
       <view class="msgLine">
         <label>备注</label>
-        <text>需要2019经典款</text>
+        <text>{{delivery.details}}</text>
       </view>
     </view>
   </view>
