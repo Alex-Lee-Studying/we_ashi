@@ -12,6 +12,13 @@ Page({
     deliveryList: []
   },
   onShow() {
+    // 设置tabbar选中
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 4
+      })
+    }
+
     if (app.globalData.user && app.globalData.user.id) {
       this.getDeliverys()
       this.setData({ user: app.globalData.user })

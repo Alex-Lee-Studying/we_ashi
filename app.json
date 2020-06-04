@@ -39,6 +39,7 @@
     "pages/logs/logs"
   ],
   "tabBar": {
+    "custom": true,
     "color": "#333333",
     "selectedColor": "#033150",
     "borderStyle": "white",
