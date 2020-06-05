@@ -69,9 +69,47 @@ Page({
     })
   },
 
-  toOrder() {
-    wx.redirectTo({
-      url: '/pages/delivery/confirm/confirm?id=' + this.data.deliveryId,
+  setAddress: function () {
+    var self = this
+
+    if (!this.address.id) return
+    var params = {
+      address_id: this.address.id
+    }
+
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/deliveries/' + this.data.deliveryId,
+      method: 'PUT',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode === 200) {
+          console.log(res.data)// 服务器回包内容
+          wx.redirectTo({
+            url: '/pages/delivery/confirm/confirm?id=' + self.data.deliveryId,
+          })
+        } else {
+          console.log(res)
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
     })
   }
 })

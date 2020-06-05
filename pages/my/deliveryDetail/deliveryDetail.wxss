@@ -40,6 +40,11 @@ page {
   background-color: #033150;
   border-radius: 27rpx;
 }
+.orderDetailQD .orderinfo .right .btnPrimary[plain] {
+  background-color: transparent;
+  color: #033150;
+  border: 1rpx solid #033150;
+}
 
 .listStatus .title {
   margin-bottom: 30rpx;

@@ -76,11 +76,7 @@ Page({
     var page = 0
     var pageSize = 20
     var params = {
-      user_id: app.globalData.user.id,
-      departure: '',
-      destination: '',
-      start_time: '',
-      end_time: ''
+      user_id: app.globalData.user.id
     }
 
     if (hasClick) return
@@ -120,10 +116,7 @@ Page({
     var page = 0
     var pageSize = 20
     var params = {
-      user_id: app.globalData.user.id,
-      travel_id: '',
-      departure: '',
-      destination: ''
+      user_id: app.globalData.user.id
     }
 
     if (hasClick) return

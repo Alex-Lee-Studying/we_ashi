@@ -72,6 +72,7 @@ Page({
       return
     }
     var params = {
+      type: 'normal',
       departure: this.data.formdata.departure,
       destination: this.data.formdata.destination,
       item_type: this.data.formdata.item_type,

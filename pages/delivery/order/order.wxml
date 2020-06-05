@@ -29,7 +29,7 @@
       </view>
       <view class="infoItem">
         <text class="label">邮编：</text>
-        <text class="value"> </text>
+        <text class="value">{{address.zipcode}} </text>
       </view>
       <view class="infoItem">
         <text class="label">地址：</text>
@@ -55,7 +55,7 @@
   </view>
 
   <view class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toOrder">下单</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="setAddress">下单</button>
   </view>
 
 </view>

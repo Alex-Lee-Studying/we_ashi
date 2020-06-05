@@ -3,15 +3,15 @@
   <view class="addressWrap">
     <view class="item">
       <text class="iconfont iconuser"></text>
-      <text>王天霸</text>
+      <text>{{delivery.address.recipient}}</text>
     </view>
     <view class="item">
       <text class="iconfont iconlocation"></text>
-      <text>北京市昌平区新苑小区</text>
+      <text>{{delivery.address.details}}</text>
     </view>
     <view class="item">
       <text class="iconfont icondianhua"></text>
-      <text>联系电话：12345678910</text>
+      <text>联系电话：{{delivery.address.mobile}}</text>
     </view>
   </view>
 
@@ -28,7 +28,7 @@
   <view class="totalWrap">
     <view class="item">
       <text class="label">运费</text>
-      <text class="value">￥</text>
+      <text class="value">￥{{delivery.freight}}</text>
     </view>
     <view class="item">
       <text class="label">商品金额</text>
@@ -36,7 +36,7 @@
     </view>
     <view class="item">
       <text class="label">实付金额</text>
-      <text class="value">￥</text>
+      <text class="value">￥{{delivery.freight + delivery.price}}</text>
     </view>
   </view>
 

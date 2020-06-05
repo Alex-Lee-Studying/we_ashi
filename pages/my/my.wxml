@@ -9,8 +9,8 @@
       </view>
 
       <view style="flex: 1;" wx:if="{{isLogin && user && hasUserInfo}}">
-        <text class="uname">{{userInfo.nickName}}</text>
-        <text class="location"><text class="iconfont iconlocation"></text>{{userInfo.country}} {{userInfo.province}} {{userInfo.city}}</text>
+        <text class="uname">{{user.nick_name}}</text>
+        <text class="location"><text class="iconfont iconlocation"></text>{{user.location}}</text>
       </view>
       <view style="flex: 1;" wx:elif="{{isLogin && user && !hasUserInfo}}">
         <button class="getuBtn" open-type="getUserInfo" bindgetuserinfo="getuserinfo">登录/注册</button>

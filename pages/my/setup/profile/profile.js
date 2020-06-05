@@ -1,3 +1,4 @@
+var tools = require('../../../../utils/util.js')
 var app = getApp()
 var hasClick = false
 Page({
@@ -55,6 +56,7 @@ Page({
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容
           self.setData({ user: res.data })
+          app.globalData.user = res.data
         } else {
           console.log(res)
           wx.showToast({ title: res.data.msg, icon: 'none' })
@@ -74,11 +76,12 @@ Page({
     var self = this
 
     var params = {
-      first_name: this.data.user.first_name,
-      last_name: this.data.user.last_name,
+      avatar: this.data.user.avatar,
       nick_name: this.data.user.nick_name,
       gender: this.data.user.gender,
-      language: this.data.user.language,
+      email: this.data.user.email,
+      birthday: tools.dateToUTC(this.data.user.birthday),
+      story: this.data.user.story
     }
     console.log(params)
 
@@ -94,7 +97,9 @@ Page({
       success: function (res) {
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容
-          wx.showToast({ title: '编辑成功！' })
+          wx.showToast({ title: '编辑成功！', success: function() {
+            self.getUser()
+          } })
         } else {
           console.log(res)
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {

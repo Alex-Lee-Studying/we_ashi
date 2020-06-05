@@ -66,8 +66,8 @@ Page({
     var page = 0
     var pageSize = 20
     var params = {
-      user_id: app.globalData.user.id,
-      travel_id: this.data.travelId
+      travel_id: this.data.travelId,
+      status: 'normal'
     }
 
     // if (hasClick) return
@@ -108,8 +108,8 @@ Page({
     var page = 0
     var pageSize = 20
     var params = {
-      user_id: app.globalData.user.id,
-      travel_id: this.data.travelId
+      travel_id: this.data.travelId,
+      status: 'paying'
     }
 
     if (hasClick) return

@@ -25,11 +25,12 @@
     </view>
     <view class="formItem">
       <label>生日</label>
-      <input value=""></input>
+      <!-- <input value="{{user.birthday}}" bindinput="inputInfo" data-obj="user" data-item="birthday"></input> -->
+      <picker mode="date" value="{{user.birthday}}" bindchange="inputInfo" data-obj="user" data-item="birthday">{{filter.formatTime(user.birthday, 'date') || "请选择"}}</picker>
     </view>
     <view class="formItem">
       <label>简介</label>
-      <input value=""></input>
+      <input value="{{user.story}}" bindinput="inputInfo" data-obj="user" data-item="story"></input>
     </view>
   </view>
 

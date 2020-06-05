@@ -4,7 +4,7 @@
     <view><image src="{{delivery.user.avatar}}" class="uimg"></image></view>
     <view class="utext">
       <text>{{delivery.user.nick_name}}</text>
-      <text>{{filter.formatTime(delivery.created, "date")}}·俄罗斯</text>
+      <text>{{filter.formatTime(delivery.created, "date")}}·{{delivery.user.location}}</text>
     </view>
     <view class="share"><text class="iconfont iconshare"></text></view>
   </view>
