@@ -1,12 +1,19 @@
 <view class="container">
+  <form bindsubmit="submitAccusations">
   <view class="headerWrap">
     <view class="textareaWrap">
-      <textarea maxlength="200" placeholder="请输入反馈内容，我们会更好的为您服务。"></textarea>
-      <text class="count">0/200</text>
+      <textarea name="content" maxlength="200" placeholder="请输入反馈内容，我们会更好的为您服务。" value="{{content}}" bindinput="inputInfo"></textarea>
+      <text class="count">{{contentCount || 0}}/200</text>
     </view>
     <view class="uploadWrap">
-      <view class="uploadItem"><image src="/images/uimg.jpg" mode="aspectFill"></image></view>
-      <view class="uploadItem add"><text class="iconfont iconcamera"></text><text class="picture">照片</text></view>
+      <block wx:for="{{images}}" wx:key="*this">
+        <view class="uploadItem">
+          <image src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+        </view>
+      </block>
+      <view class="uploadItem add" wx:if="{{images.length < 3}}" bindtap="chooseImage">
+        <text class="iconfont iconcamera"></text><text class="picture">照片</text>
+      </view>
     </view>
   </view>
 
@@ -14,7 +21,7 @@
     <view class="radioGroup">
       <text class="title">你是怎么知道Ashibro的？</text>
       <radio-group bindchange="radioChange">
-        <block wx:for="{{refers}}" wx:key="*this">
+        <block wx:for="{{refers}}" wx:key="value">
           <label class="radioItem curr" wx:if="{{item.name === refer}}">        
             <view class="label">{{item.name}}</view>
             <view class="radio">
@@ -34,5 +41,6 @@
       <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="submit">提交</button>
     </view>
   </view>
+  </form>
 
 </view>
