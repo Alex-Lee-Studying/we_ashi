@@ -36,6 +36,7 @@
     "pages/user/login/login",
     "pages/user/register/register",
     "pages/user/auth/auth",
+    "pages/city/city",
     "pages/logs/logs"
   ],
   "tabBar": {
