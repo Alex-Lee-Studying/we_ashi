@@ -5,6 +5,7 @@ App({
   },
   globalData: {
     baseUrl: 'https://api.ashibro.com',
+    cityList: [],
     isLogin: false,
     userInfo: null, // 微信用户信息
     user: null // 登录之后服务器返回的用户信息

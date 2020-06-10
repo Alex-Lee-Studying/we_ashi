@@ -10,9 +10,9 @@
   </view>
   <view class="deliveryWrap">
     <view class="country">
-      <text>韩国</text>
+      <navigator url="/pages/city/city?cityType=departure">{{departure || '出发地'}}</navigator>
       <text class="iconfont icon-_danjiantou"></text>
-      <text>中国上海</text>
+      <navigator url="/pages/city/city?cityType=destination">{{destination || '目的地'}}</navigator>
     </view>
     <view class="formWrap">
       <view class="formItem">

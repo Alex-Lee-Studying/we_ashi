@@ -2,9 +2,9 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
+    departure: '',
+    destination: '',
     formdata: {
-      departure: "BJR@CN",
-      destination: "BJR@CN",
       item_type: '',
       price: null,
       reward: null,
@@ -47,11 +47,11 @@ Page({
   },
   submitDelivery: function () {
     var self = this
-    if (this.data.formdata.departure === '' || this.data.formdata.departure === null) {
+    if (this.data.departure === '' || this.data.departure === null) {
       wx.showToast({ title: '请选择出发地', icon: 'none' })
       return
     }
-    if (this.data.formdata.destination === '' || this.data.formdata.destination === null) {
+    if (this.data.destination === '' || this.data.destination === null) {
       wx.showToast({ title: '请选择目的地', icon: 'none' })
       return
     }
@@ -73,8 +73,8 @@ Page({
     }
     var params = {
       type: 'normal',
-      departure: this.data.formdata.departure,
-      destination: this.data.formdata.destination,
+      departure: this.data.departure,
+      destination: this.data.destination,
       item_type: this.data.formdata.item_type,
       price: parseInt(this.data.formdata.price),
       reward: parseInt(this.data.formdata.reward),

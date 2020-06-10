@@ -17,6 +17,9 @@
   font-weight: bold;
   text-align: center;
 }
+.travelWrap .country navigator {
+  display: inline-block;
+}
 .travelWrap .country .icon-_danjiantou {
   margin: 0 30rpx;
   color: #989898;

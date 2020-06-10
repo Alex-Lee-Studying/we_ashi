@@ -57,6 +57,9 @@
   font-weight: bold;
   text-align: left;
 }
+.deliveryWrap .country navigator {
+  display: inline-block;
+}
 .deliveryWrap .country .icon-_danjiantou {
   margin: 0 30rpx;
   color: #989898;

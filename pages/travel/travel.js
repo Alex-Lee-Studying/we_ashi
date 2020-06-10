@@ -3,9 +3,9 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
+    departure: '',
+    destination: '',
     formdata: {
-      departure: "BJR@CN",
-      destination: "BJR@CN",
       dt_departure: '',
       weight: null,
       unit_price: null,
@@ -39,11 +39,11 @@ Page({
   },
   submitTravel: function() {
     var self = this
-    if (this.data.formdata.departure === '' || this.data.formdata.departure === null) {
+    if (this.data.departure === '' || this.data.departure === null) {
       wx.showToast({ title: '请选择出发地', icon: 'none' })
       return
     }
-    if (this.data.formdata.destination === '' || this.data.formdata.destination === null) {
+    if (this.data.destination === '' || this.data.destination === null) {
       wx.showToast({ title: '请选择目的地', icon: 'none' })
       return
     }
@@ -60,8 +60,8 @@ Page({
       return
     }
     var params = {
-      departure: this.data.formdata.departure,
-      destination: this.data.formdata.destination,
+      departure: this.data.departure,
+      destination: this.data.destination,
       dt_departure: tools.dateToUTC(this.data.formdata.dt_departure),
       details: this.data.formdata.details,
       weight: parseInt(this.data.formdata.weight),

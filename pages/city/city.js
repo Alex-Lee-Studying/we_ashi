@@ -1,14 +1,40 @@
+const app = getApp()
 const QQMapWX = require('./lib/qqmap-wx-jssdk.min.js')
-const QQMapKey = 'NDLBZ-4Y6KF-S2LJ6-NAOAA-BOW56-LMB44'
+const QQMapKey = 'E7ZBZ-ABKHD-GG44A-HCY25-MHQZS-RBBQI'
 const qqmapsdk = new QQMapWX({ key: QQMapKey })
 
 Page({
-  onLoad() {
-    this.getCitys()
+  onLoad(options) {
+    this.setData({
+      cityType: options.cityType
+    })
+
+    if (app.globalData.cityList.length) {
+      this.setData({ list: app.globalData.cityList })
+    } else {
+      this.getCitys()
+    }
   },
 
   onChoose(e) {
     console.log('onChoose', e)
+    var pages = getCurrentPages()
+    var prevPage = pages[pages.length - 2]   //上一页
+    var city = e.detail.item.name
+
+    if (this.data.cityType == 'departure') {
+      prevPage.setData({
+        departure: city
+      })
+    }
+
+    if (this.data.cityType == 'destination') {
+      prevPage.setData({
+        destination: city
+      })
+    }
+
+    wx.navigateBack()
   },
 
   getCitys() {
@@ -45,6 +71,7 @@ Page({
         }
 
         _this.setData({ list })
+        app.globalData.cityList = list 
       }
     })
   }
