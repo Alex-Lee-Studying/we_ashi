@@ -55,6 +55,11 @@ Page({
   },
 
   submit: function() {
+    var that = this
+    if (this.data.content === '' || this.data.content === null) {
+      wx.showToast({ title: '请输入反馈内容', icon: 'none' })
+      return
+    }
     wx.showLoading({
       title: '正在上传...',
       mask: true
@@ -65,6 +70,10 @@ Page({
         url: app.globalData.baseUrl + '/app/v1/accusations',
         filePath: path,
         name: 'file',
+        header: { 'Content-Type': 'multipart/form-data' },
+        formData: {
+          'content': that.data.content
+        }
       })
     })
 
@@ -75,27 +84,27 @@ Page({
       console.log(">>>> upload images error:", err)
     }).then(urls => {
       // 调用保存反馈的后端接口
-      wx.request({
-        url: app.globalData.baseUrl + '/app/v1/accusations',
-        method: 'POST',
-        header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'), 'Content-Type': 'multipart/form-data' },
-        data: {content: this.data.content, file: urls},
-        success: function (res) {
-          if (res.statusCode === 200) {
-            console.log(res.data)// 服务器回包内容
-            self.finish()
-          } else {
-            console.log(res)
-            if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
-              wx.navigateTo({
-                url: '/pages/user/auth/auth',
-              })
-            } else {
-              wx.showToast({ title: res.data.msg, icon: 'none' })
-            }
-          }
-        }
-      })
+      // wx.request({
+      //   url: app.globalData.baseUrl + '/app/v1/accusations',
+      //   method: 'POST',
+      //   header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'), 'Content-Type': 'multipart/form-data' },
+      //   data: {content: this.data.content, file: urls},
+      //   success: function (res) {
+      //     if (res.statusCode === 200) {
+      //       console.log(res.data)// 服务器回包内容
+      //       self.finish()
+      //     } else {
+      //       console.log(res)
+      //       if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+      //         wx.navigateTo({
+      //           url: '/pages/user/auth/auth',
+      //         })
+      //       } else {
+      //         wx.showToast({ title: res.data.msg, icon: 'none' })
+      //       }
+      //     }
+      //   }
+      // })
     }).catch(err => {
       console.log(">>>> create question error:", err)
     }).then(() => {
