@@ -1,15 +1,15 @@
 <wxs src="../../../utils/filter.wxs" module="filter" />
 <view class="container">
   <view class="orderItem orderDetailCX">
-    <navigator url="/pages/my/travelDetail/travelDetail" class="orderinfo">
+    <view class="orderinfo">
       <view class="left"><text class="iconfont iconplane"></text></view>
       <view class="main">
         <view class="country"><text>{{travel.departure}} <text class="iconfont icon-_danjiantou"></text> {{travel.destination}}</text></view>
         <view class="mark"><text>可带行李重量：{{travel.weight}}kg</text></view>
         <view class="mark" wx:if="{{travel.agent}}"><text>备注：可带买</text></view>
       </view>
-      <view class="right"><text class="iconfont iconshare"></text></view>
-    </navigator>
+      <button open-type="share" class="right"><text class="iconfont iconshare"></text></button>
+    </view>
   </view>
 
   <view class="subWrap">

@@ -152,5 +152,27 @@ Page({
     wx.navigateTo({
       url: '/pages/delivery/pay/pay?id=' + deliveryId
     })
+  },
+
+  onShareAppMessage(option) {
+    return {
+      title: '脚递求带',
+      path: '/pages/my/deliveryDetail/deliveryDetail?id=' + this.data.deliveryId,
+      imageUrl: (this.data.delivery.resources[0] && this.data.delivery.resources[0].name) || '/images/travel.png',
+      success: (res) => {
+        // 分享成功
+        wx.showToast({
+          title: '分享成功',
+          icon: 'success'
+        })
+      },
+      fail: (res) => {
+        // 分享失败
+        wx.showToast({
+          title: '分享失败',
+          icon: 'none'
+        })
+      }
+    }
   }
 })

@@ -150,5 +150,40 @@ Page({
         hasClick = false
       }
     })
+  },
+
+  onShareAppMessage(option) {
+    if (option.from === 'button') {
+      var path = ''
+      var imageUrl = ''
+      var type = option.target.dataset.type
+      var item = option.target.dataset.item
+      if (type === 'travel') {
+        path = '/pages/my/travelDetail/travelDetail?id=' + item.id
+        imageUrl = '/images/plane.png'
+      } else if (type === 'delivery') {
+        path = '/pages/my/deliveryDetail/deliveryDetail?id=' + item.id
+        imageUrl = (item.resources[0] && item.resources[0].name) || '/images/travel.png'
+      }
+      return {
+        title: '脚递',
+        path: path,
+        imageUrl: imageUrl,
+        success: (res) => {
+          // 分享成功
+          wx.showToast({
+            title: '分享成功',
+            icon: 'success'
+          })
+        },
+        fail: (res) => {
+          // 分享失败
+          wx.showToast({
+            title: '分享失败',
+            icon: 'none'
+          })
+        }
+      }
+    }
   }
 })

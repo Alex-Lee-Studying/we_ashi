@@ -143,5 +143,27 @@ Page({
         hasClick = false
       }
     })
+  },
+
+  onShareAppMessage(option) {
+    return {
+      title: '脚递出行',
+      path: '/pages/my/travelDetail/travelDetail?id=' + this.data.travelId,
+      imageUrl: '/images/plane.png',
+      success: (res) => {
+        // 分享成功
+        wx.showToast({
+          title: '分享成功',
+          icon: 'success'
+        })
+      },
+      fail: (res) => {
+        // 分享失败
+        wx.showToast({
+          title: '分享失败',
+          icon: 'none'
+        })
+      }
+    }
   }
 })

@@ -6,7 +6,7 @@
       <text>{{delivery.user.nick_name}}</text>
       <text>{{filter.formatTime(delivery.created, "date")}}·{{delivery.user.location}}</text>
     </view>
-    <view class="share"><text class="iconfont iconshare"></text></view>
+    <button open-type="share" class="share"><text class="iconfont iconshare"></text></button>
   </view>
   <view class="proImgWrap">
     <image wx:if="{{delivery.resources.length}}" src="{{delivery.resources[0].name}}" class="proImg" mode="aspectFit"></image>

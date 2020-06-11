@@ -6,7 +6,7 @@
       <text>{{travel.user.nick_name}}</text>
       <text>{{filter.formatTime(travel.created, "date")}}·{{travel.user.location}}</text>
     </view>
-    <view class="share"><text class="iconfont iconshare"></text></view>
+    <button open-type="share" class="share"><text class="iconfont iconshare"></text></button>
   </view>
   <view class="flightWrap">
     <view class="msgItem" style="margin-right: 30rpx;">

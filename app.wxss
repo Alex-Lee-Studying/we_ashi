@@ -153,6 +153,9 @@
   line-height: 74rpx;
   text-align: center;
   border-left: 1rpx solid #f2f2f2;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
 }
 .orderItem .orderinfo .right .iconxiaoxi {
   font-size: 30rpx;
@@ -201,6 +204,10 @@
   color: #989898;
 }
 .uwrap .share {
+  display: inline-block;
+  width: auto;
+  margin: 0;
+  background-color: transparent;
   padding: 20rpx;
 }
 .uwrap .share .iconshare {
