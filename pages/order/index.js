@@ -11,7 +11,8 @@ Page({
     },
     responseObj: {},
     typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他'],
-    images: []
+    images: [],
+    address: null
   },
 
   onLoad: function () {
@@ -140,7 +141,9 @@ Page({
   submitImages() {
     var that = this
     if (!this.data.images.length) {
-      that.finish()
+      wx.navigateTo({
+        url: '/pages/order/pay/pay?id=' + that.responseObj.id
+      })
     }
 
     wx.showLoading({
@@ -160,7 +163,9 @@ Page({
 
     Promise.all(arr).then(res => {
       console.log(res)
-      that.finish()
+      wx.navigateTo({
+        url: '/pages/order/pay/pay?id=' + that.responseObj.id
+      })
     }).catch(err => {
       console.log(err)
       wx.showToast({ title: err, icon: 'none' })
@@ -169,7 +174,7 @@ Page({
     })
   },
 
-  finish() {
+  notice() {
     wx.showModal({
       title: '温馨提示',
       content: '脚递官方暂时只提供从中国寄到其他国家的服务，下单后请先将物品物品寄到北京总部，我们会派专员送到您的地址，此服务会收取运费的5%作为我们的服务费，请您谅解！',
@@ -178,9 +183,6 @@ Page({
       confirmColor: '#033150',
       success: function (res) {
         if (res.confirm) {
-          wx.navigateTo({
-            url: '/pages/order/pay/pay?id=' + that.responseObj.id
-          })
         }
       }
     })
