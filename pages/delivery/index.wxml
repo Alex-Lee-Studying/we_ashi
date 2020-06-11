@@ -1,12 +1,12 @@
 <view class="container">
   <view class="uploadWrap">
-    <!-- <view class="uploadImg">
-      <image src="/images/temp.png" mode="aspectFill"></image>
-      <view class="close">
-        <text class="iconfont iconclose"></text>
+    <block wx:for="{{images}}" wx:key="*this">
+      <view class="uploadImg">
+        <image src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+        <view class="close" data-idx="{{index}}" bindtap="removeImage"><text class="iconfont iconclose"></text></view>
       </view>
-    </view> -->
-    <view class="plus"><text class="iconfont iconplus"></text><text>照片</text></view>
+    </block>
+    <view class="plus" wx:if="{{images.length < 3}}" bindtap="chooseImage"><text class="iconfont iconplus"></text><text>照片</text></view>
   </view>
   <view class="deliveryWrap">
     <view class="country">

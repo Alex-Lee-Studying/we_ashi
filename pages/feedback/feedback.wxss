@@ -26,6 +26,7 @@ page {
   margin-top: 20rpx;
 }
 .headerWrap .uploadWrap .uploadItem {
+  position: relative;
   width: 160rpx;
   height: 160rpx;
   margin-right: 16rpx;
@@ -38,6 +39,17 @@ page {
 .headerWrap .uploadWrap .uploadItem image {
   width: 160rpx;
   height: 160rpx;
+}
+.headerWrap .uploadWrap .uploadItem .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  background-color: #989898;
+  font-size: 12rpx;
+  color: #fff;
 }
 .headerWrap .uploadWrap .uploadItem.add {
   display: flex;

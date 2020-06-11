@@ -1,18 +1,18 @@
 <view class="container">
   <view class="uploadWrap">
-    <!-- <view class="uploadImg">
-      <image src="/images/temp.png" mode="aspectFill"></image>
-      <view class="close">
-        <text class="iconfont iconclose"></text>
+    <block wx:for="{{images}}" wx:key="*this">
+      <view class="uploadImg">
+        <image src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+        <view class="close" data-idx="{{index}}" bindtap="removeImage"><text class="iconfont iconclose"></text></view>
       </view>
-    </view> -->
-    <view class="plus"><text class="iconfont iconplus"></text><text>照片</text></view>
+    </block>
+    <view class="plus" wx:if="{{images.length < 3}}" bindtap="chooseImage"><text class="iconfont iconplus"></text><text>照片</text></view>
   </view>
   <view class="deliveryWrap">
     <view class="country">
-      <text>中国</text>
+      <navigator url="/pages/city/city?cityType=departure">{{departure || '出发地'}}</navigator>
       <text class="iconfont icon-_danjiantou"></text>
-      <text>马来西亚（槟城）</text>
+      <navigator url="/pages/city/city?cityType=destination">{{destination || '目的地'}}</navigator>
     </view>
 
     <view class="addressWrap">
@@ -40,25 +40,25 @@
     <view class="formWrap">
       <view class="formItem">
         <label>物品类型</label>
-        <picker mode="selector" bindchange="bindTypeChange" value="{{item_type}}" range="{{typearray}}">
+        <picker mode="selector" range="{{typearray}}" value="{{formdata.item_type}}" bindchange="bindTypeChange" data-obj="formdata" data-item="item_type">
           <view class="picker">
-            {{item_type || '请选择'}}
+            {{formdata.item_type || '请选择'}}
           </view>
         </picker>
       </view>
       <view class="formItem">
         <label>物品价格</label>
-        <input value="{{price}}" placeholder="RMB"></input>
+        <input type="number" value="{{formdata.price}}" placeholder="RMB" bindinput="inputInfo" data-obj="formdata" data-item="price"></input>
       </view>
       <view class="formItem">
         <label>重量</label>
-        <input value="{{weight}}" placeholder="kg"></input>
+        <input type="number" value="{{formdata.weight}}" placeholder="kg" bindinput="inputInfo" data-obj="formdata" data-item="weight"></input>
       </view>
     </view>
     <view class="notice"><text class="iconfont iconfaq"></text><text>温馨提示</text></view>
   </view>
   <view class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="submit">确认下单</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="submitOrder">确认下单</button>
   </view>
 </view>
 

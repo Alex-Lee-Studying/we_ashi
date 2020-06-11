@@ -12,10 +12,13 @@ Page({
       details: '',
     },
     responseObj: {},
-    typearray: [ '文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他' ]
+    typearray: [ '文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他' ],
+    images: [],
   },
+
   onLoad: function () {
   },
+
   onShow: function () {
     if (!app.globalData.isLogin || !app.globalData.user || !app.globalData.user.id) {
       wx.redirectTo({
@@ -23,11 +26,7 @@ Page({
       })
     }
   },
-  submit() {
-    wx.navigateTo({
-      url: '/pages/delivery/order/order'
-    })
-  },
+
   bindTypeChange(e) {
     let dataset = e.currentTarget.dataset;
     let idx = e.detail.value;
@@ -36,6 +35,7 @@ Page({
       formdata: this.data[dataset.obj]
     })
   },
+
   //input表单数据绑定
   inputInfo: function (e) {
     let dataset = e.currentTarget.dataset;
@@ -45,6 +45,36 @@ Page({
       formdata: this.data[dataset.obj]
     })
   },
+
+  chooseImage(e) {
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
+      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
+      success: res => {
+        const images = this.data.images.concat(res.tempFilePaths)
+        // 限制最多只能留下3张照片
+        const imgs = images.length <= 3 ? images : images.slice(0, 3)
+        this.setData({ images: imgs })
+      }
+    })
+  },
+
+  removeImage(e) {
+    const idx = e.currentTarget.dataset.idx
+    const copyImages = this.data.images
+    copyImages.splice(idx, 1)
+    this.setData({ images: copyImages })
+  },
+
+  handleImagePreview(e) {
+    const idx = e.target.dataset.idx
+    const images = this.data.images
+    wx.previewImage({
+      current: images[idx],  //当前预览的图片
+      urls: images,  //所有要预览的图片
+    })
+  },
+
   submitDelivery: function () {
     var self = this
     if (this.data.departure === '' || this.data.departure === null) {
@@ -96,9 +126,7 @@ Page({
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容
           self.setData({ responseObj: res.data })
-          wx.redirectTo({
-            url: '/pages/delivery/order/order?id=' + res.data.id
-          })
+          self.submitImages()
         } else {
           console.log(res)
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
@@ -119,4 +147,40 @@ Page({
       }
     })
   },
+
+  submitImages: function () {
+    var that = this
+    if (!this.data.images.length) {
+      wx.redirectTo({
+        url: '/pages/delivery/order/order?id=' + that.responseObj.id
+      })
+    }
+    
+    wx.showLoading({
+      title: '正在上传...',
+      mask: true
+    })
+
+    // 将选择的图片组成一个Promise数组，准备进行并行上传
+    const arr = this.data.images.map(path => {
+      return wx.uploadFile({
+        url: app.globalData.baseUrl + '/app/v1/deliveries/' + that.responseObj.id  + '/resources',
+        filePath: path,
+        name: 'file',
+        header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'), 'Content-Type': 'multipart/form-data' },
+      })
+    })
+
+    Promise.all(arr).then(res => {
+      console.log(res)
+      wx.redirectTo({
+        url: '/pages/delivery/order/order?id=' + that.responseObj.id
+      })
+    }).catch(err => {
+      console.log(err)
+      wx.showToast({ title: err, icon: 'none' })
+    }).then(() => {
+      wx.hideLoading()
+    })
+  }
 })

@@ -1,5 +1,4 @@
 <view class="container">
-  <form bindsubmit="submitAccusations">
   <view class="headerWrap">
     <view class="textareaWrap">
       <textarea name="content" maxlength="200" placeholder="请输入反馈内容，我们会更好的为您服务。" value="{{content}}" bindinput="inputInfo"></textarea>
@@ -9,6 +8,7 @@
       <block wx:for="{{images}}" wx:key="*this">
         <view class="uploadItem">
           <image src="{{item}}" mode="aspectFill" data-idx="{{index}}" bindtap="handleImagePreview"></image>
+          <view class="close" data-idx="{{index}}" bindtap="removeImage"><text class="iconfont iconclose"></text></view>
         </view>
       </block>
       <view class="uploadItem add" wx:if="{{images.length < 3}}" bindtap="chooseImage">
@@ -41,6 +41,5 @@
       <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="submit">提交</button>
     </view>
   </view>
-  </form>
 
 </view>
