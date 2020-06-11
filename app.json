@@ -8,6 +8,7 @@
     "pages/message/message",
     "pages/index/cardDelivery/cardDelivery",
     "pages/index/cardTravel/cardTravel",
+    "pages/index/cityFilter/cityFilter",
     "pages/travel/travel",
     "pages/delivery/index",
     "pages/delivery/order/order",

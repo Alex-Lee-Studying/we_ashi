@@ -25,10 +25,10 @@
         <text class="tab checked" wx:if="{{tabname === 'travel'}}">可帮带</text>
         <text class="tab" data-tab="travel" bindtap="changeTab" wx:else>可帮带</text>
       </view>
-      <view>
+      <navigator url="{{'/pages/index/cityFilter/cityFilter?type=' + tabname}}">
         <text class="search">筛选</text>
         <text class="iconfont iconfilter"></text>
-      </view>
+      </navigator>
     </view>
 
     <view class="orders-index" wx:if="{{tabname === 'delivery' && deliveryList.length }}">

@@ -1,0 +1,26 @@
+.container {
+  padding: 30rpx 60rpx;
+}
+.filterItem .label {
+  font-size: 32rpx;
+  color: #333;
+  padding-left: 30rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-weight: bold;
+}
+.filterItem .valueWrap {
+  height: 90rpx;
+  line-height: 90rpx;
+  border-radius: 45rpx;
+  background-color: #fff;
+  box-shadow: 0 0 18rpx 5rpx rgba(8,2,4,.1);
+  padding: 0 40rpx;
+  font-size: 32rpx;
+  color: #033150;
+}
+.filterItem .valueWrap .iconfont {
+  font-size: 33rpx;
+  color: #033150;
+  margin-right: 30rpx;
+}

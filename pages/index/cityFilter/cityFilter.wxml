@@ -1,0 +1,14 @@
+<view class="container">
+  <view class="filterItem">
+    <view class="label">{{ type === 'delivery' ? '物品所在地' : '起始'}}</view>
+    <navigator url="/pages/city/city?cityType=departure" class="valueWrap"><text class="iconfont iconlocation"></text>{{departure}}</navigator>
+  </view>
+  <view class="filterItem">
+    <view class="label">{{ type === 'delivery' ? '收货地址' : '到达'}}</view>
+    <navigator url="/pages/city/city?cityType=destination" class="valueWrap"><text class="iconfont iconlocation"></text>{{destination}}</navigator>
+  </view>
+  <view class="subWrap">
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover" bindtap="clear">清空</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toFilter">确定</button>
+  </view>
+</view>

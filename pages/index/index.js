@@ -8,12 +8,12 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     tabname: 'delivery',
+    departure: '',
+    destination: '',
     travelSearch: {
       page: 0,
       pageSize: 20,
       user_id: app.globalData.user.id,
-      departure: '',
-      destination: '',
       start_time: '',
       end_time: ''
     },
@@ -21,8 +21,6 @@ Page({
       page: 0,
       pageSize: 20,
       user_id: app.globalData.user.id,
-      departure: '',
-      destination: '',
       travel_id: '',
     },
     deliveryList: [],
@@ -30,11 +28,16 @@ Page({
   },
 
   onLoad: function () {
-    this.getDeliverys()
   },
 
   onShow: function () {
     var that = this
+
+    if (this.data.tabname === 'delivery') {
+      this.getDeliverys()
+    } else if (this.data.tabname === 'travel') {
+      this.getTravels()
+    }
     
     // 设置tabbar选中
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
@@ -73,7 +76,11 @@ Page({
 
   changeTab(e) {
     var tab = e.currentTarget.dataset.tab
-    this.setData({ tabname: tab })
+    this.setData({ 
+      tabname: tab,
+      departure: '',
+      destination: ''
+    })
     if (tab === 'delivery') {
       this.getDeliverys()
     } else if (tab === 'travel') {
@@ -85,8 +92,8 @@ Page({
     var self = this
     var params = {
       // user_id: this.data.travelSearch.user_id,
-      departure: this.data.travelSearch.departure,
-      destination: this.data.travelSearch.destination,
+      departure: this.data.departure,
+      destination: this.data.destination,
       // start_time: this.data.travelSearch.start_time,
       // end_time: this.data.travelSearch.end_time
     }
@@ -129,8 +136,8 @@ Page({
     var params = {
       // user_id: this.data.deliverySearch.user_id,
       // travel_id: this.data.deliverySearch.travel_id,
-      departure: this.data.deliverySearch.departure,
-      destination: this.data.deliverySearch.destination,
+      departure: this.data.departure,
+      destination: this.data.destination,
     }
 
     if (hasClick) return
