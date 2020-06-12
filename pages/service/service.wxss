@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-evenly;
   margin: 20rpx 0 60rpx;
-  padding-bottom: 50px;
+  padding-bottom: 100rpx;
 }
 .tabWrap .tabItem {
   height: 70rpx;
