@@ -7,7 +7,8 @@ Page({
     user: {},
     genderarray: [
       { value: 0, name: '未知' }, { value: 1, name: '男' }, { value: 2, name: '女' }
-    ]
+    ],
+    avatarImg: ''
   },
 
   onLoad() {
@@ -117,6 +118,62 @@ Page({
       complete: function (res) {
         wx.hideLoading()
         hasClick = false
+      }
+    })
+  }, 
+
+  chooseImage(e) {
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
+      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
+      count: 1,
+      success: res => {
+        this.setData({ avatarImg: res.tempFilePaths[0] })
+        this.updateAvatar()
+      }
+    })
+  },
+
+  handleImagePreview(e) {
+    var imgurl = this.data.avatarImg || this.data.user.avatar
+    wx.previewImage({
+      current: imgurl,  //当前预览的图片
+      urls: [imgurl],  //所有要预览的图片
+    })
+  },
+
+  updateAvatar() {
+    var self = this
+    if (this.data.avatarImg === this.data.user.avatar) return
+
+    wx.showLoading({
+      title: '正在上传...',
+      mask: true
+    })
+
+    wx.uploadFile({
+      url: app.globalData.baseUrl + '/user/v1/users/' + this.data.userId + '/avatar',
+      filePath: this.data.avatarImg,
+      name: 'avatar',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'), 'Content-Type': 'multipart/form-data' },
+      success(res) {
+        const data = res.data
+        console.log(data)
+        if (data.avatar) {
+          wx.showToast({
+            title: '头像上传成功！', 
+            success: function () {
+              self.avatarImg = ''
+              self.getUser()
+            } 
+          })
+        } else {
+          wx.showToast({ title: '头像上传失败！', icon: 'none' })
+        }
+      },
+      fail(err) {
+        console.log(err)
+        wx.showToast({ title: '头像上传失败！', icon: 'none' })
       }
     })
   }

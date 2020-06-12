@@ -2,8 +2,8 @@
 <view class="container">
   <view class="avatarWrap">
     <text class="title">头像</text>
-    <image src="{{user.avatar}}" class="avatar" mode="aspectFill"></image>
-    <text class="iconfont iconjiantou"></text>
+    <image src="{{avatarImg || user.avatar}}" class="avatar" mode="aspectFill" bindtap="handleImagePreview"></image>
+    <text class="iconfont iconjiantou" bindtap="chooseImage"></text>
   </view>
 
   <view class="formWrap">
