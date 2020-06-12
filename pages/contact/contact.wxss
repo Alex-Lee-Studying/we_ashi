@@ -1,0 +1,131 @@
+page {
+  background-color: #f2f2f2;
+}
+
+.leftItemWrap, .rightItemWrap {
+  display: flex;
+  margin: 30rpx 0;
+}
+.leftItemWrap {
+  padding: 0 150rpx 0 30rpx;
+}
+.rightItemWrap {
+  justify-content: flex-end;
+  padding: 0 30rpx 0 150rpx;
+}
+.uimgWrap {
+  width: 90rpx;
+  height: 90rpx;
+}
+.uimgWrap image {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 45rpx;
+}
+
+.leftMsg {
+  position: relative;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 45rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 15rpx 20rpx;
+  margin-left: 30rpx;
+}
+
+.rightMsg {
+  position: relative;
+  font-size: 30rpx;
+  color: #fff;
+  line-height: 45rpx;
+  background-color: #033150;
+  border-radius: 10rpx;
+  padding: 15rpx 20rpx;
+  margin-right: 30rpx;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.absArrow {
+  position: absolute;
+  font-size: 25rpx;
+}
+.leftMsg .absArrow {
+  color: #fff;
+  left: -15rpx;
+  top: 23rpx;
+}
+.rightMsg .absArrow {
+  color: #033150;
+  right: -15rpx;
+  top: 23rpx;
+}
+
+.bottomWrap {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+}
+
+.inputRoom {
+  display: flex;
+  align-items: center;
+  height: 120rpx;
+  background-color: #fff;
+}
+.inputRoom .iconfont {
+  font-size: 60rpx;
+  line-height: 120rpx;
+  color: #989898;
+  margin: 0 20rpx;
+}
+.inputRoom .iconfont.curr {
+  color: #033150;
+}
+.iconfont+.iconfont {
+  margin-left: 0;
+}
+
+input {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #f2f2f2;
+  border-radius: 40rpx;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.optionWrap {
+  background-color: #fff;
+  border-top: 2rpx solid #f2f2f2;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 50rpx 0 40rpx;
+}
+.optionWrap .optionItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.optionWrap .optionItem .iconfont {
+  display: inline-block;
+  width: 120rpx;
+  height: 120rpx;
+  line-height: 120rpx;
+  background-color: #f2f2f2;
+  color: #989898;
+  font-size: 55rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  margin-bottom: 20rpx;
+}
+.optionWrap .optionItem .icontext {
+  font-size: 26rpx;
+  color: #999;
+}
+

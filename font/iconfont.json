@@ -6,6 +6,48 @@
   "description": "脚递",
   "glyphs": [
     {
+      "icon_id": "5132195",
+      "name": "plus",
+      "font_class": "plus1",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "8401116",
+      "name": "arrow-right",
+      "font_class": "arrow",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "9108648",
+      "name": "laugh",
+      "font_class": "laugh",
+      "unicode": "ea97",
+      "unicode_decimal": 60055
+    },
+    {
+      "icon_id": "12499993",
+      "name": "arrow-left",
+      "font_class": "arrow-copy",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "14454518",
+      "name": "img",
+      "font_class": "img",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "14718615",
+      "name": "huatong",
+      "font_class": "huatong",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
       "icon_id": "10402087",
       "name": "del",
       "font_class": "shanchu",

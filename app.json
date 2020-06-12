@@ -38,6 +38,7 @@
     "pages/user/register/register",
     "pages/user/auth/auth",
     "pages/city/city",
+    "pages/contact/contact",
     "pages/logs/logs"
   ],
   "tabBar": {

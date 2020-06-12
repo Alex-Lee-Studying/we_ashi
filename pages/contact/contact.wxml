@@ -1,0 +1,69 @@
+<view>
+
+  <scroll-view scroll-y scroll-into-view='{{toView}}' style='height: {{scrollHeight}};'>
+    <!-- <view class='scrollMsg'> -->
+    <block wx:for='{{msgList}}' wx:for-index="index" wx:key="index">
+
+      <!-- 单个消息1 客服发出（左） -->
+      <view wx:if='{{item.speaker=="server"}}' id='msg-{{index}}' class="leftItemWrap">
+        <view class="uimgWrap">
+          <image src='/images/uimg.jpg'></image>
+        </view>
+        <view class='leftMsg'><text class="iconfont iconarrow-copy absArrow"></text>{{item.content}}</view>
+      </view>
+
+      <!-- 单个消息2 用户发出（右） -->
+      <view wx:else id='msg-{{index}}' class="rightItemWrap">
+        <view class='rightMsg'>
+          <text class="iconfont iconarrow absArrow"></text>
+          <block wx:if="{{item.content[0]}}" wx:for="{{item.content}}" wx:key="*this" wx:for-item="it">
+            <block wx:if="{{it.type === 1}}">{{it.content}}</block>
+            <view wx:if="{{it.type === 2}}" style="display: inline-block; width: 24px; height: 24px">
+              <view class="{{it.imageClass}}" style="background-image: url('/images/emoji-sprite.png');transform-origin: 0 0; transform: scale(0.375);"></view>
+            </view>
+          </block>
+          <!-- <block wx:el>{{item.content}}</block> -->
+        </view>
+        <view class="uimgWrap">
+          <image src='{{cusHeadIcon}}'></image>
+        </view>
+      </view>
+
+    </block>
+    <!-- </view> -->
+    <!-- 占位 -->
+    <view style='width: 100%; height: 18vw;'></view>
+  </scroll-view>
+  
+  <view class="bottomWrap">
+    <view class='inputRoom' style='bottom: {{inputBottom}}'>
+      <text class="iconfont iconhuatong {{currBtn === 'voice'? 'curr': ''}}" bindtap="changeInput" data-btn="voice"></text>
+      <input bindconfirm='sendClick' adjust-position='{{false}}' value='{{inputVal}}' confirm-type='send' bindfocus='focus' bindblur='blur' bindinput="onInput" ></input>
+      <text class="iconfont iconlaugh {{currBtn === 'emoji'? 'curr': ''}}" bindtap="changeInput" data-btn="emoji"></text>
+      <text class="iconfont iconplus1 {{currBtn === 'plus'? 'curr': ''}}" bindtap="changeInput" data-btn="plus"></text>
+    </view>
+
+    <view class="reply_panel" hidden="{{currBtn !== 'emoji'}}">
+      <mp-emoji source="/images/emoji-sprite.png" class="mp-emoji" bindinsertemoji="insertEmoji" binddelemoji="deleteEmoji" bindsend="sendEmoji"></mp-emoji>
+    </view>
+
+    <view class="optionWrap" hidden="{{currBtn !== 'plus'}}">
+      <view class="optionItem">
+        <text class="iconfont iconimg"></text>
+        <text class="icontext">图片</text>
+      </view>
+      <view class="optionItem">
+        <text class="iconfont iconlocation"></text>
+        <text class="icontext">位置</text>
+      </view>
+      <view class="optionItem">
+        <text class="iconfont iconsuitcase"></text>
+        <text class="icontext">出行</text>
+      </view>
+      <view class="optionItem">
+        <text class="iconfont iconplane"></text>
+        <text class="icontext">求带</text>
+      </view>
+    </view>
+  </view>
+</view>
