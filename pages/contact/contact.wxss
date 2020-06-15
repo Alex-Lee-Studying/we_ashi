@@ -129,3 +129,8 @@ input {
   color: #999;
 }
 
+.msgImage {
+  width: 300rpx;
+  margin-bottom: 20rpx;
+}
+

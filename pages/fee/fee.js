@@ -2,9 +2,9 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
+    departure: "",
+    destination: "",
     formdata: {
-      departure: "CN",
-      destination: "CN",
       item_type: '',
       price: null,
       weight: null,
@@ -46,37 +46,37 @@ Page({
   },
   doCalculate: function() {
     var self = this
-    if (this.data.formdata.departure === '' || this.data.formdata.departure === null) {
+    if (this.data.departure === '' || this.data.departure === null) {
       wx.showToast({ title: '请选择出发地', icon: 'none' })
       return
     }
-    if (this.data.formdata.destination === '' || this.data.formdata.destination === null) {
+    if (this.data.destination === '' || this.data.destination === null) {
       wx.showToast({ title: '请选择目的地', icon: 'none' })
       return
     }
-    if (this.data.formdata.item_type === '' || this.data.formdata.item_type === null) {
-      wx.showToast({ title: '请选择物品类型', icon: 'none' })
-      return
-    }
-    if (this.data.formdata.price === '' || this.data.formdata.price === null) {
-      wx.showToast({ title: '请填写物品价格', icon: 'none' })
-      return
-    }
+    // if (this.data.formdata.item_type === '' || this.data.formdata.item_type === null) {
+    //   wx.showToast({ title: '请选择物品类型', icon: 'none' })
+    //   return
+    // }
+    // if (this.data.formdata.price === '' || this.data.formdata.price === null) {
+    //   wx.showToast({ title: '请填写物品价格', icon: 'none' })
+    //   return
+    // }
     if (this.data.formdata.weight === '' || this.data.formdata.weight === null) {
       wx.showToast({ title: '请填写物品重量', icon: 'none' })
       return
     }
-    if (this.data.formdata.express === '' || this.data.formdata.express === null) {
-      wx.showToast({ title: '请填写快递类型', icon: 'none' })
-      return
-    }
+    // if (this.data.formdata.express === '' || this.data.formdata.express === null) {
+    //   wx.showToast({ title: '请填写快递类型', icon: 'none' })
+    //   return
+    // }
     var params = {
-      departure: this.data.formdata.departure,
-      destination: this.data.formdata.destination,
-      item_type: this.data.formdata.item_type,
-      price: parseInt(this.data.formdata.price),
+      departure: this.data.departure,
+      destination: this.data.destination,
+      // item_type: this.data.formdata.item_type,
+      // price: parseInt(this.data.formdata.price),
       weight: parseInt(this.data.formdata.weight),
-      express: this.data.formdata.express,
+      // express: this.data.formdata.express,
     }
     console.log(params)
 
@@ -91,7 +91,7 @@ Page({
       success: function (res) {
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容
-          self.setData({ responseObj: res.data })
+          self.setData({ responseObj: res.data, total: res.data.price })
         } else {
           console.log(res)
           wx.showToast({ title: res.data.msg, icon: 'none' })

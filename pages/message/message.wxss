@@ -12,6 +12,10 @@ page {
   height: 130rpx;
   padding: 0 60rpx;
   border-bottom: 2rpx solid #f2f2f2;
+  background-color: #fff;
+}
+.msgWrap button.msgItem {
+  width: 100%;
 }
 .msgWrap .msgItem .left .iconfont {
   font-size: 74rpx;
@@ -21,6 +25,7 @@ page {
   display: flex;
   flex-direction: column;
   margin-left: 30rpx;
+  text-align: left;
 }
 .msgWrap .msgItem .title {
   font-size: 28rpx;

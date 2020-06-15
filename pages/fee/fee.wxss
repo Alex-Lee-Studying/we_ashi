@@ -13,6 +13,9 @@
   text-align: center;
   margin: 50rpx 0 30rpx;
 }
+.country navigator {
+  display: inline-block;
+}
 .country .iconfont {
   font-size: 28rpx;
   margin: 0 20rpx;

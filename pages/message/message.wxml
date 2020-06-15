@@ -1,9 +1,9 @@
 <view class="container">
   <view class="msgWrap">
-    <navigator class="msgItem">
+    <button class="msgItem" open-type="contact" bindcontact="handleContact">
       <view class="left"><text class="iconfont iconkefu"></text></view>
       <view class="right"><text class="title">官方客服</text><text class="desc">在线客服为您服务</text></view>
-    </navigator>
+    </button>
     <navigator class="msgItem">
       <view class="left"><text class="iconfont iconlingdang"></text></view>
       <view class="right"><text class="title">消息通知</text><text class="desc">新人必得的奖励</text></view>

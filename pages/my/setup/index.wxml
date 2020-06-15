@@ -16,10 +16,14 @@
       <text class="title">消息设置</text>
       <text class="iconfont iconjiantou"></text>
     </navigator>
-    <navigator url="" class="linkItem">
+    <!-- <navigator url="" class="linkItem">
       <text class="title">定位权限</text>
       <text class="iconfont iconjiantou"></text>
-    </navigator>
+    </navigator> -->
+    <view class="linkItem" bindtap="opensetting">
+      <text class="title">授权设置</text>
+      <text class="iconfont iconjiantou"></text>
+    </view>
     <navigator url="/pages/help/detailService/detailService" class="linkItem">
       <text class="title">服务条款</text>
       <text class="iconfont iconjiantou"></text>

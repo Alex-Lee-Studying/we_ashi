@@ -10,5 +10,9 @@ Page({
         selected: 3
       })
     }
+  },
+  handleContact(e) {
+    console.log(e.detail.path)
+    console.log(e.detail.query)
   }
 })

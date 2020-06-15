@@ -2,27 +2,45 @@
 
   <scroll-view scroll-y scroll-into-view='{{toView}}' style='height: {{scrollHeight}};'>
     <!-- <view class='scrollMsg'> -->
-    <block wx:for='{{msgList}}' wx:for-index="index" wx:key="index">
+    <block wx:for='{{msgList}}' wx:key="index">
 
       <!-- 单个消息1 客服发出（左） -->
       <view wx:if='{{item.speaker=="server"}}' id='msg-{{index}}' class="leftItemWrap">
         <view class="uimgWrap">
           <image src='/images/uimg.jpg'></image>
         </view>
-        <view class='leftMsg'><text class="iconfont iconarrow-copy absArrow"></text>{{item.content}}</view>
+        <view class='leftMsg'>
+          <text class="iconfont iconarrow-copy absArrow"></text>
+          <block wx:for="{{item.content}}" wx:key="content" wx:for-item="it">
+            <block wx:if="{{it.type === 1}}">{{it.content}}</block>
+            <view wx:if="{{it.type === 2}}" style="display: inline-block; width: 24px; height: 24px">
+              <view class="{{it.imageClass}}" style="background-image: url('/images/emoji-sprite.png');transform-origin: 0 0; transform: scale(0.375);"></view>
+            </view>
+          </block>
+        </view>
       </view>
 
       <!-- 单个消息2 用户发出（右） -->
       <view wx:else id='msg-{{index}}' class="rightItemWrap">
         <view class='rightMsg'>
           <text class="iconfont iconarrow absArrow"></text>
-          <block wx:if="{{item.content[0]}}" wx:for="{{item.content}}" wx:key="*this" wx:for-item="it">
+          <block wx:if="{{item.contentType === 'text'}}" wx:for="{{item.content}}" wx:key="content" wx:for-item="it">
             <block wx:if="{{it.type === 1}}">{{it.content}}</block>
             <view wx:if="{{it.type === 2}}" style="display: inline-block; width: 24px; height: 24px">
               <view class="{{it.imageClass}}" style="background-image: url('/images/emoji-sprite.png');transform-origin: 0 0; transform: scale(0.375);"></view>
             </view>
           </block>
-          <!-- <block wx:el>{{item.content}}</block> -->
+          <map
+            wx:if="{{item.contentType === 'map'}}"
+            style="width: 300rpx; height: 300rpx;"
+            latitude="{{item.content.latitude}}"
+            longitude="{{item.content.longitude}}"
+            show-location
+            bindtap="openlocation"
+          ></map>
+          <block wx:if="{{item.contentType === 'image'}}">            
+            <image wx:for="{{item.content}}" wx:key="*this" wx:for-item="it" src="{{it}}" mode="widthFix" class="msgImage"  data-idx="{{index}}"  data-images="{{item.content}}" bindtap="handleImagePreview"></image>
+          </block>
         </view>
         <view class="uimgWrap">
           <image src='{{cusHeadIcon}}'></image>
@@ -48,11 +66,11 @@
     </view>
 
     <view class="optionWrap" hidden="{{currBtn !== 'plus'}}">
-      <view class="optionItem">
+      <view class="optionItem" bindtap="chooseImage">
         <text class="iconfont iconimg"></text>
         <text class="icontext">图片</text>
       </view>
-      <view class="optionItem">
+      <view class="optionItem" bindtap="getlocation">
         <text class="iconfont iconlocation"></text>
         <text class="icontext">位置</text>
       </view>

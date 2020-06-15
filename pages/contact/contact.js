@@ -7,12 +7,22 @@ var msgList = [
   {
     speaker: 'server',
     contentType: 'text',
-    content: '欢迎来到英雄联盟，敌军还有30秒到达战场，请做好准备！'
+    content: [
+      {
+        type: 1,
+        content: '欢迎来到英雄联盟，敌军还有30秒到达战场，请做好准备！'
+      }
+    ]
   },
   {
     speaker: 'customer',
     contentType: 'text',
-    content: '我怕是走错片场了...'
+    content: [
+      {
+        type: 1,
+        content: '我怕是走错片场了...'
+      }
+    ]
   }
 ]
 var inputVal = ''
@@ -163,7 +173,60 @@ Page({
       comment: result,
       cursor: cursor
     })
-  }
+  },
+  getlocation() {
+    var that = this
+    wx.getLocation({
+      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+      success(res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        msgList.push({
+          speaker: 'customer',
+          contentType: 'map',
+          content: {
+            latitude: latitude,
+            longitude: longitude
+          }
+        })
+        that.setData({
+          msgList
+        })
+      }
+    })
+  },
+  openlocation(e) {
+    wx.openLocation({
+      latitude: e.detail.latitude,
+      longitude: e.detail.longitude,
+      scale: 18
+    })
+  },
+  chooseImage(e) {
+    var that = this
+    wx.chooseImage({
+      sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
+      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
+      success: res => {        
+        msgList.push({
+          speaker: 'customer',
+          contentType: 'image',
+          content: res.tempFilePaths
+        })
+        that.setData({
+          msgList
+        })
+      }
+    })
+  },
+  handleImagePreview(e) {
+    const idx = e.target.dataset.idx
+    const images = e.target.dataset.images
+    wx.previewImage({
+      current: images[idx],  //当前预览的图片
+      urls: images,  //所有要预览的图片
+    })
+  },
 
 
 })

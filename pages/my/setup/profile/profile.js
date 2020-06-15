@@ -157,8 +157,7 @@ Page({
       name: 'avatar',
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'), 'Content-Type': 'multipart/form-data' },
       success(res) {
-        const data = res.data
-        console.log(data)
+        const data = JSON.parse(res.data)
         if (data.avatar) {
           wx.showToast({
             title: '头像上传成功！', 

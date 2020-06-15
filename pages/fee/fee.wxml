@@ -3,10 +3,12 @@
     <image src="/images/banner.jpg" mode="aspectFill"></image>
   </view>
   <view class="country">
-    <text>中国<text class="iconfont icon-_danjiantou"></text>俄罗斯</text>
+    <navigator url="/pages/city/city?cityType=departure">{{departure || '出发地'}}</navigator>
+    <text class="iconfont icon-_danjiantou"></text>
+    <navigator url="/pages/city/city?cityType=destination">{{destination || '目的地'}}</navigator>
   </view>
   <view class="formWrap">
-    <view class="formItem">
+    <!-- <view class="formItem">
       <label>物品类型</label>
       <picker mode="selector" range="{{typearray}}" value="{{formdata.item_type}}" bindchange="bindTypeChange" data-obj="formdata" data-item="item_type">
         <view class="picker">
@@ -17,15 +19,15 @@
     <view class="formItem">
       <label>物品价格</label>
       <input type="number" value="{{formdata.price}}" placeholder="请输入物品价格" bindinput="inputInfo" data-obj="formdata" data-item="price" bindblur="doCalculate"></input>
-    </view>
+    </view> -->
     <view class="formItem">
       <label>重量</label>
-      <input type="number" value="{{formdata.weight}}" placeholder="请输入物品重量" bindinput="inputInfo" data-obj="formdata" data-item="weight" bindblur="doCalculate"></input>
+      <input type="number" value="{{formdata.weight}}" placeholder="请输入物品重量" bindinput="inputInfo" data-obj="formdata" data-item="weight" bindblur='doCalculate' bindconfirm='doCalculate'></input>
     </view>
-    <view class="formItem">
+    <!-- <view class="formItem">
       <label>快递类型</label>
       <input value="{{formdata.express}}" placeholder="请输入快递类型" bindinput="inputInfo" data-obj="formdata" data-item="express" bindblur="doCalculate"></input>
-    </view>
+    </view> -->
   </view>
 
   <view class="priceWrap">
