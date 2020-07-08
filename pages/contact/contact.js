@@ -1,4 +1,5 @@
-const app = getApp()
+var hasClick = false
+var app = getApp()
 
 var windowWidth = wx.getSystemInfoSync().windowWidth
 var windowHeight = wx.getSystemInfoSync().windowHeight
@@ -33,6 +34,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    session_id: '',
+    target_user_id: '',
+    session: {},
+    msgContext: {},
+    addform: {
+      type: 'text',
+      content: '测试测试你好啊'
+    },
     currBtn: '', // voice emoji plus
     scrollHeight: '100vh',
     inputBottom: 0,
@@ -46,6 +55,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (options.targetUid) {
+      this.setData({ target_user_id: options.targetUid })
+    }
+    if (options.sessionId) {
+      this.setData({ session_id: options.sessionId })
+      this.getSession()
+    }
+
     this.setData({
       msgList: msgList,
       cusHeadIcon: app.globalData.user.avatar,
@@ -55,6 +72,10 @@ Page({
     console.log(emojiInstance)
     this.emojiNames = emojiInstance.getEmojiNames()
     this.parseEmoji = emojiInstance.parseEmoji
+  },
+
+  onShow: function(options) {
+    this.getMessageContext()
   },
 
   changeInput: function(e) {
@@ -112,6 +133,7 @@ Page({
       msgList,
       inputVal
     })
+    this.addMessage()
   },
 
   insertEmoji(evt) {
@@ -228,5 +250,149 @@ Page({
     })
   },
 
+  // 消息服务上下文
+  getMessageContext() {
+    var self = this
+
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/message-context',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          // 服务器回包内容
+          self.setData({ msgContext: res.data })
+        } else {
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
+  },
+
+  // 发布消息
+  addMessage() {
+    var self = this
+    if (this.data.msgContext.host === '' || this.data.msgContext.host === null) {
+      return
+    }
+    if (this.data.addform.type === '' || this.data.addform.type === null) {
+      return
+    }
+    if (this.data.target_user_id === '' || this.data.target_user_id === null) {
+      wx.showToast({ title: '无效用户ID', icon: 'none' })
+      return
+    }
+
+    var params = {
+      type: this.data.addform.type,
+      target_user_id: this.data.target_user_id
+    }
+    if (this.data.addform.type === 'text') {
+      params.content = this.data.addform.content
+    } else if (this.data.addform.type === 'media') {
+
+    } else if (this.data.addform.type === 'travel') {
+      params.travel_id = this.data.addform.travel_id
+    } else if (this.data.addform.type === 'delivery') {
+      params.delivery_id = this.data.addform.delivery_id
+    }
+    console.log(params)
+
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/messages',
+      method: 'POST',
+      header: {
+        'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'),
+        'IM-Host': this.data.msgContext.host,
+        'Content-Type': 'multipart/form-data; boundary=XXX'
+        },
+      data: formdata(params),
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          console.log(res.data)// 服务器回包内容
+          self.setData({ responseObj: res.data })
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
+  },
+
+  // 会话详情
+  getSession() {
+    var self = this
+
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/sessions/' + this.data.session_id,
+      method: 'GET',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          console.log(res.data)// 服务器回包内容
+          self.setData({ session: res.data })
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
+  },
+
 
 })
+
+var formdata=function(obj = {}) {
+  let result = ''
+  for (let name of Object.keys(obj)) {
+    let value = obj[name];
+    result +=
+      '\r\n--XXX' +
+      '\r\nContent-Disposition: form-data; name=\"' + name + '\"' +
+      '\r\n' +
+      '\r\n' + value
+  }
+  return result + '\r\n--XXX--'
+}
