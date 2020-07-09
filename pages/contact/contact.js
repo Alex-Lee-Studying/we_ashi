@@ -80,8 +80,18 @@ Page({
   },
 
   onShow: function(options) {
+    var self = this
     if (app.globalData.user && app.globalData.user.id) {
       this.setData({ user: app.globalData.user })
+
+      app.globalData.goEasy.subscribe({
+        channel: app.globalData.user.id, //替换为您自己的channel
+        onMessage: function (message) {
+          console.log(message)
+          self.getMessage(message.content)
+        }
+      });
+
     }
   },
 
@@ -90,7 +100,8 @@ Page({
     if (this.data.currBtn === 'plus') {
       this.setData({
         scrollHeight: (windowHeight - 196) + 'px',
-        toView: 'msg-' + (this.data.messageList.length - 1)
+        toView: 'msg-' + (this.data.messageList.length - 1),
+        inputBottom: 0
       })
     }
   },
@@ -102,9 +113,7 @@ Page({
     keyHeight = e.detail.height
     this.setData({
       currBtn: '',
-      scrollHeight: (windowHeight - keyHeight) + 'px'
-    })
-    this.setData({
+      scrollHeight: (windowHeight - keyHeight) + 'px',
       toView: 'msg-' + (this.data.messageList.length - 1),
       inputBottom: keyHeight + 'px'
     })
@@ -119,9 +128,6 @@ Page({
       scrollHeight: '100vh',
       inputBottom: 0,
       cursor: e.detail.cursor || 0
-    })
-    this.setData({
-      toView: 'msg-' + (this.data.messageList.length - 1)
     })
   },
 
@@ -299,7 +305,10 @@ Page({
         if (res.statusCode >= 200 && res.statusCode < 300) {
           const messageList = self.data.messageList
           messageList.push(res.data)
-          self.setData({ messageList: messageList })
+          self.setData({
+            messageList: messageList,
+            toView: 'msg-' + (messageList.length - 1)
+          })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
             wx.navigateTo({
@@ -398,6 +407,48 @@ Page({
     })
   },
 
+  // 消息详情
+  getMessage(mid) {
+    var self = this
+
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/messages/' + mid,
+      method: 'GET',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.author.id === self.data.target_user_id) {
+            const messageList = self.data.messageList
+            messageList.push(res.data)
+            self.setData({
+              messageList: messageList,
+              toView: 'msg-' + (messageList.length - 1)
+            })
+            this.setData({
+              toView: 'msg-' + (this.data.messageList.length - 1)
+            })
+          }
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })
+  },
+
   submitImages: function (opts) {
     var that = this
     if (!opts.tempFilePaths.length) {
@@ -428,7 +479,10 @@ Page({
           if (res.statusCode >= 200 && res.statusCode < 300) {
             const messageList = that.data.messageList
             messageList.push(data)
-            that.setData({ messageList: messageList })
+            that.setData({
+              messageList: messageList,
+              toView: 'msg-' + (messageList.length - 1)
+            })
           } else {
             if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
               wx.navigateTo({

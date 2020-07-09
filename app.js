@@ -87,15 +87,6 @@ App({
             }
           })
 
-          if (self.globalData.user && self.globalData.user.id) {
-            self.globalData.goEasy.subscribe({
-              channel: self.globalData.user.id, //替换为您自己的channel
-              onMessage: function (message) {
-                console.log("Channel:" + message.channel + " content:" + message.content);
-              }
-            });
-          }
-
         } else {
           wx.showToast({ title: res.data.msg, icon: 'none' })
         }
