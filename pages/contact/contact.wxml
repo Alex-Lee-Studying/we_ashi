@@ -2,48 +2,31 @@
 
   <scroll-view scroll-y scroll-into-view='{{toView}}' style='height: {{scrollHeight}};'>
     <!-- <view class='scrollMsg'> -->
-    <block wx:for='{{msgList}}' wx:key="index">
+    <block wx:for='{{messageList}}' wx:key="index">
 
       <!-- 单个消息1 客服发出（左） -->
-      <view wx:if='{{item.speaker=="server"}}' id='msg-{{index}}' class="leftItemWrap">
-        <view class="uimgWrap">
-          <image src='/images/uimg.jpg'></image>
+      <view id='msg-{{index}}' class="{{item.author.id !== user.id ? 'leftItemWrap' : 'rightItemWrap'}}">
+        <view class="uimgWrap" wx:if="{{item.author.id !== user.id}}">
+          <image src="{{item.author.avatar}}"></image>
         </view>
-        <view class='leftMsg'>
-          <text class="iconfont iconarrow-copy absArrow"></text>
-          <block wx:for="{{item.content}}" wx:key="content" wx:for-item="it">
+        <view class="{{item.author.id !== user.id ? 'leftMsg' : 'rightMsg'}}">
+          <text class="iconfont iconarrow-copy absArrow" wx:if="{{item.author.id !== user.id}}"></text>
+          <text class="iconfont iconarrow absArrow" wx:else></text>
+          <block wx:if="{{item.type === 'text'}}">
+            {{item.content}}
+          </block>
+          <!-- <block wx:for="{{item.content}}" wx:key="content" wx:for-item="it">
             <block wx:if="{{it.type === 1}}">{{it.content}}</block>
             <view wx:if="{{it.type === 2}}" style="display: inline-block; width: 24px; height: 24px">
               <view class="{{it.imageClass}}" style="background-image: url('/images/emoji-sprite.png');transform-origin: 0 0; transform: scale(0.375);"></view>
             </view>
+          </block> -->
+          <block wx:if="{{item.type === 'media'}}">
+            <image wx:if="{{item.resource.mime.indexOf('image') !== -1}}" src="{{item.resource.name}}" mode="widthFix" class="msgImage" data-idx="{{index}}" data-images="{{item.resource.name}}" bindtap="handleImagePreview"></image>
           </block>
         </view>
-      </view>
-
-      <!-- 单个消息2 用户发出（右） -->
-      <view wx:else id='msg-{{index}}' class="rightItemWrap">
-        <view class='rightMsg'>
-          <text class="iconfont iconarrow absArrow"></text>
-          <block wx:if="{{item.contentType === 'text'}}" wx:for="{{item.content}}" wx:key="content" wx:for-item="it">
-            <block wx:if="{{it.type === 1}}">{{it.content}}</block>
-            <view wx:if="{{it.type === 2}}" style="display: inline-block; width: 24px; height: 24px">
-              <view class="{{it.imageClass}}" style="background-image: url('/images/emoji-sprite.png');transform-origin: 0 0; transform: scale(0.375);"></view>
-            </view>
-          </block>
-          <map
-            wx:if="{{item.contentType === 'map'}}"
-            style="width: 300rpx; height: 300rpx;"
-            latitude="{{item.content.latitude}}"
-            longitude="{{item.content.longitude}}"
-            show-location
-            bindtap="openlocation"
-          ></map>
-          <block wx:if="{{item.contentType === 'image'}}">            
-            <image wx:for="{{item.content}}" wx:key="*this" wx:for-item="it" src="{{it}}" mode="widthFix" class="msgImage"  data-idx="{{index}}"  data-images="{{item.content}}" bindtap="handleImagePreview"></image>
-          </block>
-        </view>
-        <view class="uimgWrap">
-          <image src='{{cusHeadIcon}}'></image>
+        <view class="uimgWrap" wx:if="{{item.author.id === user.id}}">
+          <image src="{{item.author.avatar}}"></image>
         </view>
       </view>
 
@@ -57,7 +40,7 @@
     <view class='inputRoom' style='bottom: {{inputBottom}}'>
       <text class="iconfont iconhuatong {{currBtn === 'voice'? 'curr': ''}}" bindtap="changeInput" data-btn="voice"></text>
       <input bindconfirm='sendClick' adjust-position='{{false}}' value='{{inputVal}}' confirm-type='send' bindfocus='focus' bindblur='blur' bindinput="onInput" ></input>
-      <text class="iconfont iconlaugh {{currBtn === 'emoji'? 'curr': ''}}" bindtap="changeInput" data-btn="emoji"></text>
+      <!-- <text class="iconfont iconlaugh {{currBtn === 'emoji'? 'curr': ''}}" bindtap="changeInput" data-btn="emoji"></text> -->
       <text class="iconfont iconplus1 {{currBtn === 'plus'? 'curr': ''}}" bindtap="changeInput" data-btn="plus"></text>
     </view>
 

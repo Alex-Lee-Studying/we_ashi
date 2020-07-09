@@ -164,6 +164,7 @@ Page({
         }
       },
       fail: function (res) {
+        console.log(res)
         wx.showToast({ title: '系统错误', icon: 'none' })
       },
       complete: function (res) {

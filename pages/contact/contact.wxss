@@ -125,6 +125,8 @@ input {
   margin-bottom: 20rpx;
 }
 .optionWrap .optionItem .icontext {
+  height: 40rpx;
+  line-height: 40rpx;
   font-size: 26rpx;
   color: #999;
 }

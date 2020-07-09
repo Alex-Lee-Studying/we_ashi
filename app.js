@@ -1,4 +1,5 @@
 //app.js
+import GoEasy from 'utils/goeasy-1.0.17';
 App({
   data: {
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -8,7 +9,8 @@ App({
     cityList: [],
     isLogin: false,
     userInfo: null, // 微信用户信息
-    user: null // 登录之后服务器返回的用户信息
+    user: null, // 登录之后服务器返回的用户信息
+    msgContext: {} // 消息上下文
   },  
   onLaunch: function () {
     var self = this
@@ -50,6 +52,59 @@ App({
             }
           })
         }
+      }
+    })
+
+    this.getMessageContext()
+  },
+
+  // 消息服务上下文
+  getMessageContext() {
+    var self = this
+    wx.showLoading()
+
+    wx.request({
+      url: this.globalData.baseUrl + '/message/v1/message-context',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          // 服务器回包内容
+          self.globalData.msgContext = res.data
+
+          // self.globalData.msgContext.host = 'https://rest-hangzhou.goeasy.io/publish'
+          // 在onLaunch方法里初始化全局GoEasy对象
+          self.globalData.goEasy = new GoEasy({
+            host: "hangzhou.goeasy.io", //应用所在的区域地址: 【hangzhou.goeasy.io | singapore.goeasy.io】
+            appkey: self.globalData.msgContext.app_key, //替换为您的应用appkey
+            onConnected: function () {
+              console.log('连接成功！')
+            },
+            onDisconnected: function () {
+              console.log('连接断开！')
+            },
+            onConnectFailed: function (error) {
+              console.log('连接失败或错误！')
+            }
+          })
+
+          if (self.globalData.user && self.globalData.user.id) {
+            self.globalData.goEasy.subscribe({
+              channel: self.globalData.user.id, //替换为您自己的channel
+              onMessage: function (message) {
+                console.log("Channel:" + message.channel + " content:" + message.content);
+              }
+            });
+          }
+
+        } else {
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
       }
     })
   }

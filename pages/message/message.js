@@ -35,7 +35,6 @@ Page({
       header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       success: function (res) {
         if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
           self.setData({ sessionList: res.data })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {

@@ -62,6 +62,16 @@ Page({
                 })
                 app.globalData.isLogin = true
                 app.globalData.user = res.data
+
+                if (app.globalData.user && app.globalData.user.id) {
+                  app.globalData.goEasy.subscribe({
+                    channel: app.globalData.user.id, //替换为您自己的channel
+                    onMessage: function (message) {
+                      console.log("Channel:" + message.channel + " content:" + message.content);
+                    }
+                  });
+                }
+
                 wx.switchTab({
                   url: '/pages/my/my',
                 })

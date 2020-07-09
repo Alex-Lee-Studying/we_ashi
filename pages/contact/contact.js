@@ -26,7 +26,6 @@ var msgList = [
     ]
   }
 ]
-var inputVal = ''
 
 Page({
 
@@ -34,14 +33,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    user: {},
     session_id: '',
     target_user_id: '',
+    delivery_id: '',
+    travel_id: '',
     session: {},
-    msgContext: {},
-    addform: {
-      type: 'text',
-      content: '测试测试你好啊'
-    },
+    messageList: [],
     currBtn: '', // voice emoji plus
     scrollHeight: '100vh',
     inputBottom: 0,
@@ -58,14 +56,21 @@ Page({
     if (options.targetUid) {
       this.setData({ target_user_id: options.targetUid })
     }
+    if (options.deliveryId) {
+      this.setData({ delivery_id: options.deliveryId })
+    }
+    if (options.travelId) {
+      this.setData({ travel_id: options.travelId })
+    }
+
     if (options.sessionId) {
       this.setData({ session_id: options.sessionId })
       this.getSession()
+      this.getMessages()
     }
 
     this.setData({
-      msgList: msgList,
-      cusHeadIcon: app.globalData.user.avatar,
+      msgList: msgList
     })
 
     const emojiInstance = this.selectComponent('.mp-emoji')
@@ -75,11 +80,19 @@ Page({
   },
 
   onShow: function(options) {
-    this.getMessageContext()
+    if (app.globalData.user && app.globalData.user.id) {
+      this.setData({ user: app.globalData.user })
+    }
   },
 
   changeInput: function(e) {
     this.setData({ currBtn: e.currentTarget.dataset.btn })
+    if (this.data.currBtn === 'plus') {
+      this.setData({
+        scrollHeight: (windowHeight - 196) + 'px',
+        toView: 'msg-' + (this.data.messageList.length - 1)
+      })
+    }
   },
 
   /**
@@ -88,10 +101,11 @@ Page({
   focus: function (e) {
     keyHeight = e.detail.height
     this.setData({
+      currBtn: '',
       scrollHeight: (windowHeight - keyHeight) + 'px'
     })
     this.setData({
-      toView: 'msg-' + (msgList.length - 1),
+      toView: 'msg-' + (this.data.messageList.length - 1),
       inputBottom: keyHeight + 'px'
     })
     //计算msg高度
@@ -107,7 +121,7 @@ Page({
       cursor: e.detail.cursor || 0
     })
     this.setData({
-      toView: 'msg-' + (msgList.length - 1)
+      toView: 'msg-' + (this.data.messageList.length - 1)
     })
   },
 
@@ -122,80 +136,76 @@ Page({
    * 发送点击监听
    */
   sendClick: function (e) {
-    const parsedComment = this.parseEmoji(e.detail.value)
-    msgList.push({
-      speaker: 'customer',
-      contentType: 'text',
-      content: parsedComment
-    })
-    inputVal = '';
-    this.setData({
-      msgList,
-      inputVal
-    })
-    this.addMessage()
+    // const parsedComment = this.parseEmoji(e.detail.value)
+    const params = {
+      type: 'text',
+      content: e.detail.value
+    }
+    this.addMessage(params)
+    this.setData({ inputVal: '' })
   },
 
-  insertEmoji(evt) {
-    const emotionName = evt.detail.emotionName
-    const { cursor, inputVal } = this.data
-    const newComment =
-      inputVal.slice(0, cursor) + emotionName + inputVal.slice(cursor)
-    this.setData({
-      inputVal: newComment,
-      cursor: cursor + emotionName.length
-    })
-  },
-  sendEmoji() {
-    const parsedComment = this.parseEmoji(this.data.inputVal)
-    msgList.push({
-      speaker: 'customer',
-      contentType: 'text',
-      content: parsedComment
-    })
-    inputVal = '';
-    this.setData({
-      msgList,
-      inputVal
-    })
-  },
-  deleteEmoji: function () {
-    const pos = this.data.cursor
-    const comment = this.data.inputVal
-    let result = '',
-      cursor = 0
+  // insertEmoji(evt) {
+  //   const emotionName = evt.detail.emotionName
+  //   const { cursor, inputVal } = this.data
+  //   const newComment =
+  //     inputVal.slice(0, cursor) + emotionName + inputVal.slice(cursor)
+  //   this.setData({
+  //     inputVal: newComment,
+  //     cursor: cursor + emotionName.length
+  //   })
+  // },
+  // sendEmoji() {
+  //   const parsedComment = this.parseEmoji(this.data.inputVal)
+  //   msgList.push({
+  //     speaker: 'customer',
+  //     contentType: 'text',
+  //     content: parsedComment
+  //   })
+  //   inputVal = '';
+  //   this.setData({
+  //     msgList,
+  //     inputVal
+  //   })
+  // },
+  // deleteEmoji: function () {
+  //   const pos = this.data.cursor
+  //   const comment = this.data.inputVal
+  //   let result = '',
+  //     cursor = 0
 
-    let emojiLen = 6
-    let startPos = pos - emojiLen
-    if (startPos < 0) {
-      startPos = 0
-      emojiLen = pos
-    }
-    const str = comment.slice(startPos, pos)
-    const matchs = str.match(/\[([\u4e00-\u9fa5\w]+)\]$/g)
-    // 删除表情
-    if (matchs) {
-      const rawName = matchs[0]
-      const left = emojiLen - rawName.length
-      if (this.emojiNames.indexOf(rawName) >= 0) {
-        const replace = str.replace(rawName, '')
-        result = comment.slice(0, startPos) + replace + comment.slice(pos)
-        cursor = startPos + left
-      }
-      // 删除字符
-    } else {
-      let endPos = pos - 1
-      if (endPos < 0) endPos = 0
-      const prefix = comment.slice(0, endPos)
-      const suffix = comment.slice(pos)
-      result = prefix + suffix
-      cursor = endPos
-    }
-    this.setData({
-      comment: result,
-      cursor: cursor
-    })
-  },
+  //   let emojiLen = 6
+  //   let startPos = pos - emojiLen
+  //   if (startPos < 0) {
+  //     startPos = 0
+  //     emojiLen = pos
+  //   }
+  //   const str = comment.slice(startPos, pos)
+  //   const matchs = str.match(/\[([\u4e00-\u9fa5\w]+)\]$/g)
+  //   // 删除表情
+  //   if (matchs) {
+  //     const rawName = matchs[0]
+  //     const left = emojiLen - rawName.length
+  //     if (this.emojiNames.indexOf(rawName) >= 0) {
+  //       const replace = str.replace(rawName, '')
+  //       result = comment.slice(0, startPos) + replace + comment.slice(pos)
+  //       cursor = startPos + left
+  //     }
+  //     // 删除字符
+  //   } else {
+  //     let endPos = pos - 1
+  //     if (endPos < 0) endPos = 0
+  //     const prefix = comment.slice(0, endPos)
+  //     const suffix = comment.slice(pos)
+  //     result = prefix + suffix
+  //     cursor = endPos
+  //   }
+  //   this.setData({
+  //     comment: result,
+  //     cursor: cursor
+  //   })
+  // },
+
   getlocation() {
     var that = this
     wx.getLocation({
@@ -217,6 +227,7 @@ Page({
       }
     })
   },
+
   openlocation(e) {
     wx.openLocation({
       latitude: e.detail.latitude,
@@ -224,87 +235,50 @@ Page({
       scale: 18
     })
   },
+
   chooseImage(e) {
     var that = this
     wx.chooseImage({
       sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
       sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
-      success: res => {        
-        msgList.push({
-          speaker: 'customer',
-          contentType: 'image',
-          content: res.tempFilePaths
-        })
-        that.setData({
-          msgList
-        })
+      success: res => {
+        const params = {
+          type: 'media',
+          tempFilePaths: res.tempFilePaths
+        }
+        this.submitImages(params)
       }
     })
   },
   handleImagePreview(e) {
     const idx = e.target.dataset.idx
-    const images = e.target.dataset.images
+    const images = (e.target.dataset.images instanceof Array) ? e.target.dataset.images : [e.target.dataset.images]
     wx.previewImage({
       current: images[idx],  //当前预览的图片
       urls: images,  //所有要预览的图片
     })
   },
 
-  // 消息服务上下文
-  getMessageContext() {
-    var self = this
-
-    if (hasClick) return
-    hasClick = true
-    wx.showLoading()
-
-    wx.request({
-      url: app.globalData.baseUrl + '/message/v1/message-context',
-      method: 'GET',
-      success: function (res) {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          // 服务器回包内容
-          self.setData({ msgContext: res.data })
-        } else {
-          wx.showToast({ title: res.data.msg, icon: 'none' })
-        }
-      },
-      fail: function (res) {
-        wx.showToast({ title: '系统错误', icon: 'none' })
-      },
-      complete: function (res) {
-        wx.hideLoading()
-        hasClick = false
-      }
-    })
-  },
-
   // 发布消息
-  addMessage() {
+  addMessage(opts) {
     var self = this
-    if (this.data.msgContext.host === '' || this.data.msgContext.host === null) {
+    var params = opts
+    if (app.globalData.msgContext.host === '' || app.globalData.msgContext.host === null) {
       return
     }
-    if (this.data.addform.type === '' || this.data.addform.type === null) {
+    if (params.type === '' || params.type === null) {
       return
     }
     if (this.data.target_user_id === '' || this.data.target_user_id === null) {
       wx.showToast({ title: '无效用户ID', icon: 'none' })
       return
     }
+    params.target_user_id = this.data.target_user_id
 
-    var params = {
-      type: this.data.addform.type,
-      target_user_id: this.data.target_user_id
-    }
-    if (this.data.addform.type === 'text') {
-      params.content = this.data.addform.content
-    } else if (this.data.addform.type === 'media') {
-
-    } else if (this.data.addform.type === 'travel') {
-      params.travel_id = this.data.addform.travel_id
-    } else if (this.data.addform.type === 'delivery') {
-      params.delivery_id = this.data.addform.delivery_id
+    if (params.type === 'text') {
+    } else if (params.type === 'media') {
+    } else if (params.type === 'travel') {
+    } else if (params.type === 'delivery') {
     }
     console.log(params)
 
@@ -317,14 +291,15 @@ Page({
       method: 'POST',
       header: {
         'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'),
-        'IM-Host': this.data.msgContext.host,
+        'IM-Host': app.globalData.msgContext.host,
         'Content-Type': 'multipart/form-data; boundary=XXX'
         },
       data: formdata(params),
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          console.log(res.data)// 服务器回包内容
-          self.setData({ responseObj: res.data })
+          const messageList = self.data.messageList
+          messageList.push(res.data)
+          self.setData({ messageList: messageList })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
             wx.navigateTo({
@@ -349,8 +324,6 @@ Page({
   getSession() {
     var self = this
 
-    if (hasClick) return
-    hasClick = true
     wx.showLoading()
 
     wx.request({
@@ -359,8 +332,52 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          console.log(res.data)// 服务器回包内容
           self.setData({ session: res.data })
+          // 筛选目标用户id
+          if (res.data.users && res.data.users.length) {
+            res.data.users.forEach((item, index, arr) => {
+              if (item.id !== app.globalData.user.id) {
+                self.setData({ target_user_id: item.id })
+                return
+              }
+            })
+          }
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })
+  },
+
+  // 会话消息列表
+  getMessages() {
+    var self = this
+    var page = 0
+    var pageSize = 20
+
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/sessions/' + this.data.session_id + '/messages',
+      method: 'GET',
+      header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.setData({ messageList: res.data.reverse() })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
             wx.navigateTo({
@@ -381,7 +398,57 @@ Page({
     })
   },
 
+  submitImages: function (opts) {
+    var that = this
+    if (!opts.tempFilePaths.length) {
+      return
+    }
 
+    wx.showLoading({
+      title: '正在上传...',
+      mask: true
+    })
+
+    opts.tempFilePaths.map(path => {
+      wx.uploadFile({
+        url: app.globalData.baseUrl + '/message/v1/messages',
+        filePath: path,
+        name: 'file',
+        header: {
+          'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'),
+          'IM-Host': app.globalData.msgContext.host,
+          'Content-Type': 'multipart/form-data'
+        },
+        formData: {
+          type: 'media',
+          target_user_id: that.data.target_user_id
+        },
+        success(res) {
+          var data = JSON.parse(res.data)
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            const messageList = that.data.messageList
+            messageList.push(data)
+            that.setData({ messageList: messageList })
+          } else {
+            if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+              wx.navigateTo({
+                url: '/pages/user/auth/auth',
+              })
+            } else {
+              wx.showToast({ title: res.data.msg, icon: 'none' })
+            }
+          }
+        },
+        fail(res) {
+          console.log(res)
+          wx.showToast({ title: '系统错误', icon: 'none' })
+        },
+        complete(res) {
+          wx.hideLoading()
+        }
+      })
+    })
+  }
 })
 
 var formdata=function(obj = {}) {
