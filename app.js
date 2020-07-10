@@ -8,7 +8,7 @@ App({
   globalData: {
     baseUrl: 'https://api.ashibro.com',
     moment: moment,
-    cityList: [],
+    countries: [],
     isLogin: false,
     userInfo: null, // 微信用户信息
     user: null, // 登录之后服务器返回的用户信息
@@ -58,6 +58,7 @@ App({
     })
 
     this.getMessageContext()
+    this.getCountriesCities()
   },
 
   // 消息服务上下文
@@ -95,6 +96,37 @@ App({
       },
       fail: function (res) {
         wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })
+  },
+
+  // 国家城市列表
+  getCountriesCities() {
+    var self = this
+
+    wx.showLoading()
+
+    wx.request({
+      url: this.globalData.baseUrl + '/app/v1/countries-cities',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.globalData.countries = res.data
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: res.errMsg, icon: 'none' })
       },
       complete: function (res) {
         wx.hideLoading()
