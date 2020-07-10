@@ -150,6 +150,10 @@ Page({
     if (this.data.formdata.weight === '' || this.data.formdata.weight === null) {
       wx.showToast({ title: '请填写物品重量', icon: 'none' })
       return
+    } 
+    if (!this.data.address.id) {
+      wx.showToast({ title: '请选择收货地址', icon: 'none' })
+      return
     }
 
     var params = {
@@ -158,7 +162,8 @@ Page({
       destination: this.data.destination,
       item_type: this.data.formdata.item_type,
       price: parseInt(this.data.formdata.price),
-      weight: parseInt(this.data.formdata.weight)
+      weight: parseInt(this.data.formdata.weight),
+      address_id: this.data.address.id
     }
     console.log(params)
 
@@ -201,7 +206,7 @@ Page({
     var that = this
     if (!this.data.images.length) {
       wx.navigateTo({
-        url: '/pages/order/pay/pay?id=' + that.responseObj.id
+        url: '/pages/order/pay/pay?id=' + that.data.responseObj.id
       })
     }
 
@@ -213,7 +218,7 @@ Page({
     // 将选择的图片组成一个Promise数组，准备进行并行上传
     const arr = this.data.images.map(path => {
       return wx.uploadFile({
-        url: app.globalData.baseUrl + '/app/v1/deliveries/' + that.responseObj.id + '/resources',
+        url: app.globalData.baseUrl + '/app/v1/deliveries/' + that.data.responseObj.id + '/resources',
         filePath: path,
         name: 'file',
         header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'), 'Content-Type': 'multipart/form-data' },
@@ -223,7 +228,7 @@ Page({
     Promise.all(arr).then(res => {
       console.log(res)
       wx.navigateTo({
-        url: '/pages/order/pay/pay?id=' + that.responseObj.id
+        url: '/pages/order/pay/pay?id=' + that.data.responseObj.id
       })
     }).catch(err => {
       console.log(err)

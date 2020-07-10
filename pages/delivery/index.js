@@ -14,6 +14,7 @@ Page({
       weight: null,
       details: '',
     },
+    address: null,
     responseObj: {},
     typearray: [ '文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他' ],
     images: [],
@@ -160,6 +161,11 @@ Page({
       wx.showToast({ title: '请填写备注', icon: 'none' })
       return
     }
+    if (!this.data.address.id) {
+      wx.showToast({ title: '请选择收货地址', icon: 'none' })
+      return
+    }
+
     var params = {
       type: 'normal',
       departure: this.data.departure,
@@ -169,6 +175,7 @@ Page({
       reward: parseInt(this.data.formdata.reward),
       weight: parseInt(this.data.formdata.weight),
       details: this.data.formdata.details,
+      address_id: this.data.address.id
     }
     console.log(params)
 
@@ -182,7 +189,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           console.log(res.data)// 服务器回包内容
           self.setData({ responseObj: res.data })
           self.submitImages()
@@ -210,8 +217,11 @@ Page({
   submitImages: function () {
     var that = this
     if (!this.data.images.length) {
+      // wx.redirectTo({
+      //   url: '/pages/delivery/order/order?id=' + that.data.responseObj.id
+      // })
       wx.redirectTo({
-        url: '/pages/delivery/order/order?id=' + that.responseObj.id
+        url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
       })
     }
     
@@ -223,7 +233,7 @@ Page({
     // 将选择的图片组成一个Promise数组，准备进行并行上传
     const arr = this.data.images.map(path => {
       return wx.uploadFile({
-        url: app.globalData.baseUrl + '/app/v1/deliveries/' + that.responseObj.id  + '/resources',
+        url: app.globalData.baseUrl + '/app/v1/deliveries/' + that.data.responseObj.id  + '/resources',
         filePath: path,
         name: 'file',
         header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'), 'Content-Type': 'multipart/form-data' },
@@ -232,8 +242,12 @@ Page({
 
     Promise.all(arr).then(res => {
       console.log(res)
+      // wx.redirectTo({
+      //   url: '/pages/delivery/order/order?id=' + that.data.responseObj.id
+      // })
+      console.log('图片全部上传成功')
       wx.redirectTo({
-        url: '/pages/delivery/order/order?id=' + that.responseObj.id
+        url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
       })
     }).catch(err => {
       console.log(err)

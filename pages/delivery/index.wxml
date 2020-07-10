@@ -18,6 +18,32 @@
         </view>
       </picker>
     </view>
+
+    <view class="myAddress" wx:if="{{!address}}">
+      <navigator url="/pages/my/address/index">收货地址</navigator>
+    </view>
+    <view class="addressWrap" wx:else>
+      <view class="title"><text>收货地址</text></view>
+      <view class="info">
+        <view class="infoItem">
+          <text class="label">联系人：</text>
+          <text class="value">{{address.recipient}} </text>
+        </view>
+        <view class="infoItem">
+          <text class="label">电话：</text>
+          <text class="value">{{address.mobile}} </text>
+        </view>
+        <view class="infoItem">
+          <text class="label">邮编：</text>
+          <text class="value">{{address.zipcode}} </text>
+        </view>
+        <view class="infoItem">
+          <text class="label">地址：</text>
+          <text class="value">{{address.details}}</text>
+        </view>
+      </view>
+    </view>
+
     <view class="formWrap">
       <view class="formItem">
         <label>物品类型</label>
