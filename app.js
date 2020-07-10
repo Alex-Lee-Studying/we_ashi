@@ -1,11 +1,13 @@
 //app.js
 import GoEasy from 'utils/goeasy-1.0.17';
+import moment from 'utils/moment.min.js';
 App({
   data: {
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   globalData: {
     baseUrl: 'https://api.ashibro.com',
+    moment: moment,
     cityList: [],
     isLogin: false,
     userInfo: null, // 微信用户信息

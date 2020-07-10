@@ -1,4 +1,3 @@
-var tools = require('../../../../utils/util.js')
 var app = getApp()
 var hasClick = false
 Page({
@@ -56,6 +55,7 @@ Page({
       success: function (res) {
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容
+          res.data.birthday = res.data.birthday ? app.globalData.moment.utc(res.data.birthday).format('YYYY-MM-DD') : ''
           self.setData({ user: res.data })
           app.globalData.user = res.data
         } else {
@@ -81,7 +81,7 @@ Page({
       nick_name: this.data.user.nick_name,
       gender: this.data.user.gender,
       email: this.data.user.email,
-      birthday: tools.dateToUTC(this.data.user.birthday),
+      birthday: app.globalData.moment.utc(this.data.user.birthday).format(),
       story: this.data.user.story
     }
     console.log(params)

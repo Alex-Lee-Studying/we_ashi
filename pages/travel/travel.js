@@ -1,4 +1,3 @@
-var tools = require('../../utils/util.js')
 var app = getApp()
 var hasClick = false
 Page({
@@ -62,7 +61,7 @@ Page({
     var params = {
       departure: this.data.departure,
       destination: this.data.destination,
-      dt_departure: tools.dateToUTC(this.data.formdata.dt_departure),
+      dt_departure: app.globalData.moment.utc(this.data.formdata.dt_departure).format(),
       details: this.data.formdata.details,
       weight: parseInt(this.data.formdata.weight),
       unit_price: parseInt(this.data.formdata.unit_price)
@@ -82,6 +81,8 @@ Page({
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容    
           self.setData({ complete: true })
+          res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
+          res.data.dt_departure = res.data.dt_departure ? app.globalData.moment.utc(res.data.dt_departure).format('YYYY-MM-DD') : ''
           self.setData({ responseObj: res.data })
         } else {
           console.log(res)

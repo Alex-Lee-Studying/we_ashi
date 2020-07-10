@@ -1,10 +1,9 @@
-<wxs src="../../../utils/filter.wxs" module="filter" />
 <view class="container">
   <view class="uwrap">
     <view><image src="{{delivery.user.avatar}}" class="uimg"></image></view>
     <view class="utext">
       <text>{{delivery.user.nick_name}}</text>
-      <text>{{filter.formatTime(delivery.created, "date")}}·{{delivery.user.location}}</text>
+      <text>{{delivery.created}}·{{delivery.user.location}}</text>
     </view>
     <button open-type="share" class="share"><text class="iconfont iconshare"></text></button>
   </view>
