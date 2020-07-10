@@ -55,6 +55,7 @@ Page({
   onLoad: function (options) {
     if (options.targetUid) {
       this.setData({ target_user_id: options.targetUid })
+      this.getUserSessions(options.targetUid)
     }
     if (options.deliveryId) {
       this.setData({ delivery_id: options.deliveryId })
@@ -65,8 +66,8 @@ Page({
 
     if (options.sessionId) {
       this.setData({ session_id: options.sessionId })
-      this.getSession()
-      this.getMessages()
+      this.getSession(options.sessionId)
+      this.getMessages(options.sessionId)
     }
 
     this.setData({
@@ -99,7 +100,7 @@ Page({
     this.setData({ currBtn: e.currentTarget.dataset.btn })
     if (this.data.currBtn === 'plus') {
       this.setData({
-        scrollHeight: (windowHeight - 196) + 'px',
+        scrollHeight: (windowHeight - 136) + 'px',
         toView: 'msg-' + (this.data.messageList.length - 1),
         inputBottom: 0
       })
@@ -265,6 +266,14 @@ Page({
     })
   },
 
+  sendTravel() {
+
+  },
+
+  sendDelivery() {
+
+  },
+
   // 发布消息
   addMessage(opts) {
     var self = this
@@ -329,14 +338,53 @@ Page({
     })
   },
 
+  // 会话列表
+  getUserSessions(target_user_id) {
+    var self = this
+    var page = 0
+    var pageSize = 20
+
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/sessions',
+      method: 'GET',
+      header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: {
+        user_id: target_user_id
+      },
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length) {
+            self.getMessages(res.data[0].id)
+          }
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })
+  },
+
   // 会话详情
-  getSession() {
+  getSession(session_id) {
     var self = this
 
     wx.showLoading()
 
     wx.request({
-      url: app.globalData.baseUrl + '/message/v1/sessions/' + this.data.session_id,
+      url: app.globalData.baseUrl + '/message/v1/sessions/' + session_id,
       method: 'GET',
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       success: function (res) {
@@ -371,7 +419,7 @@ Page({
   },
 
   // 会话消息列表
-  getMessages() {
+  getMessages(session_id) {
     var self = this
     var page = 0
     var pageSize = 20
@@ -381,7 +429,7 @@ Page({
     wx.showLoading()
 
     wx.request({
-      url: app.globalData.baseUrl + '/message/v1/sessions/' + this.data.session_id + '/messages',
+      url: app.globalData.baseUrl + '/message/v1/sessions/' + session_id + '/messages',
       method: 'GET',
       header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       success: function (res) {

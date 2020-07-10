@@ -4,7 +4,7 @@
     <!-- <view class='scrollMsg'> -->
     <block wx:for='{{messageList}}' wx:key="index">
 
-      <!-- 单个消息1 客服发出（左） -->
+      <!-- 单个消息 -->
       <view id='msg-{{index}}' class="{{item.author.id !== user.id ? 'leftItemWrap' : 'rightItemWrap'}}">
         <view class="uimgWrap" wx:if="{{item.author.id !== user.id}}">
           <image src="{{item.author.avatar}}"></image>
@@ -24,6 +24,27 @@
           <block wx:if="{{item.type === 'media'}}">
             <image wx:if="{{item.resource.mime.indexOf('image') !== -1}}" src="{{item.resource.name}}" mode="widthFix" class="msgImage" data-idx="{{index}}" data-images="{{item.resource.name}}" bindtap="handleImagePreview"></image>
           </block>
+
+          <block wx:if="{{item.type === 'delivery'}}">
+            <navigator class="cardWrap" url="{{'/pages/index/cardDelivery/cardDelivery?id=' + delivery.id}}">
+              <image src="/images/shoes.jpg" mode="aspectFill" class="cardImg"></image>
+              <view class="cardCont">
+                <view class="date">{{delivery.created}}</view>
+                <view class="country">{{delivery.departure}}<text class="iconfont icon-_danjiantou"></text>{{delivery.destination}}</view>
+              </view>
+            </navigator>
+          </block>
+
+          <block wx:if="{{item.type === 'travel'}}">
+            <navigator class="cardWrap" url="{{'/pages/index/cardTravel/cardTravel?id=' + travel.id}}">
+              <image src="/images/shoes.jpg" mode="aspectFill" class="cardImg"></image>
+              <view class="cardCont">
+                <view class="date">{{travel.dt_departure}}</view>
+                <view class="country">{{travel.departure}}<text class="iconfont icon-_danjiantou"></text>{{travel.destination}}</view>
+              </view>
+            </navigator>
+          </block>
+
         </view>
         <view class="uimgWrap" wx:if="{{item.author.id === user.id}}">
           <image src="{{item.author.avatar}}"></image>
@@ -57,11 +78,11 @@
         <text class="iconfont iconlocation"></text>
         <text class="icontext">位置</text>
       </view>
-      <view class="optionItem">
+      <view class="optionItem" bindtap="sendTravel">
         <text class="iconfont iconsuitcase"></text>
         <text class="icontext">出行</text>
       </view>
-      <view class="optionItem">
+      <view class="optionItem" bindtap="sendDelivery">
         <text class="iconfont iconplane"></text>
         <text class="icontext">求带</text>
       </view>

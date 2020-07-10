@@ -136,3 +136,32 @@ input {
   margin-bottom: 20rpx;
 }
 
+.cardWrap {
+  display: flex;
+  align-items: center;
+}
+.cardWrap .cardImg {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 5rpx;
+}
+.cardWrap .cardCont {
+  margin-left: 20rpx;
+  text-align: center;
+}
+.cardWrap .cardCont .date {
+  font-size: 30rpx;
+  color: #989898;
+}
+.cardWrap .cardCont .country {
+  font-size: 20rpx;
+  color: #333;
+}
+.rightMsg .cardWrap .cardCont .country {
+  color: #fff;
+}
+.cardWrap .cardCont .country .iconfont {
+  font-size: 20rpx;
+  margin: 0 5rpx;
+}
+
