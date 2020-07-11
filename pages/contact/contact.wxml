@@ -23,6 +23,7 @@
           </block> -->
           <block wx:if="{{item.type === 'media'}}">
             <image wx:if="{{item.resource.mime.indexOf('image') !== -1}}" src="{{item.resource.name}}" mode="widthFix" class="msgImage" data-idx="{{index}}" data-images="{{item.resource.name}}" bindtap="handleImagePreview"></image>
+            <video wx:else src="{{item.resource.name}}" controls style="width:300rpx;height:225rpx;"></video>
           </block>
         </view>
         <view class="uimgWrap" wx:if="{{item.author.id === user.id}}">
