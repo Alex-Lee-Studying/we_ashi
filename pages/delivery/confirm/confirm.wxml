@@ -1,4 +1,3 @@
-<wxs src="../../../utils/filter.wxs" module="filter" />
 <view class="container">
   <view class="addressWrap">
     <view class="item">
@@ -20,7 +19,7 @@
     <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
     <view class="right">
       <text class="name">{{delivery.details}}</text>
-      <text class="date">{{filter.formatTime(delivery.created)}}</text>
+      <text class="date">{{delivery.created}}</text>
       <text class="price">￥{{delivery.price}}</text>
     </view>
   </view>

@@ -1,8 +1,10 @@
-var tools = require('../../utils/util.js')
 var app = getApp()
 var hasClick = false
 Page({
   data: {
+    picker: '', // departure destination
+    departureStr: '',
+    destinationStr: '',
     departure: '',
     destination: '',
     formdata: {
@@ -12,7 +14,9 @@ Page({
       details: '',
     },
     responseObj: {},
-    complete: false
+    complete: false,
+    multiArray: [],
+    multiIndex: [0, 0],
   },
   onLoad: function () {
   },
@@ -22,12 +26,67 @@ Page({
         url: '/pages/user/auth/auth',
       })
     }
+
+    var arr = []
+    arr[0] = app.globalData.countries
+    arr[1] = app.globalData.countries[0] ? app.globalData.countries[0].cities : []
+    this.setData({
+      multiArray: arr,
+      multiIndex: [0, 0]
+    })
   },
   onHide: function () {
     this.setData({
       complete: false
     })
   },
+
+  pickerCountry(e) {
+    this.setData({
+      picker: e.currentTarget.dataset.picker
+    })
+  },
+
+  bindMultiPickerChange: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      multiIndex: e.detail.value
+    })
+    var countryStr = this.data.multiArray[1][this.data.multiIndex[1]].desc + '@' + this.data.multiArray[0][this.data.multiIndex[0]].desc
+    var countryCode = this.data.multiArray[1][this.data.multiIndex[1]].code + '@' + this.data.multiArray[0][this.data.multiIndex[0]].code
+    if (this.data.picker === 'departure') {
+      this.setData({
+        departure: countryCode,
+        departureStr: countryStr,
+        picker: ''
+      })
+    } else if (this.data.picker === 'destination') {
+      this.setData({
+        destination: countryCode,
+        destinationStr: countryStr,
+        picker: ''
+      })
+    }
+  },
+
+  bindMultiPickerColumnChange: function (e) {
+    // console.log('修改的列为', e.detail.column, '，值为', e.detail.value)
+    var data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    }
+    data.multiIndex[e.detail.column] = e.detail.value
+
+    switch (e.detail.column) {
+      case 0:
+        data.multiArray[1] = data.multiArray[0][e.detail.value].cities
+        data.multiIndex[1] = 0
+        break;
+    }
+
+    this.setData(data);
+  },
+
   //input表单数据绑定
   inputInfo: function (e) {
     let dataset = e.currentTarget.dataset;
@@ -62,7 +121,7 @@ Page({
     var params = {
       departure: this.data.departure,
       destination: this.data.destination,
-      dt_departure: tools.dateToUTC(this.data.formdata.dt_departure),
+      dt_departure: app.globalData.moment.utc(this.data.formdata.dt_departure).format(),
       details: this.data.formdata.details,
       weight: parseInt(this.data.formdata.weight),
       unit_price: parseInt(this.data.formdata.unit_price)
@@ -82,6 +141,8 @@ Page({
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容    
           self.setData({ complete: true })
+          res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
+          res.data.dt_departure = res.data.dt_departure ? app.globalData.moment.utc(res.data.dt_departure).format('YYYY-MM-DD') : ''
           self.setData({ responseObj: res.data })
         } else {
           console.log(res)

@@ -1,10 +1,9 @@
-<wxs src="../../../utils/filter.wxs" module="filter" />
 <view class="container">
   <view class="uwrap">
     <view><image src="{{travel.user.avatar}}" class="uimg"></image></view>
     <view class="utext">
       <text>{{travel.user.nick_name}}</text>
-      <text>{{filter.formatTime(travel.created, "date")}}·{{travel.user.location}}</text>
+      <text>{{travel.created}}·{{travel.user.location}}</text>
     </view>
     <button open-type="share" class="share"><text class="iconfont iconshare"></text></button>
   </view>
@@ -15,7 +14,7 @@
     </view>
     <view class="msgItem flightInfo">
       <view>
-        <text class="time">出发日期：{{filter.formatTime(travel.dt_departure, "date")}}</text>
+        <text class="time">出发日期：{{travel.dt_departure}}</text>
       </view>
       <view style="margin-top: 20rpx;">
         <text class="country">{{travel.departure}}</text><text class="iconfont icon-_danjiantou"></text><text class="country">{{travel.destination}}</text>

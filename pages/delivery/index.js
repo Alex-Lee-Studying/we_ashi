@@ -2,6 +2,9 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
+    picker: '', // departure destination
+    departureStr: '',
+    destinationStr: '',
     departure: '',
     destination: '',
     formdata: {
@@ -11,9 +14,12 @@ Page({
       weight: null,
       details: '',
     },
+    address: null,
     responseObj: {},
     typearray: [ '文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他' ],
     images: [],
+    multiArray: [],
+    multiIndex: [0, 0],
   },
 
   onLoad: function () {
@@ -25,6 +31,60 @@ Page({
         url: '/pages/user/auth/auth',
       })
     }
+
+    var arr = []
+    arr[0] = app.globalData.countries
+    arr[1] = app.globalData.countries[0] ? app.globalData.countries[0].cities : []
+    this.setData({
+      multiArray: arr,
+      multiIndex: [0, 0]
+    })
+  },
+
+  pickerCountry(e) {
+    this.setData({
+      picker: e.currentTarget.dataset.picker
+    })
+  },
+
+  bindMultiPickerChange: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      multiIndex: e.detail.value
+    })
+    var countryStr = this.data.multiArray[1][this.data.multiIndex[1]].desc + '@' + this.data.multiArray[0][this.data.multiIndex[0]].desc
+    var countryCode = this.data.multiArray[1][this.data.multiIndex[1]].code + '@' + this.data.multiArray[0][this.data.multiIndex[0]].code
+    if (this.data.picker === 'departure') {
+      this.setData({
+        departure: countryCode,
+        departureStr: countryStr,
+        picker: ''
+      })
+    } else if (this.data.picker === 'destination') {
+      this.setData({
+        destination: countryCode,
+        destinationStr: countryStr,
+        picker: ''
+      })
+    } 
+  },
+
+  bindMultiPickerColumnChange: function (e) {
+    // console.log('修改的列为', e.detail.column, '，值为', e.detail.value)
+    var data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    }
+    data.multiIndex[e.detail.column] = e.detail.value
+
+    switch (e.detail.column) {
+      case 0:
+        data.multiArray[1] = data.multiArray[0][e.detail.value].cities
+        data.multiIndex[1] = 0
+        break;
+    }
+
+    this.setData(data);
   },
 
   bindTypeChange(e) {
@@ -101,6 +161,11 @@ Page({
       wx.showToast({ title: '请填写备注', icon: 'none' })
       return
     }
+    if (!this.data.address.id) {
+      wx.showToast({ title: '请选择收货地址', icon: 'none' })
+      return
+    }
+
     var params = {
       type: 'normal',
       departure: this.data.departure,
@@ -110,6 +175,7 @@ Page({
       reward: parseInt(this.data.formdata.reward),
       weight: parseInt(this.data.formdata.weight),
       details: this.data.formdata.details,
+      address_id: this.data.address.id
     }
     console.log(params)
 
@@ -123,7 +189,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           console.log(res.data)// 服务器回包内容
           self.setData({ responseObj: res.data })
           self.submitImages()
@@ -151,8 +217,11 @@ Page({
   submitImages: function () {
     var that = this
     if (!this.data.images.length) {
+      // wx.redirectTo({
+      //   url: '/pages/delivery/order/order?id=' + that.data.responseObj.id
+      // })
       wx.redirectTo({
-        url: '/pages/delivery/order/order?id=' + that.responseObj.id
+        url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
       })
     }
     
@@ -164,7 +233,7 @@ Page({
     // 将选择的图片组成一个Promise数组，准备进行并行上传
     const arr = this.data.images.map(path => {
       return wx.uploadFile({
-        url: app.globalData.baseUrl + '/app/v1/deliveries/' + that.responseObj.id  + '/resources',
+        url: app.globalData.baseUrl + '/app/v1/deliveries/' + that.data.responseObj.id  + '/resources',
         filePath: path,
         name: 'file',
         header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'), 'Content-Type': 'multipart/form-data' },
@@ -173,8 +242,12 @@ Page({
 
     Promise.all(arr).then(res => {
       console.log(res)
+      // wx.redirectTo({
+      //   url: '/pages/delivery/order/order?id=' + that.data.responseObj.id
+      // })
+      console.log('图片全部上传成功')
       wx.redirectTo({
-        url: '/pages/delivery/order/order?id=' + that.responseObj.id
+        url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
       })
     }).catch(err => {
       console.log(err)

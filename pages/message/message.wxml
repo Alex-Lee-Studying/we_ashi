@@ -14,8 +14,8 @@
     </navigator>
 
     <navigator class="msgItem" url="{{'/pages/contact/contact?sessionId=' + item.id}}"  wx:for="{{sessionList}}" wx:key="index">
-      <view class="left"></view>
-      <view class="right"><text class="title">{{item.id}}</text><text class="desc">{{item.created}}</text></view>
+      <view class="left"><image src="{{item.target.avatar}}" class="avatar"></image></view>
+      <view class="right"><text class="title">{{item.target.nick_name}}</text><text class="desc">{{item.created}}</text></view>
     </navigator>
   </view>
 </view>

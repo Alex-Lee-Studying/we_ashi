@@ -31,6 +31,7 @@ Page({
       success: function (res) {
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容
+          res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
           self.setData({ delivery: res.data })
         } else {
           console.log(res)

@@ -45,6 +45,8 @@ Page({
       success: function (res) {
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容
+          res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
+          res.data.dt_departure = res.data.dt_departure ? app.globalData.moment.utc(res.data.dt_departure).format('YYYY-MM-DD') : ''
           self.setData({ travel: res.data })
         } else {
           console.log(res)
@@ -82,6 +84,9 @@ Page({
       success: function (res) {
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容
+          res.data.forEach((item, index, array) => {
+            item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+          })
           self.setData({ askforList: res.data })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
@@ -124,6 +129,9 @@ Page({
       success: function (res) {
         if (res.statusCode === 200) {
           console.log(res.data)// 服务器回包内容
+          res.data.forEach((item, index, array) => {
+            item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+          })
           self.setData({ acceptedList: res.data })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {

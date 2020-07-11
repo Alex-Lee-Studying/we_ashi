@@ -1,4 +1,3 @@
-<wxs src="../../utils/filter.wxs" module="filter" />
 <view class="container">
   <view class="header">
     <image src="/images/myHeaderBg.png" class="absimg" mode="widthFix"></image>
@@ -68,7 +67,7 @@
           <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
           <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
           <navigator url="{{'/pages/my/deliveryDetail/deliveryDetail?id=' + item.id}}" class="main">
-            <view class="mark"><text>{{filter.formatTime(item.created, "date")}}</text></view>
+            <view class="mark"><text>{{item.created}}</text></view>
             <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
           </navigator>
           <button open-type="share" class="right" data-type="delivery" data-item="{{item}}"><text class="iconfont iconshare"></text></button>
@@ -81,7 +80,7 @@
         <view class="orderinfo">
           <view class="left"><text class="iconfont iconplane"></text></view>
           <navigator url="{{'/pages/my/travelDetail/travelDetail?id=' + item.id}}" class="main">
-            <view class="mark"><text>{{filter.formatTime(item.dt_departure, "date")}}</text></view>
+            <view class="mark"><text>{{item.dt_departure}}</text></view>
             <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
           </navigator>
           <button open-type="share" class="right" data-type="travel" data-item="{{item}}"><text class="iconfont iconshare"></text></button>
