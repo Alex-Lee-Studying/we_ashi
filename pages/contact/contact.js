@@ -245,13 +245,15 @@ Page({
 
   chooseImage(e) {
     var that = this
-    wx.chooseImage({
-      sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
-      sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
+    wx.chooseMedia({
+      mediaType: ['image','video'],
+      sourceType: ['album', 'camera'],
+      maxDuration: 30,
       success: res => {
+        var type = res.type // 文件类型，有效值有 image 、video
         const params = {
           type: 'media',
-          tempFilePaths: res.tempFilePaths
+          tempFiles: res.tempFiles
         }
         this.submitImages(params)
       }
@@ -474,9 +476,6 @@ Page({
               messageList: messageList,
               toView: 'msg-' + (messageList.length - 1)
             })
-            this.setData({
-              toView: 'msg-' + (this.data.messageList.length - 1)
-            })
           }
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
@@ -499,7 +498,7 @@ Page({
 
   submitImages: function (opts) {
     var that = this
-    if (!opts.tempFilePaths.length) {
+    if (!opts.tempFiles.length) {
       return
     }
 
@@ -508,10 +507,10 @@ Page({
       mask: true
     })
 
-    opts.tempFilePaths.map(path => {
+    opts.tempFiles.map(file => {
       wx.uploadFile({
         url: app.globalData.baseUrl + '/message/v1/messages',
-        filePath: path,
+        filePath: file.tempFilePath,
         name: 'file',
         header: {
           'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'),

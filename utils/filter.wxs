@@ -33,7 +33,12 @@ var getBirth = function (idCard) {
   return birthday
 }
 
+var indexOf = function (str, search) {
+  return str.indexOf(search)
+}
+
 module.exports = {
   formatTime: formatTime,
-  getBirth: getBirth
+  getBirth: getBirth,
+  indexOf: indexOf
 }

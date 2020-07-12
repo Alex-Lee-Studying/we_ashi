@@ -151,7 +151,7 @@ Page({
       wx.showToast({ title: '请填写物品重量', icon: 'none' })
       return
     } 
-    if (!this.data.address.id) {
+    if (!this.data.address || !this.data.address.id) {
       wx.showToast({ title: '请选择收货地址', icon: 'none' })
       return
     }

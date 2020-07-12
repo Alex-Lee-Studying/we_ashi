@@ -7,7 +7,7 @@
         <view class="mark"><text>可带行李重量：{{travel.weight}}kg</text></view>
         <view class="mark" wx:if="{{travel.agent}}"><text>备注：可带买</text></view>
       </view>
-      <button open-type="share" class="right"><text class="iconfont iconshare"></text></button>
+      <button open-type="share" class="right btnShare" ><text class="iconfont iconshare"></text></button>
     </view>
   </view>
 

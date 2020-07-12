@@ -29,6 +29,16 @@ page {
   font-size: 24rpx;
   color: #989898;  
 }
+.orderDetailCX .orderinfo .btnShare {
+  padding: 0;
+  margin: 0 auto;
+  width: 144rpx;
+  height: 54rpx;
+  line-height: 54rpx;
+  font-size: 24rpx;
+  background-color: transparent;
+  font-weight: normal;
+}
 .subWrap {
   margin: 60rpx 0;
 }

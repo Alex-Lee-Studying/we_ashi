@@ -13,7 +13,7 @@
         <view class="fee"><text class="label">帮带报酬：</text><text>￥{{delivery.reward}}</text></view>
       </view>
       <view class="right">
-        <button open-type="share"><text class="iconfont iconshare"></text></button>
+        <button open-type="share" class="btnShare"><text class="iconfont iconshare"></text></button>
         <button type="primary" class="btnPrimary" data-delivery-id="{{delivery.id}}" bindtap="cancel" wx:if="{{delivery.status === 'normal'}}">取消</button>
         <button type="primary" class="btnPrimary" data-delivery-id="{{delivery.id}}" bindtap="topay" wx:if="{{delivery.status === 'paying'}}">去支付</button>
         <button type="primary" class="btnPrimary" data-delivery-id="{{delivery.id}}" bindtap="finish" wx:if="{{delivery.status === 'delivering'}}">确认收货</button>

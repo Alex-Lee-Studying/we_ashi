@@ -6,7 +6,7 @@
     <text class="tabItem" data-tab="network" bindtap="changeTab" wx:else>脚递网点</text>
   </view>
 
-  <view class="expressCont" wx:if="{{tabname === 'express'}}">
+  <view class="expressCont" hidden="{{tabname === 'network'}}">
     <view class="expressWrap">
       <view class="countryWrap">
         <image src="/images/china.png" mode="heightFix"></image>
@@ -81,7 +81,7 @@
     </view>
   </view>
 
-  <view class="networkCont" wx:if="{{tabname === 'network'}}">
+  <view class="networkCont" hidden="{{tabname === 'express'}}">
     <view class="networkWrap">
       <view class="flag"><image src="/images/china.png" mode="widthFix"></image></view>
       <view class="content">

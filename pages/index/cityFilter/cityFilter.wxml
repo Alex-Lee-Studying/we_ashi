@@ -1,11 +1,19 @@
 <view class="container">
   <view class="filterItem">
     <view class="label">{{ type === 'delivery' ? '物品所在地' : '起始'}}</view>
-    <navigator url="/pages/city/city?cityType=departure" class="valueWrap"><text class="iconfont iconlocation"></text>{{departure}}</navigator>
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" range-key="desc">
+      <view class="valueWrap" bindtap="pickerCountry" data-picker="departure">
+        <text class="iconfont iconlocation"></text>{{departureStr}}
+      </view>
+    </picker>
   </view>
   <view class="filterItem">
     <view class="label">{{ type === 'delivery' ? '收货地址' : '到达'}}</view>
-    <navigator url="/pages/city/city?cityType=destination" class="valueWrap"><text class="iconfont iconlocation"></text>{{destination}}</navigator>
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" range-key="desc">
+      <view class="valueWrap" bindtap="pickerCountry" data-picker="destination">
+        <text class="iconfont iconlocation"></text>{{destinationStr}}
+      </view>
+    </picker>
   </view>
   <view class="subWrap">
     <button type="primary" plain class="btnPrimary" hover-class="btnHover" bindtap="clear">清空</button>

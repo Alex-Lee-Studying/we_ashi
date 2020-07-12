@@ -161,7 +161,7 @@ Page({
       wx.showToast({ title: '请填写备注', icon: 'none' })
       return
     }
-    if (!this.data.address.id) {
+    if (!this.data.address || !this.data.address.id) {
       wx.showToast({ title: '请选择收货地址', icon: 'none' })
       return
     }
@@ -237,6 +237,12 @@ Page({
         filePath: path,
         name: 'file',
         header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'), 'Content-Type': 'multipart/form-data' },
+        success: function(res) {
+          return res
+        },
+        fail: function(res) {
+          return res
+        }
       })
     })
 
@@ -245,11 +251,26 @@ Page({
       // wx.redirectTo({
       //   url: '/pages/delivery/order/order?id=' + that.data.responseObj.id
       // })
-      console.log('图片全部上传成功')
-      wx.redirectTo({
-        url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
-      })
+
+      // wx.hideLoading()
+      // var check = res.every((item, index, array) => {
+      //   return item.statusCode && item.statusCode >= 200 && item.statusCode < 300
+      // })
+      // if (check) {
+      //   console.log('图片全部上传成功')
+      //   wx.redirectTo({
+      //     url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
+      //   })
+      // } else {
+      //   wx.showToast({ title: '图片上传失败', icon: 'none' })
+      // }
+
+        wx.redirectTo({
+          url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
+        })
+      
     }).catch(err => {
+      console.log('image err')
       console.log(err)
       wx.showToast({ title: err, icon: 'none' })
     }).then(() => {
