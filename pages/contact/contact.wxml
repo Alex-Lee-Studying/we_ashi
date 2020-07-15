@@ -56,6 +56,8 @@
             bindtap="openlocation"
           ></map>
 
+          <view wx:if="{{item.type === 'voice'}}" style="width:200rpx" bindtap="audioPlay" data-src="{{item.src}}" class='myLuYin'>录音</view>
+
         </view>
         <view class="uimgWrap" wx:if="{{item.author.id === user.id}}">
           <image src="{{item.author.avatar}}"></image>
@@ -71,7 +73,11 @@
   <view class="bottomWrap" style='bottom: {{inputBottom}}'>
     <view class='inputRoom'>
       <text class="iconfont iconhuatong {{currBtn === 'voice'? 'curr': ''}}" bindtap="changeInput" data-btn="voice"></text>
-      <input bindconfirm='sendClick' adjust-position='{{false}}' value='{{inputVal}}' confirm-type='send' bindfocus='focus' bindblur='blur' bindinput="onInput" ></input>
+
+      <button wx:if="currBtn === 'voice'" class="{{luStatu?'btTouch':'bt'}}" bind:touchstart="touchStartLu" bind:touchend="touchEndLu" type='primary'>
+        <text wx:if="{{luStatu}}">松开结束</text><text wx:else>按住说话</text>
+      </button>
+      <input wx:if="currBtn === 'input'" bindconfirm='sendClick' adjust-position='{{false}}' value='{{inputVal}}' confirm-type='send' bindfocus='focus' bindblur='blur' bindinput="onInput" ></input>
       <!-- <text class="iconfont iconlaugh {{currBtn === 'emoji'? 'curr': ''}}" bindtap="changeInput" data-btn="emoji"></text> -->
       <text class="iconfont iconplus1 {{currBtn === 'plus'? 'curr': ''}}" bindtap="changeInput" data-btn="plus"></text>
     </view>

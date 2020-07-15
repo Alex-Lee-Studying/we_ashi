@@ -164,3 +164,34 @@ input {
   margin: 0 5rpx;
 }
 
+.bt{
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #f2f2f2;
+  border-radius: 40rpx;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+ 
+.btTouch{
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #e2e2e2;
+  border-radius: 40rpx;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+}
+.myLuYin{ 
+  height: 80rpx;
+  background: greenyellow;
+  border-radius:6rpx;
+  margin: 15rpx 0; 
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  color: #fff;
+}
+

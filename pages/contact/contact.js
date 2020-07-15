@@ -40,13 +40,17 @@ Page({
     travel_id: '',
     session: {},
     messageList: [],
-    currBtn: '', // voice emoji plus
+    currBtn: 'input', // voice emoji plus
     scrollHeight: '100vh',
     inputBottom: 0,
     cursor: 0,
     parsedComment: [],
     msgList: [],
-    inputVal: ''
+    inputVal: '',
+    luStatu: false, // 录音状态
+    startLu: 0,
+    endLu: 0,
+    durationLu: 0
   },
 
   /**
@@ -70,10 +74,6 @@ Page({
       this.getMessages(options.sessionId)
     }
 
-    this.setData({
-      msgList: msgList
-    })
-
     const emojiInstance = this.selectComponent('.mp-emoji')
     console.log(emojiInstance)
     this.emojiNames = emojiInstance.getEmojiNames()
@@ -94,6 +94,45 @@ Page({
       });
 
     }
+
+    //  初始化录音对象
+    this.recorderManager = wx.getRecorderManager();
+    this.recorderManager.onError(function () {
+      wx.showToast({ title: '录音失败！', icon: 'none' })
+      self.setData({
+        luStatu: false
+      })
+    });
+
+    // 录音结束
+    this.recorderManager.onStop(function (res) {
+      var list = self.data.messageList
+      var src = res.tempFilePath
+      console.log('list的1是', list)
+      // console.log(src)
+      var aa = {
+        type: 'voice',
+        resource: {
+          name: src,
+          mime: ""
+        },
+        play: false
+      }
+      list.push(aa)
+      console.log('list的2是', list)
+      self.setData({
+        messageList: list
+      })
+
+      //wx.showToast({ title: '录音完成！', icon: 'none' })
+      //console.log(list)
+    })
+
+    this.innerAudioContext = wx.createInnerAudioContext()
+    this.innerAudioContext.onError((res) => {
+      wx.showToast({ title: '播放录音失败！', icon: 'none' })
+    })
+
   },
 
   changeInput: function(e) {
@@ -113,7 +152,7 @@ Page({
   focus: function (e) {
     keyHeight = e.detail.height
     this.setData({
-      currBtn: '',
+      currBtn: 'input',
       scrollHeight: (windowHeight - keyHeight) + 'px',
       toView: 'msg-' + (this.data.messageList.length - 1),
       inputBottom: keyHeight + 'px'
@@ -269,6 +308,47 @@ Page({
 
   sendDelivery() {
 
+  },
+
+  // 触摸开始
+  touchStartLu: function (e) {
+    // console.log('touchStart', e)
+    var start = e.timeStamp;
+    var seconds = (start % (1000 * 60)) / 1000;
+    this.setData({
+      startLu: seconds,
+      luStatu: true,
+    })
+    this.recorderManager.start({
+      format: 'mp3'
+    })
+  },
+
+  // 触摸结束
+  touchEndLu: function (e) {
+    // console.log('touchEnd', e)
+    var start = this.data.startLu
+    var end = e.timeStamp
+    var seconds = (end % (1000 * 60)) / 1000;
+    var duration = seconds - start
+    this.setData({
+      endLu: seconds,
+      durationLu: duration,
+      luStatu: false
+    })
+    this.recorderManager.stop()
+    console.log('按了' + duration + '秒')
+  },
+
+  // 播放录音
+  audioPlay: function (e) {
+    var src = e.currentTarget.dataset.src
+    if (src == '') {
+      wx.showToast({ title: '失效', icon: 'none' })
+      return
+    }
+    this.innerAudioContext.src = src
+    this.innerAudioContext.play()
   },
 
   // 发布消息
