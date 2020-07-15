@@ -184,14 +184,5 @@ input {
   padding: 0 30rpx;
   font-size: 28rpx;
 }
-.myLuYin{ 
-  height: 80rpx;
-  background: greenyellow;
-  border-radius:6rpx;
-  margin: 15rpx 0; 
-  text-align: center;
-  line-height: 80rpx;
-  font-size: 32rpx;
-  color: #fff;
-}
+
 

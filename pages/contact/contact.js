@@ -1,5 +1,7 @@
 var hasClick = false
 var app = getApp()
+var recorderManager = null
+var innerAudioContext = null
 
 var windowWidth = wx.getSystemInfoSync().windowWidth
 var windowHeight = wx.getSystemInfoSync().windowHeight
@@ -40,7 +42,7 @@ Page({
     travel_id: '',
     session: {},
     messageList: [],
-    currBtn: 'input', // voice emoji plus
+    currBtn: '', // voice emoji plus
     scrollHeight: '100vh',
     inputBottom: 0,
     cursor: 0,
@@ -96,45 +98,35 @@ Page({
     }
 
     //  初始化录音对象
-    this.recorderManager = wx.getRecorderManager();
-    this.recorderManager.onError(function () {
-      wx.showToast({ title: '录音失败！', icon: 'none' })
+    recorderManager = wx.getRecorderManager()
+    recorderManager.onError(function (res) {
+      if(res.errMsg === "operateRecorder:fail auth deny" || res.errMsg === "operateRecorder:fail authorize no response" || res.errMsg === "operateRecorder:fail:auth denied") {
+        //录音权限被拒绝提示用户去设置页面打开
+        wx.showToast({ title: '请前往我的->设置->授权设置打开录音权限', icon: 'none' })
+      } else {
+        wx.showToast({ title: res.errMsg, icon: 'none' })
+      }      
       self.setData({
         luStatu: false
       })
-    });
-    this.recorderManager.onStart(function (res) {
+    })
+    recorderManager.onStart(function (res) {
       console.log('开始')
     })
 
     // 录音结束
-    this.recorderManager.onStop(function (res) {
+    recorderManager.onStop(function (res) {
       console.log('结束')
-      var list = self.data.messageList
-      var src = res.tempFilePath
-      console.log('list的1是', list)
-      // console.log(src)
-      var aa = {
-        type: 'voice',
-        resource: {
-          name: src,
-          mime: ""
-        },
-        play: false
+      const params = {
+        type: 'media',
+        tempFiles: [{ tempFilePath: res.tempFilePath }]
       }
-      list.push(aa)
-      console.log('list的2是', list)
-      self.setData({
-        messageList: list
-      })
-
-      //wx.showToast({ title: '录音完成！', icon: 'none' })
-      //console.log(list)
+      self.submitMedia(params)
     })
 
-    this.innerAudioContext = wx.createInnerAudioContext()
-    this.innerAudioContext.onError((res) => {
-      wx.showToast({ title: '播放录音失败！', icon: 'none' })
+    innerAudioContext = wx.createInnerAudioContext()
+    innerAudioContext.onError((res) => {
+      wx.showToast({ title: res.errMsg, icon: 'none' })
     })
 
   },
@@ -156,7 +148,7 @@ Page({
   focus: function (e) {
     keyHeight = e.detail.height
     this.setData({
-      currBtn: 'input',
+      currBtn: '',
       scrollHeight: (windowHeight - keyHeight) + 'px',
       toView: 'msg-' + (this.data.messageList.length - 1),
       inputBottom: keyHeight + 'px'
@@ -293,7 +285,7 @@ Page({
           type: 'media',
           tempFiles: res.tempFiles
         }
-        this.submitImages(params)
+        that.submitMedia(params)
       }
     })
   },
@@ -323,7 +315,7 @@ Page({
       startLu: seconds,
       luStatu: true,
     })
-    this.recorderManager.start({
+    recorderManager.start({
       format: 'mp3'
     })
   },
@@ -340,7 +332,7 @@ Page({
       durationLu: duration,
       luStatu: false
     })
-    this.recorderManager.stop()
+    recorderManager.stop()
     console.log('按了' + duration + '秒')
   },
 
@@ -351,8 +343,8 @@ Page({
       wx.showToast({ title: '失效', icon: 'none' })
       return
     }
-    this.innerAudioContext.src = src
-    this.innerAudioContext.play()
+    innerAudioContext.src = src
+    innerAudioContext.play()
   },
 
   // 发布消息
@@ -576,7 +568,7 @@ Page({
     })
   },
 
-  submitImages: function (opts) {
+  submitMedia: function (opts) {
     var that = this
     if (!opts.tempFiles.length) {
       return
