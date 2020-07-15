@@ -214,23 +214,18 @@ Page({
   // },
 
   getlocation() {
-    var that = this
+    var self = this
     wx.getLocation({
       type: 'gcj02', //返回可以用于wx.openLocation的经纬度
       success(res) {
         const latitude = res.latitude
         const longitude = res.longitude
-        msgList.push({
-          speaker: 'customer',
-          contentType: 'map',
-          content: {
-            latitude: latitude,
-            longitude: longitude
-          }
-        })
-        that.setData({
-          msgList
-        })
+        const params = {
+          type: 'location',
+          longitude: longitude,             //经度
+          latitude: latitude               //纬度
+        }
+        self.addMessage(params)
       }
     })
   },
@@ -239,7 +234,7 @@ Page({
     wx.openLocation({
       latitude: e.detail.latitude,
       longitude: e.detail.longitude,
-      scale: 18
+      scale: 14
     })
   },
 
@@ -296,6 +291,7 @@ Page({
     } else if (params.type === 'media') {
     } else if (params.type === 'travel') {
     } else if (params.type === 'delivery') {
+    } else if (params.type === 'location') {
     }
     console.log(params)
 

@@ -47,6 +47,15 @@
             </navigator>
           </block>
 
+          <map
+            wx:if="{{item.type === 'location'}}"
+            style="width: 300rpx; height: 300rpx;"
+            latitude="{{item.latitude}}"
+            longitude="{{item.longitude}}"
+            show-location
+            bindtap="openlocation"
+          ></map>
+
         </view>
         <view class="uimgWrap" wx:if="{{item.author.id === user.id}}">
           <image src="{{item.author.avatar}}"></image>
