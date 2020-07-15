@@ -138,8 +138,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容    
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ complete: true })
           res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
           res.data.dt_departure = res.data.dt_departure ? app.globalData.moment.utc(res.data.dt_departure).format('YYYY-MM-DD') : ''

@@ -29,8 +29,7 @@ Page({
       url: app.globalData.baseUrl + '/app/v1/deliveries/' + this.data.deliveryId,
       method: 'GET',
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
           self.setData({ delivery: res.data })
         } else {

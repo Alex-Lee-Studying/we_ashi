@@ -14,7 +14,7 @@
   </view>
 
   <view class="myAddress" wx:if="{{!address}}">
-    <navigator url="/pages/my/address/index">我的地址</navigator>
+    <navigator url="/pages/my/address/index" hover-class="none">我的地址</navigator>
   </view>
   <view class="addressWrap" wx:else>
     <view class="title"><text>收货地址</text></view>

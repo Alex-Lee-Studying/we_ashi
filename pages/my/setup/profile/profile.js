@@ -53,8 +53,7 @@ Page({
       url: app.globalData.baseUrl + '/user/v1/users/' + this.data.userId,
       method: 'GET',
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           res.data.birthday = res.data.birthday ? app.globalData.moment.utc(res.data.birthday).format('YYYY-MM-DD') : ''
           self.setData({ user: res.data })
           app.globalData.user = res.data
@@ -96,8 +95,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           wx.showToast({ title: '编辑成功！', success: function() {
             self.getUser()
           } })

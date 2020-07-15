@@ -9,7 +9,7 @@
       <button class="loginWX" disabled="true" wx:else>微信登录</button>
       <view class="checkWrap">
         <checkbox value="{{agree}}" checked="{{agree}}" color="#033150" bindtap="changeAgree"/>微信登录表示同意
-        <navigator url="" class="text">《脚递用户使用协议》</navigator>
+        <navigator url="" class="text" hover-class="none">《脚递用户使用协议》</navigator>
       </view>
     </view>
   </view>

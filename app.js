@@ -64,7 +64,7 @@ App({
   // 消息服务上下文
   getMessageContext() {
     var self = this
-    wx.showLoading()
+    // wx.showLoading()
 
     wx.request({
       url: this.globalData.baseUrl + '/message/v1/message-context',
@@ -91,14 +91,19 @@ App({
           })
 
         } else {
-          wx.showToast({ title: res.data.msg, icon: 'none' })
+          console.log(res)
+          if (res.errMsg === 'request:fail') {
+            wx.showToast({ title: '请求出错', icon: 'none' })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
         }
       },
       fail: function (res) {
         wx.showToast({ title: '系统错误', icon: 'none' })
       },
       complete: function (res) {
-        wx.hideLoading()
+        // wx.hideLoading()
       }
     })
   },
@@ -106,8 +111,7 @@ App({
   // 国家城市列表
   getCountriesCities() {
     var self = this
-
-    wx.showLoading()
+    // wx.showLoading()
 
     wx.request({
       url: this.globalData.baseUrl + '/app/v1/countries-cities',
@@ -126,10 +130,15 @@ App({
         }
       },
       fail: function (res) {
-        wx.showToast({ title: res.errMsg, icon: 'none' })
+        console.log(res)
+        if (res.errMsg === 'request:fail') {
+          wx.showToast({ title: '请求出错', icon: 'none' })
+        } else {
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
       },
       complete: function (res) {
-        wx.hideLoading()
+        // wx.hideLoading()
       }
     })
   }

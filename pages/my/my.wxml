@@ -15,28 +15,28 @@
         <button class="getuBtn" open-type="getUserInfo" bindgetuserinfo="getuserinfo">登录/注册</button>
       </view>
       <view style="flex: 1;" wx:elif="{{!isLogin || !user}}">
-        <navigator class="tologin" url="/pages/user/auth/auth">登录/注册</navigator>
+        <navigator class="tologin" url="/pages/user/auth/auth" hover-class="none">登录/注册</navigator>
       </view>
 
       <view wx:if="{{isLogin && user}}">
-        <navigator url="/pages/my/setup/index" class="iconfont iconshezhi"></navigator>
+        <navigator url="/pages/my/setup/index" class="iconfont iconshezhi" hover-class="none"></navigator>
       </view>
     </view>
   </view>
   <view class="navWrap">
-    <navigator url="" class="navItem">
+    <navigator url="/pages/my/my" class="navItem" hover-class="none">
       <text class="iconfont iconicon--copy"></text>
       <text class="navText">我的订单</text>
     </navigator>
-    <navigator url="/pages/my/wallet/index" class="navItem">
+    <navigator url="/pages/my/wallet/index" class="navItem" hover-class="none">
       <text class="iconfont iconqianbao"></text>
       <text class="navText">我的钱包</text>
     </navigator>
-    <navigator url="/pages/help/index" class="navItem">
+    <navigator url="/pages/help/index" class="navItem" hover-class="none">
       <text class="iconfont iconfaq"></text>
       <text class="navText">帮助中心</text>
     </navigator>
-    <navigator url="/pages/feedback/feedback" class="navItem">
+    <navigator url="/pages/feedback/feedback" class="navItem" hover-class="none">
       <text class="iconfont iconarticle"></text>
       <text class="navText">用户反馈</text>
     </navigator>
@@ -66,7 +66,7 @@
         <view class="orderinfo">
           <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
           <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
-          <navigator url="{{'/pages/my/deliveryDetail/deliveryDetail?id=' + item.id}}" class="main">
+          <navigator url="{{'/pages/my/deliveryDetail/deliveryDetail?id=' + item.id}}" class="main" hover-class="none">
             <view class="mark"><text>{{item.created}}</text></view>
             <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
           </navigator>
@@ -79,7 +79,7 @@
       <view class="orderItem orderItemCX" wx:for="{{travelList}}" wx:key="id">
         <view class="orderinfo">
           <view class="left"><text class="iconfont iconplane"></text></view>
-          <navigator url="{{'/pages/my/travelDetail/travelDetail?id=' + item.id}}" class="main">
+          <navigator url="{{'/pages/my/travelDetail/travelDetail?id=' + item.id}}" class="main" hover-class="none">
             <view class="mark"><text>{{item.dt_departure}}</text></view>
             <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
           </navigator>

@@ -51,8 +51,7 @@ Page({
       url: app.globalData.baseUrl + '/app/v1/deliveries/' + this.data.deliveryId,
       method: 'GET',
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ delivery: res.data })
         } else {
           console.log(res)
@@ -87,8 +86,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           wx.redirectTo({
             url: '/pages/delivery/confirm/confirm?id=' + self.data.deliveryId,
           })

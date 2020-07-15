@@ -23,7 +23,7 @@
 
     <view class="listWrap" wx:if="{{tabname === 'askfor' && askforList.length}}">
       <view class="orderItem orderItemQD" wx:for="{{askforList}}" wx:key="id">
-        <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id' + item.id}}" class="orderinfo">
+        <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id' + item.id}}" class="orderinfo" hover-class="none">
           <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
           <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
           <view class="main">
@@ -38,7 +38,7 @@
 
     <view class="listWrap" wx:if="{{tabname === 'accepted' && acceptedList.length}}">
       <view class="orderItem orderItemQD" wx:for="{{acceptedList}}" wx:key="id">
-        <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id' + item.id}}" class="orderinfo">
+        <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id' + item.id}}" class="orderinfo" hover-class="none">
           <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
           <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
           <view class="main">

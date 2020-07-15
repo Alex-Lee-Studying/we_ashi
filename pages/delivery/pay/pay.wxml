@@ -1,5 +1,5 @@
 <view class="container">
-  <navigator url="" class="proWrap">
+  <navigator url="" class="proWrap" hover-class="none">
     <view class="left" wx:if="{{delivery.resources.length}}"><image src="{{delivery.resources[0].name}}" mode="aspectFill"></image></view>
     <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
     <view class="right">

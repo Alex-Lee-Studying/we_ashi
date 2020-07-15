@@ -43,8 +43,7 @@ Page({
       url: app.globalData.baseUrl + '/app/v1/travels/' + this.data.travelId,
       method: 'GET',
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
           res.data.dt_departure = res.data.dt_departure ? app.globalData.moment.utc(res.data.dt_departure).format('YYYY-MM-DD') : ''
           self.setData({ travel: res.data })
@@ -82,8 +81,7 @@ Page({
       header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           res.data.forEach((item, index, array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
           })
@@ -127,8 +125,7 @@ Page({
       header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           res.data.forEach((item, index, array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
           })

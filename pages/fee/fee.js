@@ -2,6 +2,9 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
+    picker: '', // departure destination
+    departureStr: '',
+    destinationStr: '',
     departure: "",
     destination: "",
     formdata: {
@@ -14,7 +17,9 @@ Page({
     expressFee: 0,
     serviceFee: 0,
     total: 0,
-    responseObj: {}
+    responseObj: {},
+    multiArray: [],
+    multiIndex: [0, 0]
   },
   onLoad: function () {
   },
@@ -25,7 +30,65 @@ Page({
         selected: 2
       })
     }
+
+    var arr = []
+    arr[0] = app.globalData.countries
+    arr[1] = app.globalData.countries[0] ? app.globalData.countries[0].cities : []
+    this.setData({
+      multiArray: arr,
+      multiIndex: [0, 0]
+    })
   },
+
+  pickerCountry(e) {
+    this.setData({
+      picker: e.currentTarget.dataset.picker
+    })
+  },
+
+  bindMultiPickerChange: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      multiIndex: e.detail.value
+    })
+    var countryStr = this.data.multiArray[1][this.data.multiIndex[1]].desc + '@' + this.data.multiArray[0][this.data.multiIndex[0]].desc
+    // var countryCode = this.data.multiArray[1][this.data.multiIndex[1]].code + '@' + this.data.multiArray[0][this.data.multiIndex[0]].code
+    var countryCode = this.data.multiArray[0][this.data.multiIndex[0]].code
+    if (this.data.picker === 'departure') {
+      this.setData({
+        departure: countryCode,
+        departureStr: countryStr,
+        picker: ''
+      })
+    } else if (this.data.picker === 'destination') {
+      this.setData({
+        destination: countryCode,
+        destinationStr: countryStr,
+        picker: ''
+      })
+    }
+
+    this.doCalculate()
+  },
+
+  bindMultiPickerColumnChange: function (e) {
+    // console.log('修改的列为', e.detail.column, '，值为', e.detail.value)
+    var data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    }
+    data.multiIndex[e.detail.column] = e.detail.value
+
+    switch (e.detail.column) {
+      case 0:
+        data.multiArray[1] = data.multiArray[0][e.detail.value].cities
+        data.multiIndex[1] = 0
+        break;
+    }
+
+    this.setData(data);
+  },
+
   bindTypeChange(e) {
     let dataset = e.currentTarget.dataset;
     let idx = e.detail.value;
@@ -89,9 +152,8 @@ Page({
       method: 'GET',
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
-          self.setData({ responseObj: res.data, total: res.data.price })
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.setData({ responseObj: res.data, expressFee: res.data.price })
         } else {
           console.log(res)
           wx.showToast({ title: res.data.msg, icon: 'none' })

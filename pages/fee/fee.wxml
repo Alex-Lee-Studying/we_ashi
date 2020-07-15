@@ -3,9 +3,13 @@
     <image src="/images/banner.jpg" mode="aspectFill"></image>
   </view>
   <view class="country">
-    <navigator url="/pages/city/city?cityType=departure">{{departure || '出发地'}}</navigator>
-    <text class="iconfont icon-_danjiantou"></text>
-    <navigator url="/pages/city/city?cityType=destination">{{destination || '目的地'}}</navigator>
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" range-key="desc">
+      <view>
+        <text bindtap="pickerCountry" data-picker="departure">{{departureStr || '出发地'}}</text>
+        <text class="iconfont icon-_danjiantou"></text>
+        <text bindtap="pickerCountry" data-picker="destination">{{destinationStr || '目的地'}}</text>
+      </view>
+    </picker>
   </view>
   <view class="formWrap">
     <!-- <view class="formItem">
@@ -31,7 +35,7 @@
   </view>
 
   <view class="priceWrap">
-    <text>运费：¥{{expressFee}}</text><text>服务费：¥{{serviceFee}}</text><text class="total">总计运费：¥{{total}}</text>
+    <text>运费：¥{{expressFee}}</text><text>服务费：¥{{serviceFee}}</text><text class="total">总计运费：¥{{expressFee + serviceFee}}</text>
   </view>
 
 </view>

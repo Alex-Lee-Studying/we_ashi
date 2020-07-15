@@ -177,8 +177,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ responseObj: res.data })
           self.submitImages()
         } else {

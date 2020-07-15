@@ -43,8 +43,7 @@ Page({
       method: 'GET',
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ addressList: res.data })
         } else {
           console.log(res)
@@ -82,8 +81,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: [id],
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           wx.showToast({ title: '删除成功' })
           self.getAddressList()
         } else {
@@ -127,8 +125,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           wx.showToast({ title: '设置成功！' })
           self.getAddressList()
         } else {
@@ -163,8 +160,7 @@ Page({
       url: app.globalData.baseUrl + '/app/v1/offical-addresses',
       method: 'GET',
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ addressList: res.data })
         } else {
           console.log(res)

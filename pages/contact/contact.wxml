@@ -28,7 +28,7 @@
           </block>
 
           <block wx:if="{{item.type === 'delivery'}}">
-            <navigator class="cardWrap" url="{{'/pages/index/cardDelivery/cardDelivery?id=' + delivery.id}}">
+            <navigator class="cardWrap" url="{{'/pages/index/cardDelivery/cardDelivery?id=' + delivery.id}}" hover-class="none">
               <image src="/images/shoes.jpg" mode="aspectFill" class="cardImg"></image>
               <view class="cardCont">
                 <view class="date">{{delivery.created}}</view>
@@ -38,7 +38,7 @@
           </block>
 
           <block wx:if="{{item.type === 'travel'}}">
-            <navigator class="cardWrap" url="{{'/pages/index/cardTravel/cardTravel?id=' + travel.id}}">
+            <navigator class="cardWrap" url="{{'/pages/index/cardTravel/cardTravel?id=' + travel.id}}" hover-class="none">
               <image src="/images/shoes.jpg" mode="aspectFill" class="cardImg"></image>
               <view class="cardCont">
                 <view class="date">{{travel.dt_departure}}</view>

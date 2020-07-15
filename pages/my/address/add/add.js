@@ -64,8 +64,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ responseObj: res.data })
           wx.redirectTo({
             url: '/pages/my/address/index',
@@ -112,8 +111,7 @@ Page({
       method: 'GET',
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ formdata: res.data })
         } else {
           console.log(res)
@@ -157,8 +155,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           wx.navigateTo({
             url: '/pages/my/address/index',
           })

@@ -3,15 +3,15 @@
     <image src="/images/banner.jpg"></image>
   </view>
   <view class="btn-area">
-    <navigator url="/pages/travel/travel" class="btn-item">
+    <navigator url="/pages/travel/travel" class="btn-item" hover-class="none">
       <view><image src="/images/travel.png" class="btn-icon"></image><text>发布行程</text></view>
       <view><text class="iconfont iconjiantou"></text></view>
     </navigator>
-    <navigator url="/pages/delivery/index" class="btn-item">
+    <navigator url="/pages/delivery/index" class="btn-item" hover-class="none">
       <view><image src="/images/walk.png" class="btn-icon"></image><text>发布求带</text></view>
       <view><text class="iconfont iconjiantou"></text></view>
     </navigator>
-    <navigator url="/pages/order/index" class="btn-item">
+    <navigator url="/pages/order/index" class="btn-item" hover-class="none">
       <view><image src="/images/bag.png" class="btn-icon"></image><text>脚递官方下单</text></view>
       <view><text class="iconfont iconjiantou"></text></view>
     </navigator>
@@ -24,7 +24,7 @@
         <text class="tab checked" wx:if="{{tabname === 'travel'}}">可帮带</text>
         <text class="tab" data-tab="travel" bindtap="changeTab" wx:else>可帮带</text>
       </view>
-      <navigator url="{{'/pages/index/cityFilter/cityFilter?type=' + tabname}}">
+      <navigator url="{{'/pages/index/cityFilter/cityFilter?type=' + tabname}}" hover-class="none">
         <text class="search">筛选</text>
         <text class="iconfont iconfilter"></text>
       </navigator>
@@ -39,12 +39,12 @@
         <view class="orderinfo">
           <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
           <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
-          <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id=' + item.id}}" class="main">
+          <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id=' + item.id}}" class="main" hover-class="none">
             <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
             <view class="mark"><text>备注：{{item.details}}</text></view>
             <view class="fee"><text class="iconfont iconw_jinbi"></text><text>{{item.price}}￥</text></view>
           </navigator>
-          <navigator url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&deliveryId=' + item.id}}" class="right"><text class="iconfont iconxiaoxi"></text></navigator> 
+          <navigator url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&deliveryId=' + item.id}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator> 
         </view>
       </view>
     </view>
@@ -54,11 +54,11 @@
       <view class="orderItem orderItemKBD" wx:for="{{travelList}}" wx:key="id">
         <view class="orderinfo">
           <view class="left"><image src="{{item.user.avatar}}"></image><text>{{item.user.nick_name}}</text></view>
-          <navigator url="{{'/pages/index/cardTravel/cardTravel?id=' + item.id}}" class="main">
+          <navigator url="{{'/pages/index/cardTravel/cardTravel?id=' + item.id}}" class="main" hover-class="none">
             <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
             <view class="mark"><text>日期：{{item.created}}</text></view>
           </navigator>
-          <navigator url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&travelId=' + item.id}}" class="right"><text class="iconfont iconxiaoxi"></text></navigator>
+          <navigator url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&travelId=' + item.id}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator>
         </view>
       </view>
     </view>

@@ -108,8 +108,7 @@ Page({
       header: { 'page': this.data.travelSearch.page, 'page-size': this.data.travelSearch.pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           res.data.forEach((item,index,array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
           })
@@ -153,8 +152,7 @@ Page({
       header: { 'page': this.data.deliverySearch.page, 'page-size': this.data.deliverySearch.pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ deliveryList: res.data })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {

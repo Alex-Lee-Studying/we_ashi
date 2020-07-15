@@ -29,8 +29,7 @@ Page({
       url: app.globalData.baseUrl + '/app/v1/deliveries/' + this.data.deliveryId,
       method: 'GET',
       success: function (res) {
-        if (res.statusCode === 200) {
-          console.log(res.data)// 服务器回包内容
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ delivery: res.data })
         } else {
           console.log(res)
@@ -70,8 +69,7 @@ Page({
             header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
             data: { action: 'finish' },
             success: function (res) {
-              if (res.statusCode === 200) {
-                console.log(res.data)// 服务器回包内容
+              if (res.statusCode >= 200 && res.statusCode < 300) {
                 wx.showToast({ title: '确认收货成功' })
                 var delivery = self.data.delivery
                 delivery.status = 'eol'
@@ -120,8 +118,7 @@ Page({
             header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
             data: { action: 'cancel' },
             success: function (res) {
-              if (res.statusCode === 200) {
-                console.log(res.data)// 服务器回包内容
+              if (res.statusCode >= 200 && res.statusCode < 300) {
                 wx.showToast({ title: '取消成功' })
                 var delivery = self.data.delivery
                 delivery.status = 'canceled'

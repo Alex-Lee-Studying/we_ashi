@@ -25,7 +25,11 @@
     <text>备注：{{travel.details}}</text>
   </view>
   <view class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover">立即联系</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover">
+      <navigator url="{{'/pages/contact/contact?targetUid=' + travel.user.id + '&travelId=' + travel.id}}" hover-class="none">
+        立即联系
+      </navigator>
+    </button>
     <button type="primary" plain class="btnPrimary" hover-class="btnHover">请求帮带</button>
   </view>
 </view>

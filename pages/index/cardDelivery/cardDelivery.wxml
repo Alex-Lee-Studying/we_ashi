@@ -31,7 +31,11 @@
     </view>
   </view>
   <view class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover">立即联系</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover">
+      <navigator url="{{'/pages/contact/contact?targetUid=' + delivery.user.id + '&deliveryId=' + delivery.id}}" hover-class="none">
+        立即联系
+      </navigator>
+    </button>
     <button type="primary" plain class="btnPrimary" hover-class="btnHover">邀请帮带</button>
   </view>
 </view>
