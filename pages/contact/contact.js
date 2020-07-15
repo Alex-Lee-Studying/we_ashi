@@ -103,9 +103,13 @@ Page({
         luStatu: false
       })
     });
+    this.recorderManager.onStart(function (res) {
+      console.log('开始')
+    })
 
     // 录音结束
     this.recorderManager.onStop(function (res) {
+      console.log('结束')
       var list = self.data.messageList
       var src = res.tempFilePath
       console.log('list的1是', list)
