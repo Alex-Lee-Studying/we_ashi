@@ -168,18 +168,19 @@ input {
   flex: 1;
   height: 80rpx;
   line-height: 80rpx;
-  background-color: #f2f2f2;
+  background-color: #f2f2f2 !important;
   border-radius: 40rpx;
   padding: 0 30rpx;
   font-size: 28rpx;
-  color: #333;
+  color: #333 !important;
 }
  
 .btTouch{
   flex: 1;
   height: 80rpx;
   line-height: 80rpx;
-  background-color: #e2e2e2;
+  background-color: #989898 !important;
+  color: #fff !important;
   border-radius: 40rpx;
   padding: 0 30rpx;
   font-size: 28rpx;

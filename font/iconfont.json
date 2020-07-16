@@ -6,6 +6,27 @@
   "description": "脚递",
   "glyphs": [
     {
+      "icon_id": "1753168",
+      "name": "停止",
+      "font_class": "tingzhi",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
+      "icon_id": "2308879",
+      "name": "暂停",
+      "font_class": "zanting",
+      "unicode": "e85f",
+      "unicode_decimal": 59487
+    },
+    {
+      "icon_id": "5109583",
+      "name": "播放",
+      "font_class": "bofang",
+      "unicode": "e6fb",
+      "unicode_decimal": 59131
+    },
+    {
       "icon_id": "5132195",
       "name": "plus",
       "font_class": "plus1",

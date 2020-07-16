@@ -25,7 +25,7 @@
           <block wx:if="{{item.type === 'media'}}">
             <image wx:if="{{filter.indexOf(item.resource.mime,'image') >= 0}}" src="{{item.resource.name}}" mode="widthFix" class="msgImage" data-idx="{{index}}" data-images="{{item.resource.name}}" bindtap="handleImagePreview"></image>
             <video wx:if="{{filter.indexOf(item.resource.mime,'video') >= 0}}" src="{{item.resource.name}}" controls style="width:300rpx;height:225rpx;"></video>
-            <text wx:if="{{filter.indexOf(item.resource.mime,'audio') >= 0}}" data-src="{{item.resource.name}}" bindtap="audioPlay">录音 点击播放</text>
+            <text wx:if="{{filter.indexOf(item.resource.mime,'audio') >= 0}}" data-src="{{item.resource.name}}" data-id="{{item.id}}" bindtap="audioPlay" class="iconfont {{playingAudio === item.id? 'iconzanting ': 'iconbofang'}}" style="font-size:40rpx;"></text>
           </block>
 
           <block wx:if="{{item.type === 'delivery'}}">

@@ -52,7 +52,8 @@ Page({
     luStatu: false, // 录音状态
     startLu: 0,
     endLu: 0,
-    durationLu: 0
+    durationLu: 0,
+    playingAudio: '' // 播放中的音频消息id
   },
 
   /**
@@ -99,6 +100,7 @@ Page({
 
     //  初始化录音对象
     recorderManager = wx.getRecorderManager()
+    // 监听录音出错
     recorderManager.onError(function (res) {
       if(res.errMsg === "operateRecorder:fail auth deny" || res.errMsg === "operateRecorder:fail authorize no response" || res.errMsg === "operateRecorder:fail:auth denied") {
         //录音权限被拒绝提示用户去设置页面打开
@@ -110,23 +112,37 @@ Page({
         luStatu: false
       })
     })
+    // 监听录音开始
     recorderManager.onStart(function (res) {
-      console.log('开始')
+      console.log('录音开始')
     })
 
-    // 录音结束
+    // 监听录音结束
     recorderManager.onStop(function (res) {
-      console.log('结束')
+      console.log('录音结束')
       const params = {
-        type: 'media',
-        tempFiles: [{ tempFilePath: res.tempFilePath }]
+        type: 'media',        
+        tempFiles: [{ tempFilePath: res.tempFilePath, duration: self.data.durationLu }]
       }
       self.submitMedia(params)
     })
 
     innerAudioContext = wx.createInnerAudioContext()
+    innerAudioContext.obeyMuteSwitch = false
+    // 监听音频播放错误事件
     innerAudioContext.onError((res) => {
       wx.showToast({ title: res.errMsg, icon: 'none' })
+    })
+    // 监听音频自然播放至结束的事件
+    innerAudioContext.onEnded((res) => {
+      console.log('录音播放结束')
+      self.setData({ playingAudio: '' })
+      // innerAudioContext.stop()
+    })
+    // 监听音频停止事件
+    innerAudioContext.onStop((res) => {
+      console.log('录音播放结束')
+      self.setData({ playingAudio: '' })
     })
 
   },
@@ -339,12 +355,14 @@ Page({
   // 播放录音
   audioPlay: function (e) {
     var src = e.currentTarget.dataset.src
+    var msgId = e.currentTarget.dataset.id
     if (src == '') {
       wx.showToast({ title: '失效', icon: 'none' })
       return
     }
     innerAudioContext.src = src
     innerAudioContext.play()
+    this.setData({ playingAudio: msgId })
   },
 
   // 发布消息
@@ -591,7 +609,8 @@ Page({
         },
         formData: {
           type: 'media',
-          target_user_id: that.data.target_user_id
+          target_user_id: that.data.target_user_id,
+          duration: file.duration
         },
         success(res) {
           var data = JSON.parse(res.data)
