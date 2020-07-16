@@ -2,6 +2,7 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
+    isIphoneX: app.globalData.isIphoneX,
     picker: '', // departure destination
     departureStr: '',
     destinationStr: '',

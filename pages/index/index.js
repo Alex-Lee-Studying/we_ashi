@@ -2,6 +2,7 @@ var hasClick = false
 var app = getApp()
 Page({
   data: {
+    isIphoneX: app.globalData.isIphoneX,
     navbarInitTop: 0, //导航栏初始化距顶部的距离
     isFixedTop: false, //是否固定顶部
     userInfo: {},

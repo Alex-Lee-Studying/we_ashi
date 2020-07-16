@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container" style="padding-bottom: {{isIphoneX? '68rpx': '0'}}">
   <view class="bannerWrap">
     <image src="/images/banner.jpg" mode="aspectFill"></image>
   </view>
@@ -34,7 +34,7 @@
     </view> -->
   </view>
 
-  <view class="priceWrap">
+  <view class="priceWrap" style="bottom: {{isIphoneX? '168rpx': '99rpx'}}">
     <text>运费：¥{{expressFee}}</text><text>服务费：¥{{serviceFee}}</text><text class="total">总计运费：¥{{expressFee + serviceFee}}</text>
   </view>
 

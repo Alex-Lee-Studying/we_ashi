@@ -1,5 +1,7 @@
+var app = getApp()
 Page({
   data: {
+    isIphoneX: app.globalData.isIphoneX,
     tabname: 'express'
   },
   onLoad: function () {

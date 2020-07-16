@@ -2,6 +2,7 @@ var hasClick = false
 var app = getApp()
 Page({
   data: {
+    isIphoneX: app.globalData.isIphoneX,
     userInfo: null,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),

@@ -2,6 +2,7 @@ var hasClick = false
 var app = getApp()
 Page({
   data: {
+    isIphoneX: app.globalData.isIphoneX,
     sessionList: []
   },
   onLoad: function () {

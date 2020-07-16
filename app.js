@@ -59,6 +59,17 @@ App({
 
     this.getMessageContext()
     this.getCountriesCities()
+
+    this.globalData.isIphoneX = this.isIphoneX()
+  },
+
+  isIphoneX() {
+    let info = wx.getSystemInfoSync()
+    if (/iPhone X/i.test(info.model)) {
+      return true;
+    } else {
+      return false;
+    }
   },
 
   // 消息服务上下文
