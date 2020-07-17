@@ -4,7 +4,8 @@ Page({
   data: {
     offical: false,
     selectedAddressId: '',
-    addressList: []
+    addressList: [],
+    showUse: true
   },
   
   onLoad: function(option) {
@@ -14,6 +15,12 @@ Page({
     } else {
       this.getAddressList()
     }
+
+    // var pages = getCurrentPages()
+    // var prevPage = pages[pages.length - 2]   //上一页
+    // if (prevPage && prevPage.route === 'pages/my/setup/index') {
+    //   this.setData({ showUse: false })
+    // }
   },
 
   use: function(e) {

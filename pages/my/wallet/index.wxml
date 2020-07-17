@@ -18,16 +18,16 @@
     </view>
     <view class="recordList">
       <view class="recordItem">
-        <view class="line1"><text class="type">求带报酬</text><text class="money">+100</text></view>
-        <view class="line2"><text class="desc">求带报酬收益到账</text><text class="time">03-01 22:00</text></view>
+        <view class="line1"><text class="type">帮带报酬</text><text class="money">+100</text></view>
+        <view class="line2"><text class="desc">帮带报酬收益到账</text><text class="time">03-01 22:00</text></view>
       </view>
       <view class="recordItem">
         <view class="line1"><text class="type">提现</text><text class="money">-1000</text></view>
         <view class="line2"><text class="desc">成功提现到银行卡</text><text class="time">03-01 22:00</text></view>
       </view>
       <view class="recordItem">
-        <view class="line1"><text class="type">求带报酬</text><text class="money">+100</text></view>
-        <view class="line2"><text class="desc">求带报酬收益到账</text><text class="time">03-01 22:00</text></view>
+        <view class="line1"><text class="type">帮带报酬</text><text class="money">+100</text></view>
+        <view class="line2"><text class="desc">帮带报酬收益到账</text><text class="time">03-01 22:00</text></view>
       </view>
     </view>
   </view>

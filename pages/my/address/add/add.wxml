@@ -13,6 +13,10 @@
       <input type="number" placeholder="请填写手机号" value="{{formdata.mobile}}" bindinput="inputInfo" data-obj="formdata" data-item="mobile"></input>
     </view>
     <view class="formItem">
+      <label>邮编</label>
+      <input type="number" placeholder="请填写邮编" value="{{formdata.zipcode}}" bindinput="inputInfo" data-obj="formdata" data-item="zipcode"></input>
+    </view>
+    <view class="formItem">
       <label>详细地址</label>
       <input placeholder="请填写详细地址" value="{{formdata.details}}" bindinput="inputInfo" data-obj="formdata" data-item="details"></input>
     </view>

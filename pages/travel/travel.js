@@ -10,8 +10,10 @@ Page({
     formdata: {
       dt_departure: '',
       weight: null,
-      unit_price: null,
+      agent: true,
       details: '',
+      traveler: '',
+      flight_no: ''
     },
     responseObj: {},
     complete: false,
@@ -96,6 +98,13 @@ Page({
       formdata: this.data[dataset.obj]
     })
   },
+
+  switchAgent: function(e) {
+    var formdata = this.data.formdata
+    formdata.agent = e.detail.value
+    this.setData({formdata})
+  },
+
   submitTravel: function() {
     var self = this
     if (this.data.departure === '' || this.data.departure === null) {
@@ -114,17 +123,13 @@ Page({
       wx.showToast({ title: '请填写可带行李重量', icon: 'none' })
       return
     }
-    if (this.data.formdata.unit_price === '' || this.data.formdata.unit_price === null) {
-      wx.showToast({ title: '请填写价格', icon: 'none' })
-      return
-    }
     var params = {
       departure: this.data.departure,
       destination: this.data.destination,
       dt_departure: app.globalData.moment.utc(this.data.formdata.dt_departure).format(),
       details: this.data.formdata.details,
       weight: parseInt(this.data.formdata.weight),
-      unit_price: parseInt(this.data.formdata.unit_price)
+      agent: parseInt(this.data.formdata.agent)
     }
     console.log(params)
 
@@ -164,8 +169,51 @@ Page({
     })
   },
   completeTravel: function () {
-    wx.switchTab({
-      url: '/pages/index/index'
+    var self = this
+    if (this.data.formdata.traveler === '' && this.data.formdata.flight_no === '') {
+      wx.showToast({ title: '请填写姓名、航班号', icon: 'none' })
+      return
+    }
+    var params = {
+      traveler: this.data.formdata.traveler,
+      flight_no: this.data.formdata.flight_no,
+      dt_departure: app.globalData.moment.utc(this.data.formdata.dt_departure).format()
+    }
+    console.log(params)
+
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/travels/' + this.data.responseObj.id,
+      method: 'PUT',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.setData({ responseObj: res.data })
+          wx.switchTab({
+            url: '/pages/index/index'
+          })
+        } else {
+          console.log(res)
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
     })
   }
 })

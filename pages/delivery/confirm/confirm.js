@@ -48,7 +48,7 @@ Page({
   },
 
   toOrder() {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '/pages/delivery/pay/pay?id=' + this.data.deliveryId,
     })
   }

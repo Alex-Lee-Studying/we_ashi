@@ -59,27 +59,11 @@
   font-size: 20rpx;
   color: #989898;
 }
-.checkWrap {
-  margin: 0 30rpx;
-}
-.checkWrap .checkItem {
+
+.formItem {
   position: relative;
-  display: flex;
-  height: 90rpx;
-  line-height: 90rpx;
-  border-bottom: 2rpx solid #f2f2f2;  
-  font-size: 28rpx;
 }
-.checkWrap .checkItem label {
-  width: 260rpx;
-  height: 90rpx;
-  color: #333;
-}
-.checkWrap .checkItem text {
-  height: 90rpx;
-  color: #989898;
-}
-.checkWrap .checkItem .iconsuccess {
+.formItem .iconsuccess {
   font-size: 32rpx;
   color: #1ad25f;
   position: absolute;

@@ -39,18 +39,16 @@
   display: flex;
   flex-direction: column;
 }
-.proWrap .right .name {
-  font-size: 28rpx;
+.proWrap .right .country {
   color: #033150;
-  font-weight: bold;
 }
 .proWrap .right .date {
-  font-size: 20rpx;
+  font-size: 22rpx;
   color: #989898;
   margin-top: 30rpx;
 }
-.proWrap .right .price {
-  font-size: 28rpx;
+.proWrap .right .detail {
+  font-size: 25rpx;
   color: #033150;
   margin-top: 30rpx;
 }

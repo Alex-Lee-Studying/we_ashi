@@ -12,9 +12,9 @@
     <view class="country">
       <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" range-key="desc">
         <view>
-          <text bindtap="pickerCountry" data-picker="departure">{{departureStr || '出发地'}}</text>
+          <text bindtap="pickerCountry" data-picker="departure">{{departureStr || '从哪里'}}</text>
           <text class="iconfont icon-_danjiantou"></text>
-          <text bindtap="pickerCountry" data-picker="destination">{{destinationStr || '目的地'}}</text>
+          <text bindtap="pickerCountry" data-picker="destination">{{destinationStr || '到哪里'}}</text>
         </view>
       </picker>
     </view>
@@ -23,18 +23,14 @@
       <navigator url="/pages/my/address/index" hover-class="none">收货地址</navigator>
     </view>
     <view class="addressWrap" wx:else>
-      <view class="title"><text>收货地址</text></view>
+      <view class="title"><navigator url="/pages/my/address/index" hover-class="none">收货地址</navigator></view>
       <view class="info">
         <view class="infoItem">
           <text class="label">联系人：</text>
           <text class="value">{{address.recipient}} </text>
-        </view>
-        <view class="infoItem">
-          <text class="label">电话：</text>
+          <text class="label" style="margin-left: 20rpx;">电话：</text>
           <text class="value">{{address.mobile}} </text>
-        </view>
-        <view class="infoItem">
-          <text class="label">邮编：</text>
+          <text class="label" style="margin-left: 20rpx;">邮编：</text>
           <text class="value">{{address.zipcode}} </text>
         </view>
         <view class="infoItem">

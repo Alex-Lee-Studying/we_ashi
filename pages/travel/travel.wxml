@@ -21,8 +21,8 @@
           <input type="number" value="{{formdata.weight}}" placeholder="kg" bindinput="inputInfo" data-obj="formdata" data-item="weight"></input>
         </view>
         <view class="formItem">
-          <label>价格</label>
-          <input type="number" value="{{formdata.unit_price}}" placeholder="RMB" bindinput="inputInfo" data-obj="formdata" data-item="unit_price"></input>
+          <label>可否代买</label>
+          <text style="flex:1;">{{formdata.agent? '是': '否'}}</text><switch checked="{{formdata.agent}}" bindchange="switchAgent" color="#033150"/>
         </view>
         <view class="formItem">
           <label>备注</label>
@@ -35,28 +35,28 @@
     </view>
   </view>
 
-  <view class="travelResult" wx:if="{{complete}}">
+  <view class="travelWrap" wx:if="{{complete}}">
     <view class="successWrap">
       <text class="iconfont iconsuccess"></text>
       <text class="msg1">发布行程成功</text>
       <text class="msg2">去验证下您的行程吧</text>
       <text class="msg3">温馨提示：您的信息不会被所有用户看到</text>
     </view>
-    <view class="checkWrap">
-      <view class="checkItem">
+    <view class="formWrap">
+      <view class="formItem">
         <label>姓名</label>
-        <text>{{responseObj.traveler}}</text>
-        <text class="iconfont iconsuccess"></text>
+        <input value="{{formdata.traveler}}" placeholder="请填写" bindinput="inputInfo" data-obj="formdata" data-item="traveler"></input>
+        <text class="iconfont iconsuccess" hidden="{{formdata.traveler === ''}}"></text>
       </view>
-      <view class="checkItem">
+      <view class="formItem">
         <label>航班号</label>
-        <text>{{responseObj.flight_no}}</text>
-        <text class="iconfont iconsuccess"></text>
+        <input value="{{formdata.flight_no}}" placeholder="请填写" bindinput="inputInfo" data-obj="formdata" data-item="flight_no"></input>
+        <text class="iconfont iconsuccess" hidden="{{formdata.flight_no === ''}}"></text>
       </view>
-      <view class="checkItem">
+      <view class="formItem">
         <label>出发时间</label>
-        <text>{{responseObj.dt_departure}}</text>
-        <text class="iconfont iconsuccess"></text>
+        <picker mode="date" value="{{formdata.dt_departure}}" bindchange="inputInfo" data-obj="formdata" data-item="dt_departure">{{formdata.dt_departure || "请选择"}}</picker>
+        <text class="iconfont iconsuccess" hidden="{{formdata.dt_departure === ''}}"></text>
       </view>
     </view>
     <view class="subWrap">

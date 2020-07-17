@@ -10,11 +10,11 @@
       <view class="addressItemWrap" wx:for="{{addressList}}" wx:key="id">
         <view class="itemTop">
           <view class="left">
-            <text class="uname">{{item.recipient}}</text><text class="mobile">{{item.mobile}}</text>
+            <text class="uname">{{item.recipient}}</text><text class="mobile">{{item.mobile}}</text><text class="mobile">{{item.zipcode}}</text>
           </view>
           <view class="right">
             <text class="iconfont iconcheckmark" wx:if="{{selectedAddressId === item.id}}"></text>
-            <view class="useBtn" wx:else data-address="{{item}}" bindtap="use">使用</view>
+            <view class="useBtn" wx:else data-address="{{item}}" bindtap="use" hidden="{{!showUse}}">使用</view>
           </view>
         </view>
         <view class="itemMain">

@@ -5,6 +5,7 @@ Page({
     formdata: {
       recipient: '',
       mobile: '',
+      zipcode: '',
       details: '',
       default: true
     },
@@ -41,6 +42,10 @@ Page({
       wx.showToast({ title: '请填写手机号', icon: 'none' })
       return
     }
+    if (this.data.formdata.zipcode === '' || this.data.formdata.zipcode === null) {
+      wx.showToast({ title: '请填写邮编', icon: 'none' })
+      return
+    }
     if (this.data.formdata.details === '' || this.data.formdata.details === null) {
       wx.showToast({ title: '请填写详细地址', icon: 'none' })
       return
@@ -49,6 +54,7 @@ Page({
     var params = {
       recipient: this.data.formdata.recipient,
       mobile: this.data.formdata.mobile,
+      zipcode: this.data.formdata.zipcode,
       details: this.data.formdata.details,
       default: this.data.formdata.default
     }
@@ -139,6 +145,7 @@ Page({
     var params = {
       recipient: this.data.formdata.recipient,
       mobile: this.data.formdata.mobile,
+      zipcode: this.data.formdata.zipcode,
       details: this.data.formdata.details,
       default: this.data.formdata.default
     }
