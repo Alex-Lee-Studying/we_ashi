@@ -8,12 +8,12 @@
         <radio value="wechat" checked="true" color="#033150" wx:if="{{pay === 'wechat'}}"/>
         <radio value="wechat" color="#033150" wx:else/>
       </label>
-      <label class="payItem">
+      <!-- <label class="payItem">
         <text class="iconfont iconpayIcon-aliPay" style="color: #1296db;"></text>
         <text class="title">支付宝</text>
         <radio value="alipay" checked="true" color="#033150" wx:if="{{pay === 'alipay'}}"/>
         <radio value="alipay" color="#033150" wx:else/>
-      </label>
+      </label> -->
     </radio-group>
   </view>
 

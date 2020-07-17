@@ -103,10 +103,16 @@ App({
 
         } else {
           console.log(res)
-          if (res.errMsg === 'request:fail') {
-            wx.showToast({ title: '请求出错', icon: 'none' })
+          if (res.errMsg && res.errMsg === 'request:ok') {
+            if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+              wx.navigateTo({
+                url: '/pages/user/auth/auth',
+              })
+            } else {
+              wx.showToast({ title: res.data.msg, icon: 'none' })
+            }
           } else {
-            wx.showToast({ title: res.data.msg, icon: 'none' })
+            wx.showToast({ title: res.errMsg || '请求出错', icon: 'none' })
           }
         }
       },
@@ -131,22 +137,22 @@ App({
         if (res.statusCode >= 200 && res.statusCode < 300) {
           self.globalData.countries = res.data
         } else {
-          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
-            wx.navigateTo({
-              url: '/pages/user/auth/auth',
-            })
+          console.log(res)
+          if (res.errMsg && res.errMsg === 'request:ok') {
+            if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+              wx.navigateTo({
+                url: '/pages/user/auth/auth',
+              })
+            } else {
+              wx.showToast({ title: res.data.msg, icon: 'none' })
+            }
           } else {
-            wx.showToast({ title: res.data.msg, icon: 'none' })
+            wx.showToast({ title: res.errMsg || '请求出错', icon: 'none' })
           }
         }
       },
       fail: function (res) {
-        console.log(res)
-        if (res.errMsg === 'request:fail') {
-          wx.showToast({ title: '请求出错', icon: 'none' })
-        } else {
-          wx.showToast({ title: res.data.msg, icon: 'none' })
-        }
+        wx.showToast({ title: '系统错误', icon: 'none' })
       },
       complete: function (res) {
         // wx.hideLoading()
