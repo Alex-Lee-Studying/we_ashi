@@ -20,7 +20,7 @@
     <view class="right">
       <view class="country"><text>{{delivery.departure}} <text class="iconfont icon-_danjiantou"></text> {{delivery.destination}}</text></view>
       <text class="date">{{delivery.created}}</text>
-      <view class="detail"><text>重量：{{delivery.weight}}kg</text><text style="margin-left: 20rpx;">备注：{{delivery.details}}</text></view>
+      <view class="detail"><text>重量：{{delivery.weight}}kg</text><text style="margin-left: 20rpx;">备注：{{delivery.details || '无'}}</text></view>
     </view>
   </view>
 
