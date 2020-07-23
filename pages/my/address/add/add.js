@@ -1,3 +1,10 @@
+// 引入SDK核心类
+var QQMapWX = require('../../../../utils/qqmap-wx-jssdk.js');
+
+// 实例化API核心类
+var qqmapsdk = new QQMapWX({
+  key: 'E7ZBZ-ABKHD-GG44A-HCY25-MHQZS-RBBQI' // 必填
+})
 var app = getApp()
 var hasClick = false
 Page({
@@ -10,6 +17,10 @@ Page({
       default: true
     },
     responseObj: {},
+    country: '',
+    countryStr: '',
+    countryArray: [],
+    countryIndex: [0, 0],
   },
 
   onLoad(option) {
@@ -17,6 +28,47 @@ Page({
     if(option.id) {
       this.getAddress(option.id)
     }
+  },
+
+  onShow() {
+    var arr = []
+    arr[0] = app.globalData.countries
+    arr[1] = app.globalData.countries[0] ? app.globalData.countries[0].cities : []
+    this.setData({
+      countryArray: arr,
+      countryIndex: [0, 0]
+    })
+  },
+
+  bindMultiPickerChange: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      countryIndex: e.detail.value
+    })
+    var countryStr = this.data.countryArray[1][this.data.countryIndex[1]].desc + '@' + this.data.countryArray[0][this.data.countryIndex[0]].desc
+    var countryCode = this.data.countryArray[1][this.data.countryIndex[1]].code + '@' + this.data.countryArray[0][this.data.countryIndex[0]].code
+    this.setData({
+      country: countryCode,
+      countryStr: countryStr
+    })
+  },
+
+  bindMultiPickerColumnChange: function (e) {
+    // console.log('修改的列为', e.detail.column, '，值为', e.detail.value)
+    var data = {
+      countryArray: this.data.countryArray,
+      countryIndex: this.data.countryIndex
+    }
+    data.countryIndex[e.detail.column] = e.detail.value
+
+    switch (e.detail.column) {
+      case 0:
+        data.countryArray[1] = data.countryArray[0][e.detail.value].cities
+        data.countryIndex[1] = 0
+        break;
+    }
+
+    this.setData(data);
   },
 
   //input表单数据绑定
@@ -56,7 +108,8 @@ Page({
       mobile: this.data.formdata.mobile,
       zipcode: this.data.formdata.zipcode,
       details: this.data.formdata.details,
-      default: this.data.formdata.default
+      default: this.data.formdata.default,
+      country: this.data.country
     }
     console.log(params)
 
@@ -185,5 +238,51 @@ Page({
         hasClick = false
       }
     })
+  },
+
+  getlocation() {
+    var self = this
+    wx.getSetting({
+      success(res) {
+        var result = res.authSetting
+        if (result['scope.userLocation']) {
+          wx.getLocation({
+            type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+            success(res) {
+              self.getLocationInfo(res)
+            }
+          })
+        } else {
+          wx.openSetting({
+            success(res) { }
+          })
+        }
+
+      }
+    })
+  },
+
+  getLocationInfo(res) {
+    var self = this
+    var latitude = res.latitude
+    var longitude = res.longitude
+    qqmapsdk.reverseGeocoder({
+      location: {
+        latitude: latitude,
+        longitude: longitude
+      },
+      success: function (res) {//成功后的回调
+        if (res.status === 0) {
+          var address = res.result.address
+          self.data.formdata.details = address
+          self.setData({
+            formdata: self.data.formdata
+          })
+        } else {
+          wx.showToast({ title: res.message, icon: 'none' })
+        }
+      }
+    })
   }
+
 })

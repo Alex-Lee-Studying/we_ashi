@@ -266,17 +266,29 @@ Page({
 
   getlocation() {
     var self = this
-    wx.getLocation({
-      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+    wx.getSetting({
       success(res) {
-        const latitude = res.latitude
-        const longitude = res.longitude
-        const params = {
-          type: 'location',
-          longitude: longitude,             //经度
-          latitude: latitude               //纬度
+        var result = res.authSetting
+        if (result['scope.userLocation']) {
+          wx.getLocation({
+            type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+            success(res) {
+              const latitude = res.latitude
+              const longitude = res.longitude
+              const params = {
+                type: 'location',
+                longitude: longitude,             //经度
+                latitude: latitude               //纬度
+              }
+              self.addMessage(params)
+            }
+          })
+        } else {
+          wx.openSetting({
+            success(res) { }
+          })
         }
-        self.addMessage(params)
+
       }
     })
   },

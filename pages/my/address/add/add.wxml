@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="locationWrap" wx:if="{{!formdata.id}}">
+  <view class="locationWrap" wx:if="{{!formdata.id}}" bindtap="getlocation">
     <text><text class="iconfont iconlocation"></text>定位到当前位置</text>
   </view>
 
@@ -16,6 +16,13 @@
       <label>邮编</label>
       <input type="number" placeholder="请填写邮编" value="{{formdata.zipcode}}" bindinput="inputInfo" data-obj="formdata" data-item="zipcode"></input>
     </view>
+    <view class="formItem">
+      <label>国家城市</label>
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{countryIndex}}" range="{{countryArray}}" range-key="desc">
+        <view>{{countryStr || '请选择国家城市'}}</view>
+      </picker>
+    </view>
+    
     <view class="formItem">
       <label>详细地址</label>
       <input placeholder="请填写详细地址" value="{{formdata.details}}" bindinput="inputInfo" data-obj="formdata" data-item="details"></input>
