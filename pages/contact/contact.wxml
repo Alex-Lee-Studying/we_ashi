@@ -119,7 +119,7 @@
       <text class="title">发送出行</text>
       <text class="iconfont iconclose close" bindtap="close" data-mask="showTravels"></text>
     </view>
-    <scroll-view scroll-y="true" style="height: 615rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+    <scroll-view scroll-y="true" style="height: 615rpx;" bindscrolltolower="loadMoreTravel">
       <radio-group bindchange="checkedTravelChange">
         <view class="listItem" wx:for="{{travelList}}" wx:key="id">
           <view class="check"><radio value="{{item.id}}" color="#3F83E3"/></view>
@@ -148,7 +148,7 @@
       <text class="title">发送求带</text>
       <text class="iconfont iconclose close" bindtap="close" data-mask="showDeliverys"></text>
     </view>
-    <scroll-view scroll-y="true" style="height: 615rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+    <scroll-view scroll-y="true" style="height: 615rpx;" bindscrolltolower="loadMoreDelivery">
       <radio-group bindchange="checkedDeliveryChange">
         <view class="listItem" wx:for="{{deliveryList}}" wx:key="id">
           <view class="check"><radio value="{{item.id}}" color="#3F83E3"/></view>

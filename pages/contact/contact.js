@@ -56,10 +56,14 @@ Page({
     playingAudio: '', // 播放中的音频消息id
     showTravels: false,
     showDeliverys: false,
-    checkedTravelId: '',
-    checkedDeliveryId: '',
+    getTravelsFlag: true,
+    getDeliverysFlag: true,
+    currPageTravel: 0,
+    currPageDelivery: 0,
     travelList: [],
     deliveryList: [],
+    checkedTravelId: '',
+    checkedDeliveryId: '',
     items: [
       {
         "price": 1,
@@ -729,46 +733,56 @@ Page({
     })
   },
 
-  upper(e) {
-    console.log('到头了')
-    console.log(e)
+  loadMoreDelivery() {
+    if (this.data.getDeliverysFlag) {
+      this.getDeliverys()
+    }
   },
 
-  lower(e) {
-    console.log('到底了')
-    console.log(e)
-  },
-
-  scroll(e) {
-    // console.log(e)
+  loadMoreTravel() {
+    if (this.data.getTravelsFlag) {
+      this.getTravels()
+    }
   },
 
   // 获取出行列表
   getTravels() {
     var self = this
-    var page = 0
-    var pageSize = 20
+    var pageSize = 5
     var params = {
       user_id: app.globalData.user.id
     }
 
-    // if (hasClick) return
-    // hasClick = true
+    this.setData({ getTravelsFlag: false })
     wx.showLoading()
 
     wx.request({
       url: app.globalData.baseUrl + '/app/v1/travels',
       method: 'GET',
-      header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      header: { 'page': this.data.currPageTravel, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length < pageSize) {
+            var reqState = false
+          } else {
+            var reqState = true
+          }
           res.data.forEach((item, index, array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
             item.dt_departure = item.dt_departure ? app.globalData.moment.utc(item.dt_departure).format('YYYY-MM-DD') : ''
           })
-          self.setData({ travelList: res.data })
+          var list = self.data.travelList.concat(res.data)
+          var nextPage = ++self.data.currPageTravel
+          self.setData({
+            travelList: list,
+            getTravelsFlag: reqState,
+            currPageTravel: nextPage
+          })
         } else {
+          self.setData({
+            getTravelsFlag: true
+          })
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
             wx.navigateTo({
               url: '/pages/user/auth/auth',
@@ -779,39 +793,53 @@ Page({
         }
       },
       fail: function (res) {
+        self.setData({
+          getTravelsFlag: true
+        })
         wx.showToast({ title: '系统错误', icon: 'none' })
       },
       complete: function (res) {
         wx.hideLoading()
-        // hasClick = false
       }
     })
   },
   // 获取求带列表
   getDeliverys() {
     var self = this
-    var page = 0
-    var pageSize = 20
+    var pageSize = 5
     var params = {
       user_id: app.globalData.user.id
     }
 
-    // if (hasClick) return
-    // hasClick = true
+    this.setData({ getDeliverysFlag: false })
     wx.showLoading()
 
     wx.request({
       url: app.globalData.baseUrl + '/app/v1/deliveries',
       method: 'GET',
-      header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      header: { 'page': this.data.currPageDelivery, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length < pageSize) {
+            var reqState = false
+          } else {
+            var reqState = true
+          }
           res.data.forEach((item, index, array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
           })
-          self.setData({ deliveryList: res.data })
+          var list = self.data.deliveryList.concat(res.data)
+          var nextPage = ++self.data.currPageDelivery
+          self.setData({
+            deliveryList: list,
+            getDeliverysFlag: reqState,
+            currPageDelivery: nextPage
+          })
         } else {
+          self.setData({
+            getDeliverysFlag: true
+          })
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
             wx.navigateTo({
               url: '/pages/user/auth/auth',
@@ -822,11 +850,13 @@ Page({
         }
       },
       fail: function (res) {
+        self.setData({
+          getDeliverysFlag: true
+        })
         wx.showToast({ title: '系统错误', icon: 'none' })
       },
       complete: function (res) {
         wx.hideLoading()
-        // hasClick = false
       }
     })
   }
