@@ -2,7 +2,7 @@
 <view>
 
   <scroll-view scroll-y scroll-into-view='{{toView}}' style='height: {{scrollHeight}};' scroll-with-animation="{{true}}">
-    <!-- <view class='scrollMsg'> -->
+    <view class='scrollMsg'>
     <block wx:for='{{messageList}}' wx:key="index">
 
       <!-- 单个消息 -->
@@ -29,21 +29,28 @@
           </block>
 
           <block wx:if="{{item.type === 'delivery'}}">
-            <navigator class="cardWrap" url="{{'/pages/index/cardDelivery/cardDelivery?id=' + delivery.id}}" hover-class="none">
-              <image src="/images/shoes.jpg" mode="aspectFill" class="cardImg"></image>
-              <view class="cardCont">
-                <view class="date">{{delivery.created}}</view>
-                <view class="country">{{delivery.departure}}<text class="iconfont icon-_danjiantou"></text>{{delivery.destination}}</view>
+            <view class="hi">Hi，你可以帮我带这个吗？</view>
+            <navigator class="cardWrap" url="{{'/pages/delivery/confirm/confirm?from=message&id=' + item.delivery.id}}" hover-class="none">
+              <view class="cardImg">
+                <image src="{{item.delivery.resources[0].name}}" mode="aspectFill" wx:if="{{item.delivery.resources.length}}"></image>
+                <text class="iconfont iconsuitcase-2-fill"></text>
+              </view>
+              <view class="cardCont">              
+                <view class="country">{{item.delivery.departure}}<text class="iconfont icon-_danjiantou"></text>{{item.delivery.destination}}</view>
+                <view class="date">报酬：￥{{item.delivery.reward}}</view>
               </view>
             </navigator>
           </block>
 
           <block wx:if="{{item.type === 'travel'}}">
-            <navigator class="cardWrap" url="{{'/pages/index/cardTravel/cardTravel?id=' + travel.id}}" hover-class="none">
-              <image src="/images/shoes.jpg" mode="aspectFill" class="cardImg"></image>
+            <view class="hi">Hi，我可以帮你带哦</view>
+            <navigator class="cardWrap" url="{{'/pages/index/cardTravel/cardTravel?id=' + item.travel.id}}" hover-class="none">
+              <view class="cardImg">
+                <text class="iconfont iconplane"></text>
+              </view>
               <view class="cardCont">
-                <view class="date">{{travel.dt_departure}}</view>
-                <view class="country">{{travel.departure}}<text class="iconfont icon-_danjiantou"></text>{{travel.destination}}</view>
+                <view class="country">{{item.travel.departure}}<text class="iconfont icon-_danjiantou"></text>{{item.travel.destination}}</view>
+                <view class="date">{{item.travel.dt_departure}}出发</view>
               </view>
             </navigator>
           </block>
@@ -64,7 +71,7 @@
       </view>
 
     </block>
-    <!-- </view> -->
+    </view>
     <!-- 占位 -->
     <view style='width: 100%; height: 18vw;'></view>
   </scroll-view>
@@ -94,14 +101,77 @@
         <text class="iconfont iconlocation"></text>
         <text class="icontext">位置</text>
       </view>
-      <view class="optionItem" bindtap="sendTravel">
+      <view class="optionItem" bindtap="showTravel">
         <text class="iconfont iconsuitcase"></text>
         <text class="icontext">出行</text>
       </view>
-      <view class="optionItem" bindtap="sendDelivery">
+      <view class="optionItem" bindtap="showDelivery">
         <text class="iconfont iconplane"></text>
         <text class="icontext">求带</text>
       </view>
+    </view>
+  </view>
+</view>
+
+<view class="mask" hidden="{{!showTravels}}">
+  <view class="listWrap">
+    <view class="header">
+      <text class="title">发送出行</text>
+      <text class="iconfont iconclose close" bindtap="close" data-mask="showTravels"></text>
+    </view>
+    <scroll-view scroll-y="true" style="height: 615rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+      <radio-group bindchange="checkedTravelChange">
+        <view class="listItem" wx:for="{{travelList}}" wx:key="id">
+          <view class="check"><radio value="{{item.id}}" color="#3F83E3"/></view>
+          <view class="left">
+            <text class="iconfont iconplane"></text>
+            <text class="flight_no">{{item.flight_no}}</text>
+          </view>
+          <view class="main">
+            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
+            <view class="mark"><text>{{item.weight}}kg {{item.agent? '| 接受代买' : ''}}</text></view>
+            <view class="mark">出发时间：{{item.dt_departure}}</view>
+          </view>
+        </view>
+      </radio-group>
+    </scroll-view>
+    <view class="footer">
+      <button class="btn"><navigator url="/pages/travel/travel" hover-class="none">新增出行</navigator></button>
+      <button class="btn gray" bindtap="sendTravel">确认发送</button>
+    </view>
+  </view>
+</view>
+
+<view class="mask" hidden="{{!showDeliverys}}">
+  <view class="listWrap">
+    <view class="header">
+      <text class="title">发送求带</text>
+      <text class="iconfont iconclose close" bindtap="close" data-mask="showDeliverys"></text>
+    </view>
+    <scroll-view scroll-y="true" style="height: 615rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+      <radio-group bindchange="checkedDeliveryChange">
+        <view class="listItem" wx:for="{{deliveryList}}" wx:key="id">
+          <view class="check"><radio value="{{item.id}}" color="#3F83E3"/></view>
+          <view class="left" wx:if="{{item.resources.length}}">
+            <image src="{{item.resources[0].name}}" mode="aspectFill"></image>
+          </view>
+          <view class="left" wx:else>
+            <text class="iconfont iconsuitcase-2-fill"></text>
+          </view>
+          <view class="main">
+            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
+            <view class="mark"><text>备注：{{item.details || '无'}}</text></view>
+            <view class="fee">
+              <text>报酬：￥{{item.reward}}</text>
+              <view>价格：<text class="price">￥{{item.price}}</text></view>
+            </view>
+          </view>
+        </view>
+      </radio-group>
+    </scroll-view>
+    <view class="footer">
+      <button class="btn"><navigator url="/pages/delivery/index" hover-class="none">新增求带</navigator></button>
+      <button class="btn gray" bindtap="sendDelivery">确认发送</button>
     </view>
   </view>
 </view>

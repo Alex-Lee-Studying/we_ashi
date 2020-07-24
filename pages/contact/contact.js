@@ -53,7 +53,28 @@ Page({
     startLu: 0,
     endLu: 0,
     durationLu: 0,
-    playingAudio: '' // 播放中的音频消息id
+    playingAudio: '', // 播放中的音频消息id
+    showTravels: false,
+    showDeliverys: false,
+    checkedTravelId: '',
+    checkedDeliveryId: '',
+    travelList: [],
+    deliveryList: [],
+    items: [
+      {
+        "price": 1,
+        "freight": 1,
+        "reward": 1,
+        "departure": "BJR@CN",
+        "destination": "BJR@CN",
+        "cover_index": 0,
+        "details": "wefawef",
+        "weight": 1,
+        "status": "normal",
+        "id": "awefawef",
+        "created": "2020-01-02T15:04:05Z"
+      }
+    ]
   },
 
   /**
@@ -76,6 +97,9 @@ Page({
       this.getSession(options.sessionId)
       this.getMessages(options.sessionId)
     }
+
+    this.getTravels()
+    this.getDeliverys()
 
     const emojiInstance = this.selectComponent('.mp-emoji')
     console.log(emojiInstance)
@@ -326,12 +350,51 @@ Page({
     })
   },
 
-  sendTravel() {
+  showTravel() {
+    this.setData({ showTravels: true, showDeliverys: false })
+  },
 
+  showDelivery() {
+    this.setData({ showDeliverys: true, showTravels: false })
+  },
+
+  close(e) {
+    var mask = e.currentTarget.dataset.mask
+    if (mask === 'showDeliverys') {
+      this.setData({ showDeliverys: false })
+    } else if (mask === 'showTravels') {
+      this.setData({ showTravels: false })
+    }
+  },
+
+  checkedTravelChange(e) {
+    var tid = e.detail.value
+    this.setData({ checkedTravelId: tid })
+  },
+
+  checkedDeliveryChange(e) {
+    var did = e.detail.value
+    this.setData({ checkedDeliveryId: did })
+  },
+
+  sendTravel() {
+    if (!this.data.checkedTravelId) return
+    this.setData({ showTravels: false })
+    const params = {
+      type: 'travel',
+      travel_id: this.data.checkedTravelId
+    }
+    this.addMessage(params)
   },
 
   sendDelivery() {
-
+    if (!this.data.checkedDeliveryId) return
+    this.setData({ showDeliverys: false })
+    const params = {
+      type: 'delivery',
+      delivery_id: this.data.checkedDeliveryId
+    }
+    this.addMessage(params)
   },
 
   // 触摸开始
@@ -417,6 +480,9 @@ Page({
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           const messageList = self.data.messageList
+          if (res.data.traval) {
+            res.data.traval.dt_departure = res.data.traval.dt_departure ? app.globalData.moment.utc(res.data.traval.dt_departure).format('YYYY-MM-DD') : ''
+          }
           messageList.push(res.data)
           self.setData({
             messageList: messageList,
@@ -528,8 +594,8 @@ Page({
     var page = 0
     var pageSize = 20
 
-    if (hasClick) return
-    hasClick = true
+    // if (hasClick) return
+    // hasClick = true
     wx.showLoading()
 
     wx.request({
@@ -538,6 +604,15 @@ Page({
       header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
+          res.data.forEach((item, index, array) => {
+            if (item.type === 'travel') {
+              item.travel.created = item.travel.created ? app.globalData.moment.utc(item.travel.created).format('YYYY-MM-DD') : ''
+              item.travel.dt_departure = item.travel.dt_departure ? app.globalData.moment.utc(item.travel.dt_departure).format('YYYY-MM-DD') : ''
+            }
+            if (item.type === 'delivery') {
+              item.delivery.created = item.delivery.created ? app.globalData.moment.utc(item.delivery.created).format('YYYY-MM-DD') : ''
+            }
+          })
           self.setData({ messageList: res.data.reverse() })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
@@ -554,7 +629,7 @@ Page({
       },
       complete: function (res) {
         wx.hideLoading()
-        hasClick = false
+        // hasClick = false
       }
     })
   },
@@ -651,6 +726,108 @@ Page({
           wx.hideLoading()
         }
       })
+    })
+  },
+
+  upper(e) {
+    console.log('到头了')
+    console.log(e)
+  },
+
+  lower(e) {
+    console.log('到底了')
+    console.log(e)
+  },
+
+  scroll(e) {
+    // console.log(e)
+  },
+
+  // 获取出行列表
+  getTravels() {
+    var self = this
+    var page = 0
+    var pageSize = 20
+    var params = {
+      user_id: app.globalData.user.id
+    }
+
+    // if (hasClick) return
+    // hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/travels',
+      method: 'GET',
+      header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          res.data.forEach((item, index, array) => {
+            item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+            item.dt_departure = item.dt_departure ? app.globalData.moment.utc(item.dt_departure).format('YYYY-MM-DD') : ''
+          })
+          self.setData({ travelList: res.data })
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        // hasClick = false
+      }
+    })
+  },
+  // 获取求带列表
+  getDeliverys() {
+    var self = this
+    var page = 0
+    var pageSize = 20
+    var params = {
+      user_id: app.globalData.user.id
+    }
+
+    // if (hasClick) return
+    // hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/deliveries',
+      method: 'GET',
+      header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          res.data.forEach((item, index, array) => {
+            item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+          })
+          self.setData({ deliveryList: res.data })
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        // hasClick = false
+      }
     })
   }
 })
