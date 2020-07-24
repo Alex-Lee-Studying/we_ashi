@@ -1,8 +1,13 @@
+import { networks } from '../../utils/network'
+import { expresses } from '../../utils/express'
 var app = getApp()
+
 Page({
   data: {
     isIphoneX: app.globalData.isIphoneX,
-    tabname: 'express'
+    tabname: 'express',
+    networkList: networks,
+    expressList: expresses
   },
   onLoad: function () {
   },
