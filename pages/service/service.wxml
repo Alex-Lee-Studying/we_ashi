@@ -17,9 +17,9 @@
           <image src="{{sub.logo}}" mode="widthFix" class="logo"></image>
           <view class="content">
             <text class="name">{{sub.name}}</text>
-            <text class="other" hidden="{{!sub.website}}">{{sub.website}}</text>
-            <text class="other" hidden="{{!sub.tel}}">{{sub.tel}}</text>
-            <text class="other" hidden="{{!sub.contact}}">{{sub.contact}}</text>
+            <text class="other" hidden="{{!sub.website}}">官方网站：{{sub.website}}</text>
+            <text class="other" hidden="{{!sub.tel}}">客服电话：{{sub.tel}}</text>
+            <text class="other" hidden="{{!sub.contact}}">联系方式：{{sub.contact}}</text>
           </view>
         </view>
       </view>
