@@ -22,14 +22,23 @@ Page({
         if (res.confirm) {
           wx.clearStorage({
             success: function (res) {
-              console.log('成功')
+              console.log('退出成功')
+              wx.setStorage({
+                key: "ashibro_Authorization",
+                data: ''
+              })
+              wx.setStorage({
+                key: "ashibro_User",
+                data: {}
+              })
               app.globalData.isLogin = false
+              app.globalData.user = {}
               wx.switchTab({
                 url: '/pages/my/my',
               })
             },
             fail: function (res) {
-              wx.showToast({ title: '失败！', icon: 'none' })
+              wx.showToast({ title: '退出失败！', icon: 'none' })
             },
             complete: function (res) {
             }

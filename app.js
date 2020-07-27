@@ -16,21 +16,23 @@ App({
   },  
   onLaunch: function () {
     var self = this
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    this.globalData.user = wx.getStorageSync('ashibro_User') || {}
+    self.globalData.user = wx.getStorageSync('ashibro_User') || {}
 
     wx.checkSession({
-      success(res) {
-        //session_key 未过期，并且在本生命周期一直有效        
+      success() {
+        //session_key 未过期，并且在本生命周期一直有效
         self.globalData.isLogin = true
       },
       fail() {
         // session_key 已经失效，需要重新执行登录流程
-        //重新登录
+        wx.setStorage({
+          key: "ashibro_Authorization",
+          data: ''
+        })
+        wx.setStorage({
+          key: "ashibro_User",
+          data: {}
+        })
         self.globalData.isLogin = false
       }
     })

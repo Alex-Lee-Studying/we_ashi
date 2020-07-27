@@ -219,8 +219,8 @@ Page({
       // wx.redirectTo({
       //   url: '/pages/delivery/order/order?id=' + that.data.responseObj.id
       // })
-      wx.switchTab({
-        url: '/pages/index/index',
+      wx.redirectTo({
+        url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
       })
     }
     
@@ -257,16 +257,16 @@ Page({
       // })
       // if (check) {
       //   console.log('图片全部上传成功')
-      //   wx.switchTab({
-      //     url: '/pages/index/index',
-      //   })
+      // wx.redirectTo({
+      //   url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
+      // })
       // } else {
       //   wx.showToast({ title: '图片上传失败', icon: 'none' })
       // }
 
-        wx.switchTab({
-          url: '/pages/index/index',
-        })
+      wx.redirectTo({
+        url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
+      })
       
     }).catch(err => {
       console.log('image err')

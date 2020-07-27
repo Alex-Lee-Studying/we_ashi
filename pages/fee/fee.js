@@ -118,14 +118,14 @@ Page({
       wx.showToast({ title: '请选择目的地', icon: 'none' })
       return
     }
-    // if (this.data.formdata.item_type === '' || this.data.formdata.item_type === null) {
-    //   wx.showToast({ title: '请选择物品类型', icon: 'none' })
-    //   return
-    // }
-    // if (this.data.formdata.price === '' || this.data.formdata.price === null) {
-    //   wx.showToast({ title: '请填写物品价格', icon: 'none' })
-    //   return
-    // }
+    if (this.data.formdata.item_type === '' || this.data.formdata.item_type === null) {
+      wx.showToast({ title: '请选择物品类型', icon: 'none' })
+      return
+    }
+    if (this.data.formdata.price === '' || this.data.formdata.price === null) {
+      wx.showToast({ title: '请填写物品价格', icon: 'none' })
+      return
+    }
     if (this.data.formdata.weight === '' || this.data.formdata.weight === null) {
       wx.showToast({ title: '请填写物品重量', icon: 'none' })
       return
@@ -137,8 +137,8 @@ Page({
     var params = {
       departure: this.data.departure,
       destination: this.data.destination,
-      // item_type: this.data.formdata.item_type,
-      // price: parseInt(this.data.formdata.price),
+      item_type: this.data.formdata.item_type,
+      price: parseInt(this.data.formdata.price),
       weight: parseInt(this.data.formdata.weight),
       // express: this.data.formdata.express,
     }

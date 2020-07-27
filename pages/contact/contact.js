@@ -63,22 +63,7 @@ Page({
     travelList: [],
     deliveryList: [],
     checkedTravelId: '',
-    checkedDeliveryId: '',
-    items: [
-      {
-        "price": 1,
-        "freight": 1,
-        "reward": 1,
-        "departure": "BJR@CN",
-        "destination": "BJR@CN",
-        "cover_index": 0,
-        "details": "wefawef",
-        "weight": 1,
-        "status": "normal",
-        "id": "awefawef",
-        "created": "2020-01-02T15:04:05Z"
-      }
-    ]
+    checkedDeliveryId: ''
   },
 
   /**
@@ -113,6 +98,12 @@ Page({
 
   onShow: function(options) {
     var self = this
+    if (!app.globalData.isLogin || !app.globalData.user || !app.globalData.user.id) {
+      wx.redirectTo({
+        url: '/pages/user/auth/auth',
+      })
+    }
+
     if (app.globalData.user && app.globalData.user.id) {
       this.setData({ user: app.globalData.user })
 

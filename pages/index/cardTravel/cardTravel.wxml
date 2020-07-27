@@ -22,14 +22,36 @@
     </view>
   </view>
   <view class="remarkWrap">
-    <text>备注：{{travel.details}}</text>
+    <view class="msgLine">
+      <label>可带行李重量</label>
+      <text>{{travel.weight}}kg</text>
+    </view>
+    <view class="msgLine">
+      <label>可否代买</label>
+      <text>{{travel.agent? '是': '否'}}</text>
+    </view>
+    <view class="msgLine">
+      <label>备注</label>
+      <text>{{travel.details || '无'}}</text>
+    </view>
   </view>
-  <view class="subWrap">
+
+  <view wx:if="{{fromMessage}}" class="subWrap">
+    <button type="primary" class="btnPrimary" hover-class="btnHover">
+      <navigator open-type="navigateBack" hover-class="none">继续聊天</navigator>
+    </button>
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover" bindtap="accept" hidden="{{user.id === travel.user.id}}">同意帮带</button>
+  </view>
+  <view wx:else class="subWrap">
     <button type="primary" class="btnPrimary" hover-class="btnHover">
       <navigator url="{{'/pages/contact/contact?targetUid=' + travel.user.id + '&travelId=' + travel.id}}" hover-class="none">
         立即联系
       </navigator>
     </button>
-    <button type="primary" plain class="btnPrimary" hover-class="btnHover">请求帮带</button>
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover">
+      <navigator url="{{'/pages/contact/contact?targetUid=' + travel.user.id + '&travelId=' + travel.id}}" hover-class="none">
+        请求帮带
+      </navigator>
+    </button>
   </view>
 </view>

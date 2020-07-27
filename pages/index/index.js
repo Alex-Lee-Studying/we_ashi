@@ -5,9 +5,6 @@ Page({
     isIphoneX: app.globalData.isIphoneX,
     navbarInitTop: 0, //导航栏初始化距顶部的距离
     isFixedTop: false, //是否固定顶部
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     tabname: 'delivery',
     departure: '',
     destination: '',

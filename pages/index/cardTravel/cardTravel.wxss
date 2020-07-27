@@ -40,8 +40,18 @@
   flex-direction: column;
 }
 .remarkWrap {
+  display: flex;
+  flex-direction: column;
   font-size: 24rpx;
   line-height: 36rpx;
   color: #989898;
-  text-align: center;
+}
+.remarkWrap .msgLine {
+  font-size: 28rpx;
+  line-height: 54rpx;
+  color: #989898;
+}
+.remarkWrap .msgLine label {
+  color: #333;
+  margin-right: 20rpx;
 }

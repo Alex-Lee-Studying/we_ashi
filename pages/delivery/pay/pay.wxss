@@ -31,13 +31,14 @@
   display: flex;
   flex-direction: column;
 }
-.proWrap .right .name {
+.proWrap .right .country {
   font-size: 28rpx;
   color: #333;
   font-weight: bold;
 }
 .proWrap .right .quantity {
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
   font-size: 22rpx;
   color: #606060;
   margin-top: 15rpx;
@@ -50,6 +51,24 @@
   font-size: 28rpx;
   color: #033150;
   margin-top: 20rpx;
+}
+
+.totalWrap {
+
+}
+.totalWrap .item {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 30rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 28rpx;
+}
+.totalWrap .item .label {
+  color: #333;
+}
+.totalWrap .item .value {
+  color: #033150;
 }
 
 .subWrap {

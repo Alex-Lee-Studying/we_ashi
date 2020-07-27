@@ -6,6 +6,13 @@
   "description": "脚递",
   "glyphs": [
     {
+      "icon_id": "1368949",
+      "name": "邮政编码",
+      "font_class": "youzhengbianma",
+      "unicode": "e742",
+      "unicode_decimal": 59202
+    },
+    {
       "icon_id": "1753168",
       "name": "停止",
       "font_class": "tingzhi",
