@@ -5,7 +5,7 @@
       <text class="company">脚递ashibro</text>
     </view>
     <view class="formWrap">
-      <button class="loginWX" wx:if="{{agree}}" open-type="getUserInfo" bindgetuserinfo="doLogin">微信登录</button>
+      <button class="loginWX" wx:if="{{canIUse && agree}}" open-type="getUserInfo" bindgetuserinfo="doLogin">微信登录</button>
       <button class="loginWX" disabled="true" wx:else>微信登录</button>
       <view class="checkWrap">
         <checkbox value="{{agree}}" checked="{{agree}}" color="#033150" bindtap="changeAgree"/>微信登录表示同意

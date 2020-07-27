@@ -13,6 +13,14 @@ Page({
     file: ''
   },
 
+  onShow: function () {
+    if (!app.globalData.isLogin || !app.globalData.user || !app.globalData.user.id) {
+      wx.redirectTo({
+        url: '/pages/user/auth/auth',
+      })
+    }
+  },
+
   radioChange(e) {
     this.setData({ refer: e.detail.value })
   },

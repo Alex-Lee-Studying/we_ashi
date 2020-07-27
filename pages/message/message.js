@@ -14,8 +14,14 @@ Page({
         selected: 3
       })
     }
-
-    this.getSessions()
+    
+    if (!app.globalData.isLogin || !app.globalData.user || !app.globalData.user.id) {
+      wx.redirectTo({
+        url: '/pages/user/auth/auth',
+      })
+    } else {
+      this.getSessions()
+    }
   },
   handleContact(e) {
     console.log(e.detail.path)
