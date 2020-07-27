@@ -9,6 +9,10 @@
       <text>{{delivery.address.details}}</text>
     </view>
     <view class="item">
+      <text class="iconfont iconyouzhengbianma"></text>
+      <text>邮编：{{delivery.address.zipcode}}</text>
+    </view>
+    <view class="item">
       <text class="iconfont icondianhua"></text>
       <text>联系电话：{{delivery.address.mobile}}</text>
     </view>
@@ -46,7 +50,8 @@
     <button type="primary" plain class="btnPrimary" hover-class="btnHover" bindtap="accept">确定帮带</button>
   </view>
   <view wx:else class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toOrder" wx:if="{{delivery.status === 'waiting_for_pay'}}">去支付</button>
-    <button type="primary" class="btnGray" hover-class="btnHover" wx:else>去支付</button>
+    <!-- <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toOrder" wx:if="{{delivery.status === 'waiting_for_pay'}}">去支付</button>
+    <button type="primary" class="btnGray" hover-class="btnHover" wx:else>去支付</button> -->
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toOrder">去支付</button>
   </view>
 </view>

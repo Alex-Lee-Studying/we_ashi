@@ -22,7 +22,18 @@
     </view>
   </view>
   <view class="remarkWrap">
-    <text>备注：{{travel.details}}</text>
+    <view class="msgLine">
+      <label>可带行李重量</label>
+      <text>{{travel.weight}}kg</text>
+    </view>
+    <view class="msgLine">
+      <label>可否代买</label>
+      <text>{{travel.agent? '是': '否'}}</text>
+    </view>
+    <view class="msgLine">
+      <label>备注</label>
+      <text>{{travel.details || '无'}}</text>
+    </view>
   </view>
   <view class="subWrap">
     <button type="primary" class="btnPrimary" hover-class="btnHover">
