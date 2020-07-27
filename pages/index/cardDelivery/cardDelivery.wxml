@@ -30,12 +30,23 @@
       </view>
     </view>
   </view>
-  <view class="subWrap">
+
+  <view wx:if="{{fromMessage}}" class="subWrap">
+    <button type="primary" class="btnPrimary" hover-class="btnHover">
+      <navigator open-type="navigateBack" hover-class="none">继续聊天</navigator>
+    </button>
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover" bindtap="accept" hidden="{{user.id === delivery.user.id}}">同意帮带</button>
+  </view>
+  <view wx:else class="subWrap">
     <button type="primary" class="btnPrimary" hover-class="btnHover">
       <navigator url="{{'/pages/contact/contact?targetUid=' + delivery.user.id + '&deliveryId=' + delivery.id}}" hover-class="none">
         立即联系
       </navigator>
     </button>
-    <button type="primary" plain class="btnPrimary" hover-class="btnHover">邀请帮带</button>
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover">
+      <navigator url="{{'/pages/contact/contact?targetUid=' + delivery.user.id + '&deliveryId=' + delivery.id}}" hover-class="none">
+        邀请帮带
+      </navigator>
+    </button>
   </view>
 </view>

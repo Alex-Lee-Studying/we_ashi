@@ -2,19 +2,30 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
+    user: {},
+    fromMessage: false,
     travelId: null,
     travel: {}
   },
 
   onLoad(option) {
     console.log(option)
+    if (option.from && option.from === 'message') {
+      this.setData({ fromMessage: true })
+    }
     if (option.id) {
       this.setData({ travelId: option.id })
       this.getTravel()
     } else {
       wx.switchTab({
-        url: '/pages/my/my'
+        url: '/pages/index/index'
       })
+    }
+  },
+
+  onShow() {
+    if (app.globalData.user && app.globalData.user.id) {
+      this.setData({ user: app.globalData.user })
     }
   },
 
