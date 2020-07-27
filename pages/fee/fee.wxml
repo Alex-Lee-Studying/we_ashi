@@ -12,7 +12,7 @@
     </picker>
   </view>
   <view class="formWrap">
-    <!-- <view class="formItem">
+    <view class="formItem">
       <label>物品类型</label>
       <picker mode="selector" range="{{typearray}}" value="{{formdata.item_type}}" bindchange="bindTypeChange" data-obj="formdata" data-item="item_type">
         <view class="picker">
@@ -23,7 +23,7 @@
     <view class="formItem">
       <label>物品价格</label>
       <input type="number" value="{{formdata.price}}" placeholder="请输入物品价格" bindinput="inputInfo" data-obj="formdata" data-item="price" bindblur="doCalculate"></input>
-    </view> -->
+    </view>
     <view class="formItem">
       <label>重量</label>
       <input type="number" value="{{formdata.weight}}" placeholder="请输入物品重量" bindinput="inputInfo" data-obj="formdata" data-item="weight" bindblur='doCalculate' bindconfirm='doCalculate'></input>
