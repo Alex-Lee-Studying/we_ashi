@@ -4,16 +4,19 @@
   </view>
   <view class="btn-area">
     <navigator url="/pages/travel/travel" class="btn-item" hover-class="none">
-      <view><image src="/images/travel.png" class="btn-icon"></image><text>发布行程</text></view>
-      <view><text class="iconfont iconjiantou"></text></view>
+      <text class="iconfont iconhanglixiang btnicon"></text>
+      <text class="title">发布行程</text>
+      <text class="iconfont iconjiantou"></text>
     </navigator>
     <navigator url="/pages/delivery/index" class="btn-item" hover-class="none">
-      <view><image src="/images/walk.png" class="btn-icon"></image><text>发布求带</text></view>
-      <view><text class="iconfont iconjiantou"></text></view>
+      <text class="iconfont iconzoulu-copy btnicon" style="font-weight: bold;"></text>
+      <text class="title">发布求带</text>
+      <text class="iconfont iconjiantou"></text>
     </navigator>
     <navigator url="/pages/order/index" class="btn-item" hover-class="none">
-      <view><image src="/images/bag.png" class="btn-icon"></image><text>脚递官方下单</text></view>
-      <view><text class="iconfont iconjiantou"></text></view>
+      <text class="iconfont icongouwudai btnicon"></text>
+      <text class="title">脚递官方下单</text>
+      <text class="iconfont iconjiantou"></text>
     </navigator>
   </view>
   <view>
@@ -33,7 +36,7 @@
     <view class="orders-index" wx:if="{{tabname === 'delivery' && deliveryList.length }}">
       <view class="orderItem orderItemXQD" wx:for="{{deliveryList}}" wx:key="id">
         <view class="uinfo">
-          <image src="{{item.user.avatar}}" class="uimg"></image>
+          <image src="{{item.user.avatar}}" mode="aspectFill" class="uimg"></image>
           <text class="uname">{{item.user.nick_name}}</text>
         </view>
         <view class="orderinfo">
@@ -53,7 +56,7 @@
     <view class="orders-index" wx:if="{{tabname === 'travel' && travelList.length }}">
       <view class="orderItem orderItemKBD" wx:for="{{travelList}}" wx:key="id">
         <view class="orderinfo">
-          <view class="left"><image src="{{item.user.avatar}}"></image><text>{{item.user.nick_name}}</text></view>
+          <view class="left"><image src="{{item.user.avatar}}" mode="aspectFill"></image><text>{{item.user.nick_name}}</text></view>
           <navigator url="{{'/pages/index/cardTravel/cardTravel?id=' + item.id}}" class="main" hover-class="none">
             <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
             <view class="mark"><text>日期：{{item.created}}</text></view>
