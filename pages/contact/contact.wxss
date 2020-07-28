@@ -253,10 +253,10 @@ input {
   color: #3F83E3;
   font-weight: normal;
 }
-.listWrap .footer .btn.gray {
-  background-color: #f2f2f2;
-  border: 2rpx solid #f2f2f2;
-  color: #989898;
+.listWrap .footer .btn.blue {
+  background-color: #3F83E3;
+  border: 2rpx solid #3F83E3;
+  color: #fff;
 }
 
 .listItem {

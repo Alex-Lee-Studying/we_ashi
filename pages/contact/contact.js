@@ -44,7 +44,7 @@ Page({
     messageList: [],
     currBtn: '', // voice emoji plus
     scrollHeight: '100vh',
-    inputBottom: 0,
+    inputBottom: '0px',
     cursor: 0,
     parsedComment: [],
     msgList: [],
@@ -79,6 +79,19 @@ Page({
     }
     if (options.travelId) {
       this.setData({ travel_id: options.travelId })
+    }
+    if (options.sendcard) {
+      if (options.sendcard === 'travel') {
+        this.setData({
+          currBtn: 'plus',
+          showTravels: 'true'
+        })
+      } else if (options.sendcard === 'delivery') {
+        this.setData({
+          currBtn: 'plus',
+          showDeliverys: 'true'
+        })
+      }
     }
 
     if (options.sessionId) {
@@ -168,11 +181,10 @@ Page({
 
   changeInput: function(e) {
     this.setData({ currBtn: e.currentTarget.dataset.btn })
-    if (this.data.currBtn === 'plus') {
+    if (e.currentTarget.dataset.btn === 'plus') {
       this.setData({
         scrollHeight: (windowHeight - 136) + 'px',
-        toView: 'msg-' + (this.data.messageList.length - 1),
-        inputBottom: 0
+        toView: 'msg-' + (this.data.messageList.length - 1)
       })
     }
   },
@@ -197,7 +209,7 @@ Page({
   blur: function (e) {
     this.setData({
       scrollHeight: '100vh',
-      inputBottom: 0,
+      inputBottom: '0px',
       cursor: e.detail.cursor || 0
     })
   },
@@ -475,13 +487,15 @@ Page({
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           const messageList = self.data.messageList
-          if (res.data.traval) {
-            res.data.traval.dt_departure = res.data.traval.dt_departure ? app.globalData.moment.utc(res.data.traval.dt_departure).format('YYYY-MM-DD') : ''
+          if (res.data.travel) {
+            res.data.travel.dt_departure = res.data.travel.dt_departure ? app.globalData.moment.utc(res.data.travel.dt_departure).format('YYYY-MM-DD') : ''
           }
           messageList.push(res.data)
           self.setData({
             messageList: messageList,
-            toView: 'msg-' + (messageList.length - 1)
+            toView: 'msg-' + (messageList.length - 1),
+            showTravels: false,
+            showDeliverys: false
           })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
@@ -608,7 +622,10 @@ Page({
               item.delivery.created = item.delivery.created ? app.globalData.moment.utc(item.delivery.created).format('YYYY-MM-DD') : ''
             }
           })
-          self.setData({ messageList: res.data.reverse() })
+          self.setData({ 
+            messageList: res.data.reverse(),
+            toView: 'msg-' + (res.data.length - 1),
+          })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
             wx.navigateTo({

@@ -11,7 +11,10 @@ Page({
   onLoad(option) {
     console.log(option)
     if (option.from && option.from === 'message') {
-      this.setData({ fromMessage: true })
+      this.setData({
+        fromMessage: true,
+        acceptTravelId: option.travelid || ''
+      })
     }
     if (option.id) {
       this.setData({ deliveryId: option.id })
@@ -58,10 +61,14 @@ Page({
     })
   },
 
-
   // 出行人接受帮带
   accept: function (e) {
     var deliveryId = this.data.deliveryId
+    var travelId = this.data.acceptTravelId
+    if (!travelId) {
+      wx.showToast({ title: '无效travel_id', icon: 'none' })
+      return
+    }
     var self = this
 
     wx.showModal({
@@ -80,12 +87,11 @@ Page({
             url: app.globalData.baseUrl + '/app/v1/deliveries/' + deliveryId + '/actions',
             method: 'PUT',
             header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
-            data: { action: 'accept' },
+            data: { action: 'accept', travel_id: travelId },
             success: function (res) {
               if (res.statusCode >= 200 && res.statusCode < 300) {
                 wx.showToast({ title: '接受帮带成功' })
                 var delivery = self.data.delivery
-                delivery.status = 'waiting_for_pay'
                 self.setData({ delivery: delivery })
               } else {
                 console.log(res)
