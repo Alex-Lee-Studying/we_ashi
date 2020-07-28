@@ -33,41 +33,47 @@
       </navigator>
     </view>
 
-    <view class="orders-index" wx:if="{{tabname === 'delivery' && deliveryList.length }}">
-      <view class="orderItem orderItemXQD" wx:for="{{deliveryList}}" wx:key="id">
-        <view class="uinfo">
-          <image src="{{item.user.avatar}}" mode="aspectFill" class="uimg"></image>
-          <text class="uname">{{item.user.nick_name}}</text>
-        </view>
-        <view class="orderinfo">
-          <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
-          <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
-          <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id=' + item.id}}" class="main" hover-class="none">
-            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
-            <view class="mark"><text>备注：{{item.details || '无'}}</text></view>
-            <view class="fee"><text class="iconfont iconw_jinbi"></text><text>{{item.price}}￥</text></view>
-          </navigator>
-          <navigator url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&deliveryId=' + item.id}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator> 
+    <block wx:if="{{tabname === 'delivery'}}">
+      <view class="orders-index" wx:if="{{ deliveryList.length }}">
+        <view class="orderItem orderItemXQD" wx:for="{{deliveryList}}" wx:key="id">
+          <view class="uinfo">
+            <image src="{{item.user.avatar}}" mode="aspectFill" class="uimg"></image>
+            <text class="uname">{{item.user.nick_name}}</text>
+          </view>
+          <view class="orderinfo">
+            <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
+            <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
+            <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id=' + item.id}}" class="main" hover-class="none">
+              <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
+              <view class="mark"><text>备注：{{item.details || '无'}}</text></view>
+              <view class="fee"><text class="iconfont iconw_jinbi"></text><text>{{item.price}}￥</text></view>
+            </navigator>
+            <navigator url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&deliveryId=' + item.id}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator> 
+          </view>
         </view>
       </view>
-    </view>
-    <view wx:elif="{{tabname === 'delivery' && !deliveryList.length }}" style="text-align: center;">空空如也</view>
+      <view wx:else style="text-align: center;">空空如也</view>
+      <view class="nomore" wx:if="{{noMoreDeliverysFlag}}"><text>没有更多数据啦~</text></view>
+    </block>
 
-    <view class="orders-index" wx:if="{{tabname === 'travel' && travelList.length }}">
-      <view class="orderItem orderItemKBD" wx:for="{{travelList}}" wx:key="id">
-        <view class="orderinfo">
-          <view class="left"><image src="{{item.user.avatar}}" mode="aspectFill"></image><text>{{item.user.nick_name}}</text></view>
-          <navigator url="{{'/pages/index/cardTravel/cardTravel?id=' + item.id}}" class="main" hover-class="none">
-            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
-            <view class="mark"><text>日期：{{item.created}}</text></view>
-            <view class="mark"><text>备注：{{item.details || '无'}}</text></view>
-            <view class="fee"><text>重量：{{item.weight}}kg</text><text style="margin-left:20rpx;">可否代买：{{item.agent? '是': '否'}}</text></view>
-          </navigator>
-          <navigator url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&travelId=' + item.id}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator>
+    <block wx:if="{{tabname === 'travel'}}">
+      <view class="orders-index" wx:if="{{ travelList.length }}">
+        <view class="orderItem orderItemKBD" wx:for="{{travelList}}" wx:key="id">
+          <view class="orderinfo">
+            <view class="left"><image src="{{item.user.avatar}}" mode="aspectFill"></image><text>{{item.user.nick_name}}</text></view>
+            <navigator url="{{'/pages/index/cardTravel/cardTravel?id=' + item.id}}" class="main" hover-class="none">
+              <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
+              <view class="mark"><text>日期：{{item.created}}</text></view>
+              <view class="mark"><text>备注：{{item.details || '无'}}</text></view>
+              <view class="fee"><text>重量：{{item.weight}}kg</text><text style="margin-left:20rpx;">可否代买：{{item.agent? '是': '否'}}</text></view>
+            </navigator>
+            <navigator url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&travelId=' + item.id}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator>
+          </view>
         </view>
       </view>
-    </view>
-    <view wx:elif="{{tabname === 'travel' && !travelList.length }}" style="text-align: center;">空空如也</view>
+      <view wx:else style="text-align: center;">空空如也</view>
+      <view class="nomore" wx:if="{{noMoreTravelsFlag}}"><text>没有更多数据啦~</text></view>
+    </block>
 
   </view>
 </view>

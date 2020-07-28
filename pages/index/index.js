@@ -9,20 +9,21 @@ Page({
     departure: '',
     destination: '',
     travelSearch: {
-      page: 0,
-      pageSize: 20,
-      user_id: app.globalData.user.id,
       start_time: '',
       end_time: ''
     },
     deliverySearch: {
-      page: 0,
-      pageSize: 20,
-      user_id: app.globalData.user.id,
       travel_id: '',
     },
     deliveryList: [],
-    travelList: []
+    travelList: [],
+    pageSize: 20,
+    getTravelsFlag: true,
+    getDeliverysFlag: true,
+    currPageTravel: 0,
+    currPageDelivery: 0,
+    noMoreTravelsFlag: false,
+    noMoreDeliverysFlag: false
   },
 
   onLoad: function () {
@@ -72,6 +73,14 @@ Page({
     })
   },
 
+  onReachBottom() {
+    if (this.data.tabname === 'delivery') {
+      this.getDeliverys()
+    } else if (this.data.tabname === 'travel') {
+      this.getTravels()
+    }
+  },
+
   changeTab(e) {
     var tab = e.currentTarget.dataset.tab
     this.setData({ 
@@ -89,29 +98,47 @@ Page({
   getTravels() {
     var self = this
     var params = {
-      // user_id: this.data.travelSearch.user_id,
       departure: this.data.departure,
       destination: this.data.destination,
       // start_time: this.data.travelSearch.start_time,
       // end_time: this.data.travelSearch.end_time
     }
 
-    if (hasClick) return
-    hasClick = true
+    if (!this.data.getTravelsFlag) return
+    this.setData({ getTravelsFlag: false })
     wx.showLoading()
 
     wx.request({
       url: app.globalData.baseUrl + '/app/v1/travels',
       method: 'GET',
-      header: { 'page': this.data.travelSearch.page, 'page-size': this.data.travelSearch.pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      header: { 'page': this.data.currPageTravel, 'page-size': this.data.pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length < self.data.pageSize) {
+            var reqState = false
+            self.setData({
+              noMoreTravelsFlag: true
+            })
+          } else {
+            var reqState = true
+          }
           res.data.forEach((item,index,array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+            item.dt_departure = item.dt_departure ? app.globalData.moment.utc(item.dt_departure).format('YYYY-MM-DD') : ''
           })
-          self.setData({ travelList: res.data })
+
+          var list = self.data.travelList.concat(res.data)
+          var nextPage = ++self.data.currPageTravel
+          self.setData({
+            travelList: list,
+            getTravelsFlag: reqState,
+            currPageTravel: nextPage
+          })
         } else {
+          self.setData({
+            getTravelsFlag: true
+          })
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
             wx.navigateTo({
               url: '/pages/user/auth/auth',
@@ -123,10 +150,12 @@ Page({
       },
       fail: function (res) {
         wx.showToast({ title: res.errMsg, icon: 'none' })
+        self.setData({
+          getTravelsFlag: true
+        })
       },
       complete: function (res) {
         wx.hideLoading()
-        hasClick = false
       }
     })
   },
@@ -134,25 +163,40 @@ Page({
   getDeliverys() {
     var self = this
     var params = {
-      // user_id: this.data.deliverySearch.user_id,
-      // travel_id: this.data.deliverySearch.travel_id,
       departure: this.data.departure,
       destination: this.data.destination,
     }
 
-    if (hasClick) return
-    hasClick = true
+    if (!this.data.getDeliverysFlag) return
+    this.setData({ getDeliverysFlag: false })
     wx.showLoading()
 
     wx.request({
       url: app.globalData.baseUrl + '/app/v1/deliveries',
       method: 'GET',
-      header: { 'page': this.data.deliverySearch.page, 'page-size': this.data.deliverySearch.pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      header: { 'page': this.data.currPageDelivery, 'page-size': this.data.pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: params,
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          self.setData({ deliveryList: res.data })
+          if (res.data.length < self.data.pageSize) {
+            var reqState = false
+            self.setData({
+              noMoreDeliverysFlag: true
+            })
+          } else {
+            var reqState = true
+          }
+          var list = self.data.deliveryList.concat(res.data)
+          var nextPage = ++self.data.currPageDelivery
+          self.setData({
+            deliveryList: list,
+            getDeliverysFlag: reqState,
+            currPageDelivery: nextPage
+          })
         } else {
+          self.setData({
+            getDeliverysFlag: true
+          })
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
             wx.navigateTo({
               url: '/pages/user/auth/auth',
@@ -164,10 +208,12 @@ Page({
       },
       fail: function (res) {
         wx.showToast({ title: res.errMsg, icon: 'none' })
+        self.setData({
+          getDeliverysFlag: true
+        })
       },
       complete: function (res) {
         wx.hideLoading()
-        hasClick = false
       }
     })
   }

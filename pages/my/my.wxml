@@ -73,6 +73,7 @@
           <button open-type="share" class="right" data-type="delivery" data-item="{{item}}"><text class="iconfont iconshare"></text></button>
         </view>
       </view>
+      <view class="nomore" wx:if="{{noMoreDeliverysFlag}}"><text>没有更多数据啦~</text></view>
     </view>
 
     <view class="orders-my" wx:if="{{tabname === 'travel'}}">
@@ -86,7 +87,9 @@
           <button open-type="share" class="right" data-type="travel" data-item="{{item}}"><text class="iconfont iconshare"></text></button>
         </view>
       </view>
+      <view class="nomore" wx:if="{{noMoreTravelsFlag}}"><text>没有更多数据啦~</text></view>
     </view>
+
   </view>
 </view>
 <!-- <button open-type="contact">打开客服会话</button>

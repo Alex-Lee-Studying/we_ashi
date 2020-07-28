@@ -112,3 +112,11 @@ page {
   font-size: 24rpx;
   margin-top: 10rpx;
 }
+
+.nomore {
+  height: 45rpx;
+  line-height: 45rpx;
+  font-size: 28rpx;
+  color: #333;
+  text-align: center;
+}
