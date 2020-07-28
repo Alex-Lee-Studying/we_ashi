@@ -8,7 +8,7 @@
       <!-- 单个消息 -->
       <view id='msg-{{index}}' class="{{item.author.id !== user.id ? 'leftItemWrap' : 'rightItemWrap'}}">
         <view class="uimgWrap" wx:if="{{item.author.id !== user.id}}">
-          <image src="{{item.author.avatar}}"></image>
+          <image src="{{item.author.avatar}}" mode="aspectFill"></image>
         </view>
         <view class="{{item.author.id !== user.id ? 'leftMsg' : 'rightMsg'}}">
           <text class="iconfont iconarrow-copy absArrow" wx:if="{{item.author.id !== user.id}}"></text>
@@ -30,7 +30,7 @@
 
           <block wx:if="{{item.type === 'delivery'}}">
             <view class="hi">Hi，你可以帮我带这个吗？</view>
-            <navigator class="cardWrap" url="{{'/pages/index/cardDelivery/cardDelivery?from=message&id=' + item.delivery.id}}" hover-class="none">
+            <navigator class="cardWrap" url="{{'/pages/index/cardDelivery/cardDelivery?from=message&id=' + item.delivery.id + '&travelid=' + travel_id}}" hover-class="none">
               <view class="cardImg">
                 <image src="{{item.delivery.resources[0].name}}" mode="aspectFill" wx:if="{{item.delivery.resources.length}}"></image>
                 <text class="iconfont iconsuitcase-2-fill"></text>
@@ -44,7 +44,7 @@
 
           <block wx:if="{{item.type === 'travel'}}">
             <view class="hi">Hi，我可以帮你带哦</view>
-            <navigator class="cardWrap" url="{{'/pages/index/cardTravel/cardTravel?from=message&id=' + item.travel.id}}" hover-class="none">
+            <navigator class="cardWrap" url="{{'/pages/index/cardTravel/cardTravel?from=message&id=' + item.travel.id + '&deliveryid=' + delivery_id}}" hover-class="none">
               <view class="cardImg">
                 <text class="iconfont iconplane"></text>
               </view>
@@ -66,7 +66,7 @@
 
         </view>
         <view class="uimgWrap" wx:if="{{item.author.id === user.id}}">
-          <image src="{{item.author.avatar}}"></image>
+          <image src="{{item.author.avatar}}" mode="aspectFill"></image>
         </view>
       </view>
 
@@ -137,7 +137,7 @@
     </scroll-view>
     <view class="footer">
       <button class="btn"><navigator url="/pages/travel/travel" hover-class="none">新增出行</navigator></button>
-      <button class="btn gray" bindtap="sendTravel">确认发送</button>
+      <button class="btn blue" bindtap="sendTravel">确认发送</button>
     </view>
   </view>
 </view>
@@ -171,7 +171,7 @@
     </scroll-view>
     <view class="footer">
       <button class="btn"><navigator url="/pages/delivery/index" hover-class="none">新增求带</navigator></button>
-      <button class="btn gray" bindtap="sendDelivery">确认发送</button>
+      <button class="btn blue" bindtap="sendDelivery">确认发送</button>
     </view>
   </view>
 </view>

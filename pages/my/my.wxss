@@ -161,3 +161,11 @@ page {
   margin: 0 30rpx;
   padding-bottom: 30rpx;
 }
+
+.nomore {
+  height: 45rpx;
+  line-height: 45rpx;
+  font-size: 28rpx;
+  color: #333;
+  text-align: center;
+}

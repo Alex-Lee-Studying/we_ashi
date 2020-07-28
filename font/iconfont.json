@@ -6,6 +6,27 @@
   "description": "脚递",
   "glyphs": [
     {
+      "icon_id": "2871669",
+      "name": "走路",
+      "font_class": "zoulu-copy",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "4408588",
+      "name": "国际站_购物袋",
+      "font_class": "gouwudai",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "5321268",
+      "name": "行李箱",
+      "font_class": "hanglixiang",
+      "unicode": "e6ba",
+      "unicode_decimal": 59066
+    },
+    {
       "icon_id": "1368949",
       "name": "邮政编码",
       "font_class": "youzhengbianma",

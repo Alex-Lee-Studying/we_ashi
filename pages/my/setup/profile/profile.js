@@ -13,6 +13,7 @@ Page({
   onLoad() {
     console.log(app.globalData.user)
     if (app.globalData.user.id) {
+      app.globalData.user.birthday = app.globalData.user.birthday ? app.globalData.moment.utc(app.globalData.user.birthday).format('YYYY-MM-DD') : ''
       this.setData({ userId: app.globalData.user.id, user: app.globalData.user })
 
       // this.getUser()

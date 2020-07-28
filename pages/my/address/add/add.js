@@ -45,8 +45,8 @@ Page({
     this.setData({
       countryIndex: e.detail.value
     })
-    var countryStr = this.data.countryArray[1][this.data.countryIndex[1]].desc + '@' + this.data.countryArray[0][this.data.countryIndex[0]].desc
-    var countryCode = this.data.countryArray[1][this.data.countryIndex[1]].code + '@' + this.data.countryArray[0][this.data.countryIndex[0]].code
+    var countryStr = this.data.countryArray[0][this.data.countryIndex[0]].desc + ' ' + this.data.countryArray[1][this.data.countryIndex[1]].desc
+    var countryCode = this.data.countryArray[0][this.data.countryIndex[0]].code + ' ' + this.data.countryArray[1][this.data.countryIndex[1]].code
     this.setData({
       country: countryCode,
       countryStr: countryStr
@@ -109,7 +109,7 @@ Page({
       zipcode: this.data.formdata.zipcode,
       details: this.data.formdata.details,
       default: this.data.formdata.default,
-      country: this.data.country
+      name: this.data.countryStr
     }
     console.log(params)
 
