@@ -35,7 +35,7 @@
         </view>
         <view class="infoItem">
           <text class="label">地址：</text>
-          <text class="value">{{address.details}}</text>
+          <text class="value">{{address.name}} {{address.details}}</text>
         </view>
       </view>
     </view>

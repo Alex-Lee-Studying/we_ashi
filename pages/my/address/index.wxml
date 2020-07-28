@@ -19,6 +19,13 @@
         </view>
         <view class="itemMain">
           <view class="left">
+            <text class="address">{{item.name}}</text>
+          </view>
+          <view class="right">
+          </view>
+        </view>
+        <view class="itemMain">
+          <view class="left">
             <text class="address">{{item.details}}</text>
           </view>
           <view class="right">
