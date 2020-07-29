@@ -2,19 +2,13 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
-    offical: false,
     selectedAddressId: '',
     addressList: [],
     showUse: true
   },
   
   onLoad: function(option) {
-    if (option.type === 'offical') {
-      this.setData({ offical: true })
-      this.getOfficalAddressList()
-    } else {
-      this.getAddressList()
-    }
+    this.getAddressList()
 
     // var pages = getCurrentPages()
     // var prevPage = pages[pages.length - 2]   //上一页
@@ -144,34 +138,6 @@ Page({
           } else {
             wx.showToast({ title: res.data.msg, icon: 'none' })
           }
-        }
-      },
-      fail: function (res) {
-        wx.showToast({ title: '系统错误', icon: 'none' })
-      },
-      complete: function (res) {
-        wx.hideLoading()
-        hasClick = false
-      }
-    })
-  },
-
-  getOfficalAddressList: function () {
-    var self = this
-
-    if (hasClick) return
-    hasClick = true
-    wx.showLoading()
-
-    wx.request({
-      url: app.globalData.baseUrl + '/app/v1/offical-addresses',
-      method: 'GET',
-      success: function (res) {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          self.setData({ addressList: res.data })
-        } else {
-          console.log(res)
-          wx.showToast({ title: res.data.msg, icon: 'none' })
         }
       },
       fail: function (res) {
