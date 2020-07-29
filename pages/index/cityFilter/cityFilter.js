@@ -77,7 +77,9 @@ Page({
   clear() {
     this.setData({
       departure: '',
-      destination: ''
+      departureStr: '',
+      destination: '',
+      destinationStr: ''
     })
   },
 

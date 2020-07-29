@@ -32,6 +32,17 @@ Page({
   onShow: function () {
     var that = this
 
+    this.setData({
+      deliveryList: [],
+      travelList: [],
+      getTravelsFlag: true,
+      getDeliverysFlag: true,
+      currPageTravel: 0,
+      currPageDelivery: 0,
+      noMoreTravelsFlag: false,
+      noMoreDeliverysFlag: false
+    })
+  
     if (this.data.tabname === 'delivery') {
       this.getDeliverys()
     } else if (this.data.tabname === 'travel') {
