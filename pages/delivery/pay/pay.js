@@ -35,6 +35,9 @@ Page({
       method: 'GET',
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
+          res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
+          res.data.departure = res.data.departure ? res.data.departure.replace('@', ',') : ''
+          res.data.destination = res.data.destination ? res.data.destination.replace('@', ',') : ''
           self.setData({ delivery: res.data })
         } else {
           console.log(res)

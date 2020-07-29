@@ -46,6 +46,8 @@ Page({
         if (res.statusCode >= 200 && res.statusCode < 300) {
           res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
           res.data.dt_departure = res.data.dt_departure ? app.globalData.moment.utc(res.data.dt_departure).format('YYYY-MM-DD') : ''
+          res.data.departure = res.data.departure ? res.data.departure.replace('@', ',') : ''
+          res.data.destination = res.data.destination ? res.data.destination.replace('@', ',') : ''
           self.setData({ travel: res.data })
         } else {
           console.log(res)
@@ -84,6 +86,8 @@ Page({
         if (res.statusCode >= 200 && res.statusCode < 300) {
           res.data.forEach((item, index, array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+            item.departure = item.departure ? item.departure.replace('@', ',') : ''
+            item.destination = item.destination ? item.destination.replace('@', ',') : ''
           })
           self.setData({ askforList: res.data })
         } else {
@@ -128,6 +132,8 @@ Page({
         if (res.statusCode >= 200 && res.statusCode < 300) {
           res.data.forEach((item, index, array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+            item.departure = item.departure ? item.departure.replace('@', ',') : ''
+            item.destination = item.destination ? item.destination.replace('@', ',') : ''
           })
           self.setData({ acceptedList: res.data })
         } else {

@@ -126,6 +126,8 @@ Page({
           res.data.forEach((item,index,array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
             item.dt_departure = item.dt_departure ? app.globalData.moment.utc(item.dt_departure).format('YYYY-MM-DD') : ''
+            item.departure = item.departure ? item.departure.replace('@',',') : ''
+            item.destination = item.destination ? item.destination.replace('@', ',') : ''
           })
 
           var list = self.data.travelList.concat(res.data)
@@ -186,6 +188,12 @@ Page({
           } else {
             var reqState = true
           }
+          res.data.forEach((item, index, array) => {
+            item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+            item.departure = item.departure ? item.departure.replace('@', ',') : ''
+            item.destination = item.destination ? item.destination.replace('@', ',') : ''
+          })
+
           var list = self.data.deliveryList.concat(res.data)
           var nextPage = ++self.data.currPageDelivery
           self.setData({
