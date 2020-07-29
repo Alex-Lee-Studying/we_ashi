@@ -22,7 +22,7 @@
         </view>
         <view class="formItem">
           <label>可否代买</label>
-          <text style="flex:1;">{{formdata.agent? '是': '否'}}</text><switch checked="{{formdata.agent}}" bindchange="switchAgent" color="#033150"/>
+          <text style="flex:1;color:#989898;">{{formdata.agent? '是': '否'}}</text><switch checked="{{formdata.agent}}" bindchange="switchAgent" color="#033150"/>
         </view>
         <view class="formItem">
           <label>备注</label>

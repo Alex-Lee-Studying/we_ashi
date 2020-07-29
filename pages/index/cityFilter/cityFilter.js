@@ -39,7 +39,7 @@ Page({
     this.setData({
       multiIndex: e.detail.value
     })
-    var countryStr = this.data.multiArray[1][this.data.multiIndex[1]].desc + '@' + this.data.multiArray[0][this.data.multiIndex[0]].desc
+    var countryStr = this.data.multiArray[1][this.data.multiIndex[1]].desc + ',' + this.data.multiArray[0][this.data.multiIndex[0]].desc
     var countryCode = this.data.multiArray[1][this.data.multiIndex[1]].code + '@' + this.data.multiArray[0][this.data.multiIndex[0]].code
     if (this.data.picker === 'departure') {
       this.setData({
