@@ -1,5 +1,3 @@
-import { networks } from '../../utils/network'
-import { expresses } from '../../utils/express'
 var app = getApp()
 var hasClick = false
 
@@ -7,12 +5,12 @@ Page({
   data: {
     isIphoneX: app.globalData.isIphoneX,
     tabname: 'express',
-    networkList: networks,
-    expressList: expresses,
+    expressList: [],
     officalAddressList: []
   },
   onLoad: function () {
     this.getOfficalAddressList()
+    this.getExpressList()
   },
   onShow: function () {
     // 设置tabbar选中
@@ -30,8 +28,8 @@ Page({
   getOfficalAddressList: function () {
     var self = this
 
-    if (hasClick) return
-    hasClick = true
+    // if (hasClick) return
+    // hasClick = true
     wx.showLoading()
 
     wx.request({
@@ -50,7 +48,35 @@ Page({
       },
       complete: function (res) {
         wx.hideLoading()
-        hasClick = false
+        // hasClick = false
+      }
+    })
+  },
+
+  getExpressList: function () {
+    var self = this
+
+    // if (hasClick) return
+    // hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/expresses',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.setData({ expressList: res.data })
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        // hasClick = false
       }
     })
   }

@@ -9,17 +9,16 @@
   <view class="expressCont" hidden="{{tabname === 'network'}}">
     <view class="expressWrap" wx:for="{{expressList}}" wx:key="index">
       <view class="countryWrap">
-        <image src="{{item.img}}" mode="widthFix"></image>
-        <text>{{item.country}}</text>
+        <image src="{{item.country_icon}}" mode="widthFix"></image>
+        <text>{{item.country_desc}}</text>
       </view>
       <view class="expressList">
-        <view class="expressItem" wx:for="{{item.sub}}" wx:key="*this" wx:for-item="sub">
-          <image src="{{sub.logo}}" mode="widthFix" class="logo"></image>
+        <view class="expressItem">
+          <image src="{{item.icon}}" mode="widthFix" class="logo"></image>
           <view class="content">
-            <text class="name">{{sub.name}}</text>
-            <text class="other" hidden="{{!sub.website}}">官方网站：{{sub.website}}</text>
-            <text class="other" hidden="{{!sub.tel}}">客服电话：{{sub.tel}}</text>
-            <text class="other" hidden="{{!sub.contact}}">联系方式：{{sub.contact}}</text>
+            <text class="name">{{item.name}}</text>
+            <text class="other" hidden="{{!item.site}}">官方网站：{{item.site}}</text>
+            <text class="other" hidden="{{!item.tele}}">客服电话：{{item.tele}}</text>
           </view>
         </view>
       </view>
@@ -27,17 +26,17 @@
   </view>
 
   <view class="networkCont" hidden="{{tabname === 'express'}}">
-    <view class="networkWrap" wx:for="{{networkList}}" wx:key="index">
+    <view class="networkWrap" wx:for="{{officalAddressList}}" wx:key="index">
       <view class="flag">
-        <image src="{{item.img}}" mode="widthFix"></image>
-        <text class="country">{{item.country}}</text>
+        <image src="{{item.country_icon}}" mode="widthFix"></image>
+        <text class="country">{{item.country_desc}}</text>
       </view>
       <view class="content">
-        <view class="sub" wx:for="{{item.sub}}" wx:key="*this" wx:for-item="sub">
-          <text class="other">{{sub.address}}</text>
-          <text class="other">电话：{{sub.tel}}</text>
-          <text class="other">联系人：{{sub.name}}</text>
-          <text class="other">邮编：{{sub.zipcode}}</text>
+        <view class="sub">
+          <text class="other">{{item.name}} {{item.details}}</text>
+          <text class="other">电话：{{item.mobile}}</text>
+          <text class="other">联系人：{{item.recipient}}</text>
+          <text class="other">邮编：{{item.zipcode}}</text>
         </view>
       </view>
     </view>
