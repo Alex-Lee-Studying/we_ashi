@@ -1,0 +1,35 @@
+.successWrap {
+  width: 380rpx;
+  margin: 0 auto;
+  text-align: center;
+}
+.successWrap .status,.successWrap .notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.successWrap .status .statusstr {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  margin-top: 30rpx;
+}
+.successWrap .status .iconfont {
+  font-size: 114rpx;
+  color: #033150;
+}
+.successWrap .notice .title {
+  font-size: 28rpx;
+  color: #033150;
+  margin: 70rpx 0 20rpx;
+}
+.successWrap .notice .cont1 {
+  font-size: 24rpx;
+  color: #333;
+  line-height: 70rpx;
+}
+.successWrap .notice .cont2 {
+  font-size: 32rpx;
+  color: #333;
+  margin-top: 20rpx;
+}

@@ -1,0 +1,8 @@
+<view class="container">
+  <view class="successWrap">
+    <view class="status">
+      <text class="iconfont iconsuccess"></text>
+      <text class="statusstr">发布成功</text>
+    </view>
+  </view>
+</view>

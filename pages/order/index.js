@@ -205,7 +205,7 @@ Page({
     var that = this
     if (!this.data.images.length) {
       wx.navigateTo({
-        url: '/pages/order/pay/pay?id=' + that.data.responseObj.id
+        url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
       })
     }
 
@@ -227,7 +227,7 @@ Page({
     Promise.all(arr).then(res => {
       console.log(res)
       wx.navigateTo({
-        url: '/pages/order/pay/pay?id=' + that.data.responseObj.id
+        url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
       })
     }).catch(err => {
       console.log(err)
