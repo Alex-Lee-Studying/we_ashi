@@ -14,9 +14,10 @@
       </view>
       <view class="right">
         <button open-type="share" class="btnShare"><text class="iconfont iconshare"></text></button>
-        <button type="primary" class="btnPrimary" data-delivery-id="{{delivery.id}}" bindtap="cancel" wx:if="{{delivery.status === 'normal'}}">取消</button>
-        <button type="primary" class="btnPrimary" data-delivery-id="{{delivery.id}}" bindtap="topay" wx:if="{{delivery.status === 'paying'}}">去支付</button>
-        <button type="primary" class="btnPrimary" data-delivery-id="{{delivery.id}}" bindtap="finish" wx:if="{{delivery.status === 'delivering'}}">确认收货</button>
+        <button type="primary" class="btnPrimary" bindtap="cancel" wx:if="{{delivery.status === 'normal' && user.id === delivery.user.id}}">取消</button>
+        <button type="primary" class="btnPrimary" wx:if="{{delivery.status === 'waiting_for_pay' && user.id === delivery.user.id}}"><navigator url="{{'/pages/delivery/pay/pay?id=' + delivery.id}}" hover-class="none">去支付</navigator></button>
+        <button type="primary" class="btnPrimary" bindtap="toUpdateDeliver" wx:if="{{delivery.status === 'delivering' && user.id === delivery.travel.user.id}}">上传物流</button>
+        <button type="primary" class="btnPrimary" bindtap="finish" wx:if="{{delivery.status === 'delivering' && user.id === delivery.user.id}}">确认收货</button>
         <button type="primary" class="btnPrimary" plain wx:if="{{delivery.status === 'eol' || delivery.status === 'canceled'}}">{{delivery.status === 'eol'? '已完成': delivery.status === 'canceled'? '已取消': ''}}</button>
       </view>
     </view>
@@ -55,6 +56,28 @@
         <text class="info">完成</text>
         <text class="datetime">03-26 15:20</text>
       </view>
+    </view>
+  </view>
+</view>
+
+<view class="mask" hidden="{{!showExpressForm}}">
+  <view class="deliverWrap">
+    <view class="header">
+      <text class="title">上传物流</text>
+      <text class="iconfont iconclose close" bindtap="closeExpressForm"></text>
+    </view>
+    <view class="formWrap">
+      <view class="formItem">
+        <label>快递公司</label>
+        <input class="input" value="{{formdata.express}}" bindinput="inputInfo" data-obj="formdata" data-item="express" placeholder="请填写快递公司"/>
+      </view>
+      <view class="formItem">
+        <label>快递单号</label>
+        <input class="input" value="{{formdata.expressNum}}" bindinput="inputInfo" data-obj="formdata" data-item="expressNum" auto-focus placeholder="请填写快递单号"/>
+      </view>
+    </view>
+    <view class="footer">
+      <button class="btn blue" bindtap="updateDeliver">提交</button>
     </view>
   </view>
 </view>

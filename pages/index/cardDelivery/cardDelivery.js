@@ -95,6 +95,18 @@ Page({
                 wx.showToast({ title: '接受帮带成功' })
                 var delivery = self.data.delivery
                 self.setData({ delivery: delivery })
+
+                const params = {
+                  type: 'text',
+                  content: 'Hi，我同意了你的帮带！'
+                }
+                self.addMessageAccept(params)
+
+                const params1 = {
+                  type: 'delivery',
+                  delivery_id: self.data.deliveryId
+                }
+                self.addMessageAccept(params1)
               } else {
                 console.log(res)
                 wx.showToast({ title: res.data.msg, icon: 'none' })
@@ -114,5 +126,61 @@ Page({
         }
       }
     })
+  },
+
+  // 发布消息
+  addMessageAccept(opts) {
+    var self = this
+
+    var params = opts
+    params.target_user_id = this.data.delivery.user.id
+    
+    // if (hasClick) return
+    // hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/messages',
+      method: 'POST',
+      header: {
+        'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'),
+        'IM-Host': app.globalData.msgContext.host,
+        'Content-Type': 'multipart/form-data; boundary=XXX'
+      },
+      data: formdata(params),
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        // hasClick = false
+      }
+    })
   }
 })
+
+var formdata = function (obj = {}) {
+  let result = ''
+  for (let name of Object.keys(obj)) {
+    let value = obj[name];
+    result +=
+      '\r\n--XXX' +
+      '\r\nContent-Disposition: form-data; name=\"' + name + '\"' +
+      '\r\n' +
+      '\r\n' + value
+  }
+  return result + '\r\n--XXX--'
+}

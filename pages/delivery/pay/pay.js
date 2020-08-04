@@ -66,7 +66,7 @@ Page({
       url: app.globalData.baseUrl + '/app/v1/deliveries/' + self.data.deliveryId + '/actions',
       method: 'PUT',
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
-      data: { action: 'pay' },
+      data: { action: 'pay', payment_method: 'miniprogram' },
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           self.doPay(res.data)

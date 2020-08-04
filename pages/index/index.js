@@ -2,6 +2,7 @@ var hasClick = false
 var app = getApp()
 Page({
   data: {
+    user: {},
     isIphoneX: app.globalData.isIphoneX,
     navbarInitTop: 0, //导航栏初始化距顶部的距离
     isFixedTop: false, //是否固定顶部
@@ -31,6 +32,10 @@ Page({
 
   onShow: function () {
     var that = this
+
+    if (app.globalData.user && app.globalData.user.id) {
+      this.setData({ user: app.globalData.user })
+    }
 
     this.setData({
       deliveryList: [],

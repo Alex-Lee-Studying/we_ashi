@@ -2,8 +2,14 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
+    user: {},
     deliveryId: null,
-    delivery: {}
+    delivery: {},
+    showExpressForm: false,
+    formdata: {
+      express: '',
+      expressNum: ''
+    }
   },
   
   onLoad(option) {
@@ -16,6 +22,22 @@ Page({
         url: '/pages/my/my'
       })
     }
+  },
+
+  onShow: function () {
+    if (app.globalData.user && app.globalData.user.id) {
+      this.setData({ user: app.globalData.user })
+    }
+  },
+
+  //input表单数据绑定
+  inputInfo: function (e) {
+    let dataset = e.currentTarget.dataset;
+    let value = e.detail.value;
+    this.data[dataset.obj][dataset.item] = value;
+    this.setData({
+      formdata: this.data[dataset.obj]
+    })
   },
 
   getDelivery: function () {
@@ -50,8 +72,7 @@ Page({
   },
 
   // 确认收货
-  finish: function(e) {
-    var deliveryId = e.currentTarget.dataset.deliveryId
+  finish: function() {
     var self = this
 
     wx.showModal({
@@ -67,7 +88,7 @@ Page({
           wx.showLoading()
 
           wx.request({
-            url: app.globalData.baseUrl + '/app/v1/deliveries/' + deliveryId + '/actions',
+            url: app.globalData.baseUrl + '/app/v1/deliveries/' + this.data.deliveryId + '/actions',
             method: 'PUT',
             header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
             data: { action: 'finish' },
@@ -99,8 +120,7 @@ Page({
   },
 
   // 取消
-  cancel: function (e) {
-    var deliveryId = e.currentTarget.dataset.deliveryId
+  cancel: function () {
     var self = this
 
     wx.showModal({
@@ -116,7 +136,7 @@ Page({
           wx.showLoading()
 
           wx.request({
-            url: app.globalData.baseUrl + '/app/v1/deliveries/' + deliveryId + '/actions',
+            url: app.globalData.baseUrl + '/app/v1/deliveries/' + this.data.deliveryId + '/actions',
             method: 'PUT',
             header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
             data: { action: 'cancel' },
@@ -147,11 +167,20 @@ Page({
     })
   },
 
-  topay: function(e) {
-    var deliveryId = e.currentTarget.dataset.deliveryId
-    wx.navigateTo({
-      url: '/pages/delivery/pay/pay?id=' + deliveryId
+  toUpdateDeliver() {
+    this.setData({
+      showExpressForm: true
     })
+  },
+
+  closeExpressForm() {
+    this.setData({
+      showExpressForm: false
+    })
+  },
+
+  updateDeliver() {
+    
   },
 
   onShareAppMessage(option) {

@@ -87,11 +87,23 @@ Page({
           currBtn: 'plus',
           showTravels: 'true'
         })
+
+        const params = {
+          type: 'text',
+          content: 'Hi，我可以帮你带哦！'
+        }
+        this.addMessage(params)
       } else if (options.sendcard === 'delivery') {
         this.setData({
           currBtn: 'plus',
           showDeliverys: 'true'
         })
+
+        const params = {
+          type: 'text',
+          content: 'Hi，你可以帮我带这个吗？'
+        }
+        this.addMessage(params)
       }
     }
 
@@ -475,8 +487,8 @@ Page({
     }
     console.log(params)
 
-    if (hasClick) return
-    hasClick = true
+    // if (hasClick) return
+    // hasClick = true
     wx.showLoading()
 
     wx.request({
@@ -516,7 +528,7 @@ Page({
       },
       complete: function (res) {
         wx.hideLoading()
-        hasClick = false
+        // hasClick = false
       }
     })
   },

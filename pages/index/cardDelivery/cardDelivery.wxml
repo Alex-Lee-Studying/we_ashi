@@ -32,10 +32,13 @@
   </view>
 
   <view wx:if="{{fromMessage}}" class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover">
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover">
       <navigator open-type="navigateBack" hover-class="none">继续聊天</navigator>
     </button>
-    <button type="primary" plain class="btnPrimary" hover-class="btnHover" bindtap="accept" hidden="{{user.id === delivery.user.id}}">同意帮带</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="accept" hidden="{{user.id === delivery.user.id}}">同意帮带</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" wx:if="{{user.id === delivery.user.id && delivery.status === 'waiting_for_pay'}}">
+      <navigator url="{{'/pages/delivery/confirm/confirm?id=' + delivery.id}}" hover-class="none">去支付</navigator>
+    </button>
   </view>
   <view wx:else class="subWrap" hidden="{{user.id === delivery.user.id}}">
     <button type="primary" class="btnPrimary" hover-class="btnHover">

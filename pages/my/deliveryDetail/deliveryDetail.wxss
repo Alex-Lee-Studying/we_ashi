@@ -111,3 +111,71 @@ page {
 .listStatus .listWrap .listItem:last-child {
   padding-bottom: 0;
 }
+
+.mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(51,51,51,0.3);
+}
+.deliverWrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: calc(100% - 120rpx);
+  height: 495rpx;
+  background-color: #fff;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  padding: 0 60rpx;
+}
+.deliverWrap .header {
+  position: relative;
+  height: 108rpx;
+  line-height: 108rpx;
+  text-align: center;
+  border-bottom: 2rpx solid #f2f2f2;
+}
+.deliverWrap .header .title {
+  font-size: 32rpx;
+  color: #333;
+}
+.deliverWrap .header .close {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(0,-50%);
+  font-size: 40rpx;
+}
+.deliverWrap .footer {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 120rpx);
+  height: 125rpx;
+  display: flex;
+  justify-content: space-around;
+}
+.deliverWrap .footer .btn {
+  width: 251rpx;
+  height: 75rpx;
+  line-height: 75rpx;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: 2rpx solid #3F83E3;
+  border-radius: 38rpx;
+  font-size: 28rpx;
+  color: #3F83E3;
+  font-weight: normal;
+}
+.deliverWrap .footer .btn.blue {
+  background-color: #3F83E3;
+  border: 2rpx solid #3F83E3;
+  color: #fff;
+}
+.deliverWrap .formWrap {
+  padding: 30rpx 15rpx 50rpx;
+  height: 255rpx;
+}

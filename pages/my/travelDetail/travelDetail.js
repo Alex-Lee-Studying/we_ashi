@@ -116,7 +116,7 @@ Page({
     var pageSize = 20
     var params = {
       travel_id: this.data.travelId,
-      status: 'paying'
+      status: 'waiting_for_pay,paying,delivering,eol'
     }
 
     if (hasClick) return

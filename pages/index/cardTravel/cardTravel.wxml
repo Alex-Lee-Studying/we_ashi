@@ -40,7 +40,6 @@
     <button type="primary" class="btnPrimary" hover-class="btnHover">
       <navigator open-type="navigateBack" hover-class="none">继续聊天</navigator>
     </button>
-    <button type="primary" plain class="btnPrimary" hover-class="btnHover" bindtap="accept" hidden="{{user.id === travel.user.id}}">同意帮带</button>
   </view>
   <view wx:else class="subWrap" hidden="{{user.id === travel.user.id}}">
     <button type="primary" class="btnPrimary" hover-class="btnHover">
