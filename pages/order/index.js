@@ -16,6 +16,7 @@ Page({
     typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他'],
     images: [],
     address: null,
+    officalAddress: null,
     multiArray: [],
     multiIndex: [0, 0],
   },
@@ -150,7 +151,11 @@ Page({
     if (this.data.formdata.weight === '' || this.data.formdata.weight === null) {
       wx.showToast({ title: '请填写物品重量', icon: 'none' })
       return
-    } 
+    }
+    if (!this.data.officalAddress || !this.data.officalAddress.id) {
+      wx.showToast({ title: '请选择官方服务网点地址', icon: 'none' })
+      return
+    }
     if (!this.data.address || !this.data.address.id) {
       wx.showToast({ title: '请选择收货地址', icon: 'none' })
       return
@@ -163,7 +168,8 @@ Page({
       item_type: this.data.formdata.item_type,
       price: parseInt(this.data.formdata.price),
       weight: parseInt(this.data.formdata.weight),
-      address_id: this.data.address.id
+      address_id: this.data.address.id,
+      offical_address_id: this.data.officalAddress.id
     }
     console.log(params)
 
@@ -205,7 +211,7 @@ Page({
     var that = this
     if (!this.data.images.length) {
       wx.navigateTo({
-        url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
+        url: '/pages/order/confirm/confirm?id=' + that.data.responseObj.id,
       })
     }
 
@@ -227,7 +233,7 @@ Page({
     Promise.all(arr).then(res => {
       console.log(res)
       wx.navigateTo({
-        url: '/pages/delivery/confirm/confirm?id=' + that.data.responseObj.id,
+        url: '/pages/order/confirm/confirm?id=' + that.data.responseObj.id,
       })
     }).catch(err => {
       console.log(err)

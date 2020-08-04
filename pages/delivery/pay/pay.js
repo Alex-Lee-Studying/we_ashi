@@ -105,8 +105,8 @@ Page({
       paySign: params.sign,
       success(res) {
 
-        wx.switchTab({
-          url: '/pages/index/index'
+        wx.redirectTo({
+          url: '/pages/delivery/result/result?id=' + self.data.deliveryId
         })
       },
       fail(res) {

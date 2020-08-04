@@ -13,7 +13,7 @@ Page({
       this.getDelivery()
     } else {
       wx.redirectTo({
-        url: '/pages/delivery/index'
+        url: '/pages/order/index'
       })
     }
   },
@@ -51,7 +51,7 @@ Page({
 
   toOrder() {
     wx.navigateTo({
-      url: '/pages/delivery/pay/pay?id=' + this.data.deliveryId,
+      url: '/pages/order/pay/pay?id=' + this.data.deliveryId,
     })
   }
 })

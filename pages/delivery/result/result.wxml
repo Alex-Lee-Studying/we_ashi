@@ -4,5 +4,8 @@
       <text class="iconfont iconsuccess"></text>
       <text class="statusstr">发布成功</text>
     </view>
+    <view class="notice">
+      <text class="title">我们会尽快为您匹配！</text>
+    </view>
   </view>
 </view>

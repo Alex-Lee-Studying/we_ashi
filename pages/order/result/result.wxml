@@ -2,12 +2,12 @@
   <view class="successWrap">
     <view class="status">
       <text class="iconfont iconsuccess"></text>
-      <text class="statusstr">下单成功</text>
+      <text class="statusstr">支付成功</text>
     </view>
     <view class="notice">
       <text class="title">请将物品送到</text>
-      <text class="cont1">中国北京朝阳区建华南路19号 长安国际6号（18518501618）</text>
-      <text class="cont2">脚递收</text>
+      <text class="cont1">{{delivery.offical_address.country_desc}} {{delivery.offical_address.details}} </text>
+      <text class="cont2">{{delivery.offical_address.recipient}}收</text>
     </view>
   </view>
 </view>
