@@ -49,7 +49,7 @@
               <view class="fee"><text class="iconfont iconw_jinbi"></text><text>{{item.price}}￥</text></view>
             </navigator>
             <view wx:if="{{user.id === item.user.id}}"></view> 
-            <navigator wx:else url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&deliveryId=' + item.id + '&sendcard=travel'}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator> 
+            <navigator wx:else url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&sendcard=travel'}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator> 
           </view>
         </view>
       </view>
@@ -69,7 +69,7 @@
               <view class="fee"><text>重量：{{item.weight}}kg</text><text style="margin-left:20rpx;">可否代买：{{item.agent? '是': '否'}}</text></view>
             </navigator>
             <view wx:if="{{user.id === item.user.id}}"></view>
-            <navigator wx:else url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&travelId=' + item.id + '&sendcard=delivery'}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator>
+            <navigator wx:else url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&sendcard=delivery'}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator>
           </view>
         </view>
       </view>

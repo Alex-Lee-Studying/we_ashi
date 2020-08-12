@@ -35,21 +35,50 @@
     <button type="primary" plain class="btnPrimary" hover-class="btnHover">
       <navigator open-type="navigateBack" hover-class="none">继续聊天</navigator>
     </button>
-    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="accept" hidden="{{user.id === delivery.user.id}}">同意帮带</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="showTravel" hidden="{{user.id === delivery.user.id}}">同意帮带</button>
     <button type="primary" class="btnPrimary" hover-class="btnHover" wx:if="{{user.id === delivery.user.id && delivery.status === 'waiting_for_pay'}}">
       <navigator url="{{'/pages/delivery/confirm/confirm?id=' + delivery.id}}" hover-class="none">去支付</navigator>
     </button>
   </view>
   <view wx:else class="subWrap" hidden="{{user.id === delivery.user.id}}">
     <button type="primary" class="btnPrimary" hover-class="btnHover">
-      <navigator url="{{'/pages/contact/contact?targetUid=' + delivery.user.id + '&deliveryId=' + delivery.id}}" hover-class="none">
+      <navigator url="{{'/pages/contact/contact?targetUid=' + delivery.user.id}}" hover-class="none">
         立即联系
       </navigator>
     </button>
     <button type="primary" plain class="btnPrimary" hover-class="btnHover">
-      <navigator url="{{'/pages/contact/contact?targetUid=' + delivery.user.id + '&deliveryId=' + delivery.id + '&sendcard=travel'}}" hover-class="none">
+      <navigator url="{{'/pages/contact/contact?targetUid=' + delivery.user.id + '&sendcard=travel'}}" hover-class="none">
         邀请帮带
       </navigator>
     </button>
+  </view>
+</view>
+<!--底部 出行列表弹出层-->
+<view class="mask" hidden="{{!showTravels}}">
+  <view class="listWrap">
+    <view class="header">
+      <text class="title">发送出行</text>
+      <text class="iconfont iconclose close" bindtap="close"></text>
+    </view>
+    <scroll-view scroll-y="true" style="height: 615rpx;" bindscrolltolower="loadMoreTravel">
+      <radio-group bindchange="checkedTravelChange">
+        <view class="listItem" wx:for="{{travelList}}" wx:key="id">
+          <view class="check"><radio value="{{item.id}}" color="#3F83E3"/></view>
+          <view class="left">
+            <text class="iconfont iconplane"></text>
+            <text class="flight_no">{{item.flight_no}}</text>
+          </view>
+          <view class="main">
+            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
+            <view class="mark"><text>{{item.weight}}kg {{item.agent? '| 接受代买' : ''}}</text></view>
+            <view class="mark">出发时间：{{item.dt_departure}}</view>
+          </view>
+        </view>
+      </radio-group>
+    </scroll-view>
+    <view class="footer">
+      <button class="btn"><navigator url="/pages/travel/travel" hover-class="none">新增出行</navigator></button>
+      <button class="btn blue" bindtap="addApplication">确认发送</button>
+    </view>
   </view>
 </view>

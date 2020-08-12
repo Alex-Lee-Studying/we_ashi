@@ -37,20 +37,55 @@
   </view>
 
   <view wx:if="{{fromMessage}}" class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover">
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover">
       <navigator open-type="navigateBack" hover-class="none">继续聊天</navigator>
     </button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="showDelivery" hidden="{{user.id === travel.user.id}}">请求帮带</button>
   </view>
   <view wx:else class="subWrap" hidden="{{user.id === travel.user.id}}">
     <button type="primary" class="btnPrimary" hover-class="btnHover">
-      <navigator url="{{'/pages/contact/contact?targetUid=' + travel.user.id + '&travelId=' + travel.id}}" hover-class="none">
+      <navigator url="{{'/pages/contact/contact?targetUid=' + travel.user.id}}" hover-class="none">
         立即联系
       </navigator>
     </button>
     <button type="primary" plain class="btnPrimary" hover-class="btnHover">
-      <navigator url="{{'/pages/contact/contact?targetUid=' + travel.user.id + '&travelId=' + travel.id + '&sendcard=delivery'}}" hover-class="none">
+      <navigator url="{{'/pages/contact/contact?targetUid=' + travel.user.id + '&sendcard=delivery'}}" hover-class="none">
         请求帮带
       </navigator>
     </button>
+  </view>
+</view>
+<!--底部 求带列表弹出层-->
+<view class="mask" hidden="{{!showDeliverys}}">
+  <view class="listWrap">
+    <view class="header">
+      <text class="title">发送求带</text>
+      <text class="iconfont iconclose close" bindtap="close"></text>
+    </view>
+    <scroll-view scroll-y="true" style="height: 615rpx;" bindscrolltolower="loadMoreDelivery">
+      <radio-group bindchange="checkedDeliveryChange">
+        <view class="listItem" wx:for="{{deliveryList}}" wx:key="id">
+          <view class="check"><radio value="{{item.id}}" color="#3F83E3"/></view>
+          <view class="left" wx:if="{{item.resources.length}}">
+            <image src="{{item.resources[0].name}}" mode="aspectFill"></image>
+          </view>
+          <view class="left" wx:else>
+            <text class="iconfont iconsuitcase-2-fill"></text>
+          </view>
+          <view class="main">
+            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
+            <view class="mark"><text>备注：{{item.details || '无'}}</text></view>
+            <view class="fee">
+              <text>报酬：￥{{item.reward}}</text>
+              <view>价格：<text class="price">￥{{item.price}}</text></view>
+            </view>
+          </view>
+        </view>
+      </radio-group>
+    </scroll-view>
+    <view class="footer">
+      <button class="btn"><navigator url="/pages/delivery/index" hover-class="none">新增求带</navigator></button>
+      <button class="btn blue" bindtap="addApplication">确认发送</button>
+    </view>
   </view>
 </view>

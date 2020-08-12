@@ -39,8 +39,8 @@ Page({
     user: {},
     session_id: '',
     target_user_id: '',
-    delivery_id: '',
-    travel_id: '',
+    // delivery_id: '',
+    // travel_id: '',
     session: {},
     messageList: [],
     currBtn: '', // voice emoji plus
@@ -75,30 +75,20 @@ Page({
       this.setData({ target_user_id: options.targetUid })
       this.getUserSessions(options.targetUid)
     }
-    if (options.deliveryId) {
-      this.setData({ delivery_id: options.deliveryId })
-    }
-    if (options.travelId) {
-      this.setData({ travel_id: options.travelId })
-    }
+    // if (options.deliveryId) {
+    //   this.setData({ delivery_id: options.deliveryId })
+    // }
+    // if (options.travelId) {
+    //   this.setData({ travel_id: options.travelId })
+    // }
     if (options.sendcard) {
       if (options.sendcard === 'travel') {
-        this.setData({
-          currBtn: 'plus',
-          showTravels: 'true'
-        })
-
         const params = {
           type: 'text',
           content: 'Hi，我可以帮你带哦！'
         }
         this.addMessage(params)
       } else if (options.sendcard === 'delivery') {
-        this.setData({
-          currBtn: 'plus',
-          showDeliverys: 'true'
-        })
-
         const params = {
           type: 'text',
           content: 'Hi，你可以帮我带这个吗？'

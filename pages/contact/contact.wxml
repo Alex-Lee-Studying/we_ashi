@@ -29,7 +29,8 @@
           </block>
 
           <block wx:if="{{item.type === 'delivery'}}">
-            <navigator class="cardWrap" url="{{'/pages/index/cardDelivery/cardDelivery?from=message&id=' + item.delivery.id + '&travelid=' + travel_id}}" hover-class="none">
+            <view class="hi">Hi，你可以帮我带这个吗？</view>
+            <navigator class="cardWrap" url="{{'/pages/index/cardDelivery/cardDelivery?from=message&id=' + item.delivery.id}}" hover-class="none">
               <view class="cardImg">
                 <image src="{{item.delivery.resources[0].name}}" mode="aspectFill" wx:if="{{item.delivery.resources.length}}"></image>
                 <text class="iconfont iconsuitcase-2-fill"></text>
@@ -42,7 +43,8 @@
           </block>
 
           <block wx:if="{{item.type === 'travel'}}">
-            <navigator class="cardWrap" url="{{'/pages/index/cardTravel/cardTravel?from=message&id=' + item.travel.id + '&deliveryid=' + delivery_id}}" hover-class="none">
+            <view class="hi">Hi，我可以帮你带哦</view>
+            <navigator class="cardWrap" url="{{'/pages/index/cardTravel/cardTravel?from=message&id=' + item.travel.id}}" hover-class="none">
               <view class="cardImg">
                 <text class="iconfont iconplane"></text>
               </view>

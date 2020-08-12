@@ -5,16 +5,21 @@ Page({
     user: {},
     fromMessage: false,
     travelId: null,
-    travel: {}
+    travel: {},
+    showDeliverys: false,
+    getDeliverysFlag: true,
+    currPageDelivery: 0,
+    deliveryList: [],
+    checkedDeliveryId: ''
   },
 
   onLoad(option) {
     console.log(option)
     if (option.from && option.from === 'message') {
       this.setData({
-        fromMessage: true,
-        acceptDeliveryId: option.deliveryid || ''
+        fromMessage: true
       })
+      this.getDeliverys()
     }
     if (option.id) {
       this.setData({ travelId: option.id })
@@ -64,56 +69,199 @@ Page({
     })
   },
 
-  // 出行人接受帮带
-  accept: function (e) {
-    var travelId = this.data.travelId
-    var deliveryId = this.data.acceptDeliveryId
-    if (!deliveryId) {
-      wx.showToast({ title: '无效delivery_id', icon: 'none' })
-      return
+  showDelivery() {
+    this.setData({ showDeliverys: true })
+  },
+
+  close() {
+    this.setData({ showDeliverys: false })
+  },
+
+  checkedDeliveryChange(e) {
+    var did = e.detail.value
+    this.setData({ checkedDeliveryId: did })
+  },
+
+  loadMoreDelivery() {
+    if (this.data.getDeliverysFlag) {
+      this.getDeliverys()
     }
+  },
+
+  // 获取求带列表
+  getDeliverys() {
+    var self = this
+    var pageSize = 5
+    var params = {
+      user_id: app.globalData.user.id
+    }
+
+    this.setData({ getDeliverysFlag: false })
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/deliveries',
+      method: 'GET',
+      header: { 'page': this.data.currPageDelivery, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length < pageSize) {
+            var reqState = false
+          } else {
+            var reqState = true
+          }
+          res.data.forEach((item, index, array) => {
+            item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+            item.departure = item.departure ? item.departure.replace('@', ',') : ''
+            item.destination = item.destination ? item.destination.replace('@', ',') : ''
+          })
+          var list = self.data.deliveryList.concat(res.data)
+          var nextPage = ++self.data.currPageDelivery
+          self.setData({
+            deliveryList: list,
+            getDeliverysFlag: reqState,
+            currPageDelivery: nextPage
+          })
+        } else {
+          self.setData({
+            getDeliverysFlag: true
+          })
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        self.setData({
+          getDeliverysFlag: true
+        })
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })
+  },
+
+  // 创建 求带 申请
+  addApplication() {
+    if (!this.data.checkedDeliveryId) return
+    this.setData({ showDeliverys: false })
     var self = this
 
-    wx.showModal({
-      title: '',
-      content: '您确定接受帮带？',
-      // confirmText: '主操作',
-      // cancelText: '次要操作',
+    var params = {
+      type: 'req_delivery',
+      delivery_id: this.data.checkedDeliveryId,
+      travel_id: this.data.travelId
+    }
+
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/applications',
+      method: 'POST',
+      header: {
+        'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization')
+      },
+      data: params,
       success: function (res) {
-        if (res.confirm) {
+        hasClick = false
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          const params = {
+            type: 'text',
+            content: '请你帮我带：'
+          }
+          self.addMessage(params)
 
-          if (hasClick) return
-          hasClick = true
-          wx.showLoading()
+          const params1 = {
+            type: 'delivery',
+            delivery_id: self.data.checkedDeliveryId
+          }
+          self.addMessage(params1)
 
-          wx.request({
-            url: app.globalData.baseUrl + '/app/v1/deliveries/' + deliveryId + '/actions',
-            method: 'PUT',
-            header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
-            data: { action: 'accept', travel_id: travelId },
-            success: function (res) {
-              if (res.statusCode >= 200 && res.statusCode < 300) {
-                wx.showToast({ title: '接受帮带成功' })
-                var delivery = self.data.delivery
-                self.setData({ delivery: delivery })
-              } else {
-                console.log(res)
-                wx.showToast({ title: res.data.msg, icon: 'none' })
-              }
-            },
-            fail: function (res) {
-              wx.showToast({ title: '系统错误', icon: 'none' })
-            },
-            complete: function (res) {
-              wx.hideLoading()
-              hasClick = false
-            }
+          wx.navigateBack({
+            delta: 1
           })
-
-        } else if (res.cancel) {
-          console.log('用户点击次要操作')
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
         }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
+  },
+
+  // 发布消息
+  addMessage(opts) {
+    var self = this
+
+    var params = opts
+    params.target_user_id = this.data.travel.user.id
+
+    // if (hasClick) return
+    // hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/messages',
+      method: 'POST',
+      header: {
+        'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'),
+        'IM-Host': app.globalData.msgContext.host,
+        'Content-Type': 'multipart/form-data; boundary=XXX'
+      },
+      data: formdata(params),
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        // hasClick = false
       }
     })
   }
 })
+
+var formdata = function (obj = {}) {
+  let result = ''
+  for (let name of Object.keys(obj)) {
+    let value = obj[name];
+    result +=
+      '\r\n--XXX' +
+      '\r\nContent-Disposition: form-data; name=\"' + name + '\"' +
+      '\r\n' +
+      '\r\n' + value
+  }
+  return result + '\r\n--XXX--'
+}
