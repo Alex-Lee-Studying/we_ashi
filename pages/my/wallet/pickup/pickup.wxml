@@ -8,20 +8,20 @@
         <text class="iconfont iconwechat"></text>微信<radio value="wechat" checked="true" color="#033150"/>
       </label>
       <label class="payRadio">
-        <text class="iconfont iconpayIcon-aliPay"></text>支付宝<radio value="alipay" color="#033150" />
+        <text class="iconfont iconpayIcon-aliPay"></text>支付宝<radio value="alipay" color="#033150" disabled />
       </label>
     </radio-group>
     <view class="formLine">
       <text>提现金额</text>
-      <input type="text" placeholder="请输入金额" value="{{pickupInput}}" class="input"></input>
+      <input type="text" placeholder="请输入金额" value="{{formdata.total_fee}}" class="input" bindinput="inputInfo" data-obj="formdata" data-item="total_fee"></input>
       <button type="primary" class="btnAll" hover-class="btnHover" bindtap="getall">全部提现</button>
     </view>
     <view class="formLine">
-      <text class="total">可提现金额：¥{{total}}</text>
+      <text class="total">可提现金额：¥{{balance}}</text>
     </view>
   </view>
 
   <view class="subWrap">
-    <button type="primary" class="btnPrimary" hover-class="btnHover">确认提现</button>
+    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toWithdrawals">确认提现</button>
   </view>
 </view>
