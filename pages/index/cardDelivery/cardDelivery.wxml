@@ -1,11 +1,37 @@
 <view class="container">
+<!-- 出行信息 -->
+  <block wx:if="{{travelId !== null}}">
+    <view class="uwrap">
+      <view><image src="{{travel.user.avatar}}" class="uimg"></image></view>
+      <view class="utext">
+        <text>{{travel.user.nick_name}}</text>
+        <text>{{travel.created}}·{{travel.user.location}}</text>
+      </view>
+      <button open-type="share" class="share"><text class="iconfont iconshare"></text></button>
+    </view>
+    <view class="flightWrap">
+      <view class="msgItem" style="margin-right: 30rpx;">
+        <image src="/images/plane.png" class="plane" mode="widthFix"></image>
+        <text class="flightno">{{travel.flight_no}}</text>
+      </view>
+      <view class="msgItem flightInfo">
+        <view>
+          <text class="time">出发日期：{{travel.dt_departure}}</text>
+        </view>
+        <view style="margin-top: 20rpx;">
+          <text class="country">{{travel.departure}}</text><text class="iconfont icon-_danjiantou"></text><text class="country">{{travel.destination}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+<!-- 求带信息 -->
   <view class="uwrap">
     <view><image src="{{delivery.user.avatar}}" class="uimg"></image></view>
     <view class="utext">
       <text>{{delivery.user.nick_name}}</text>
       <text>{{delivery.created}}·{{delivery.user.location}}</text>
     </view>
-    <button open-type="share" class="share"><text class="iconfont iconshare"></text></button>
+    <!-- <button open-type="share" class="share"><text class="iconfont iconshare"></text></button> -->
   </view>
   <view class="proImgWrap">
     <image wx:if="{{delivery.resources.length}}" src="{{delivery.resources[0].name}}" class="proImg" mode="aspectFit"></image>
@@ -35,10 +61,15 @@
     <button type="primary" plain class="btnPrimary" hover-class="btnHover">
       <navigator open-type="navigateBack" hover-class="none">继续聊天</navigator>
     </button>
-    <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="showTravel" hidden="{{user.id === delivery.user.id}}">同意帮带</button>
-    <button type="primary" class="btnPrimary" hover-class="btnHover" wx:if="{{user.id === delivery.user.id && delivery.status === 'waiting_for_pay'}}">
-      <navigator url="{{'/pages/delivery/confirm/confirm?id=' + delivery.id}}" hover-class="none">去支付</navigator>
-    </button>
+    <block wx:if="{{travelId}}">
+      <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="accept" wx:if="{{user.id !== delivery.user.id && delivery.travel === null}}">同意帮带</button>
+      <button type="primary" class="btnPrimary" hover-class="btnHover" wx:if="{{user.id === delivery.user.id && delivery.travel !== null && delivery.status === 'waiting_for_pay'}}">
+        <navigator url="{{'/pages/delivery/confirm/confirm?id=' + delivery.id}}" hover-class="none">立即支付</navigator>
+      </button>
+    </block>
+    <block wx:else>
+      <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="showTravel" hidden="{{user.id === delivery.user.id}}">同意帮带</button>
+    </block>   
   </view>
   <view wx:else class="subWrap" hidden="{{user.id === delivery.user.id}}">
     <button type="primary" class="btnPrimary" hover-class="btnHover">
@@ -78,7 +109,7 @@
     </scroll-view>
     <view class="footer">
       <button class="btn"><navigator url="/pages/travel/travel" hover-class="none">新增出行</navigator></button>
-      <button class="btn blue" bindtap="addApplication">确认发送</button>
+      <button class="btn blue" bindtap="accept">确认发送</button>
     </view>
   </view>
 </view>

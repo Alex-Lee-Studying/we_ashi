@@ -3,7 +3,8 @@ var hasClick = false
 Page({
   data: {
     deliveryId: null,
-    delivery: {}
+    delivery: {},
+    status: 'fail'
   },
 
   onLoad(option) {
@@ -48,5 +49,42 @@ Page({
       }
     })
   },
+
+  getPayResult: function () {
+    var self = this
+
+    var params= {
+      delivery_id: this.data.deliveryId
+    }
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/transaction/v1/payments' ,
+      method: 'GET',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data[0] && res.data[0].status === 'success') {
+            self.setData({
+              status: 'success'
+            })
+          }
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
+  }
 
 })

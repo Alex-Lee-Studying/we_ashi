@@ -85,7 +85,7 @@
     </scroll-view>
     <view class="footer">
       <button class="btn"><navigator url="/pages/delivery/index" hover-class="none">新增求带</navigator></button>
-      <button class="btn blue" bindtap="addApplication">确认发送</button>
+      <button class="btn blue" bindtap="addRequest">确认发送</button>
     </view>
   </view>
 </view>

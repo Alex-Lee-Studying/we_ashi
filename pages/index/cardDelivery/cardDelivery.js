@@ -10,7 +10,9 @@ Page({
     getTravelsFlag: true,
     currPageTravel: 0,
     travelList: [],
-    checkedTravelId: ''
+    checkedTravelId: '',
+    travelId: null,
+    travel: {}
   },
 
   onLoad(option) {
@@ -29,6 +31,10 @@ Page({
         url: '/pages/index/index'
       })
     }
+    if (option.travelId) {
+      this.setData({ travelId: option.travelId })
+      this.getTravel()
+    }
   },
 
   onShow() {
@@ -40,8 +46,8 @@ Page({
   getDelivery: function () {
     var self = this
 
-    if (hasClick) return
-    hasClick = true
+    // if (hasClick) return
+    // hasClick = true
     wx.showLoading()
 
     wx.request({
@@ -63,7 +69,39 @@ Page({
       },
       complete: function (res) {
         wx.hideLoading()
-        hasClick = false
+        // hasClick = false
+      }
+    })
+  },
+
+  getTravel: function () {
+    var self = this
+
+    // if (hasClick) return
+    // hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/travels/' + this.data.travelId,
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
+          res.data.dt_departure = res.data.dt_departure ? app.globalData.moment.utc(res.data.dt_departure).format('YYYY-MM-DD') : ''
+          res.data.departure = res.data.departure ? res.data.departure.replace('@', ',') : ''
+          res.data.destination = res.data.destination ? res.data.destination.replace('@', ',') : ''
+          self.setData({ travel: res.data })
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        // hasClick = false
       }
     })
   },
@@ -157,56 +195,48 @@ Page({
       }
     })
   },
-
-  // 创建 帮带 申请
-  addApplication() {
-    if (!this.data.checkedTravelId) return
-    this.setData({ showTravels: false })
+  // 出行人 同意帮带 绑定出行和求带
+  accept() {
     var self = this
 
-    var params = {
-      type: 'help_delivery',
-      delivery_id: this.data.deliveryId,
-      travel_id: this.data.checkedTravelId
+    if (!this.data.travelId && !this.data.checkedTravelId) {
+      wx.showToast({ title: '无效travel_id', icon: 'none' })
+      return
     }
-
-    if (hasClick) return
-    hasClick = true
+    var travelId = this.data.travelId || this.data.checkedTravelId
+    // if (hasClick) return
+    // hasClick = true
     wx.showLoading()
 
     wx.request({
-      url: app.globalData.baseUrl + '/app/v1/applications',
-      method: 'POST',
-      header: {
-        'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization')
-      },
-      data: params,
+      url: app.globalData.baseUrl + '/app/v1/deliveries/' + this.data.deliveryId,
+      method: 'PUT',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: { travel_id: travelId },
       success: function (res) {
-        hasClick = false
         if (res.statusCode >= 200 && res.statusCode < 300) {
+          res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
+          res.data.departure = res.data.departure ? res.data.departure.replace('@', ',') : ''
+          res.data.destination = res.data.destination ? res.data.destination.replace('@', ',') : ''
+          self.setData({ delivery: res.data })
+          
           const params = {
-            type: 'text',
-            content: '我同意了你的求带'
+            type: 'help_delivery',
+            delivery_id: this.data.deliveryId,
+            travel_id: travelId
           }
-          self.addMessage(params)
+          this.addMessage(params)
 
-          const params1 = {
-            type: 'delivery',
-            delivery_id: self.data.deliveryId
-          }
-          self.addMessage(params1)
+          var pages = getCurrentPages()
+          var prevPage = pages[pages.length - 2]   //上一页
+          prevPage.getUserSessions()
 
           wx.navigateBack({
             delta: 1
           })
         } else {
-          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
-            wx.navigateTo({
-              url: '/pages/user/auth/auth',
-            })
-          } else {
-            wx.showToast({ title: res.data.msg, icon: 'none' })
-          }
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
         }
       },
       fail: function (res) {
@@ -214,16 +244,30 @@ Page({
       },
       complete: function (res) {
         wx.hideLoading()
-        hasClick = false
+        // hasClick = false
       }
     })
   },
+
+  // 出行人创建 帮带 申请
+  // addHelp() {
+  //   if (!this.data.checkedTravelId) return
+  //   this.setData({ showDeliverys: false })
+
+  //   const params = {
+  //     type: 'help_delivery',
+  //     delivery_id: this.data.deliveryId,
+  //     travel_id: this.data.checkedTravelId
+  //   }
+  //   this.addMessage(params)
+  // },
+
   // 发布消息
   addMessage(opts) {
     var self = this
 
     var params = opts
-    params.target_user_id = this.data.travel.user.id
+    params.target_user_id = this.data.delivery.user.id
 
     // if (hasClick) return
     // hasClick = true
@@ -240,7 +284,9 @@ Page({
       data: formdata(params),
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-
+          wx.navigateBack({
+            delta: 1
+          })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
             wx.navigateTo({

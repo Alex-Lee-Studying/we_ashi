@@ -536,7 +536,7 @@ Page({
       method: 'GET',
       header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       data: {
-        user_id: target_user_id
+        user_id: target_user_id || this.data.target_user_id
       },
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {

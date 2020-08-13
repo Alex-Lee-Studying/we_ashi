@@ -6,6 +6,13 @@
   "description": "脚递",
   "glyphs": [
     {
+      "icon_id": "6728019",
+      "name": "支付失败",
+      "font_class": "zhifushibai",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
       "icon_id": "2871669",
       "name": "走路",
       "font_class": "zoulu-copy",

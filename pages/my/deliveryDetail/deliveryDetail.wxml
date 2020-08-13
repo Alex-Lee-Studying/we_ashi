@@ -15,7 +15,7 @@
       <view class="right">
         <button open-type="share" class="btnShare"><text class="iconfont iconshare"></text></button>
         <button type="primary" class="btnPrimary" bindtap="cancel" wx:if="{{delivery.status === 'normal' && user.id === delivery.user.id}}">取消</button>
-        <button type="primary" class="btnPrimary" wx:if="{{delivery.status === 'waiting_for_pay' && user.id === delivery.user.id}}"><navigator url="{{'/pages/delivery/pay/pay?id=' + delivery.id}}" hover-class="none">去支付</navigator></button>
+        <button type="primary" class="btnPrimary" wx:if="{{delivery.status === 'waiting_for_pay' && user.id === delivery.user.id}}"><navigator url="{{'/pages/order/pay/pay?id=' + delivery.id}}" hover-class="none">去支付</navigator></button>
         <button type="primary" class="btnPrimary" bindtap="toUpdateDeliver" wx:if="{{delivery.status === 'delivering' && user.id === delivery.travel.user.id}}">上传物流</button>
         <button type="primary" class="btnPrimary" bindtap="finish" wx:if="{{delivery.status === 'delivering' && user.id === delivery.user.id}}">确认收货</button>
         <button type="primary" class="btnPrimary" plain wx:if="{{delivery.status === 'eol' || delivery.status === 'canceled'}}">{{delivery.status === 'eol'? '已完成': delivery.status === 'canceled'? '已取消': ''}}</button>

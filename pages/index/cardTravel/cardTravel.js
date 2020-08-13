@@ -148,65 +148,17 @@ Page({
     })
   },
 
-  // 创建 求带 申请
-  addApplication() {
+  //求带人 创建 求带 申请
+  addRequest() {
     if (!this.data.checkedDeliveryId) return
     this.setData({ showDeliverys: false })
-    var self = this
 
-    var params = {
+    const params = {
       type: 'req_delivery',
       delivery_id: this.data.checkedDeliveryId,
       travel_id: this.data.travelId
     }
-
-    if (hasClick) return
-    hasClick = true
-    wx.showLoading()
-
-    wx.request({
-      url: app.globalData.baseUrl + '/app/v1/applications',
-      method: 'POST',
-      header: {
-        'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization')
-      },
-      data: params,
-      success: function (res) {
-        hasClick = false
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          const params = {
-            type: 'text',
-            content: '请你帮我带：'
-          }
-          self.addMessage(params)
-
-          const params1 = {
-            type: 'delivery',
-            delivery_id: self.data.checkedDeliveryId
-          }
-          self.addMessage(params1)
-
-          wx.navigateBack({
-            delta: 1
-          })
-        } else {
-          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
-            wx.navigateTo({
-              url: '/pages/user/auth/auth',
-            })
-          } else {
-            wx.showToast({ title: res.data.msg, icon: 'none' })
-          }
-        }
-      },
-      fail: function (res) {
-        wx.showToast({ title: '系统错误', icon: 'none' })
-      },
-      complete: function (res) {
-        wx.hideLoading()
-        hasClick = false
-      }
-    })
+    this.addMessage(params)
   },
 
   // 发布消息
@@ -231,7 +183,12 @@ Page({
       data: formdata(params),
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-
+          var pages = getCurrentPages()
+          var prevPage = pages[pages.length - 2]   //上一页
+          prevPage.getUserSessions()
+          wx.navigateBack({
+            delta: 1
+          })
         } else {
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
             wx.navigateTo({
