@@ -63,13 +63,13 @@ Page({
     wx.showLoading()
 
     wx.request({
-      url: app.globalData.baseUrl + '/app/v1/deliveries/' + self.data.deliveryId + '/actions',
-      method: 'PUT',
+      url: app.globalData.baseUrl + '/transaction/v1/payments',
+      method: 'POST',
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
-      data: { action: 'pay', payment_method: 'miniprogram' },
+      data: { delivery_id: this.data.deliveryId, method: 'miniprogram' }, 
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          self.doPay(res.data)
+          self.doPay(res.data.params)
         } else {
           console.log(res)
           if (res.errMsg && res.errMsg === 'request:ok') {
@@ -98,19 +98,19 @@ Page({
   doPay(params) {
     var self = this
     wx.requestPayment({
-      timeStamp: params.timestamp,
+      timeStamp: params.timestamp + '',
       nonceStr: params.nonce_str,
       package: 'prepay_id=' + params.prepay_id,
       signType: params.sign_type,
       paySign: params.sign,
-      success(res) {
+      success (res) {
 
         wx.redirectTo({
           url: '/pages/delivery/result/result?id=' + self.data.deliveryId
         })
       },
-      fail(res) {
-
+      fail (res) {
+        console.log(res)
       }
     })
   }

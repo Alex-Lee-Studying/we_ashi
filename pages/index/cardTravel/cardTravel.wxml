@@ -64,7 +64,7 @@
     </view>
     <scroll-view scroll-y="true" style="height: 615rpx;" bindscrolltolower="loadMoreDelivery">
       <radio-group bindchange="checkedDeliveryChange">
-        <view class="listItem" wx:for="{{deliveryList}}" wx:key="id">
+        <view class="listItem" wx:for="{{deliveryList}}" wx:key="id" hidden="{{item.type === 'offical'}}">
           <view class="check"><radio value="{{item.id}}" color="#3F83E3"/></view>
           <view class="left" wx:if="{{item.resources.length}}">
             <image src="{{item.resources[0].name}}" mode="aspectFill"></image>

@@ -48,7 +48,7 @@
               <view class="mark"><text>备注：{{item.details || '无'}}</text></view>
               <view class="fee"><text class="iconfont iconw_jinbi"></text><text>{{item.price}}￥</text></view>
             </navigator>
-            <view wx:if="{{user.id === item.user.id}}"></view> 
+            <view wx:if="{{user.id === item.user.id || item.type === 'offical'}}"></view> 
             <navigator wx:else url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&sendcard=travel'}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator> 
           </view>
         </view>

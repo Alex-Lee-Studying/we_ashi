@@ -222,18 +222,10 @@ Page({
           
           const params = {
             type: 'help_delivery',
-            delivery_id: this.data.deliveryId,
+            delivery_id: self.data.deliveryId,
             travel_id: travelId
           }
-          this.addMessage(params)
-
-          var pages = getCurrentPages()
-          var prevPage = pages[pages.length - 2]   //上一页
-          prevPage.getUserSessions()
-
-          wx.navigateBack({
-            delta: 1
-          })
+          self.addMessage(params)
         } else {
           console.log(res)
           wx.showToast({ title: res.data.msg, icon: 'none' })
@@ -284,6 +276,9 @@ Page({
       data: formdata(params),
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
+          var pages = getCurrentPages()
+          var prevPage = pages[pages.length - 2]   //上一页
+          prevPage.getUserSessions()
           wx.navigateBack({
             delta: 1
           })

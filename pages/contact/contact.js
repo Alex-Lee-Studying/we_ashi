@@ -665,6 +665,9 @@ Page({
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           if (res.data.author.id === self.data.target_user_id) {
+            if (res.data.travel) {
+              res.data.travel.dt_departure = res.data.travel.dt_departure ? app.globalData.moment.utc(res.data.travel.dt_departure).format('YYYY-MM-DD') : ''
+            }
             const messageList = self.data.messageList
             messageList.push(res.data)
             self.setData({
@@ -824,7 +827,8 @@ Page({
     var self = this
     var pageSize = 5
     var params = {
-      user_id: app.globalData.user.id
+      user_id: app.globalData.user.id,
+      type: 'normal'
     }
 
     this.setData({ getDeliverysFlag: false })

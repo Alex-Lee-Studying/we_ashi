@@ -183,6 +183,7 @@ Page({
     var params = {
       departure: this.data.departure,
       destination: this.data.destination,
+      type: 'normal'
     }
 
     if (!this.data.getDeliverysFlag) return

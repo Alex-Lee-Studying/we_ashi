@@ -93,7 +93,8 @@ Page({
     var self = this
     var pageSize = 5
     var params = {
-      user_id: app.globalData.user.id
+      user_id: app.globalData.user.id,
+      type: 'normal'
     }
 
     this.setData({ getDeliverysFlag: false })

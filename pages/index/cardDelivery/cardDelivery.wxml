@@ -61,8 +61,8 @@
     <button type="primary" plain class="btnPrimary" hover-class="btnHover">
       <navigator open-type="navigateBack" hover-class="none">继续聊天</navigator>
     </button>
-    <block wx:if="{{travelId}}">
-      <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="accept" wx:if="{{user.id !== delivery.user.id && delivery.travel === null}}">同意帮带</button>
+    <block wx:if="{{travelId !== null}}">
+      <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="accept" wx:if="{{user.id === travel.user.id && delivery.travel === null}}">同意帮带</button>
       <button type="primary" class="btnPrimary" hover-class="btnHover" wx:if="{{user.id === delivery.user.id && delivery.travel !== null && delivery.status === 'waiting_for_pay'}}">
         <navigator url="{{'/pages/delivery/confirm/confirm?id=' + delivery.id}}" hover-class="none">立即支付</navigator>
       </button>
@@ -71,7 +71,7 @@
       <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="showTravel" hidden="{{user.id === delivery.user.id}}">同意帮带</button>
     </block>   
   </view>
-  <view wx:else class="subWrap" hidden="{{user.id === delivery.user.id}}">
+  <view wx:else class="subWrap" hidden="{{user.id === delivery.user.id || delivery.type === 'offical'}}">
     <button type="primary" class="btnPrimary" hover-class="btnHover">
       <navigator url="{{'/pages/contact/contact?targetUid=' + delivery.user.id}}" hover-class="none">
         立即联系
@@ -83,6 +83,8 @@
       </navigator>
     </button>
   </view>
+  
+  <view style="line-height: 30rpx;font-size: 30rpx; text-align: center;">{{delivery.status === 'canceled'? '已取消':''}}</view>
 </view>
 <!--底部 出行列表弹出层-->
 <view class="mask" hidden="{{!showTravels}}">
