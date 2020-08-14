@@ -49,6 +49,9 @@ Page({
     cursor: 0,
     parsedComment: [],
     msgList: [],
+    getMessagesFlag: true,
+    currPageMsgs: 0,
+    noMoreMessagesFlag: false,
     inputVal: '',
     luStatu: false, // 录音状态
     startLu: 0,
@@ -606,33 +609,53 @@ Page({
   // 会话消息列表
   getMessages(session_id) {
     var self = this
-    var page = 0
     var pageSize = 20
 
-    // if (hasClick) return
-    // hasClick = true
+    if (!this.data.getMessagesFlag) return
+    this.setData({ getMessagesFlag: false })
     wx.showLoading()
 
     wx.request({
       url: app.globalData.baseUrl + '/message/v1/sessions/' + session_id + '/messages',
       method: 'GET',
-      header: { 'page': page, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      header: { 'page': this.data.currPageMsgs, 'page-size': pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length < pageSize) {
+            var reqState = false
+            self.setData({
+              noMoreMessagesFlag: true
+            })
+          } else {
+            var reqState = true
+          }
+
           res.data.forEach((item, index, array) => {
             if (item.type === 'travel') {
               item.travel.created = item.travel.created ? app.globalData.moment.utc(item.travel.created).format('YYYY-MM-DD') : ''
               item.travel.dt_departure = item.travel.dt_departure ? app.globalData.moment.utc(item.travel.dt_departure).format('YYYY-MM-DD') : ''
+              item.travel.departure = item.travel.departure ? item.travel.departure.replace('@', ',') : ''
+              item.travel.destination = item.travel.destination ? item.travel.destination.replace('@', ',') : ''
             }
-            if (item.type === 'delivery') {
+            if (item.type === 'delivery' || item.type === 'req_delivery' || item.type === 'help_delivery') {
               item.delivery.created = item.delivery.created ? app.globalData.moment.utc(item.delivery.created).format('YYYY-MM-DD') : ''
+              item.delivery.departure = item.delivery.departure ? item.delivery.departure.replace('@', ',') : ''
+              item.delivery.destination = item.delivery.destination ? item.delivery.destination.replace('@', ',') : ''
             }
           })
+
+          var list = res.data.reverse().concat(self.data.messageList)
+          var nextPage = ++self.data.currPageMsgs
           self.setData({ 
-            messageList: res.data.reverse(),
+            messageList: list,
+            getMessagesFlag: reqState,
+            currPageMsgs: nextPage,
             toView: 'msg-' + (res.data.length - 1),
           })
         } else {
+          self.setData({
+            getMessagesFlag: true
+          })
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
             wx.navigateTo({
               url: '/pages/user/auth/auth',
@@ -644,10 +667,12 @@ Page({
       },
       fail: function (res) {
         wx.showToast({ title: '系统错误', icon: 'none' })
+        self.setData({
+          getMessagesFlag: true
+        })
       },
       complete: function (res) {
         wx.hideLoading()
-        // hasClick = false
       }
     })
   },
@@ -666,7 +691,15 @@ Page({
         if (res.statusCode >= 200 && res.statusCode < 300) {
           if (res.data.author.id === self.data.target_user_id) {
             if (res.data.travel) {
+              res.data.travel.created = res.data.travel.created ? app.globalData.moment.utc(res.data.travel.created).format('YYYY-MM-DD') : ''
               res.data.travel.dt_departure = res.data.travel.dt_departure ? app.globalData.moment.utc(res.data.travel.dt_departure).format('YYYY-MM-DD') : ''
+              res.data.travel.departure = res.data.travel.departure ? res.data.travel.departure.replace('@', ',') : ''
+              res.data.travel.destination = res.data.travel.destination ? res.data.travel.destination.replace('@', ',') : ''
+            }
+            if (res.data.delivery) {
+              res.data.delivery.created = res.data.delivery.created ? app.globalData.moment.utc(res.data.delivery.created).format('YYYY-MM-DD') : ''
+              res.data.delivery.departure = res.data.delivery.departure ? res.data.delivery.departure.replace('@', ',') : ''
+              res.data.delivery.destination = res.data.delivery.destination ? res.data.delivery.destination.replace('@', ',') : ''
             }
             const messageList = self.data.messageList
             messageList.push(res.data)
@@ -944,7 +977,10 @@ Page({
         // wx.hideLoading()
       }
     })
-  }
+  },
+  loadMoreMessage () {
+    this.getMessages(this.data.session_id)
+  },
 })
 
 var formdata=function(obj = {}) {
