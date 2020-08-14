@@ -55,7 +55,7 @@
   font-size: 28rpx;
 }
 .formWrap .formItem label {
-  width: 260rpx;
+  width: 200rpx;
   height: 90rpx;
   color: #333;
 }

@@ -67,6 +67,7 @@ page {
   padding: 40rpx 30rpx 40rpx 40rpx;
   background-color: #fff;
   border-radius: 20rpx;
+  margin-bottom: 30rpx;
 }
 .listStatus .listWrap .listItem {
   display: flex;
@@ -178,4 +179,22 @@ page {
 .deliverWrap .formWrap {
   padding: 30rpx 15rpx 50rpx;
   height: 255rpx;
+}
+
+.formWrap .formItem label {
+  width: 150rpx;
+  height: 90rpx;
+  color: #333;
+}
+.btnSearchEx {
+  padding: 0;
+  margin-top: 20rpx;
+  width: 130rpx !important;
+  height: 54rpx;
+  line-height: 54rpx;
+  font-size: 24rpx;
+  color: #033150;
+  background-color: transparent;
+  border-radius: 27rpx;
+  border: 1px solid #033150;
 }
