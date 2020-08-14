@@ -1,11 +1,38 @@
 <view class="container">
-  <view class="successWrap">
+  <view class="successWrap" wx:if="{{delivery.status === 'normal'}}">
     <view class="status">
       <text class="iconfont iconsuccess"></text>
       <text class="statusstr">发布成功</text>
     </view>
     <view class="notice">
       <text class="title">我们会尽快为您匹配！</text>
+    </view>
+  </view>
+  <view class="successWrap" wx:elif="{{delivery.status === 'waiting_for_pay'}}">
+    <view class="status">
+      <text class="iconfont iconzhifushibai"></text>
+      <text class="statusstr">订单待支付</text>
+    </view>
+    <view class="notice">
+      <text class="title">请尽快支付！</text>
+    </view>
+  </view>
+  <view class="successWrap" wx:elif="{{delivery.status === 'delivering'}}">
+    <view class="status">
+      <text class="iconfont iconsuccess"></text>
+      <text class="statusstr">支付成功</text>
+    </view>
+    <view class="notice">
+      <text class="title"></text>
+    </view>
+  </view>
+  <view class="successWrap" wx:else>
+    <view class="status">
+      <text class="iconfont iconzhifushibai"></text>
+      <text class="statusstr">支付失败</text>
+    </view>
+    <view class="notice">
+      <text class="title"></text>
     </view>
   </view>
 </view>

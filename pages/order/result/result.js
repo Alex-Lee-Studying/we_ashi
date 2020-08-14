@@ -4,7 +4,7 @@ Page({
   data: {
     deliveryId: null,
     delivery: {},
-    status: 'fail'
+    payment: {}
   },
 
   onLoad(option) {
@@ -67,11 +67,9 @@ Page({
       data: params,
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          if (res.data[0] && res.data[0].status === 'success') {
-            self.setData({
-              status: 'success'
-            })
-          }
+          self.setData({
+            payment: res.data[0]
+          })
         } else {
           console.log(res)
           wx.showToast({ title: res.data.msg, icon: 'none' })
