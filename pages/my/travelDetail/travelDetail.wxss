@@ -17,6 +17,14 @@ page {
 .orderDetailCX .orderinfo .left {
   height: 74rpx;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.orderDetailCX .orderinfo .left .flightno {  
+  font-size: 28rpx;
+  color: #033150;
+  margin-top: 10rpx;
+  font-weight: bold;
 }
 .orderDetailCX .orderinfo .left .year {
   display: block;

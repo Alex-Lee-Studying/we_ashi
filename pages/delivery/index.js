@@ -13,6 +13,7 @@ Page({
       reward: null,
       weight: null,
       details: '',
+      need_agent: true
     },
     address: null,
     responseObj: {},
@@ -106,6 +107,12 @@ Page({
     })
   },
 
+  switchAgent: function (e) {
+    var formdata = this.data.formdata
+    formdata.need_agent = e.detail.value
+    this.setData({ formdata })
+  },
+
   chooseImage(e) {
     wx.chooseImage({
       sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
@@ -175,7 +182,8 @@ Page({
       reward: parseInt(this.data.formdata.reward),
       weight: parseInt(this.data.formdata.weight),
       details: this.data.formdata.details,
-      address_id: this.data.address.id
+      address_id: this.data.address.id,
+      need_agent: this.data.formdata.need_agent
     }
     console.log(params)
 

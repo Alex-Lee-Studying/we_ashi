@@ -1,11 +1,15 @@
 <view class="container">
   <view class="orderItem orderDetailCX">
     <view class="orderinfo">
-      <view class="left"><text class="iconfont iconplane"></text></view>
+      <view class="left">
+        <text class="iconfont iconplane"></text>
+        <text class="flightno">{{travel.flight_no}}</text>
+      </view>
       <view class="main">
         <view class="country"><text>{{travel.departure}} <text class="iconfont icon-_danjiantou"></text> {{travel.destination}}</text></view>
-        <view class="mark"><text>可带行李重量：{{travel.weight}}kg</text></view>
-        <view class="mark" wx:if="{{travel.agent}}"><text>备注：可带买</text></view>
+        <view class="mark"><text>出发日期：{{travel.dt_departure}}</text></view>
+        <view class="mark"><text>可带行李重量：{{travel.weight}}kg</text><text style="margin-left:20rpx;">可否代买：{{travel.agent? '是': '否'}}</text></view>
+        <view class="mark"><text>备注：{{travel.details || '无'}}</text></view>
       </view>
       <button open-type="share" class="right btnShare" ><text class="iconfont iconshare"></text></button>
     </view>

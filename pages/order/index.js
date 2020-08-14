@@ -10,7 +10,8 @@ Page({
     formdata: {
       item_type: '',
       price: null,
-      weight: null
+      weight: null,
+      need_agent: true
     },
     responseObj: {},
     typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他'],
@@ -105,6 +106,12 @@ Page({
     })
   },
 
+  switchAgent: function (e) {
+    var formdata = this.data.formdata
+    formdata.need_agent = e.detail.value
+    this.setData({ formdata })
+  },
+
   chooseImage(e) {
     wx.chooseImage({
       sizeType: ['original', 'compressed'],  //可选择原图或压缩后的图片
@@ -169,7 +176,8 @@ Page({
       price: parseInt(this.data.formdata.price),
       weight: parseInt(this.data.formdata.weight),
       address_id: this.data.address.id,
-      offical_address_id: this.data.officalAddress.id
+      offical_address_id: this.data.officalAddress.id,
+      need_agent: this.data.formdata.need_agent
     }
     console.log(params)
 

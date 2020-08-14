@@ -51,6 +51,10 @@
         <text>{{delivery.weight}}KG</text>
       </view>
       <view class="msgLine">
+        <label>是否需要代购</label>
+        <text>{{delivery.need_agent? '是': '否'}}</text>
+      </view>
+      <view class="msgLine">
         <label>备注</label>
         <text>{{delivery.details || '无'}}</text>
       </view>

@@ -62,6 +62,10 @@
         <input type="number" value="{{formdata.weight}}" placeholder="kg" bindinput="inputInfo" data-obj="formdata" data-item="weight"></input>
       </view>
       <view class="formItem">
+        <label>是否需要代购</label>
+        <text style="flex:1;color:#989898;">{{formdata.need_agent? '是': '否'}}</text><switch checked="{{formdata.need_agent}}" bindchange="switchAgent" color="#033150"/>
+      </view>
+      <view class="formItem">
         <label>备注</label>
         <input value="{{formdata.details}}" bindinput="inputInfo" data-obj="formdata" data-item="details"></input>
       </view>
