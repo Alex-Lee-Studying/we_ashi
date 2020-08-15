@@ -102,7 +102,7 @@ Page({
             url: app.globalData.baseUrl + '/transaction/v1/transaction-eol',
             method: 'POST',
             header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
-            data: { delivery_id: this.data.deliveryId },
+            data: { delivery_id: self.data.deliveryId },
             success: function (res) {
               if (res.statusCode >= 200 && res.statusCode < 300) {
                 wx.showToast({ title: '确认收货成功' })
