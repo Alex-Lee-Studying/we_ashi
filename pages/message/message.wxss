@@ -7,6 +7,7 @@ page {
   background-color: #fff;
 }
 .msgWrap .msgItem {
+  width: calc(100% - 120rpx);
   display: flex;
   align-items: center;
   height: 130rpx;
@@ -17,6 +18,22 @@ page {
 .msgWrap button.msgItem {
   width: 100%;
 }
+.msgWrap .itemWrap {
+  width: 100%;
+  position: relative;
+}
+.msgWrap .itemWrap .remove{  
+  width: 160rpx;  
+  height: 130rpx;  
+  background-color: red; 
+  color: white; 
+  position: absolute;  
+  top: 0;  
+  right: -160rpx;  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+}  
 .msgWrap .msgItem .left .iconfont {
   font-size: 74rpx;
   color: #033150;

@@ -14,9 +14,14 @@
     </navigator>
   </view>
   <view class="msgWrap">
-    <navigator class="msgItem" url="{{'/pages/contact/contact?sessionId=' + item.id}}" hover-class="none" wx:for="{{sessionList}}" wx:key="index">
-      <view class="left"><image src="{{item.target.avatar}}" class="avatar"></image></view>
-      <view class="right"><text class="title">{{item.target.nick_name}}</text><text class="desc">{{item.created}}</text></view>
-    </navigator>
+    <view class="itemWrap" wx:for="{{sessionList}}" wx:key="index">
+      <scroll-view scroll-x="true">
+        <navigator class="msgItem" url="{{'/pages/contact/contact?sessionId=' + item.id}}" hover-class="none" data-index="{{index}}" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx">
+          <view class="left"><image src="{{item.target.avatar}}" class="avatar"></image></view>
+          <view class="right"><text class="title">{{item.target.nick_name}}</text><text class="desc">{{item.created}}</text></view>
+        </navigator>
+        <view class="remove" bindtap="delItem" data-sid="{{item.id}}" data-index="{{index}}">删除 </view>
+      </scroll-view>
+    </view>
   </view>
 </view>
