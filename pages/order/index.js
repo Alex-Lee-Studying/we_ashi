@@ -11,13 +11,13 @@ Page({
       item_type: '',
       price: null,
       weight: null,
-      need_agent: true
+      need_agent: true,
+      details: ''
     },
     responseObj: {},
     typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他'],
     images: [],
     address: null,
-    officalAddress: null,
     multiArray: [],
     multiIndex: [0, 0],
   },
@@ -159,10 +159,6 @@ Page({
       wx.showToast({ title: '请填写物品重量', icon: 'none' })
       return
     }
-    if (!this.data.officalAddress || !this.data.officalAddress.id) {
-      wx.showToast({ title: '请选择官方服务网点地址', icon: 'none' })
-      return
-    }
     if (!this.data.address || !this.data.address.id) {
       wx.showToast({ title: '请选择收货地址', icon: 'none' })
       return
@@ -176,8 +172,8 @@ Page({
       price: parseInt(this.data.formdata.price),
       weight: parseInt(this.data.formdata.weight),
       address_id: this.data.address.id,
-      offical_address_id: this.data.officalAddress.id,
-      need_agent: this.data.formdata.need_agent
+      need_agent: this.data.formdata.need_agent,
+      details: this.data.formdata.details
     }
     console.log(params)
 

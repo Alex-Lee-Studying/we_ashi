@@ -46,12 +46,12 @@
       <view class="formItem">
         <label>姓名</label>
         <input value="{{formdata.traveler}}" placeholder="请填写" bindinput="inputInfo" data-obj="formdata" data-item="traveler"></input>
-        <text class="iconfont iconsuccess" hidden="{{formdata.traveler === ''}}"></text>
       </view>
       <view class="formItem">
         <label>航班号</label>
-        <input value="{{formdata.flight_no}}" placeholder="请填写" bindinput="inputInfo" data-obj="formdata" data-item="flight_no"></input>
-        <text class="iconfont iconsuccess" hidden="{{formdata.flight_no === ''}}"></text>
+        <input value="{{formdata.flight_no}}" placeholder="请填写" bindinput="inputInfo" data-obj="formdata" data-item="flight_no" bindblur="checkFlightNo"></input>
+        <text class="iconfont iconsuccess" wx:if="{{showFlightFlag === 1}}"></text>
+        <text class="iconfont iconcuowu1" wx:elif="{{showFlightFlag === 2}}"></text>
       </view>
       <view class="formItem">
         <label>出发时间</label>

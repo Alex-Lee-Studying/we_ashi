@@ -10,7 +10,7 @@
       <view class="addressItemWrap" wx:for="{{addressList}}" wx:key="id" style="{{offical?'padding-bottom: 30rpx;': ''}}">
         <view class="itemTop">
           <view class="left">
-            <text class="uname">{{item.recipient}}</text><text class="mobile">{{item.mobile}}</text><text class="mobile">{{item.zipcode}}</text>
+            <text class="uname">{{item.recipient}}</text><text class="mobile">{{item.mobile}}</text>
           </view>
           <view class="right">
             <text class="iconfont iconcheckmark" wx:if="{{selectedAddressId === item.id}}"></text>
@@ -27,6 +27,13 @@
         <view class="itemMain">
           <view class="left">
             <text class="address">{{item.details}}</text>
+          </view>
+          <view class="right">
+          </view>
+        </view>
+        <view class="itemMain">
+          <view class="left">
+            <text class="address">邮政编码：{{item.zipcode}}</text>
           </view>
           <view class="right">
           </view>

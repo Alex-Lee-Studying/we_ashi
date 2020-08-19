@@ -242,22 +242,34 @@ Page({
 
   getlocation() {
     var self = this
-    wx.getSetting({
-      success(res) {
-        var result = res.authSetting
-        if (result['scope.userLocation']) {
-          wx.getLocation({
-            type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+    wx.showModal({
+      title: '',
+      content: '您确定要定位到当前位置吗？',
+      // confirmText: '主操作',
+      // cancelText: '次要操作',
+      success: function (res) {
+        if (res.confirm) {
+          wx.getSetting({
             success(res) {
-              self.getLocationInfo(res)
+              var result = res.authSetting
+              if (result['scope.userLocation']) {
+                wx.getLocation({
+                  type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+                  success(res) {
+                    self.getLocationInfo(res)
+                  }
+                })
+              } else {
+                wx.openSetting({
+                  success(res) { }
+                })
+              }
+
             }
           })
-        } else {
-          wx.openSetting({
-            success(res) { }
-          })
+        } else if (res.cancel) {
+          console.log('用户点击次要操作')
         }
-
       }
     })
   },
@@ -273,6 +285,7 @@ Page({
       },
       success: function (res) {//成功后的回调
         if (res.status === 0) {
+          console.log(res.result)
           var address = res.result.address
           self.data.formdata.details = address
           self.setData({

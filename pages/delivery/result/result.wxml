@@ -5,7 +5,7 @@
       <text class="statusstr">发布成功</text>
     </view>
     <view class="notice">
-      <text class="title">我们会尽快为您匹配！</text>
+      <text class="title"></text>
     </view>
   </view>
   <view class="successWrap" wx:elif="{{delivery.status === 'waiting_for_pay'}}">

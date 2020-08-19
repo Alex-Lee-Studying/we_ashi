@@ -19,6 +19,7 @@ Page({
     complete: false,
     multiArray: [],
     multiIndex: [0, 0],
+    showFlightFlag: 0
   },
   onLoad: function () {
   },
@@ -168,6 +169,18 @@ Page({
       }
     })
   },
+
+  checkFlightNo (e) {
+    var flight_no = e.detail.value
+    if (!flight_no) return
+    if (!(/^[A-Z\d]{2}\d{3,4}$/.test(flight_no))) {
+      wx.showToast({ title: '航班号格式不正确', icon: 'none' })
+      this.setData({ showFlightFlag: 2 })
+      return
+    }
+    this.setData({ showFlightFlag: 1 })
+  },
+
   completeTravel: function () {
     var self = this
     if (this.data.formdata.traveler === '' && this.data.formdata.flight_no === '') {

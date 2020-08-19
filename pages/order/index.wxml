@@ -19,27 +19,6 @@
       </picker>
     </view>
 
-    <view class="myAddress" wx:if="{{!officalAddress}}">
-      <navigator url="/pages/my/address/index?type=offical" hover-class="none">官方服务网点地址</navigator>
-    </view>
-    <view class="addressWrap" wx:else>
-      <view class="title"><navigator url="/pages/my/address/index?type=offical" hover-class="none">官方服务网点地址</navigator></view>
-      <view class="info">
-        <view class="infoItem">
-          <text class="label">联系人：</text>
-          <text class="value">{{officalAddress.recipient}} </text>
-          <text class="label" style="margin-left: 20rpx;">电话：</text>
-          <text class="value">{{officalAddress.mobile}} </text>
-          <text class="label" style="margin-left: 20rpx;">邮编：</text>
-          <text class="value">{{officalAddress.zipcode}} </text>
-        </view>
-        <view class="infoItem">
-          <text class="label">地址：</text>
-          <text class="value">{{officalAddress.name}} {{officalAddress.details}}</text>
-        </view>
-      </view>
-    </view>
-
     <view class="myAddress" wx:if="{{!address}}">
       <navigator url="/pages/my/address/index" hover-class="none">收货地址</navigator>
     </view>
@@ -81,6 +60,10 @@
       <view class="formItem">
         <label>是否需要代购</label>
         <text style="flex:1;color:#989898;">{{formdata.need_agent? '是': '否'}}</text><switch checked="{{formdata.need_agent}}" bindchange="switchAgent" color="#033150"/>
+      </view>
+      <view class="formItem">
+        <label>备注</label>
+        <input value="{{formdata.details}}" bindinput="inputInfo" data-obj="formdata" data-item="details"></input>
       </view>
     </view>
     <view class="notice" bindtap="notice"><text class="iconfont iconfaq"></text><text>温馨提示</text></view>

@@ -14,10 +14,13 @@
       <text class="statusstr">支付成功</text>
     </view>
     <view class="notice">
+      <text class="title">我们会尽快为您匹配！</text>
+    </view>
+    <!-- <view class="notice">
       <text class="title">请将物品送到</text>
       <text class="cont1">{{delivery.offical_address.country_desc}} {{delivery.offical_address.details}} </text>
       <text class="cont2">{{delivery.offical_address.recipient}}收</text>
-    </view>
+    </view> -->
   </view>
   <view class="successWrap" wx:else>
     <view class="status">
