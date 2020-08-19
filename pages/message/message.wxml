@@ -6,12 +6,12 @@
     </button>
     <navigator class="msgItem" hover-class="none">
       <view class="left"><text class="iconfont iconlingdang"></text></view>
-      <view class="right"><text class="title">消息通知</text><text class="desc">新人必得的奖励</text></view>
+      <view class="right"><text class="title">系统通知</text><text class="desc">新人必得的奖励</text></view>
     </navigator>
-    <navigator class="msgItem" hover-class="none">
+    <!-- <navigator class="msgItem" hover-class="none">
       <view class="left"><text class="iconfont iconhuoche"></text></view>
       <view class="right"><text class="title">物流通知</text><text class="desc">您的订单又有新的进度</text></view>
-    </navigator>
+    </navigator> -->
   </view>
   <view class="msgWrap">
     <view class="itemWrap" wx:for="{{sessionList}}" wx:key="index">
