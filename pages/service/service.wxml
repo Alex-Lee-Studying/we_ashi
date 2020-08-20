@@ -1,4 +1,4 @@
-<view class="container" style="padding-bottom: {{isIphoneX? '98rpx': '0'}}">
+<view class="container" style="padding-bottom: {{isIphoneX? '198rpx': '100rpx'}}">
   <view class="tabWrap">
     <text class="tabItem selected" data-tab="express" wx:if="{{tabname === 'express'}}">各国快递</text>
     <text class="tabItem" data-tab="express" bindtap="changeTab" wx:else>各国快递</text>
@@ -7,19 +7,15 @@
   </view>
 
   <view class="expressCont" hidden="{{tabname === 'network'}}">
-    <view class="expressWrap" wx:for="{{expressList}}" wx:key="index">
+    <view class="expressWrap" wx:for="{{expressList}}" wx:for-item="exItem" wx:key="index">
       <view class="countryWrap">
-        <image src="{{item.country_icon}}" mode="widthFix"></image>
-        <text>{{item.country_desc}}</text>
+        <image src="{{exItem.country_icon}}" mode="widthFix"></image>
+        <text>{{exItem.country_desc}}</text>
       </view>
       <view class="expressList">
-        <view class="expressItem">
-          <image src="{{item.icon}}" mode="widthFix" class="logo"></image>
-          <view class="content">
-            <text class="name">{{item.name}}</text>
-            <text class="other" hidden="{{!item.site}}">官方网站：{{item.site}}</text>
-            <text class="other" hidden="{{!item.tele}}">客服电话：{{item.tele}}</text>
-          </view>
+        <view class="expressItem" wx:for="{{exItem.sub}}" wx:for-item="item" wx:for-index="idx" wx:key="idx" bindtap="expressDetail" data-express="{{item}}">
+          <image src="{{item.icon}}" mode="widthFix"></image>
+          <text>{{item.name}}</text>
         </view>
       </view>
     </view>

@@ -65,7 +65,20 @@ Page({
       method: 'GET',
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          self.setData({ expressList: res.data })
+          var copy = {}
+          res.data.map((value, index, array) => {
+            if (Object.keys(copy).includes(value.country_code)) {
+              copy[value.country_code].sub.push(value)
+            } else {
+              copy[value.country_code] = {
+                country_code: value.country_code,
+                country_desc: value.country_desc,
+                country_icon: value.country_icon,
+                sub: [value]
+              }
+            }
+          })
+          self.setData({ expressList: copy })
         } else {
           console.log(res)
           wx.showToast({ title: res.data.msg, icon: 'none' })
@@ -78,6 +91,12 @@ Page({
         wx.hideLoading()
         // hasClick = false
       }
+    })
+  },
+  expressDetail (e) {
+    var express = JSON.stringify(e.currentTarget.dataset.express);
+    wx.navigateTo({
+      url: '/pages/service/expressDetail/expressDetail?express=' + express,
     })
   }
 })

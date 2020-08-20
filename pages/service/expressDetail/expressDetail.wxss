@@ -1,0 +1,58 @@
+.expressWrap {
+  display: flex;
+  justify-content: space-between;
+  margin: 35rpx 35rpx;
+  padding-bottom: 30rpx;
+}
+.countryWrap {
+  width: 95rpx;
+  height: 133rpx;  
+  background-color: #fff;
+  box-shadow: 0 0 29rpx 0 rgba(51,51,51,.1);
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.countryWrap image {
+  width: 52rpx;
+}
+.countryWrap text {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-top: 20rpx;
+}
+.expressList {
+  flex: 1;
+  margin-left: 20rpx;
+}
+.expressList .expressItem {
+  padding: 20rpx 25rpx 20rpx 0;
+  background-color: #fff;
+  box-shadow: 0 0 29rpx 0 rgba(51,51,51,.1);
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+}
+.expressList .expressItem+.expressItem {
+  margin-top: 30rpx;
+}
+.expressList .expressItem .logo {
+  width: 60rpx;
+  margin: 0 40rpx 0 50rpx;
+}
+.expressList .expressItem .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 20rpx;
+  line-height: 30rpx;
+}
+.expressList .expressItem .content .name {
+  color: #033150;
+}
+.expressList .expressItem .content .other {
+  color: #989898;
+}
