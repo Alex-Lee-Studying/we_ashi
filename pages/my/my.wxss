@@ -89,9 +89,10 @@ page {
 .navWrap .navItem .iconfont {
   display: block;
   font-size: 50rpx;
-  background-image: -webkit-gradient(linear, left 0, right 0, from(rgb(255, 186, 3)), to(rgb(255, 214, 104)));
+  color: rgb(255, 186, 3);
+  /* background-image: -webkit-gradient(linear, left 0, right 0, from(rgb(255, 186, 3)), to(rgb(255, 214, 104)));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
 }
 .navWrap .navItem .navText {
   display: block;
@@ -99,6 +100,18 @@ page {
   color: #333;
   font-weight: bold;
   margin-top: 15rpx;
+}
+.navWrap .navItem.curr {
+  background-color: rgb(255, 186, 3);
+  border-top-left-radius: 20rpx;
+  border-bottom-left-radius: 20rpx;
+}
+.navWrap .navItem.curr .iconfont {
+  background-image: none;
+  color: #fff;
+}
+.navWrap .navItem.curr .navText {
+  color: #fff;
 }
 
 .tabs-my {

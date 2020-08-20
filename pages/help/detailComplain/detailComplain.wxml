@@ -1,7 +1,7 @@
 <view class="help-detail-container">
   <view class="title">如何投诉</view>
   <view class="contentWrap">
-    <view class="cont">关注【微信公众号】中，脚递ashibro。</view> 
-    <view class="cont">输入你的投诉内容，我们的客服会在工作时间内与您取得联系。我们的工作时间是：中国时间7：00-23:00</view>
+    <view class="cont">关注【脚递ashibro】公众号，发送您的投诉内容，我们的客服会尽快与您取得联系。客服的工作时间是：北京时间7：00-23:00。</view> 
+    <view class="cont">或者您可直接在消息页面把投诉内容反馈给客服。</view>
   </view>
 </view>

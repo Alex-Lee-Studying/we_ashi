@@ -39,12 +39,12 @@
   <view class="orderWrap">
     <view class="orderTitle">
       <text class="country">{{delivery.departure}} <text class="iconfont icon-_danjiantou"></text> {{delivery.destination}}</text>
-      <text class="fee">￥ {{delivery.price}}</text>
+      <text class="fee">帮带报酬：￥ {{delivery.reward}}</text>
     </view>
     <view class="orderMain">
       <view class="msgLine">
-        <label>帮带报酬</label>
-        <text>￥{{delivery.reward}}</text>
+        <label>物品价格</label>
+        <text>￥{{delivery.price}}</text>
       </view>
       <view class="msgLine">
         <label>重量</label>
@@ -77,11 +77,6 @@
   </view>
   <view wx:else class="subWrap" hidden="{{user.id === delivery.user.id || delivery.type === 'offical'}}">
     <button type="primary" class="btnPrimary" hover-class="btnHover">
-      <navigator url="{{'/pages/contact/contact?targetUid=' + delivery.user.id}}" hover-class="none">
-        立即联系
-      </navigator>
-    </button>
-    <button type="primary" plain class="btnPrimary" hover-class="btnHover">
       <navigator url="{{'/pages/contact/contact?targetUid=' + delivery.user.id + '&sendcard=travel'}}" hover-class="none">
         邀请帮带
       </navigator>

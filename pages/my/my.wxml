@@ -24,7 +24,7 @@
     </view>
   </view>
   <view class="navWrap">
-    <navigator url="/pages/my/my" class="navItem" hover-class="none">
+    <navigator url="/pages/my/my" class="navItem curr" hover-class="none">
       <text class="iconfont iconicon--copy"></text>
       <text class="navText">我的订单</text>
     </navigator>

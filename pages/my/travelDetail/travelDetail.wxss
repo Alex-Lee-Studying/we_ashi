@@ -37,15 +37,27 @@ page {
   font-size: 24rpx;
   color: #989898;  
 }
-.orderDetailCX .orderinfo .btnShare {
+.orderDetailCX .orderinfo .right {
+  border-left-width: 0;
+  height: auto;
+  padding-right: 20rpx;
+  text-align: center;
+}
+.orderDetailCX .orderinfo .right .btnPrimary {
   padding: 0;
-  margin: 0 auto;
+  margin-top: 20rpx;
   width: 144rpx;
   height: 54rpx;
   line-height: 54rpx;
   font-size: 24rpx;
+  color: #fff;
+  background-color: #033150;
+  border-radius: 27rpx;
+}
+.orderDetailCX .orderinfo .right .btnPrimary[plain] {
   background-color: transparent;
-  font-weight: normal;
+  color: #033150;
+  border: 1rpx solid #033150;
 }
 .subWrap {
   margin: 60rpx 0;

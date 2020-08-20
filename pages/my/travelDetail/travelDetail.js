@@ -2,6 +2,7 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
+    user: {},
     travelId: null,
     travel: {},
     askforList: [],
@@ -19,6 +20,12 @@ Page({
       wx.switchTab({
         url: '/pages/my/my'
       })
+    }
+  },
+
+  onShow: function () {
+    if (app.globalData.user && app.globalData.user.id) {
+      this.setData({ user: app.globalData.user })
     }
   },
 

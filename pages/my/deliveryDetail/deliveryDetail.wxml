@@ -13,10 +13,10 @@
         <view class="mark"><text>备注：{{delivery.details}}</text></view>
         <view class="fee"><text class="label">帮带报酬：</text><text>￥{{delivery.reward}}</text></view>
         <view class="fee"><text class="label">物品价格：</text><text>￥{{delivery.price}}</text></view>
+        <view class="fee"><text class="label">合计：</text><text>￥{{delivery.need_agent? (delivery.price + delivery.reward) : delivery.reward}}</text></view>
       </view>
       <view class="right">
-        <button open-type="share" class="btnShare"><text class="iconfont iconshare"></text></button>
-        <button type="primary" class="btnPrimary" bindtap="cancel" wx:if="{{delivery.status === 'normal' && user.id === delivery.user.id}}">
+        <button type="primary" plain class="btnPrimary" bindtap="cancel" wx:if="{{delivery.status === 'normal' && user.id === delivery.user.id}}">
         取消
         </button>
         <button type="primary" class="btnPrimary" wx:if="{{delivery.status === 'waiting_for_pay' && user.id === delivery.user.id}}">
@@ -40,7 +40,7 @@
   <view class="listStatus">
     <view class="title"><text>订单状态</text></view>
     <view class="listWrap" wx:if="{{delivery.expresses !== null}}">
-      <view class="listItem" wx:if="{{delivery.expresses.details.length}}" wx:for="{{delivery.expresses.details}}">
+      <view class="listItem" wx:if="{{delivery.expresses.details.length}}" wx:for="{{delivery.expresses.details}}" wx:key="index">
         <text class="iconfont iconsuccess"></text>
         <view>
           <text class="datetime">{{item.timestamp}}</text>

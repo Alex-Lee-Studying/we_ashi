@@ -70,7 +70,7 @@
 }
 .subWrap {
   display: flex;
-  margin: 195rpx 0 50rpx;
+  margin: 140rpx 0 50rpx;
 }
 .subWrap .btnPrimary {
   flex: 1;
