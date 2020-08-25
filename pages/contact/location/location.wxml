@@ -1,0 +1,32 @@
+<view class="container">
+  <view class="mapWrap">
+    <view class="handleWrap">
+      <navigator delta="1" open-type="navigateBack" hover-class="none">
+        <button class="mini-btn" type="default" plain="true" size="mini">取消</button>
+      </navigator>
+      <button class="mini-btn" type="primary" size="mini" bindtap="send" class="primary">发送</button>
+    </view>
+    <!--地图容器-->
+    <map class="myMap"
+      markers="{{curr}}"
+      longitude="{{longitude}}"
+      latitude="{{latitude}}"
+      show-location>
+    </map>
+  </view>
+  <view class="searchWrap">
+    <view class="top">
+      <view class="inputWrap">
+        <icon type="search" size="16px" color="#aaa"></icon>
+        <input value="{{searchStr}}" placeholder="搜索地点" bindinput="searchChange" bindconfirm="location_search"></input>
+      </view>
+      <button class="mini-btn" type="default" plain="true" size="mini" bindtap="cancel">取消</button>
+    </view>
+    <scroll-view scroll-y="true" class="bottom" bindscrolltolower="loadMore">
+      <view class="resultItem" wx:for="{{searchList}}" wx:key="index" data-item="{{item}}" bindtap="toLocation">
+        <view class="title">{{item.title}}</view>
+        <view class="address">{{item.address}}</view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

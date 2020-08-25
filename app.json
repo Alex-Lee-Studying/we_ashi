@@ -41,6 +41,7 @@
     "pages/user/auth/auth",
     "pages/city/city",
     "pages/contact/contact",
+    "pages/contact/location/location",
     "pages/service/expressDetail/expressDetail",
     "pages/logs/logs"
   ],

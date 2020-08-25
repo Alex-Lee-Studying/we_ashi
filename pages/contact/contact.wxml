@@ -123,10 +123,14 @@
         <text class="iconfont iconimg"></text>
         <text class="icontext">图片</text>
       </view>
-      <view class="optionItem" bindtap="getlocation">
+      <!-- <view class="optionItem" bindtap="getlocation">
         <text class="iconfont iconlocation"></text>
         <text class="icontext">位置</text>
-      </view>
+      </view> -->
+      <navigator url="/pages/contact/location/location" class="optionItem" hover-class="none">
+        <text class="iconfont iconlocation"></text>
+        <text class="icontext">位置</text>
+      </navigator>
       <view class="optionItem" bindtap="showTravel">
         <text class="iconfont iconsuitcase"></text>
         <text class="icontext">出行</text>

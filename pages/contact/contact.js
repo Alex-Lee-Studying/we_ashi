@@ -979,7 +979,9 @@ Page({
     })
   },
   loadMoreMessage () {
-    this.getMessages(this.data.session_id)
+    if (this.data.session_id) {
+      this.getMessages(this.data.session_id)
+    }    
   },
 })
 
