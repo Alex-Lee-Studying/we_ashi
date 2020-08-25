@@ -147,10 +147,9 @@ Page({
           wx.showLoading()
 
           wx.request({
-            url: app.globalData.baseUrl + '/app/v1/deliveries/' + this.data.deliveryId + '/actions',
+            url: app.globalData.baseUrl + '/app/v1/deliveries/' + self.data.deliveryId + '/cancelation',
             method: 'PUT',
             header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
-            data: { action: 'cancel' },
             success: function (res) {
               if (res.statusCode >= 200 && res.statusCode < 300) {
                 wx.showToast({ title: '取消成功' })

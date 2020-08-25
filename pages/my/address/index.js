@@ -47,8 +47,8 @@ Page({
   getAddressList: function () {
     var self = this
 
-    if (hasClick) return
-    hasClick = true
+    // if (hasClick) return
+    // hasClick = true
     wx.showLoading()
 
     wx.request({
@@ -74,7 +74,7 @@ Page({
       },
       complete: function (res) {
         wx.hideLoading()
-        hasClick = false
+        // hasClick = false
       }
     })
   },
@@ -82,6 +82,7 @@ Page({
   delAddress: function (e) {
     if (!e.currentTarget.dataset.id) return
     var id = e.currentTarget.dataset.id
+    var idx = e.target.dataset.index
     var self = this
 
     if (hasClick) return
@@ -96,7 +97,8 @@ Page({
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           wx.showToast({ title: '删除成功' })
-          self.getAddressList()
+          self.data.addressList.splice(idx, 1)
+          self.setData({ addressList: self.data.addressList })
         } else {
           console.log(res)
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {

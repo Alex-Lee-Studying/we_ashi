@@ -162,6 +162,54 @@ Page({
     })
   },
 
+  // 停止接单
+  cancel: function () {
+    var self = this
+
+    wx.showModal({
+      title: '',
+      content: '您确定要停止接单吗？',
+      // confirmText: '主操作',
+      // cancelText: '次要操作',
+      success: function (res) {
+        if (res.confirm) {
+
+          if (hasClick) return
+          hasClick = true
+          wx.showLoading()
+
+          wx.request({
+            url: app.globalData.baseUrl + '/app/v1/travels/' + self.data.travelId + '/status',
+            method: 'PUT',
+            header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+            data: { status: "suspend" },
+            success: function (res) {
+              if (res.statusCode >= 200 && res.statusCode < 300) {
+                wx.showToast({ title: '操作成功' })
+                var travel = self.data.travel
+                travel.status = 'suspend'
+                self.setData({ travel: travel })
+              } else {
+                console.log(res)
+                wx.showToast({ title: res.data.msg, icon: 'none' })
+              }
+            },
+            fail: function (res) {
+              wx.showToast({ title: '系统错误', icon: 'none' })
+            },
+            complete: function (res) {
+              wx.hideLoading()
+              hasClick = false
+            }
+          })
+
+        } else if (res.cancel) {
+          console.log('用户点击次要操作')
+        }
+      }
+    })
+  },
+
   onShareAppMessage(option) {
     return {
       title: '脚递出行',

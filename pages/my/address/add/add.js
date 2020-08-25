@@ -287,7 +287,9 @@ Page({
         if (res.status === 0) {
           console.log(res.result)
           var address = res.result.address
+          var adcode = res.result.ad_info.adcode
           self.data.formdata.details = address
+          self.data.formdata.zipcode = adcode
           self.setData({
             formdata: self.data.formdata
           })

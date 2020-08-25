@@ -7,7 +7,7 @@
 
   <view wx:else>
     <view class="addressListWrap">
-      <view class="addressItemWrap" wx:for="{{addressList}}" wx:key="id" style="{{offical?'padding-bottom: 30rpx;': ''}}">
+      <view class="addressItemWrap" wx:for="{{addressList}}" wx:key="index" style="{{offical?'padding-bottom: 30rpx;': ''}}">
         <view class="itemTop">
           <view class="left">
             <text class="uname">{{item.recipient}}</text><text class="mobile">{{item.mobile}}</text>
@@ -44,7 +44,7 @@
           </label>
           <block>
             <navigator url="{{'/pages/my/address/add/add?id=' + item.id}}" class="handleBtn" hover-class="none"><text class="iconfont iconarticle"></text><text>编辑</text></navigator>
-            <view class="handleBtn" bindtap="delAddress" data-id="{{item.id}}"><text class="iconfont iconshanchu"></text><text>删除</text></view>
+            <view class="handleBtn" bindtap="delAddress" data-id="{{item.id}}" data-index="{{index}}"><text class="iconfont iconshanchu"></text><text>删除</text></view>
           </block>
         </view>
       </view>
