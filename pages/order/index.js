@@ -33,13 +33,17 @@ Page({
       })
     }
 
-    var arr = []
-    arr[0] = app.globalData.countries
-    arr[1] = app.globalData.countries[0] ? app.globalData.countries[0].cities : []
-    this.setData({
-      multiArray: arr,
-      multiIndex: [0, 0]
-    })
+    if (!app.globalData.countries.length) {
+      this.getCountriesCities()
+    } else {
+      var arr = []
+      arr[0] = app.globalData.countries
+      arr[1] = app.globalData.countries[0] ? app.globalData.countries[0].cities : []
+      this.setData({
+        multiArray: arr,
+        multiIndex: [0, 0]
+      })
+    }
   },
 
   pickerCountry(e) {
@@ -308,6 +312,49 @@ Page({
       success: function (res) {
         if (res.confirm) {
         }
+      }
+    })
+  },
+
+  // 国家城市列表
+  getCountriesCities() {
+    var self = this
+    // wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/countries-cities',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          app.globalData.countries = res.data
+          var countries = res.data
+          var arr = []
+          arr[0] = countries
+          arr[1] = countries[0] ? countries[0].cities : []
+          self.setData({
+            multiArray: arr,
+            multiIndex: [0, 0]
+          })
+        } else {
+          console.log(res)
+          if (res.errMsg && res.errMsg === 'request:ok') {
+            if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+              wx.navigateTo({
+                url: '/pages/user/auth/auth',
+              })
+            } else {
+              wx.showToast({ title: res.data.msg, icon: 'none' })
+            }
+          } else {
+            wx.showToast({ title: res.errMsg || '请求出错', icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        // wx.hideLoading()
       }
     })
   }
