@@ -38,10 +38,10 @@
       <text class="label">需付报酬</text>
       <text class="value">￥{{delivery.reward}}</text>
     </view>
-    <view class="item">
+    <!-- <view class="item">
       <text class="label">帮带运费</text>
       <text class="value">￥{{delivery.freight}}</text>
-    </view>
+    </view> -->
   </view>
 
   <view class="subWrap">

@@ -46,7 +46,7 @@
             <navigator url="{{'/pages/index/cardDelivery/cardDelivery?id=' + item.id}}" class="main" hover-class="none">
               <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
               <view class="mark"><text>备注：{{item.details || '无'}}</text></view>
-              <view class="fee"><text class="iconfont iconw_jinbi"></text><text>{{item.price}}￥</text></view>
+              <view class="fee"><text class="iconfont iconw_jinbi"></text><text>{{item.reward}}￥</text></view>
             </navigator>
             <view wx:if="{{user.id === item.user.id || item.type === 'offical'}}"></view> 
             <navigator wx:else url="{{'/pages/contact/contact?targetUid=' + item.user.id + '&sendcard=travel'}}" class="right" hover-class="none"><text class="iconfont iconxiaoxi"></text></navigator> 

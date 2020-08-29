@@ -12,7 +12,8 @@ Page({
       price: null,
       weight: null,
       need_agent: true,
-      details: ''
+      details: '',
+      freight: ''
     },
     responseObj: {},
     typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他'],
@@ -67,6 +68,7 @@ Page({
         picker: ''
       })
     }
+    this.doCalculate()
   },
 
   bindMultiPickerColumnChange: function (e) {
@@ -104,6 +106,9 @@ Page({
     this.setData({
       formdata: this.data[dataset.obj]
     })
+    if (dataset.item === 'weight') {
+      this.doCalculate()
+    }
   },
 
   switchAgent: function (e) {
@@ -244,6 +249,52 @@ Page({
       wx.showToast({ title: err, icon: 'none' })
     }).then(() => {
       wx.hideLoading()
+    })
+  },
+
+  doCalculate: function() {
+    var self = this
+    if (this.data.departure === '' || this.data.departure === null) {
+      return
+    }
+    if (this.data.destination === '' || this.data.destination === null) {
+      return
+    }
+    if (this.data.formdata.weight === '' || this.data.formdata.weight === null) {
+      return
+    }
+
+    var params = {
+      departure: this.data.departure.substr(this.data.departure.indexOf('@') + 1),
+      destination: this.data.destination.substr(this.data.destination.indexOf('@') + 1),
+      weight: parseInt(this.data.formdata.weight)
+    }
+    console.log(params)
+
+    // if (hasClick) return
+    // hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/price-calculate',
+      method: 'GET',
+      data: params,
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.data.formdata.freight = res.data.price
+          self.setData({ formdata: self.data.formdata })
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        // hasClick = false
+      }
     })
   },
 
