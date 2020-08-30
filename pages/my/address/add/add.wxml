@@ -18,8 +18,8 @@
     </view>
     <view class="formItem">
       <label>国家城市</label>
-      <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{countryIndex}}" range="{{countryArray}}" range-key="desc">
-        <view>{{countryStr || '请选择国家城市'}}</view>
+      <picker mode="region" value="{{region}}" bindchange="changeRegion">
+        <view>{{region.length ? region : '请选择国家城市'}}</view>
       </picker>
     </view>
     

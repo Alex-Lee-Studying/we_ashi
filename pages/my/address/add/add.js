@@ -21,6 +21,7 @@ Page({
     countryStr: '',
     countryArray: [],
     countryIndex: [0, 0],
+    region: []
   },
 
   onLoad(option) {
@@ -84,6 +85,11 @@ Page({
       formdata: this.data[dataset.obj]
     })
   },
+
+  changeRegion(e) {
+    this.setData({ region: e.detail.value })
+  },
+
   addAddress() {
     if (this.data.formdata.id) {
       this.updateAddress()
@@ -113,7 +119,11 @@ Page({
       zipcode: this.data.formdata.zipcode,
       details: this.data.formdata.details,
       default: this.data.formdata.default,
-      name: this.data.countryStr
+      province_code: this.data.region[0],
+      city_code: this.data.region[1],
+      area_code: this.data.region[2],
+      country_code: 'CN',
+      country_desc: '中国'
     }
     console.log(params)
 
@@ -175,7 +185,10 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          self.setData({ formdata: res.data })
+          self.setData({ 
+            formdata: res.data,
+            region: [res.data.province_code, res.data.city_code, res.data.area_code]
+          })
         } else {
           console.log(res)
           if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
@@ -204,7 +217,10 @@ Page({
       mobile: this.data.formdata.mobile,
       zipcode: this.data.formdata.zipcode,
       details: this.data.formdata.details,
-      default: this.data.formdata.default
+      default: this.data.formdata.default,
+      province_code: this.data.region[0],
+      city_code: this.data.region[1],
+      area_code: this.data.region[2]
     }
     console.log(params)
 
@@ -220,7 +236,7 @@ Page({
       data: params,
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/my/address/index',
           })
         } else {
@@ -291,11 +307,13 @@ Page({
         if (res.status === 0) {
           console.log(res.result)
           var address = res.result.address
+          var address_component = res.result.address_component
           var adcode = res.result.ad_info.adcode
           self.data.formdata.details = address
           self.data.formdata.zipcode = adcode
           self.setData({
-            formdata: self.data.formdata
+            formdata: self.data.formdata,
+            region: [address_component.province, address_component.city, address_component.district]
           })
         } else {
           wx.showToast({ title: res.message, icon: 'none' })
