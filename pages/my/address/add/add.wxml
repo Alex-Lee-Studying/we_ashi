@@ -17,7 +17,7 @@
       <input type="number" placeholder="请填写邮编" value="{{formdata.zipcode}}" bindinput="inputInfo" data-obj="formdata" data-item="zipcode"></input>
     </view>
     <view class="formItem">
-      <label>国家城市</label>
+      <label>省市区</label>
       <picker mode="region" value="{{region}}" bindchange="changeRegion">
         <view>{{region.length ? region : '请选择国家城市'}}</view>
       </picker>
