@@ -1,13 +1,15 @@
 <view class="container" style="padding-bottom: {{isIphoneX? '198rpx': '100rpx'}}">
   <view class="msgWrap">
-    <button class="msgItem" open-type="contact" bindcontact="handleContact">
-      <view class="left"><text class="iconfont iconkefu"></text></view>
-      <view class="right"><text class="title">官方客服</text><text class="desc">在线客服为您服务</text></view>
-    </button>
-    <navigator class="msgItem" hover-class="none">
-      <view class="left"><text class="iconfont iconlingdang"></text></view>
-      <view class="right"><text class="title">系统通知</text><text class="desc">新人必得的奖励</text></view>
-    </navigator>
+    <block wx:for="{{sessionListOfsys}}" wx:key="index">
+      <navigator wx:if="{{item.id === 'internal_customer_service'}}" class="msgItem" url="{{'/pages/contact/contact?sessionId=' + item.id}}" hover-class="none">
+        <view class="left"><text class="iconfont iconkefu"></text></view>
+        <view class="right"><text class="title">官方客服</text><text class="desc">在线客服为您服务</text></view>
+      </navigator>
+      <navigator wx:if="{{item.id === 'internal_system_message'}}" class="msgItem" url="{{'/pages/contact/contact?sessionId=' + item.id}}" hover-class="none">
+        <view class="left"><text class="iconfont iconlingdang"></text></view>
+        <view class="right"><text class="title">系统通知</text><text class="desc">新人必得的奖励</text></view>
+      </navigator>
+    </block>
     <!-- <navigator class="msgItem" hover-class="none">
       <view class="left"><text class="iconfont iconhuoche"></text></view>
       <view class="right"><text class="title">物流通知</text><text class="desc">您的订单又有新的进度</text></view>

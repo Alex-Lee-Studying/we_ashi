@@ -5,6 +5,7 @@ Page({
     delBtnWidth: 160,
     isIphoneX: app.globalData.isIphoneX,
     sessionList: [],
+    sessionListOfsys: [],
     pageSize: 20,
     getSessionsFlag: true,
     currPageSession: 0,
@@ -28,6 +29,7 @@ Page({
       })
     } else {
       this.getSessions()
+      this.getSessionsOfsys()
     }
   },
 
@@ -107,6 +109,62 @@ Page({
         self.setData({
           getSessionsFlag: true
         })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })
+  },
+
+  getSessionsOfsys() {
+    var self = this
+
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/sessions',
+      method: 'GET',
+      header: { 'page': this.data.currPageSession, 'page-size': this.data.pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: { internal: true  },
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length) {
+            // 筛选目标用户
+            var sessionArr = []
+            var target = {}
+            var session = {}
+            for(var i = 0; i < res.data.length; i++) {
+              session = res.data[i]
+              session.created = session.created ? app.globalData.moment.utc(session.created).format('YYYY-MM-DD'): ''
+              if (session.users && session.users.length) {
+                target = {}
+                session.users.forEach((item, index, arr) => {
+                  if (item.id !== app.globalData.user.id) {
+                    target = item
+                    return
+                  }
+                })
+                session.target = target
+              }
+              session.right = 0
+              sessionArr.push(session)
+            }
+            self.setData({
+              sessionListOfsys: sessionArr
+            })
+          }
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
       },
       complete: function (res) {
         wx.hideLoading()
