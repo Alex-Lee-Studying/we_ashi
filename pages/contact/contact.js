@@ -67,7 +67,8 @@ Page({
     travelList: [],
     deliveryList: [],
     checkedTravelId: '',
-    checkedDeliveryId: ''
+    checkedDeliveryId: '',
+    nohandle: false
   },
 
   /**
@@ -104,6 +105,10 @@ Page({
       this.setData({ session_id: options.sessionId })
       this.getSession(options.sessionId)
       this.getMessages(options.sessionId)
+    }
+
+    if (options.nohandle) {
+      this.setData({ nohandle: true })
     }
 
     this.getTravels()
