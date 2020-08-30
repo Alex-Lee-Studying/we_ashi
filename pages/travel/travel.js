@@ -191,10 +191,12 @@ Page({
       wx.showToast({ title: '请填写姓名、航班号', icon: 'none' })
       return
     }
+    if (!(/^[A-Z\d]{2}\d{3,4}$/.test(this.data.formdata.flight_no))) {
+      wx.showToast({ title: '航班号格式不正确', icon: 'none' })
+      return
+    }
     var params = {
-      traveler: this.data.formdata.traveler,
-      flight_no: this.data.formdata.flight_no,
-      dt_departure: app.globalData.moment.utc(this.data.formdata.dt_departure).format()
+      comment: this.data.formdata.traveler + ',' + this.data.formdata.flight_no + ',' + app.globalData.moment.utc(this.data.formdata.dt_departure).format()
     }
     console.log(params)
 
@@ -203,13 +205,15 @@ Page({
     wx.showLoading()
 
     wx.request({
-      url: app.globalData.baseUrl + '/app/v1/travels/' + this.data.responseObj.id,
-      method: 'PUT',
-      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
-      data: params,
+      url: app.globalData.baseUrl + '/app/v1/travels/' + this.data.responseObj.id + '/validation',
+      method: 'POST',
+      header: { 
+        'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization'),
+        'Content-Type': 'multipart/form-data; boundary=XXX' 
+      },
+      data: formdata(params),
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          self.setData({ responseObj: res.data })
           wx.switchTab({
             url: '/pages/index/index'
           })
@@ -230,6 +234,41 @@ Page({
       complete: function (res) {
         wx.hideLoading()
         hasClick = false
+      }
+    })
+  },
+  
+  getTravelValidation: function(travelId) {
+    var self = this
+
+    // if (hasClick) return
+    // hasClick = true
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/travels/' + travelId + '/validation',
+      method: 'GET',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          console.log(res.data)
+        } else {
+          console.log(res)
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        // hasClick = false
       }
     })
   },
@@ -277,3 +316,16 @@ Page({
     })
   }
 })
+
+var formdata = function (obj = {}) {
+  let result = ''
+  for (let name of Object.keys(obj)) {
+    let value = obj[name];
+    result +=
+      '\r\n--XXX' +
+      '\r\nContent-Disposition: form-data; name=\"' + name + '\"' +
+      '\r\n' +
+      '\r\n' + value
+  }
+  return result + '\r\n--XXX--'
+}
