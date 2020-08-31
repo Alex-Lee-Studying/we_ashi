@@ -98,5 +98,16 @@ Page({
     wx.navigateTo({
       url: '/pages/service/expressDetail/expressDetail?express=' + express,
     })
+  },
+
+  copyAddress (e) {
+    var that = this
+    var address = e.target.dataset.info
+    wx.setClipboardData({
+      data: address,
+      success: function (res) {
+        wx.showToast({ title: '地址复制成功' })
+      }
+    })
   }
 })

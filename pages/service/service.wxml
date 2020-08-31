@@ -29,7 +29,7 @@
       </view>
       <view class="content">
         <view class="sub">
-          <text class="other">{{item.name}} {{item.details}}</text>
+          <text class="other" bindlongtap="copyAddress" data-info="{{item.name + ' ' + item.details}}">{{item.name}} {{item.details}}</text>
           <text class="other">电话：{{item.mobile}}</text>
           <text class="other">联系人：{{item.recipient}}</text>
           <text class="other">邮编：{{item.zipcode}}</text>
