@@ -59,7 +59,7 @@
       </view>
       <view class="formItem">
         <label>重量</label>
-        <input type="number" value="{{formdata.weight}}" placeholder="kg" bindinput="inputInfo" data-obj="formdata" data-item="weight"></input>
+        <input type="number" value="{{formdata.weight}}" placeholder="kg" bindinput="inputInfo" data-obj="formdata" data-item="weight" bindblur="weightBlur" bindfocus="weightFocus"></input>
       </view>
       <view class="formItem">
         <label>是否需要代购</label>

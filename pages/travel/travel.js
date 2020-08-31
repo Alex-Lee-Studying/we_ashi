@@ -104,6 +104,20 @@ Page({
     })
   },
 
+  weightBlur(e) {
+    this.data.formdata.weight = this.data.formdata.weight + 'kg'
+    this.setData({
+      formdata: this.data.formdata
+    })
+  },
+
+  weightFocus(e) {
+    this.data.formdata.weight = parseInt(this.data.formdata.weight)
+    this.setData({
+      formdata: this.data.formdata
+    })
+  },
+
   switchAgent: function(e) {
     var formdata = this.data.formdata
     formdata.agent = e.detail.value
