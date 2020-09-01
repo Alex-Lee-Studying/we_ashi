@@ -16,6 +16,7 @@ Page({
   },
 
   onShow: function () {
+    this.setData({ getSessionsFlag: true})
     // 设置tabbar选中
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({

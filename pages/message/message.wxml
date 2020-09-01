@@ -4,10 +4,12 @@
       <navigator wx:if="{{item.id === 'internal_customer_service'}}" class="msgItem" url="{{'/pages/contact/contact?sessionId=' + item.id}}" hover-class="none">
         <view class="left"><text class="iconfont iconkefu"></text></view>
         <view class="right"><text class="title">官方客服</text><text class="desc">在线客服为您服务</text></view>
+        <view class="unread" wx:if="{{item.unread>0}}">{{item.unread}}</view>
       </navigator>
       <navigator wx:if="{{item.id === 'internal_system_message'}}" class="msgItem" url="{{'/pages/contact/contact?sessionId=' + item.id + '&nohandle=true'}}" hover-class="none">
         <view class="left"><text class="iconfont iconlingdang"></text></view>
         <view class="right"><text class="title">系统通知</text><text class="desc">新人必得的奖励</text></view>
+        <view class="unread" wx:if="{{item.unread>0}}">{{item.unread}}</view>
       </navigator>
     </block>
     <!-- <navigator class="msgItem" hover-class="none">
@@ -21,7 +23,7 @@
         <navigator class="msgItem" url="{{'/pages/contact/contact?sessionId=' + item.id}}" hover-class="none" data-index="{{index}}" bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx">
           <view class="left"><image src="{{item.target.avatar}}" class="avatar"></image></view>
           <view class="right"><text class="title">{{item.target.nick_name}}</text><text class="desc">{{item.created}}</text></view>
-          <view class="unread">2</view>
+          <view class="unread" wx:if="{{item.unread>0}}">{{item.unread}}</view>
         </navigator>
         <view class="remove" bindtap="delItem" data-sid="{{item.id}}" data-index="{{index}}">删除 </view>
       </scroll-view>

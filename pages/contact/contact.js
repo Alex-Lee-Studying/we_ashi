@@ -113,6 +113,7 @@ Page({
 
     this.getTravels()
     this.getDeliverys()
+    this.updateReadtime()
 
     const emojiInstance = this.selectComponent('.mp-emoji')
     console.log(emojiInstance)
@@ -988,6 +989,26 @@ Page({
       this.getMessages(this.data.session_id)
     }    
   },
+
+  updateReadtime () {
+    var self = this
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/messages-read-time',
+      method: 'PUT',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          console.log(res)
+        }
+      },
+      fail: function (res) {
+        console.log(res)
+        // wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+      }
+    })
+  }
 })
 
 var formdata=function(obj = {}) {

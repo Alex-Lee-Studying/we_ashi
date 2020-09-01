@@ -61,13 +61,13 @@ page {
   margin-top: 10rpx;
 }
 .msgWrap .msgItem .unread {
-  width: 45rpx;
-  height: 45rpx;
-  line-height: 45rpx;
+  width: 35rpx;
+  height: 35rpx;
+  line-height: 35rpx;
   background-color: #f00;
   text-align: center;
-  border-radius: 25rpx;
-  font-size: 30rpx;
+  border-radius: 20rpx;
+  font-size: 25rpx;
   color: #fff;
 }
 .msgWrap .msgItem .unread text {
