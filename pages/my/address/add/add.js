@@ -139,8 +139,8 @@ Page({
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ responseObj: res.data })
-          wx.redirectTo({
-            url: '/pages/my/address/index',
+          wx.navigateBack({
+            delta: 1
           })
         } else {
           console.log(res)
@@ -261,37 +261,25 @@ Page({
   },
 
   getlocation() {
-    var self = this
-    wx.showModal({
-      title: '',
-      content: '您确定要定位到当前位置吗？',
-      // confirmText: '主操作',
-      // cancelText: '次要操作',
-      success: function (res) {
-        if (res.confirm) {
-          wx.getSetting({
+    var self = this    
+    wx.getSetting({
+      success(res) {
+        var result = res.authSetting
+        if (result['scope.userLocation']) {
+          wx.getLocation({
+            type: 'gcj02', //返回可以用于wx.openLocation的经纬度
             success(res) {
-              var result = res.authSetting
-              if (result['scope.userLocation']) {
-                wx.getLocation({
-                  type: 'gcj02', //返回可以用于wx.openLocation的经纬度
-                  success(res) {
-                    self.getLocationInfo(res)
-                  }
-                })
-              } else {
-                wx.openSetting({
-                  success(res) { }
-                })
-              }
-
+              self.getLocationInfo(res)
             }
           })
-        } else if (res.cancel) {
-          console.log('用户点击次要操作')
+        } else {
+          wx.openSetting({
+            success(res) { }
+          })
         }
+
       }
-    })
+    })        
   },
 
   getLocationInfo(res) {
@@ -306,14 +294,27 @@ Page({
       success: function (res) {//成功后的回调
         if (res.status === 0) {
           console.log(res.result)
-          var address = res.result.address
           var address_component = res.result.address_component
           var adcode = res.result.ad_info.adcode
-          self.data.formdata.details = address
-          self.data.formdata.zipcode = adcode
-          self.setData({
-            formdata: self.data.formdata,
-            region: [address_component.province, address_component.city, address_component.district]
+          var details = address_component.street
+          var region = [address_component.province, address_component.city, address_component.district]
+          wx.showModal({
+            title: '',
+            content: '您确定要定位到<' + region + ' ' + details + '>吗？',
+            // confirmText: '主操作',
+            // cancelText: '次要操作',
+            success: function (picker) {
+              if (picker.confirm) {                
+                self.data.formdata.details = details
+                self.data.formdata.zipcode = adcode
+                self.setData({
+                  formdata: self.data.formdata,
+                  region: region
+                })
+              } else if (picker.cancel) {
+                console.log('用户点击次要操作')
+              }
+            }
           })
         } else {
           wx.showToast({ title: res.message, icon: 'none' })

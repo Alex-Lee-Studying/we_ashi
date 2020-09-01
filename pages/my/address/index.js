@@ -23,6 +23,11 @@ Page({
     // }
   },
 
+  onShow: function() {
+    // 目前没有 offical 的情况
+    this.getAddressList()
+  },
+
   use: function(e) {
     var address = e.currentTarget.dataset.address
     this.setData({ selectedAddressId: address.id })
@@ -82,7 +87,7 @@ Page({
   delAddress: function (e) {
     if (!e.currentTarget.dataset.id) return
     var id = e.currentTarget.dataset.id
-    var idx = e.target.dataset.index
+    var idx = e.currentTarget.dataset.index
     var self = this
 
     if (hasClick) return

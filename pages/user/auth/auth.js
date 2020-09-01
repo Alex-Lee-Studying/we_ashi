@@ -71,8 +71,8 @@ Page({
 
                   if (self.data.prevPage && self.data.prevPage.route) {
                     if (self.data.prevPage.route !== 'pages/index/index' && self.data.prevPage.route !== 'pages/service/service' && self.data.prevPage.route !== 'pages/fee/fee' && self.data.prevPage.route !== 'pages/message/message' && self.data.prevPage.route !== 'pages/my/my') {
-                      wx.redirectTo({
-                        url: '/' + self.data.prevPage.route,
+                      wx.navigateBack({
+                        delta: 1
                       })
                     } else {
                       wx.switchTab({
