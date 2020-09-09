@@ -142,7 +142,9 @@ Page({
           res.data.forEach((item,index,array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
             item.dt_departure = item.dt_departure ? app.globalData.moment.utc(item.dt_departure).format('YYYY-MM-DD') : ''
-            item.departure = item.departure ? item.departure.replace('@',',') : ''
+            item.departure = item.departure.indexOf('@') === 0 ? item.departure.slice(1) : item.departure
+            item.destination = item.destination.indexOf('@') === 0 ? item.destination.slice(1) : item.destination
+            item.departure = item.departure ? item.departure.replace('@', ',') : ''
             item.destination = item.destination ? item.destination.replace('@', ',') : ''
           })
 
@@ -207,6 +209,8 @@ Page({
           }
           res.data.forEach((item, index, array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+            item.departure = item.departure.indexOf('@') === 0 ? item.departure.slice(1) : item.departure
+            item.destination = item.destination.indexOf('@') === 0 ? item.destination.slice(1) : item.destination
             item.departure = item.departure ? item.departure.replace('@', ',') : ''
             item.destination = item.destination ? item.destination.replace('@', ',') : ''
           })

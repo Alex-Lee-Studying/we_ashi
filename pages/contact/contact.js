@@ -640,11 +640,15 @@ Page({
             if (item.type === 'travel') {
               item.travel.created = item.travel.created ? app.globalData.moment.utc(item.travel.created).format('YYYY-MM-DD') : ''
               item.travel.dt_departure = item.travel.dt_departure ? app.globalData.moment.utc(item.travel.dt_departure).format('YYYY-MM-DD') : ''
+              item.travel.departure = item.travel.departure.indexOf('@') === 0 ? item.travel.departure.slice(1) : item.travel.departure
+              item.travel.destination = item.travel.destination.indexOf('@') === 0 ? item.travel.destination.slice(1) : item.travel.destination
               item.travel.departure = item.travel.departure ? item.travel.departure.replace('@', ',') : ''
               item.travel.destination = item.travel.destination ? item.travel.destination.replace('@', ',') : ''
             }
             if (item.type === 'delivery' || item.type === 'req_delivery' || item.type === 'help_delivery') {
               item.delivery.created = item.delivery.created ? app.globalData.moment.utc(item.delivery.created).format('YYYY-MM-DD') : ''
+              item.delivery.departure = item.delivery.departure.indexOf('@') === 0 ? item.delivery.departure.slice(1) : item.delivery.departure
+              item.delivery.destination = item.delivery.destination.indexOf('@') === 0 ? item.delivery.destination.slice(1) : item.delivery.destination
               item.delivery.departure = item.delivery.departure ? item.delivery.departure.replace('@', ',') : ''
               item.delivery.destination = item.delivery.destination ? item.delivery.destination.replace('@', ',') : ''
             }
@@ -699,11 +703,15 @@ Page({
             if (res.data.travel) {
               res.data.travel.created = res.data.travel.created ? app.globalData.moment.utc(res.data.travel.created).format('YYYY-MM-DD') : ''
               res.data.travel.dt_departure = res.data.travel.dt_departure ? app.globalData.moment.utc(res.data.travel.dt_departure).format('YYYY-MM-DD') : ''
+              res.data.travel.departure = res.data.travel.departure.indexOf('@') === 0 ? res.data.travel.departure.slice(1) : res.data.travel.departure
+              res.data.travel.destination = res.data.travel.destination.indexOf('@') === 0 ? res.data.travel.destination.slice(1) : res.data.travel.destination
               res.data.travel.departure = res.data.travel.departure ? res.data.travel.departure.replace('@', ',') : ''
               res.data.travel.destination = res.data.travel.destination ? res.data.travel.destination.replace('@', ',') : ''
             }
             if (res.data.delivery) {
               res.data.delivery.created = res.data.delivery.created ? app.globalData.moment.utc(res.data.delivery.created).format('YYYY-MM-DD') : ''
+              res.data.delivery.departure = res.data.delivery.departure.indexOf('@') === 0 ? res.data.delivery.departure.slice(1) : res.data.delivery.departure
+              res.data.delivery.destination = res.data.delivery.destination.indexOf('@') === 0 ? res.data.delivery.destination.slice(1) : res.data.delivery.destination
               res.data.delivery.departure = res.data.delivery.departure ? res.data.delivery.departure.replace('@', ',') : ''
               res.data.delivery.destination = res.data.delivery.destination ? res.data.delivery.destination.replace('@', ',') : ''
             }
@@ -827,6 +835,8 @@ Page({
           res.data.forEach((item, index, array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
             item.dt_departure = item.dt_departure ? app.globalData.moment.utc(item.dt_departure).format('YYYY-MM-DD') : ''
+            item.departure = item.departure.indexOf('@') === 0 ? item.departure.slice(1) : item.departure
+            item.destination = item.destination.indexOf('@') === 0 ? item.destination.slice(1) : item.destination
             item.departure = item.departure ? item.departure.replace('@', ',') : ''
             item.destination = item.destination ? item.destination.replace('@', ',') : ''
           })
@@ -887,6 +897,8 @@ Page({
           }
           res.data.forEach((item, index, array) => {
             item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+            item.departure = item.departure.indexOf('@') === 0 ? item.departure.slice(1) : item.departure
+            item.destination = item.destination.indexOf('@') === 0 ? item.destination.slice(1) : item.destination
             item.departure = item.departure ? item.departure.replace('@', ',') : ''
             item.destination = item.destination ? item.destination.replace('@', ',') : ''
           })
