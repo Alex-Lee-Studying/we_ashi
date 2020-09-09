@@ -51,7 +51,7 @@
       </view>
       <view class="formItem">
         <label>物品价格</label>
-        <input type="number" value="{{formdata.price}}" placeholder="RMB" bindinput="inputInfo" data-obj="formdata" data-item="price"></input>
+        <input type="number" value="{{formdata.price}}" placeholder="RMB" bindinput="inputInfo" data-obj="formdata" data-item="price" bindblur="priceBlur" bindfocus="priceFocus"></input>
       </view>
       <view class="formItem">
         <label>重量</label>

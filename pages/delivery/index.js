@@ -112,7 +112,7 @@ Page({
   },
 
   weightBlur (e) {
-    this.data.formdata.weight = this.data.formdata.weight + 'kg'
+    this.data.formdata.weight = (this.data.formdata.weight || '') + 'kg'
     this.setData({
       formdata: this.data.formdata
     })
@@ -120,6 +120,34 @@ Page({
 
   weightFocus (e) {
     this.data.formdata.weight = parseInt(this.data.formdata.weight)
+    this.setData({
+      formdata: this.data.formdata
+    })
+  },
+
+  priceBlur(e) {
+    this.data.formdata.price = (this.data.formdata.price || '') + 'RMB'
+    this.setData({
+      formdata: this.data.formdata
+    })
+  },
+
+  priceFocus(e) {
+    this.data.formdata.price = parseInt(this.data.formdata.price)
+    this.setData({
+      formdata: this.data.formdata
+    })
+  },
+
+  rewardBlur(e) {
+    this.data.formdata.reward = (this.data.formdata.reward || '') + 'RMB'
+    this.setData({
+      formdata: this.data.formdata
+    })
+  },
+
+  rewardFocus(e) {
+    this.data.formdata.reward = parseInt(this.data.formdata.reward)
     this.setData({
       formdata: this.data.formdata
     })
@@ -170,15 +198,15 @@ Page({
       wx.showToast({ title: '请选择目的地', icon: 'none' })
       return
     }
-    if (this.data.formdata.price === '' || this.data.formdata.price === null) {
+    if (this.data.formdata.price === 'RMB' || this.data.formdata.price === null) {
       wx.showToast({ title: '请填写物品价格', icon: 'none' })
       return
     }
-    if (this.data.formdata.reward === '' || this.data.formdata.reward === null) {
+    if (this.data.formdata.reward === 'RMB' || this.data.formdata.reward === null) {
       wx.showToast({ title: '请填写帮带报酬', icon: 'none' })
       return
     }
-    if (this.data.formdata.weight === '' || this.data.formdata.weight === null) {
+    if (this.data.formdata.weight === 'kg' || this.data.formdata.weight === null) {
       wx.showToast({ title: '请填写物品重量', icon: 'none' })
       return
     }

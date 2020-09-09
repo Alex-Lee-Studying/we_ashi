@@ -105,7 +105,7 @@ Page({
   },
 
   weightBlur(e) {
-    this.data.formdata.weight = this.data.formdata.weight + 'kg'
+    this.data.formdata.weight = (this.data.formdata.weight || '') + 'kg'
     this.setData({
       formdata: this.data.formdata
     })
@@ -138,7 +138,7 @@ Page({
       wx.showToast({ title: '请选择出发日期', icon: 'none' })
       return
     }
-    if (this.data.formdata.weight === '' || this.data.formdata.weight === null) {
+    if (this.data.formdata.weight === 'kg' || this.data.formdata.weight === null) {
       wx.showToast({ title: '请填写可带行李重量', icon: 'none' })
       return
     }
