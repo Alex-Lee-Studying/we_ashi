@@ -50,7 +50,11 @@ Page({
     this.setData({
       countryIndex: e.detail.value
     })
-    var countryStr = this.data.countryArray[0][this.data.countryIndex[0]].desc + ' ' + this.data.countryArray[1][this.data.countryIndex[1]].desc
+
+    var countryStr = this.data.countryArray[0][this.data.countryIndex[0]].desc
+    if (this.data.countryArray[1][this.data.countryIndex[1]].desc !== '不限') {
+      countryStr = this.data.countryArray[1][this.data.countryIndex[1]].desc + ',' + countryStr
+    }
     var countryCode = this.data.countryArray[0][this.data.countryIndex[0]].code + ' ' + this.data.countryArray[1][this.data.countryIndex[1]].code
     this.setData({
       country: countryCode,
@@ -333,6 +337,11 @@ Page({
       method: 'GET',
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length) {
+            res.data.forEach((item, idx, array) => {
+              item.cities.unshift({ code: "", desc: "不限" })
+            })
+          }
           app.globalData.countries = res.data
           var countries = res.data
           var arr = []

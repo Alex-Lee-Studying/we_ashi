@@ -137,6 +137,11 @@ App({
       method: 'GET',
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length) {
+            res.data.forEach((item, idx, array) => {
+              item.cities.unshift({ code: "", desc: "不限" })
+            })
+          }
           self.globalData.countries = res.data
         } else {
           console.log(res)
