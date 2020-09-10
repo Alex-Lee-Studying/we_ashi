@@ -113,7 +113,13 @@ Page({
                 self.setData({ delivery: delivery })
               } else {
                 console.log(res)
-                wx.showToast({ title: res.data.msg, icon: 'none' })
+                if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+                  wx.navigateTo({
+                    url: '/pages/user/auth/auth',
+                  })
+                } else {
+                  wx.showToast({ title: res.data.msg, icon: 'none' })
+                }
               }
             },
             fail: function (res) {
@@ -160,7 +166,74 @@ Page({
                 self.setData({ delivery: delivery })
               } else {
                 console.log(res)
-                wx.showToast({ title: res.data.msg, icon: 'none' })
+                if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+                  wx.navigateTo({
+                    url: '/pages/user/auth/auth',
+                  })
+                } else {
+                  wx.showToast({ title: res.data.msg, icon: 'none' })
+                }
+              }
+            },
+            fail: function (res) {
+              wx.showToast({ title: '系统错误', icon: 'none' })
+            },
+            complete: function (res) {
+              wx.hideLoading()
+              hasClick = false
+            }
+          })
+
+        } else if (res.cancel) {
+          console.log('用户点击次要操作')
+        }
+      }
+    })
+  },
+
+  // 删除
+  delDelivery () {
+    var self = this
+
+    wx.showModal({
+      title: '',
+      content: '您确定要删除此求带？',
+      // confirmText: '主操作',
+      // cancelText: '次要操作',
+      success: function (res) {
+        if (res.confirm) {
+
+          if (hasClick) return
+          hasClick = true
+          wx.showLoading()
+
+          wx.request({
+            url: app.globalData.baseUrl + '/app/v1/deliveries-removal',
+            method: 'PUT',
+            header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+            data: [self.data.deliveryId],
+            success: function (res) {
+              if (res.statusCode >= 200 && res.statusCode < 300) {
+                wx.showToast({ title: '删除成功' })
+
+                wx.switchTab({
+                  url: '/pages/my/my',
+                  success: function (e) {
+                    var page = getCurrentPages().pop()
+                    if (page == undefined || page == null) return
+                    page.setData({ tabname: 'delivery', currPageDelivery: 0, getDeliverysFlag: true, noMoreDeliverysFlag: false, deliveryList: [] })
+                    page.onShow()
+                  }
+                })
+              } else {
+                console.log(res)
+                if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+                  wx.navigateTo({
+                    url: '/pages/user/auth/auth',
+                  })
+                } else {
+                  wx.showToast({ title: res.data.msg, icon: 'none' })
+                }
               }
             },
             fail: function (res) {
