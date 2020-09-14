@@ -19,7 +19,7 @@
         </view>
         <view class="itemMain">
           <view class="left">
-            <text class="address">{{item.province_code}} {{item.city_code}} {{item.area_code}}</text>
+            <text class="address">{{item.country_code}} {{item.city_code}}</text>
           </view>
           <view class="right">
           </view>

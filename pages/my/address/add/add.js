@@ -9,6 +9,7 @@ var app = getApp()
 var hasClick = false
 Page({
   data: {
+    tag: 'add',
     formdata: {
       recipient: '',
       mobile: '',
@@ -27,22 +28,23 @@ Page({
   onLoad(option) {
     console.log(option)
     if(option.id) {
+      this.setData({ tag: 'edit' })
       this.getAddress(option.id)
     }
   },
 
   onShow() {
-    if (!app.globalData.countries.length) {
+    // if (!app.globalData.countries.length) {
       this.getCountriesCities()
-    } else {
-      var arr = []
-      arr[0] = app.globalData.countries
-      arr[1] = app.globalData.countries[0] ? app.globalData.countries[0].cities : []
-      this.setData({
-        countryArray: arr,
-        countryIndex: [0, 0]
-      })
-    }
+    // } else {
+    //   var arr = []
+    //   arr[0] = app.globalData.countries
+    //   arr[1] = app.globalData.countries[0] ? app.globalData.countries[0].cities : []
+    //   this.setData({
+    //     countryArray: arr,
+    //     countryIndex: [0, 0]
+    //   })
+    // }
   },
 
   bindMultiPickerChange: function (e) {
@@ -53,7 +55,7 @@ Page({
 
     var countryStr = this.data.countryArray[0][this.data.countryIndex[0]].desc
     if (this.data.countryArray[1][this.data.countryIndex[1]].desc !== '不限') {
-      countryStr = this.data.countryArray[1][this.data.countryIndex[1]].desc + ',' + countryStr
+      countryStr =  countryStr + ' ' + this.data.countryArray[1][this.data.countryIndex[1]].desc
     }
     var countryCode = this.data.countryArray[0][this.data.countryIndex[0]].code + ' ' + this.data.countryArray[1][this.data.countryIndex[1]].code
     this.setData({
@@ -111,6 +113,10 @@ Page({
     if (this.data.formdata.zipcode === '' || this.data.formdata.zipcode === null) {
       wx.showToast({ title: '请填写邮编', icon: 'none' })
       return
+    }    
+    if (this.data.country === '') {
+      wx.showToast({ title: '请选择国家城市', icon: 'none' })
+      return
     }
     if (this.data.formdata.details === '' || this.data.formdata.details === null) {
       wx.showToast({ title: '请填写详细地址', icon: 'none' })
@@ -123,11 +129,12 @@ Page({
       zipcode: this.data.formdata.zipcode,
       details: this.data.formdata.details,
       default: this.data.formdata.default,
-      province_code: this.data.region[0],
-      city_code: this.data.region[1],
-      area_code: this.data.region[2],
-      country_code: 'CN',
-      country_desc: '中国'
+      // province_code: this.data.region[0],
+      // city_code: this.data.region[1],
+      // area_code: this.data.region[2],
+      city_code: this.data.country.split(' ')[1] || '',
+      country_code: this.data.country.split(' ')[0] || '',
+      country_desc: this.data.countryStr.split(' ')[0] || ''
     }
     console.log(params)
 
@@ -191,7 +198,8 @@ Page({
         if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ 
             formdata: res.data,
-            region: [res.data.province_code, res.data.city_code, res.data.area_code]
+            // region: [res.data.province_code, res.data.city_code, res.data.area_code]
+            countryStr: res.data.country_code + ' ' + res.data.city_code
           })
         } else {
           console.log(res)
@@ -222,9 +230,12 @@ Page({
       zipcode: this.data.formdata.zipcode,
       details: this.data.formdata.details,
       default: this.data.formdata.default,
-      province_code: this.data.region[0],
-      city_code: this.data.region[1],
-      area_code: this.data.region[2]
+      // province_code: this.data.region[0],
+      // city_code: this.data.region[1],
+      // area_code: this.data.region[2]
+      city_code: this.data.country.split(' ')[1] || '',
+      country_code: this.data.country.split(' ')[0] || '',
+      country_desc: this.data.countryStr.split(' ')[0] || ''
     }
     console.log(params)
 
@@ -337,19 +348,35 @@ Page({
       method: 'GET',
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          if (res.data.length) {
-            res.data.forEach((item, idx, array) => {
-              item.cities.unshift({ code: "", desc: "不限" })
-            })
-          }
-          app.globalData.countries = res.data
+          // if (res.data.length) {
+          //   res.data.forEach((item, idx, array) => {
+          //     item.cities.unshift({ code: "", desc: "不限" })
+          //   })
+          // }
+          // app.globalData.countries = res.data
           var countries = res.data
+          var idx_i = 0
+          var idx_j = 0
+          // if (self.data.tag === 'edit') {
+          //   for (var i = 0; i< countries.length; i++) {
+          //     if (countries[i].code === self.data.formdata.country_code) {
+          //       idx_i = i
+          //       for (var j = 0; j< countries[idx_i].cities.length; j++) {
+          //         if (countries[idx_i].cities[j].code === self.data.formdata.city_code) {
+          //           idx_j = j
+          //           return
+          //         }
+          //       }
+          //       return
+          //     }
+          //   }
+          // }
           var arr = []
           arr[0] = countries
-          arr[1] = countries[0] ? countries[0].cities : []
+          arr[1] = countries[idx_i] ? countries[idx_i].cities : []
           self.setData({
             countryArray: arr,
-            countryIndex: [0, 0]
+            countryIndex: [idx_i, idx_j]
           })
         } else {
           console.log(res)
