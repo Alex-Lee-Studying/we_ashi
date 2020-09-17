@@ -214,7 +214,8 @@ Page({
       weight: parseInt(this.data.formdata.weight),
       address_id: this.data.address.id,
       need_agent: this.data.formdata.need_agent,
-      details: this.data.formdata.details
+      details: this.data.formdata.details,
+      freight: this.data.formdata.freight
     }
     console.log(params)
 

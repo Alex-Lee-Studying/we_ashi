@@ -21,10 +21,10 @@ Page({
   },
 
   onLoad() {
-    if (app.globalData.user && app.globalData.user.id) {
-      this.getDeliverys()
-      this.setData({ user: app.globalData.user })
-    }
+    // if (app.globalData.user && app.globalData.user.id) {
+    //   this.getDeliverys()
+    //   this.setData({ user: app.globalData.user })
+    // }
   },
 
   onShow() {
@@ -36,8 +36,23 @@ Page({
     }
 
     if (app.globalData.user && app.globalData.user.id) {
-      this.getDeliverys()
       this.setData({ user: app.globalData.user })
+    }
+
+    this.setData({
+      deliveryList: [],
+      travelList: [],
+      getTravelsFlag: true,
+      getDeliverysFlag: true,
+      currPageTravel: 0,
+      currPageDelivery: 0,
+      noMoreTravelsFlag: false,
+      noMoreDeliverysFlag: false
+    })
+    if (this.data.tabname === 'delivery') {
+      this.getDeliverys()
+    } else if (this.data.tabname === 'travel') {
+      this.getTravels()
     }
 
     console.log('app.islogin: ' + app.globalData.isLogin)
