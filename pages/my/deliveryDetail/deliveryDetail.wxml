@@ -47,8 +47,30 @@
     </view>
   </view>
 
+  <view class="addressCont">
+    <view class="title"><text>收货地址</text></view>
+    <view class="addressWrap">
+      <view class="item">
+        <text class="iconfont iconuser"></text>
+        <text>{{delivery.address.recipient}}</text>
+      </view>
+      <view class="item">
+        <text class="iconfont iconlocation"></text>
+        <text>{{delivery.address.name}} {{delivery.address.country_code}} {{delivery.address.city_code}} {{delivery.address.details}}</text>
+      </view>
+      <view class="item">
+        <text class="iconfont iconyouzhengbianma"></text>
+        <text>邮编：{{delivery.address.zipcode}}</text>
+      </view>
+      <view class="item">
+        <text class="iconfont icondianhua"></text>
+        <text>联系电话：{{delivery.address.mobile}}</text>
+      </view>
+    </view>
+  </view>
+
   <view class="listStatus">
-    <view class="title"><text>订单状态</text></view>
+    <view class="title"><text>物流状态</text></view>
     <view class="listWrap" wx:if="{{delivery.expresses !== null}}">
       <view class="listItem" wx:if="{{delivery.expresses.details.length}}" wx:for="{{delivery.expresses.details}}" wx:key="index">
         <text class="iconfont iconsuccess"></text>
@@ -58,6 +80,7 @@
         </view>        
       </view>
     </view>
+    <view wx:else style="font-size: 26rpx;color: #989898;text-align: center;">还没有物流信息！</view>
   </view>
 </view>
 
