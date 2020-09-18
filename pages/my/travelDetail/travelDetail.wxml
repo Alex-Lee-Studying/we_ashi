@@ -18,7 +18,7 @@
         <button type="primary" plain class="btnPrimary" bindtap="cancel" wx:if="{{travel.status === 'normal' && user.id === travel.user.id}}">
         停止接单
         </button>
-        <button type="primary" plain class="btnPrimary" bindtap="delTravel" wx:if="{{travel.status === 'suspend' && user.id === travel.user.id}}">
+        <button type="primary" plain class="btnPrimary" bindtap="delTravel" wx:if="{{(travel.status === 'normal' || travel.status === 'suspend') && user.id === travel.user.id}}">
         删除
         </button>
       </view>
