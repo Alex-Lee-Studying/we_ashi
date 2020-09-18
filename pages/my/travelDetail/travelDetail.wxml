@@ -11,7 +11,9 @@
         <view class="mark"><text>可带行李重量：{{travel.weight}}kg</text><text style="margin-left:20rpx;">可否代买：{{travel.agent? '是': '否'}}</text></view>
         <view class="mark"><text>备注：{{travel.details || '无'}}</text></view>
       </view>
-      <view class="right">
+      <view class="right" style="align-self:stretch;display: flex;flex-direction: column;justify-content: space-between;">
+        <view class="status blue" wx:if="{{travel.status === 'normal'}}">正常</view>
+        <view class="status red" wx:if="{{travel.status === 'suspend'}}">停止接单</view>
         <button type="primary" class="btnPrimary" plain wx:if="{{travel.status === 'suspend'}}">已停止接单</button>
         <button type="primary" plain class="btnPrimary" bindtap="cancel" wx:if="{{travel.status === 'normal' && user.id === travel.user.id}}">
         停止接单

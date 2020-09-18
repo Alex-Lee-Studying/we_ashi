@@ -74,3 +74,21 @@ page {
   color: #033150;
   font-weight: bold;
 }
+.status {
+  font-size: 32rpx;
+}
+.status.red {
+  color: #f76260;
+}
+.status.green {
+  color: #09bb07;
+}
+.status.blue {
+  color: #033150;
+}
+.status.orange {
+  color: #ff7b1a;
+}
+.status.gray {
+  color: #c9c9c9;
+}

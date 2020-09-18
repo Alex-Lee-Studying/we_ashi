@@ -17,7 +17,12 @@
         <view class="fee" wx:if="{{delivery.type === 'normal'}}"><text class="label">合计：</text><text>￥{{delivery.need_agent? (delivery.price + delivery.reward) : delivery.reward}}</text></view>
         <view class="fee" wx:if="{{delivery.type === 'offical'}}"><text class="label">合计：</text><text>￥{{delivery.price + delivery.freight}}</text></view>
       </view>
-      <view class="right">
+      <view class="right" style="align-self:stretch;display: flex;flex-direction: column;justify-content: space-between;">
+        <view class="status blue" wx:if="{{delivery.status === 'normal'}}">正常</view>
+        <view class="status blue" wx:if="{{delivery.status === 'waiting_for_pay'}}">待支付</view>
+        <view class="status blue" wx:if="{{delivery.status === 'delivering'}}">送货中</view>
+        <view class="status green" wx:if="{{delivery.status === 'eol'}}">已完成</view>
+        <view class="status gray" wx:if="{{delivery.status === 'canceled'}}">已取消</view>
         <button type="primary" plain class="btnPrimary" bindtap="cancel" wx:if="{{delivery.status === 'normal' && user.id === delivery.user.id}}">
         取消
         </button>
