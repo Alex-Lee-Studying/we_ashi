@@ -6,7 +6,7 @@
     <block wx:for='{{messageList}}' wx:key="index">
 
       <!-- 单个消息 -->
-      <view id='msg-{{index}}' class="{{item.author.id !== user.id ? 'leftItemWrap' : 'rightItemWrap'}}">
+      <view id='msg-{{index}}' class="msgItemWrap {{item.author.id !== user.id ? 'leftItemWrap' : 'rightItemWrap'}}">
         <view class="uimgWrap" wx:if="{{item.author.id !== user.id}}">
           <image src="{{item.author.avatar}}" mode="aspectFill"></image>
         </view>

@@ -1,14 +1,15 @@
 <view class="container">
   <view class="expressWrap">
-    <view class="countryWrap">
+    <!-- <view class="countryWrap">
       <image src="{{express.country_icon}}" mode="widthFix"></image>
       <text>{{express.country_desc}}</text>
-    </view>
+    </view> -->
     <view class="expressList">
       <view class="expressItem">
-        <image src="{{express.icon}}" mode="widthFix" class="logo"></image>
+        <!-- <image src="{{express.icon}}" mode="widthFix" class="logo"></image> -->
         <view class="content">
-          <text class="name">{{express.name}}</text>
+          <text class="name">国家：{{express.country_desc}}</text>
+          <text class="name">快递名称：{{express.name}}</text>
           <text class="other" hidden="{{!express.site}}">官方网站：{{express.site}}</text>
           <text class="other" hidden="{{!express.tele}}">客服电话：{{express.tele}}</text>
         </view>

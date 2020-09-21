@@ -1,10 +1,15 @@
 page {
   background-color: #f2f2f2;
 }
-
-.leftItemWrap, .rightItemWrap {
+.scrollMsg {
+  padding: 30rpx 0;
+}
+.msgItemWrap {
   display: flex;
-  margin: 30rpx 0;
+  margin-top: 30rpx;
+}
+.scrollMsg .msgItemWrap:first-child {
+  margin-top: 0;
 }
 .leftItemWrap {
   padding: 0 150rpx 0 30rpx;

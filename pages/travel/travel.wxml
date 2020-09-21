@@ -56,7 +56,7 @@
       <view class="formItem">
         <label>出发时间</label>
         <picker mode="date" value="{{formdata.dt_departure}}" bindchange="inputInfo" data-obj="formdata" data-item="dt_departure">{{formdata.dt_departure || "请选择"}}</picker>
-        <text class="iconfont iconsuccess" hidden="{{formdata.dt_departure === ''}}"></text>
+        <!-- <text class="iconfont iconsuccess" hidden="{{formdata.dt_departure === ''}}"></text> -->
       </view>
     </view>
     <view class="subWrap">
