@@ -187,6 +187,10 @@ Page({
     if (this.data.departure === '' || this.data.departure === null) {
       wx.showToast({ title: '请选择出发地', icon: 'none' })
       return
+    } 
+    if (this.data.departure.substr(this.data.departure.indexOf('@') + 1) !== 'CN') {
+      wx.showToast({ title: '出发地只能选择中国', icon: 'none' })
+      return
     }
     if (this.data.destination === '' || this.data.destination === null) {
       wx.showToast({ title: '请选择目的地', icon: 'none' })
