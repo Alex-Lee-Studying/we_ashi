@@ -343,7 +343,9 @@ Page({
     wx.openLocation({
       latitude: e.detail.latitude,
       longitude: e.detail.longitude,
-      scale: 14
+      scale: 14,
+      name: e.target.dataset.name,
+      address: e.target.dataset.address
     })
   },
 

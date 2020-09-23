@@ -29,6 +29,12 @@ Page({
         url: '/pages/user/auth/auth',
       })
     } else {
+      this.setData({
+        sessionList: [],
+        getSessionsFlag: true,
+        currPageSession: 0,
+        noMoreSessionsFlag: false
+      })
       this.getSessions()
       this.getSessionsOfsys()
     }

@@ -16,6 +16,8 @@ Page({
     searchList: [],
     latitude: '', // 纬度,
     longitude: '', // 经度
+    title: '', // POI名称
+    address: '', // 地址
     searchStr: ''
   },
   onLoad: function (options) {
@@ -36,6 +38,7 @@ Page({
                 latitude: res.latitude,
                 longitude: res.longitude
               })
+              self.getNearPoi({ latitude: res.latitude, longitude: res.longitude })
             }
           })
         } else {
@@ -49,7 +52,41 @@ Page({
   },
 
   onShow: function () {
+  },
 
+  getNearPoi (locObj) {
+    if (hasClick) return
+    hasClick = true
+
+    var self = this
+    // 调用接口
+    qqmapsdk.reverseGeocoder({
+      location: locObj,
+      get_poi: 1, //是否返回周边POI列表：1.返回；0不返回(默认),非必须参数
+      success: function (res) { //成功后的回调
+        var resdata = res.result
+        var mks = []
+        for (var i = 0; i < resdata.pois.length; i++) {
+          mks.push({ // 获取返回结果，放到mks数组中
+            title: resdata.pois[i].title,
+            id: resdata.pois[i].id,
+            address: resdata.pois[i].address,
+            latitude: resdata.pois[i].location.lat,
+            longitude: resdata.pois[i].location.lng
+          })
+        }
+        self.setData({
+          searchList: mks
+        })
+      },
+      fail: function (res) {
+        console.log(res);
+      },
+      complete: function (res) {
+        console.log(res);
+        hasClick = false
+      }
+    });
   },
 
   searchChange (e) {
@@ -113,7 +150,9 @@ Page({
     this.setData({
       curr: [item],
       latitude: item.latitude,
-      longitude: item.longitude
+      longitude: item.longitude,
+      title: item.title,
+      address: item.address
     })
   },
 
@@ -136,7 +175,9 @@ Page({
     const params = {
       type: 'location',
       longitude: this.data.longitude,             //经度
-      latitude: this.data.latitude               //纬度
+      latitude: this.data.latitude,               //纬度
+      name: this.data.title,
+      address: this.data.address
     }
     prevPage.addMessage(params)
 

@@ -86,6 +86,8 @@
             style="width: 300rpx; height: 300rpx;"
             latitude="{{item.latitude}}"
             longitude="{{item.longitude}}"
+            data-name="{{item.name}}"
+            data-address="{{item.address}}"
             show-location
             bindtap="openlocation"
           ></map>
