@@ -174,6 +174,23 @@ page {
   margin: 0 30rpx;
   padding-bottom: 30rpx;
 }
+.orders-my .itemWrap {
+  width: 100%;
+  position: relative;
+  margin-bottom: 30rpx;
+}
+.orders-my .itemWrap .remove{  
+  width: 160rpx;  
+  height: 130rpx;  
+  background-color: red; 
+  color: white; 
+  position: absolute;  
+  top: 0;  
+  right: -160rpx;  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+}  
 
 .nomore {
   height: 45rpx;

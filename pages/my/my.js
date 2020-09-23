@@ -276,5 +276,213 @@ Page({
         }
       }
     }
+  },
+
+  drawStart_delivery: function (e) {
+    var touch = e.touches[0]
+
+    for (var index in this.data.deliveryList) {
+      var item = this.data.deliveryList[index]
+      item.right = 0
+    }
+    this.setData({
+      deliveryList: this.data.deliveryList,
+      startX: touch.clientX,
+    })
+
+  },
+
+  drawMove_delivery: function (e) {
+    var touch = e.touches[0]
+    var item = e.currentTarget.dataset.item
+    var disX = this.data.startX - touch.clientX
+
+    if (disX >= 20) {
+      if (disX > this.data.delBtnWidth) {
+        disX = this.data.delBtnWidth
+      }
+      item.right = disX
+      this.setData({
+        deliveryList: this.data.deliveryList
+      })
+    } else {
+      item.right = 0
+      this.setData({
+        deliveryList: this.data.deliveryList
+      })
+    }
+  },
+
+  drawEnd_delivery: function (e) {
+    var item = e.currentTarget.dataset.item
+    if (item.right >= this.data.delBtnWidth / 2) {
+      item.right = this.data.delBtnWidth
+      this.setData({
+        deliveryList: this.data.deliveryList,
+      })
+    } else {
+      item.right = 0
+      this.setData({
+        deliveryList: this.data.deliveryList,
+      })
+    }
+  },
+
+  drawStart_travel: function (e) {
+    var touch = e.touches[0]
+
+    for (var index in this.data.travelList) {
+      var item = this.data.travelList[index]
+      item.right = 0
+    }
+    this.setData({
+      travelList: this.data.travelList,
+      startX: touch.clientX,
+    })
+
+  },
+
+  drawMove_travel: function (e) {
+    var touch = e.touches[0]
+    var item = e.currentTarget.dataset.item
+    var disX = this.data.startX - touch.clientX
+
+    if (disX >= 20) {
+      if (disX > this.data.delBtnWidth) {
+        disX = this.data.delBtnWidth
+      }
+      item.right = disX
+      this.setData({
+        travelList: this.data.travelList
+      })
+    } else {
+      item.right = 0
+      this.setData({
+        travelList: this.data.travelList
+      })
+    }
+  },
+
+  drawEnd_travel: function (e) {
+    var item = e.currentTarget.dataset.item
+    if (item.right >= this.data.delBtnWidth / 2) {
+      item.right = this.data.delBtnWidth
+      this.setData({
+        travelList: this.data.travelList,
+      })
+    } else {
+      item.right = 0
+      this.setData({
+        travelList: this.data.travelList,
+      })
+    }
+  },
+
+  delDelivery(e) {
+    var deliveryId = e.target.dataset.id
+    var idx = e.target.dataset.index
+    var self = this
+    wx.showModal({
+      title: '',
+      content: '您确定要删除此求带？',
+      // confirmText: '主操作',
+      // cancelText: '次要操作',
+      success: function (res) {
+        if (res.confirm) {
+
+          if (hasClick) return
+          hasClick = true
+          wx.showLoading()
+
+          wx.request({
+            url: app.globalData.baseUrl + '/app/v1/deliveries-removal',
+            method: 'PUT',
+            header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+            data: [deliveryId],
+            success: function (res) {
+              if (res.statusCode >= 200 && res.statusCode < 300) {
+                wx.showToast({ title: '删除成功' })
+
+                self.setData({ tabname: 'delivery', currPageDelivery: 0, getDeliverysFlag: true, noMoreDeliverysFlag: false, deliveryList: [] })
+                self.getDeliverys()
+              } else {
+                console.log(res)
+                if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+                  wx.navigateTo({
+                    url: '/pages/user/auth/auth',
+                  })
+                } else {
+                  wx.showToast({ title: res.data.msg, icon: 'none' })
+                }
+              }
+            },
+            fail: function (res) {
+              wx.showToast({ title: '系统错误', icon: 'none' })
+            },
+            complete: function (res) {
+              wx.hideLoading()
+              hasClick = false
+            }
+          })
+
+        } else if (res.cancel) {
+          console.log('用户点击次要操作')
+        }
+      }
+    })
+  },
+
+  delTravel(e) {
+    var travelId = e.target.dataset.id
+    var idx = e.target.dataset.index
+    var self = this
+    wx.showModal({
+      title: '',
+      content: '您确定要删除此出行？',
+      // confirmText: '主操作',
+      // cancelText: '次要操作',
+      success: function (res) {
+        if (res.confirm) {
+
+          if (hasClick) return
+          hasClick = true
+          wx.showLoading()
+
+          wx.request({
+            url: app.globalData.baseUrl + '/app/v1/travels-removal',
+            method: 'PUT',
+            header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+            data: [travelId],
+            success: function (res) {
+              if (res.statusCode >= 200 && res.statusCode < 300) {
+                wx.showToast({ title: '删除成功' })
+
+                self.setData({ tabname: 'travel', currPageTravel: 0, getTravelsFlag: true, noMoreTravelsFlag: false, travelList: [] })
+                self.getTravels()
+              } else {
+                console.log(res)
+                if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+                  wx.navigateTo({
+                    url: '/pages/user/auth/auth',
+                  })
+                } else {
+                  wx.showToast({ title: res.data.msg, icon: 'none' })
+                }
+              }
+            },
+            fail: function (res) {
+              wx.showToast({ title: '系统错误', icon: 'none' })
+            },
+            complete: function (res) {
+              wx.hideLoading()
+              hasClick = false
+            }
+          })
+
+        } else if (res.cancel) {
+          console.log('用户点击次要操作')
+        }
+      }
+    })
   }
 })

@@ -62,30 +62,44 @@
     </view>
 
     <view class="orders-my" wx:if="{{tabname === 'delivery'}}">
-      <view class="orderItem orderItemQD" wx:for="{{deliveryList}}" wx:key="id">
-        <view class="orderinfo">
-          <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
-          <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
-          <navigator url="{{'/pages/my/deliveryDetail/deliveryDetail?id=' + item.id}}" class="main" hover-class="none">
-            <view class="mark"><text>{{item.created}}</text></view>
-            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
-          </navigator>
-          <button open-type="share" class="right" data-type="delivery" data-item="{{item}}"><text class="iconfont iconshare"></text></button>
-        </view>
+      <view class="itemWrap" wx:for="{{deliveryList}}" wx:key="index">
+        <scroll-view scroll-x="true">
+
+          <view class="orderItem orderItemQD" data-item="{{item}}" data-index="{{index}}" bindtouchstart="drawStart_delivery" bindtouchmove="drawMove_delivery" bindtouchend="drawEnd_delivery" style="right:{{item.right}}rpx">
+            <view class="orderinfo">
+              <view class="left" wx:if="{{item.resources.length}}"><image src="{{item.resources[0].name}}" mode="aspectFill"></image></view>
+              <view class="left" wx:else><text class="iconfont iconsuitcase-2-fill"></text></view>
+              <navigator url="{{'/pages/my/deliveryDetail/deliveryDetail?id=' + item.id}}" class="main" hover-class="none">
+                <view class="mark"><text>{{item.created}}</text></view>
+                <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
+              </navigator>
+              <button open-type="share" class="right" data-type="delivery" data-item="{{item}}"><text class="iconfont iconshare"></text></button>
+            </view>
+          </view>
+          <view class="remove" bindtap="delDelivery" data-id="{{item.id}}" data-index="{{index}}">删除 </view>
+
+        </scroll-view>
       </view>
       <view class="nomore" wx:if="{{noMoreDeliverysFlag}}"><text>没有更多数据啦~</text></view>
     </view>
 
     <view class="orders-my" wx:if="{{tabname === 'travel'}}">
-      <view class="orderItem orderItemCX" wx:for="{{travelList}}" wx:key="id">
-        <view class="orderinfo">
-          <view class="left"><text class="iconfont iconplane"></text></view>
-          <navigator url="{{'/pages/my/travelDetail/travelDetail?id=' + item.id}}" class="main" hover-class="none">
-            <view class="mark"><text>{{item.dt_departure}}</text></view>
-            <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
-          </navigator>
-          <button open-type="share" class="right" data-type="travel" data-item="{{item}}"><text class="iconfont iconshare"></text></button>
-        </view>
+      <view class="itemWrap" wx:for="{{travelList}}" wx:key="index">
+        <scroll-view scroll-x="true">
+
+          <view class="orderItem orderItemCX" data-item="{{item}}" data-index="{{index}}" bindtouchstart="drawStart_travel" bindtouchmove="drawMove_travel" bindtouchend="drawEnd_travel" style="right:{{item.right}}rpx">
+            <view class="orderinfo">
+              <view class="left"><text class="iconfont iconplane"></text></view>
+              <navigator url="{{'/pages/my/travelDetail/travelDetail?id=' + item.id}}" class="main" hover-class="none">
+                <view class="mark"><text>{{item.dt_departure}}</text></view>
+                <view class="country"><text>{{item.departure}} <text class="iconfont icon-_danjiantou"></text> {{item.destination}}</text></view>
+              </navigator>
+              <button open-type="share" class="right" data-type="travel" data-item="{{item}}"><text class="iconfont iconshare"></text></button>
+            </view>
+          </view>
+          <view class="remove" bindtap="delTravel" data-id="{{item.id}}" data-index="{{index}}">删除 </view>
+
+        </scroll-view>
       </view>
       <view class="nomore" wx:if="{{noMoreTravelsFlag}}"><text>没有更多数据啦~</text></view>
     </view>
