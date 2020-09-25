@@ -6,7 +6,7 @@ App({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   globalData: {
-    baseUrl: 'https://api.ashibro.com',
+    baseUrl: 'https://dev.api.ashibro.com',
     moment: moment,
     countries: [],
     isLogin: false,
@@ -18,24 +18,24 @@ App({
     var self = this
     self.globalData.user = wx.getStorageSync('ashibro_User') || {}
 
-    wx.checkSession({
-      success() {
-        //session_key 未过期，并且在本生命周期一直有效
-        self.globalData.isLogin = true
-      },
-      fail() {
-        // session_key 已经失效，需要重新执行登录流程
-        wx.setStorage({
-          key: "ashibro_Authorization",
-          data: ''
-        })
-        wx.setStorage({
-          key: "ashibro_User",
-          data: {}
-        })
-        self.globalData.isLogin = false
-      }
-    })
+    // wx.checkSession({
+    //   success() {
+    //     //session_key 未过期，并且在本生命周期一直有效
+    //     self.globalData.isLogin = true
+    //   },
+    //   fail() {
+    //     // session_key 已经失效，需要重新执行登录流程
+    //     wx.setStorage({
+    //       key: "ashibro_Authorization",
+    //       data: ''
+    //     })
+    //     wx.setStorage({
+    //       key: "ashibro_User",
+    //       data: {}
+    //     })
+    //     self.globalData.isLogin = false
+    //   }
+    // })
 
     // 获取用户信息
     wx.getSetting({
@@ -58,7 +58,9 @@ App({
         }
       }
     })
-
+    if (wx.getStorageSync('ashibro_Authorization')) {
+      this.tokenRefresh()
+    }
     this.getMessageContext()
     this.getCountriesCities()
 
@@ -163,6 +165,40 @@ App({
       },
       complete: function (res) {
         // wx.hideLoading()
+      }
+    })
+  },
+
+  // 刷新token
+  tokenRefresh() {
+    var self = this
+
+    wx.request({
+      url: this.globalData.baseUrl + '/user/v1/token-refresh',
+      method: 'POST',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      success: function (res) {
+        console.log(res)
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.globalData.isLogin = true
+          wx.setStorage({
+            key: "ashibro_Authorization",
+            data: res.data.token
+          })
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            // wx.navigateTo({
+            //   url: '/pages/user/auth/auth',
+            // })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
       }
     })
   }

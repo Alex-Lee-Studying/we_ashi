@@ -35,6 +35,12 @@ Page({
       })
     }
 
+    if (!app.globalData.isLogin || !app.globalData.user || !app.globalData.user.id) {
+      wx.redirectTo({
+        url: '/pages/user/auth/auth',
+      })
+    }
+
     if (app.globalData.user && app.globalData.user.id) {
       this.setData({ user: app.globalData.user })
     }
