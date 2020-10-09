@@ -11,7 +11,7 @@ Page({
     console.log(option)
     if (option.id) {
       this.setData({ deliveryId: option.id })
-      this.getDelivery()
+      this.getPayResult()
     } else {
       wx.redirectTo({
         url: '/pages/order/index'
