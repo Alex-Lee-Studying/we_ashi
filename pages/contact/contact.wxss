@@ -27,6 +27,9 @@ page {
   height: 90rpx;
   border-radius: 45rpx;
 }
+.uimgWrap .iconkefu {
+  font-size: 90rpx;
+}
 
 .leftMsg {
   position: relative;

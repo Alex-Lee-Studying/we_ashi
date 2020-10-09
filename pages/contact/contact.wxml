@@ -8,7 +8,8 @@
       <!-- 单个消息 -->
       <view id='msg-{{index}}' class="msgItemWrap {{item.author.id !== user.id ? 'leftItemWrap' : 'rightItemWrap'}}">
         <view class="uimgWrap" wx:if="{{item.author.id !== user.id}}">
-          <image src="{{item.author.avatar}}" mode="aspectFill"></image>
+          <text class="iconfont iconkefu" wx:if="{{item.author_id && (item.author_id === 'internal_system_message' || item.author_id === 'internal_customer_service')}}"></text>
+          <image src="{{item.author.avatar}}" mode="aspectFill" wx:else></image>
         </view>
         <view class="{{item.author.id !== user.id ? 'leftMsg' : 'rightMsg'}}">
           <text class="iconfont iconarrow-copy absArrow" wx:if="{{item.author.id !== user.id}}"></text>
