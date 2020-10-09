@@ -196,6 +196,10 @@ Page({
       wx.showToast({ title: '请选择目的地', icon: 'none' })
       return
     }
+    if (this.data.destination.substr(this.data.destination.indexOf('@') + 1) === 'CN') {
+      wx.showToast({ title: '目的地不能选择中国', icon: 'none' })
+      return
+    }
     if (this.data.formdata.price === 'RMB' || this.data.formdata.price === null) {
       wx.showToast({ title: '请填写物品价格', icon: 'none' })
       return
