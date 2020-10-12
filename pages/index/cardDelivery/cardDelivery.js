@@ -291,7 +291,17 @@ Page({
         if (res.statusCode >= 200 && res.statusCode < 300) {
           var pages = getCurrentPages()
           var prevPage = pages[pages.length - 2]   //上一页
-          prevPage.getUserSessions()
+          const messageList = prevPage.data.messageList
+          if (res.data.travel) {
+            res.data.travel.dt_departure = res.data.travel.dt_departure ? app.globalData.moment.utc(res.data.travel.dt_departure).format('YYYY-MM-DD') : ''
+          }
+          messageList.push(res.data)
+          prevPage.setData({
+            messageList: messageList,
+            toView: 'msg-' + (messageList.length - 1),
+            showTravels: false,
+            showDeliverys: false
+          })
           wx.navigateBack({
             delta: 1
           })
