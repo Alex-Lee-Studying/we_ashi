@@ -20,6 +20,7 @@
 }
 
 .tab-bar-item {
+  position: relative;
   flex: 1;
   text-align: center;
   display: flex;
@@ -36,4 +37,18 @@
 .tab-bar-item cover-view {
   margin-top: 5rpx;
   font-size: 20rpx;
+}
+.badge {
+  display: inline-block;
+  width: 24rpx;
+  height: 24rpx;
+  line-height: 24rpx;
+  border-radius: 12rpx;
+  text-align: center;
+  font-size: 25rpx;
+  color: #fff;
+  background-color: #fa5151;
+  position: absolute;
+  top: 5rpx;
+  right: 10rpx;
 }

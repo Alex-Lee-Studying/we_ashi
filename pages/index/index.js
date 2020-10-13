@@ -72,6 +72,13 @@ Page({
         }
       }).exec();
     }
+
+    // 【消息】当有未读消息时，显示红点通知
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        hasNewMsg: false
+      })
+    }
   },
 
   onPageScroll: function (e) {
