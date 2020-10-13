@@ -179,17 +179,18 @@ page {
   position: relative;
   margin-bottom: 30rpx;
 }
-.orders-my .itemWrap .remove{  
-  width: 160rpx;  
-  height: 130rpx;  
-  background-color: red; 
-  color: white; 
-  position: absolute;  
-  top: 0;  
-  right: -160rpx;  
-  display: flex;  
-  justify-content: center;  
-  align-items: center;  
+.orders-my .itemWrap .remove{
+  width: 160rpx;
+  height: calc(100% - 20px);
+  background-color: red;
+  color: white;
+  font-size: 30rpx;
+  position: absolute;
+  top: 0;
+  right: -160rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }  
 
 .nomore {
