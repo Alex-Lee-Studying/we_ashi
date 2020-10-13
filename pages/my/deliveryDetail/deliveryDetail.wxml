@@ -40,9 +40,9 @@
         <button type="primary" class="btnPrimary" plain wx:if="{{delivery.status === 'eol' || delivery.status === 'canceled'}}">
         {{delivery.status === 'eol'? '已完成': delivery.status === 'canceled'? '已取消': ''}}
         </button>
-        <button type="primary" plain class="btnPrimary" bindtap="delDelivery" wx:if="{{(delivery.status === 'normal' || delivery.status === 'eol' || delivery.status === 'canceled') && user.id === delivery.user.id}}">
+        <!-- <button type="primary" plain class="btnPrimary" bindtap="delDelivery" wx:if="{{(delivery.status === 'normal' || delivery.status === 'eol' || delivery.status === 'canceled') && user.id === delivery.user.id}}">
         删除
-        </button>
+        </button> -->
       </view>
     </view>
   </view>
