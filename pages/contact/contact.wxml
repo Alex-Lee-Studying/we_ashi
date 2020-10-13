@@ -100,6 +100,17 @@
       </view>
 
     </block>
+    <!-- 客服欢迎语 start -->
+    <view class="msgItemWrap leftItemWrap" wx:if="{{session_id === 'internal_customer_service'}}">
+      <view class="uimgWrap">
+        <text class="iconfont iconkefu"></text>
+      </view>
+      <view class="leftMsg">
+        <text class="iconfont iconarrow-copy absArrow"></text>
+        {{serviceSlogan}}
+      </view>
+    </view>
+    <!-- 客服欢迎语 end -->
     </view>
     <!-- 占位 -->
     <view style='width: 100%; height: 18vw;'></view>

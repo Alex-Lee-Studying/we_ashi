@@ -68,7 +68,8 @@ Page({
     deliveryList: [],
     checkedTravelId: '',
     checkedDeliveryId: '',
-    nohandle: false
+    nohandle: false,
+    serviceSlogan: ''
   },
 
   /**
@@ -105,6 +106,9 @@ Page({
       this.setData({ session_id: options.sessionId })
       this.getSession(options.sessionId)
       this.getMessages(options.sessionId)
+      if (options.sessionId === 'internal_customer_service') {
+        this.getServiceSlogan()
+      }
     }
 
     if (options.nohandle) {
@@ -1004,10 +1008,11 @@ Page({
     }    
   },
 
+  // 更新会话已读时间点
   updateReadtime () {
     var self = this
     wx.request({
-      url: app.globalData.baseUrl + '/message/v1/messages-read-time',
+      url: app.globalData.baseUrl + '/message/v1/sessions/' + this.data.session_id + '/messages-read-time',
       method: 'PUT',
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       success: function (res) {
@@ -1022,7 +1027,29 @@ Page({
       complete: function (res) {
       }
     })
-  }
+  },
+
+  // 客服欢迎语
+  getServiceSlogan() {
+    var self = this
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/customer-service-slogan',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.setData({
+            serviceSlogan: res.data.slogan
+          })
+        }
+      },
+      fail: function (res) {
+        console.log(res)
+        // wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+      }
+    })
+  },
 })
 
 var formdata=function(obj = {}) {
