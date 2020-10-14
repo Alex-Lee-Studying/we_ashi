@@ -54,10 +54,11 @@ Page({
       this.getTravels()
     }
     
-    // 设置tabbar选中
+    // 设置tabbar选中 | 【消息】当有未读消息时，显示红点通知
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
-        selected: 0
+        selected: 0,
+        msgUnread: app.globalData.msgUnread
       })
     }
 
@@ -71,13 +72,6 @@ Page({
           })
         }
       }).exec();
-    }
-
-    // 【消息】当有未读消息时，显示红点通知
-    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-      this.getTabBar().setData({
-        hasNewMsg: false
-      })
     }
   },
 

@@ -1,6 +1,6 @@
 Component({
   data: {
-    hasNewMsg: false,
+    msgUnread: 0,
     selected: 0,
     color: "#333333",
     selectedColor: "#fff",

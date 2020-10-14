@@ -3,6 +3,6 @@
   <cover-view wx:for="{{list}}" wx:key="index" class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab" style="background-color: {{selected === index ? selectedBackgroundColor : backgroundColor}}">
     <cover-image src="{{selected === index ? item.selectedIconPath : item.iconPath}}"></cover-image>
     <cover-view style="color: {{selected === index ? selectedColor : color}}">{{item.text}}</cover-view>
-    <cover-view class="badge" wx:if="{{item.text === '消息' && hasNewMsg}}"></cover-view>
+    <cover-view class="badge" wx:if="{{item.text === '消息' && msgUnread > 0}}"></cover-view>
   </cover-view>
 </cover-view>

@@ -12,7 +12,8 @@ App({
     isLogin: false,
     userInfo: null, // 微信用户信息
     user: null, // 登录之后服务器返回的用户信息
-    msgContext: {} // 消息上下文
+    msgContext: {}, // 消息上下文
+    msgUnread: 0 //消息未读数
   },  
   onLaunch: function () {
     var self = this
@@ -65,6 +66,9 @@ App({
     this.getCountriesCities()
 
     this.globalData.isIphoneX = this.isIphoneX()
+
+    this.getSessions()
+    this.getSessionsOfsys()
   },
 
   isIphoneX() {
@@ -190,6 +194,72 @@ App({
             // wx.navigateTo({
             //   url: '/pages/user/auth/auth',
             // })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+      }
+    })
+  },
+
+  // 获取对话列表
+  getSessions() {
+    var self = this
+
+    wx.request({
+      url: this.globalData.baseUrl + '/message/v1/sessions',
+      method: 'GET',
+      header: { 'page': 0, 'page-size': 9999, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length) {
+            res.data.forEach((item, index, arr) => {
+              self.globalData.msgUnread += item.unread
+            })
+          }
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+      }
+    })
+  },
+
+  // 获取系统消息客户消息对话列表
+  getSessionsOfsys() {
+    var self = this
+    wx.request({
+      url: this.globalData.baseUrl + '/message/v1/sessions',
+      method: 'GET',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: { internal: true },
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length) {
+            res.data.forEach((item, index, arr) => {
+              self.globalData.msgUnread += item.unread
+            })
+          }
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
           } else {
             wx.showToast({ title: res.data.msg, icon: 'none' })
           }

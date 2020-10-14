@@ -17,10 +17,11 @@ Page({
 
   onShow: function () {
     this.setData({ getSessionsFlag: true})
-    // 设置tabbar选中
+    // 设置tabbar选中 | 【消息】当有未读消息时，显示红点通知
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
-        selected: 3
+        selected: 3,
+        msgUnread: app.globalData.msgUnread
       })
     }
     
@@ -35,6 +36,7 @@ Page({
         currPageSession: 0,
         noMoreSessionsFlag: false
       })
+      app.globalData.msgUnread = 0
       this.getSessions()
       this.getSessionsOfsys()
     }
@@ -91,6 +93,10 @@ Page({
             var list = self.data.sessionList.concat(sessionArr)
             self.setData({
               sessionList: list
+            })
+            // 统计消息未读数
+            res.data.forEach((item, index, arr) => {
+              app.globalData.msgUnread += item.unread
             })
           }
           var nextPage = ++self.data.currPageSession
@@ -158,6 +164,10 @@ Page({
             }
             self.setData({
               sessionListOfsys: sessionArr
+            })
+            // 统计消息未读数
+            res.data.forEach((item, index, arr) => {
+              app.globalData.msgUnread += item.unread
             })
           }
         } else {
