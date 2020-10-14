@@ -27,7 +27,7 @@
         <text class="tab checked" wx:if="{{tabname === 'travel'}}">可帮带</text>
         <text class="tab" data-tab="travel" bindtap="changeTab" wx:else>可帮带</text>
       </view>
-      <navigator url="{{'/pages/index/cityFilter/cityFilter?type=' + tabname}}" hover-class="none">
+      <navigator url="{{'/pages/index/cityFilter/cityFilter?type=' + tabname + '&departure=' + filter.departure + '&destination=' + filter.destination + '&departureStr=' + filter.departureStr + '&destinationStr=' + filter.destinationStr}}" hover-class="none">
         <text class="search">筛选</text>
         <text class="iconfont iconfilter"></text>
       </navigator>

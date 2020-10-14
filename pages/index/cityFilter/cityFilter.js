@@ -14,7 +14,11 @@ Page({
 
   onLoad(options) {
     this.setData({
-      type: options.type
+      type: options.type,
+      departure: options.departure,
+      destination: options.destination,
+      departureStr: options.departureStr,
+      destinationStr: options.destinationStr
     })
   },
 
@@ -98,14 +102,22 @@ Page({
     if (this.data.type === 'delivery') {
       prevPage.setData({
         tabname: 'delivery',
-        departure: this.data.departure,
-        destination: this.data.destination,
+        filter: {
+          departure: this.data.departure,
+          destination: this.data.destination,
+          departureStr: this.data.departureStr,
+          destinationStr: this.data.destinationStr
+        }
       })
     } else if (this.data.type === 'travel') {
       prevPage.setData({
         tabname: 'travel',
-        departure: this.data.departure,
-        destination: this.data.destination,
+        filter: {
+          departure: this.data.departure,
+          destination: this.data.destination,
+          departureStr: this.data.departureStr,
+          destinationStr: this.data.destinationStr
+        }
       })
     }
     

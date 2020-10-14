@@ -7,8 +7,12 @@ Page({
     navbarInitTop: 0, //导航栏初始化距顶部的距离
     isFixedTop: false, //是否固定顶部
     tabname: 'delivery',
-    departure: '',
-    destination: '',
+    filter: {
+      departure: '',
+      destination: '',
+      departureStr: '',
+      destinationStr: ''
+    },
     travelSearch: {
       start_time: '',
       end_time: ''
@@ -100,10 +104,15 @@ Page({
 
   changeTab(e) {
     var tab = e.currentTarget.dataset.tab
+    this.data.filter = {
+      departure: '',
+      destination: '',
+      departureStr: '',
+      destinationStr: ''
+    }
     this.setData({ 
       tabname: tab,
-      departure: '',
-      destination: ''
+      filter: this.data.filter
     })
     if (tab === 'delivery') {
       this.getDeliverys()
@@ -115,8 +124,8 @@ Page({
   getTravels() {
     var self = this
     var params = {
-      departure: this.data.departure,
-      destination: this.data.destination,
+      departure: this.data.filter.departure,
+      destination: this.data.filter.destination,
       // start_time: this.data.travelSearch.start_time,
       // end_time: this.data.travelSearch.end_time
     }
@@ -184,8 +193,8 @@ Page({
   getDeliverys() {
     var self = this
     var params = {
-      departure: this.data.departure,
-      destination: this.data.destination,
+      departure: this.data.filter.departure,
+      destination: this.data.filter.destination,
       type: 'normal'
     }
 
