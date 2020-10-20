@@ -6,6 +6,13 @@
   "description": "脚递",
   "glyphs": [
     {
+      "icon_id": "8657641",
+      "name": "购物袋",
+      "font_class": "gouwudai1",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
       "icon_id": "6005427",
       "name": "错误",
       "font_class": "cuowu1",

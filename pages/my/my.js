@@ -11,13 +11,17 @@ Page({
     tabname: 'delivery',
     travelList: [],
     deliveryList: [],
+    officalList: [],
     pageSize: 5,
     getTravelsFlag: true,
     getDeliverysFlag: true,
+    getOfficalsFlag: true,
     currPageTravel: 0,
     currPageDelivery: 0,
+    currPageOffical: 0,
     noMoreTravelsFlag: false,
-    noMoreDeliverysFlag: false
+    noMoreDeliverysFlag: false,
+    noMoreOfficalsFlag: false
   },
 
   onLoad() {
@@ -49,18 +53,25 @@ Page({
     this.setData({
       deliveryList: [],
       travelList: [],
+      officalList: [],
       getTravelsFlag: true,
       getDeliverysFlag: true,
+      getOfficalsFlag: true,
       currPageTravel: 0,
       currPageDelivery: 0,
+      currPageOffical: 0,
       noMoreTravelsFlag: false,
-      noMoreDeliverysFlag: false
+      noMoreDeliverysFlag: false,
+      noMoreOfficalsFlag: false
     })
     if (this.data.tabname === 'delivery') {
       this.getDeliverys()
     } else if (this.data.tabname === 'travel') {
       this.getTravels()
+    } else if (this.data.tabname === 'offical') {
+      this.getOfficals()
     }
+    
 
     console.log('app.islogin: ' + app.globalData.isLogin)
     this.setData({ isLogin: app.globalData.isLogin })
@@ -107,7 +118,9 @@ Page({
       this.getDeliverys()
     } else if (this.data.tabname === 'travel') {
       this.getTravels()
-    }
+    } else if (this.data.tabname === 'offical') {
+      this.getOfficals()
+    }    
   },
 
   changeTab(e) {
@@ -117,7 +130,9 @@ Page({
       this.getDeliverys()
     } else if (tab === 'travel') {
       this.getTravels()
-    }
+    } else if (tab === 'offical') {
+      this.getOfficals()
+    } 
   },
   getTravels() {
     var self = this
@@ -188,7 +203,8 @@ Page({
   getDeliverys() {
     var self = this
     var params = {
-      user_id: app.globalData.user.id
+      user_id: app.globalData.user.id,
+      type: 'normal'
     }
 
     if (!this.data.getDeliverysFlag) return
@@ -250,6 +266,72 @@ Page({
     })
   },
 
+  getOfficals() {
+    var self = this
+    var params = {
+      user_id: app.globalData.user.id,
+      type: 'offical'
+    }
+
+    if (!this.data.getOfficalsFlag) return
+    this.setData({ getOfficalsFlag: false })
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/deliveries',
+      method: 'GET',
+      header: { 'page': this.data.currPageOffical, 'page-size': this.data.pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length < self.data.pageSize) {
+            var reqState = false
+            self.setData({
+              noMoreOfficalsFlag: true
+            })
+          } else {
+            var reqState = true
+          }
+          res.data.forEach((item, index, array) => {
+            item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+            item.departure = item.departure.indexOf('@') === 0 ? item.departure.slice(1) : item.departure
+            item.destination = item.destination.indexOf('@') === 0 ? item.destination.slice(1) : item.destination
+            item.departure = item.departure ? item.departure.replace('@', ',') : ''
+            item.destination = item.destination ? item.destination.replace('@', ',') : ''
+          })
+
+          var list = self.data.officalList.concat(res.data)
+          var nextPage = ++self.data.currPageOffical
+          self.setData({
+            officalList: list,
+            getOfficalsFlag: reqState,
+            currPageOffical: nextPage
+          })
+        } else {
+          self.setData({
+            getOfficalsFlag: true
+          })
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+        self.setData({
+          getOfficalsFlag: true
+        })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })
+  },
+
   onShareAppMessage(option) {
     if (option.from === 'button') {
       var path = ''
@@ -259,7 +341,7 @@ Page({
       if (type === 'travel') {
         path = '/pages/my/travelDetail/travelDetail?id=' + item.id
         imageUrl = '/images/plane.png'
-      } else if (type === 'delivery') {
+      } else if (type === 'delivery' || type === 'offical') {
         path = '/pages/my/deliveryDetail/deliveryDetail?id=' + item.id
         imageUrl = (item.resources[0] && item.resources[0].name) || '/images/travel.png'
       }
@@ -385,6 +467,56 @@ Page({
     }
   },
 
+  drawStart_offical: function (e) {
+    var touch = e.touches[0]
+
+    for (var index in this.data.officalList) {
+      var item = this.data.officalList[index]
+      item.right = 0
+    }
+    this.setData({
+      officalList: this.data.officalList,
+      startX: touch.clientX,
+    })
+
+  },
+
+  drawMove_offical: function (e) {
+    var touch = e.touches[0]
+    var item = e.currentTarget.dataset.item
+    var disX = this.data.startX - touch.clientX
+
+    if (disX >= 20) {
+      if (disX > this.data.delBtnWidth) {
+        disX = this.data.delBtnWidth
+      }
+      item.right = disX
+      this.setData({
+        officalList: this.data.officalList
+      })
+    } else {
+      item.right = 0
+      this.setData({
+        officalList: this.data.officalList
+      })
+    }
+  },
+
+  drawEnd_offical: function (e) {
+    var item = e.currentTarget.dataset.item
+    if (item.right >= this.data.delBtnWidth / 2) {
+      item.right = this.data.delBtnWidth
+      this.setData({
+        officalList: this.data.officalList,
+      })
+    } else {
+      item.right = 0
+      this.setData({
+        officalList: this.data.officalList,
+      })
+    }
+  },
+
   delDelivery(e) {
     var deliveryId = e.target.dataset.id
     var idx = e.target.dataset.index
@@ -466,6 +598,60 @@ Page({
 
                 self.setData({ tabname: 'travel', currPageTravel: 0, getTravelsFlag: true, noMoreTravelsFlag: false, travelList: [] })
                 self.getTravels()
+              } else {
+                console.log(res)
+                if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+                  wx.navigateTo({
+                    url: '/pages/user/auth/auth',
+                  })
+                } else {
+                  wx.showToast({ title: res.data.msg, icon: 'none' })
+                }
+              }
+            },
+            fail: function (res) {
+              wx.showToast({ title: '系统错误', icon: 'none' })
+            },
+            complete: function (res) {
+              wx.hideLoading()
+              hasClick = false
+            }
+          })
+
+        } else if (res.cancel) {
+          console.log('用户点击次要操作')
+        }
+      }
+    })
+  },
+
+  delOffical(e) {
+    var deliveryId = e.target.dataset.id
+    var idx = e.target.dataset.index
+    var self = this
+    wx.showModal({
+      title: '',
+      content: '您确定要删除此官方订单吗？',
+      // confirmText: '主操作',
+      // cancelText: '次要操作',
+      success: function (res) {
+        if (res.confirm) {
+
+          if (hasClick) return
+          hasClick = true
+          wx.showLoading()
+
+          wx.request({
+            url: app.globalData.baseUrl + '/app/v1/deliveries-removal',
+            method: 'PUT',
+            header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+            data: [deliveryId],
+            success: function (res) {
+              if (res.statusCode >= 200 && res.statusCode < 300) {
+                wx.showToast({ title: '删除成功' })
+
+                self.setData({ tabname: 'offical', currPageOffical: 0, getOfficalsFlag: true, noMoreOfficalsFlag: false, officalList: [] })
+                self.getOfficals()
               } else {
                 console.log(res)
                 if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {

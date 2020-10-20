@@ -129,19 +129,19 @@ page {
   box-shadow: 0 0 84rpx 0 rgba(45,45,45,.11);
 }
 .tabs-my .tabItem+.tabItem {
-  margin-left: 20rpx;
+  margin-left: 15rpx;
 }
 .tabs-my .tabItem text {
   display: block;
 }
 .tabs-my .tabItem .tabLeft {
-  margin-right: 25rpx;
+  margin-right: 21rpx;
 }
 .tabs-my .tabItem .tabRight {
 
 }
 .tabs-my .tabItem .iconfont {
-  font-size: 60rpx;  
+  font-size: 50rpx;  
   background-image: -webkit-gradient(linear, left 0, right 0, from(#033150), to(#1281cb));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
