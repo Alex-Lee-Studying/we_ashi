@@ -1,7 +1,7 @@
 <wxs module="filter" src="../../utils/filter.wxs"></wxs>
 <view>
 
-  <scroll-view scroll-y scroll-into-view='{{toView}}' style='height: {{scrollHeight}};' scroll-with-animation="{{true}}" bindscrolltoupper="loadMoreMessage">
+  <scroll-view scroll-y scroll-into-view='{{toView}}' style='height: {{scrollHeight}};' scroll-with-animation="{{false}}" bindscrolltoupper="loadMoreMessage">
     <view class='scrollMsg'>
     <block wx:for='{{messageList}}' wx:key="index">
 
