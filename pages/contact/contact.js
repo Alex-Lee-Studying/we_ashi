@@ -214,14 +214,13 @@ Page({
   focus: function (e) {
     keyHeight = e.detail.height
     this.setData({
+      scrollHeight: (windowHeight - keyHeight) + 'px'
+    })
+    this.setData({
       currBtn: '',
-      scrollHeight: (windowHeight - keyHeight) + 'px',
       toView: 'msg-' + (this.data.messageList.length - 1),
       inputBottom: keyHeight + 'px'
     })
-    //计算msg高度
-    // calScrollHeight(this, keyHeight);
-
   },
 
   //失去聚焦(软键盘消失)
@@ -230,6 +229,9 @@ Page({
       scrollHeight: '100vh',
       inputBottom: '0px',
       cursor: e.detail.cursor || 0
+    })
+    this.setData({
+      toView: 'msg-' + (this.data.messageList.length - 1)
     })
   },
 
