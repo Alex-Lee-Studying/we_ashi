@@ -9,7 +9,8 @@ Page({
     pageSize: 20,
     getSessionsFlag: true,
     currPageSession: 0,
-    noMoreSessionsFlag: false
+    noMoreSessionsFlag: false,
+    lastInternalSystemMessage: {}
   },
 
   onLoad: function () {
@@ -39,6 +40,7 @@ Page({
       app.globalData.msgUnread = 0
       this.getSessions()
       this.getSessionsOfsys()
+      this.getInternalSystemMessages()
     }
   },
 
@@ -288,6 +290,40 @@ Page({
         } else if (res.cancel) {
           console.log('用户点击次要操作')
         }
+      }
+    })
+  },
+
+  // 系统消息列表
+  getInternalSystemMessages() {
+    var self = this
+
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/message/v1/sessions/internal_system_message/messages',
+      method: 'GET',
+      header: { 'page': 0, 'page-size': 20, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.setData({
+            lastInternalSystemMessage: res.data.length? res.data[0]: {}
+          })
+        } else {
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
       }
     })
   }

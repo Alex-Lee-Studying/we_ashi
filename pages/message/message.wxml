@@ -8,7 +8,7 @@
       </navigator>
       <navigator wx:if="{{item.id === 'internal_system_message'}}" class="msgItem" url="{{'/pages/contact/contact?sessionId=' + item.id + '&nohandle=true'}}" hover-class="none">
         <view class="left"><text class="iconfont iconlingdang"></text></view>
-        <view class="right"><text class="title">系统通知</text><text class="desc">新人必得的奖励</text></view>
+        <view class="right"><text class="title">系统通知</text><text class="desc">{{lastInternalSystemMessage.content || '新人必得的奖励'}}</text></view>
         <view class="unread" wx:if="{{item.unread>0}}">{{item.unread}}</view>
       </navigator>
     </block>

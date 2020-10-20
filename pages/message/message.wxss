@@ -59,6 +59,10 @@ page {
   font-size: 20rpx;
   color: #989898;
   margin-top: 10rpx;
+  width: 526rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 .msgWrap .msgItem .unread {
   width: 35rpx;
