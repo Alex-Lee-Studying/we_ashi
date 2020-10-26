@@ -4,13 +4,14 @@ Page({
   data: {
     deliveryId: null,
     delivery: {},
-    payment: {}
+    payment: null
   },
 
   onLoad(option) {
     console.log(option)
     if (option.id) {
       this.setData({ deliveryId: option.id })
+      this.getDelivery()
       this.getPayResult()
     } else {
       wx.redirectTo({
@@ -22,8 +23,8 @@ Page({
   getDelivery: function () {
     var self = this
 
-    if (hasClick) return
-    hasClick = true
+    // if (hasClick) return
+    // hasClick = true
     wx.showLoading()
 
     wx.request({
@@ -47,7 +48,7 @@ Page({
       },
       complete: function (res) {
         wx.hideLoading()
-        hasClick = false
+        // hasClick = false
       }
     })
   },
@@ -70,7 +71,7 @@ Page({
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({
-            payment: res.data[0]
+            payment: res.data[0] || {}
           })
         } else {
           console.log(res)

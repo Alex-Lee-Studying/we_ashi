@@ -4,7 +4,7 @@ Page({
   data: {
     deliveryId: null,
     delivery: {},
-    payment: {},
+    payment: null,
     target_user_id: ''
   },
 
@@ -53,7 +53,7 @@ Page({
           res.data.destination = res.data.destination ? res.data.destination.replace('@', ',') : ''
           self.setData({ 
             delivery: res.data,
-            target_user_id: res.data.travel.user.id
+            target_user_id: res.data.travel !== null ? res.data.travel.user.id : ''
           })
         } else {
           console.log(res)
@@ -88,7 +88,7 @@ Page({
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({
-            payment: res.data[0]
+            payment: res.data[0] || {}
           })
           if (self.data.payment.status === 'success') {
             const params = {

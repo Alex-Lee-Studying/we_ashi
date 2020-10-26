@@ -1,22 +1,24 @@
 <view class="container">
-  <view class="successWrap" wx:if="{{payment.status === 'success'}}">
-    <view class="status">
-      <text class="iconfont iconsuccess"></text>
-      <text class="statusstr">支付成功</text>
+  <block wx:if="{{delivery.status && payment !== null}}">
+    <view class="successWrap" wx:if="{{payment.status === 'success'}}">
+      <view class="status">
+        <text class="iconfont iconsuccess"></text>
+        <text class="statusstr">支付成功</text>
+      </view>
+      <view class="notice">
+        <text class="title">我们会尽快为您匹配！</text>
+      </view>
+      <view class="notice" wx:if="{{delivery.offical_address && delivery.offical_address.id}}">
+        <text class="title">请将物品送到</text>
+        <text class="cont1">{{delivery.offical_address.country_desc}} {{delivery.offical_address.details}} </text>
+        <text class="cont2">{{delivery.offical_address.recipient}}收</text>
+      </view>
     </view>
-    <view class="notice">
-      <text class="title">我们会尽快为您匹配！</text>
+    <view class="successWrap" wx:else>
+      <view class="status">
+        <text class="iconfont iconzhifushibai"></text>
+        <text class="statusstr">支付失败</text>
+      </view>
     </view>
-    <!-- <view class="notice">
-      <text class="title">请将物品送到</text>
-      <text class="cont1">{{delivery.offical_address.country_desc}} {{delivery.offical_address.details}} </text>
-      <text class="cont2">{{delivery.offical_address.recipient}}收</text>
-    </view> -->
-  </view>
-  <view class="successWrap" wx:else>
-    <view class="status">
-      <text class="iconfont iconzhifushibai"></text>
-      <text class="statusstr">支付失败</text>
-    </view>
-  </view>
+  </block>
 </view>
