@@ -87,16 +87,16 @@ page {
   font-size: 24rpx;
   color: #999;
 }
-.listStatus .listWrap .listItem:first-child {
+.listStatus .listWrap .listItem.success {
   border-left: 4rpx solid #033150;
 }
-.listStatus .listWrap .listItem:first-child .iconfont {
+.listStatus .listWrap .listItem.success .iconfont {
   color: #033150;
 }
-.listStatus .listWrap .listItem:first-child .info {
+.listStatus .listWrap .listItem.success .info {
   color: #033150;
 }
-.listStatus .listWrap .listItem:first-child .datetime {
+.listStatus .listWrap .listItem.success .datetime {
   color: #666;
 }
 .listStatus .listWrap .listItem:last-child {

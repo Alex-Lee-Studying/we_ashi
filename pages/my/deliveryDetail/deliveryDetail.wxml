@@ -14,8 +14,9 @@
         <view class="fee"><text class="label">物品价格：</text><text>￥{{delivery.price}}</text></view>
         <view class="fee" wx:if="{{delivery.type === 'normal'}}"><text class="label">帮带报酬：</text><text>￥{{delivery.reward}}</text></view>
         <view class="fee" wx:if="{{delivery.type === 'offical'}}"><text class="label">运费：</text><text>￥{{delivery.freight}}</text></view>
+        <view class="fee" wx:if="{{delivery.type === 'offical'}}"><text class="label">服务费：</text><text>￥{{delivery.freight * delivery.fee_rate}}</text></view>
         <view class="fee" wx:if="{{delivery.type === 'normal'}}"><text class="label">合计：</text><text>￥{{delivery.need_agent? (delivery.price + delivery.reward) : delivery.reward}}</text></view>
-        <view class="fee" wx:if="{{delivery.type === 'offical'}}"><text class="label">合计：</text><text>￥{{delivery.price + delivery.freight}}</text></view>
+        <view class="fee" wx:if="{{delivery.type === 'offical'}}"><text class="label">合计：</text><text>￥{{delivery.price + delivery.freight + delivery.freight * delivery.fee_rate}}</text></view>
       </view>
       <view class="right" style="align-self:stretch;display: flex;flex-direction: column;justify-content: space-between;">
         <view class="status blue" wx:if="{{delivery.status === 'normal'}}">正常</view>
@@ -29,6 +30,11 @@
         <button type="primary" class="btnPrimary" wx:if="{{delivery.status === 'waiting_for_pay' && user.id === delivery.user.id}}">
           <navigator url="{{'/pages/order/pay/pay?id=' + delivery.id}}" hover-class="none">
             去支付
+          </navigator>
+        </button>
+        <button type="primary" class="btnPrimary">
+          <navigator url="{{'/pages/contact/contact?sessionId=internal_customer_service'}}" hover-class="none">
+            联系客服
           </navigator>
         </button>
         <button type="primary" class="btnPrimary" bindtap="toUpdateDeliver" wx:if="{{delivery.status === 'delivering' && user.id === delivery.travel.user.id}}">
@@ -69,10 +75,63 @@
     </view>
   </view>
 
-  <view class="listStatus">
+  <view class="addressCont" wx:if="{{delivery.type === 'offical'}}">
+    <view class="title"><text>寄送地址</text></view>
+    <view class="addressWrap">
+      <view class="item">
+        <text class="iconfont iconuser"></text>
+        <text>{{delivery.offical_address.recipient}}</text>
+      </view>
+      <view class="item">
+        <text class="iconfont iconlocation"></text>
+        <text>{{delivery.offical_address.name}} {{delivery.offical_address.country_code}} {{delivery.offical_address.city_code}} {{delivery.offical_address.details}}</text>
+      </view>
+      <view class="item">
+        <text class="iconfont iconyouzhengbianma"></text>
+        <text>邮编：{{delivery.offical_address.zipcode}}</text>
+      </view>
+      <view class="item">
+        <text class="iconfont icondianhua"></text>
+        <text>联系电话：{{delivery.offical_address.mobile}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="listStatus" wx:if="{{delivery.type === 'offical'}}">
+    <view class="title"><text>订单状态</text></view>
+    <view class="listWrap">
+      <view class="{{(delivery.status === 'waiting_for_pay' || delivery.status === 'delivering' || delivery.status === 'eol')? 'success listItem' : 'listItem'}}">
+        <text class="iconfont iconsuccess"></text>
+        <text class="info">等待付款</text>
+        <text class="datetime"></text>
+      </view>
+      <view class="{{(delivery.status === 'eol' || delivery.status === 'delivering')? 'success listItem' : 'listItem'}}">
+        <text class="iconfont iconsuccess"></text>
+        <text class="info">订单支付成功</text>
+        <text class="datetime"></text>
+      </view>
+      <view class="{{(delivery.status === 'eol' || delivery.status === 'delivering')? 'success listItem' : 'listItem'}}">
+        <text class="iconfont iconsuccess"></text>
+        <text class="info">等待揽收</text>
+        <text class="datetime"></text>
+      </view>
+      <view class="{{(delivery.status === 'eol' || delivery.status === 'delivering')? 'success listItem' : 'listItem'}}">
+        <text class="iconfont iconsuccess"></text>
+        <text class="info">订单派送中</text>
+        <text class="datetime"></text>
+      </view>
+      <view class="{{(delivery.status === 'eol')? 'success listItem' : 'listItem'}}">
+        <text class="iconfont iconsuccess"></text>
+        <text class="info">确认收货</text>
+        <text class="datetime"></text>
+      </view>
+    </view>
+  </view>
+
+  <view class="listStatus" wx:if="{{delivery.type === 'normal'}}">
     <view class="title"><text>物流状态</text></view>
     <view class="listWrap" wx:if="{{delivery.expresses !== null}}">
-      <view class="listItem" wx:if="{{delivery.expresses.details.length}}" wx:for="{{delivery.expresses.details}}" wx:key="index">
+      <view class="listItem success" wx:if="{{delivery.expresses.details.length}}" wx:for="{{delivery.expresses.details}}" wx:key="index">
         <text class="iconfont iconsuccess"></text>
         <view>
           <text class="datetime">{{item.timestamp}}</text>
