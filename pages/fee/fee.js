@@ -17,13 +17,13 @@ Page({
     },
     typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他'],
     expressFee: 0,
-    serviceFee: 0,
     total: 0,
     responseObj: {},
     multiArray: [],
     multiIndex: [0, 0],
     showChannels: false,
-    channels: [{ name: '空运', value: 'air', disabled: false }, { name: '陆运', value: 'land', disabled: false }] // { name: '海运', value: 'sea', disabled: true }
+    channels: [{ name: '空运', value: 'air', disabled: false }, { name: '陆运', value: 'land', disabled: false }], // { name: '海运', value: 'sea', disabled: true }
+    fee_rate: 0
   },
   onLoad: function () {
   },
@@ -47,6 +47,7 @@ Page({
         multiIndex: [0, 0]
       })
     }
+    this.getFeerate()
   },
 
   pickerCountry(e) {
@@ -169,6 +170,10 @@ Page({
     //   wx.showToast({ title: '请填写快递类型', icon: 'none' })
     //   return
     // }
+    if (this.data.departure.substr(this.data.departure.indexOf('@') + 1) !== 'CN' && this.data.destination.substr(this.data.destination.indexOf('@') + 1) !== 'CN') {
+      wx.showToast({ title: '出发地和目的地至少有一个为中国', icon: 'none' })
+      return
+    }
     var params = {
       departure: this.data.departure,
       destination: this.data.destination,
@@ -250,6 +255,32 @@ Page({
       },
       complete: function (res) {
         // wx.hideLoading()
+      }
+    })
+  },
+
+  // 获取平台费率
+  getFeerate() {
+    var self = this
+
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/feerate',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.setData({ fee_rate: res.data.fee_rate })
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
       }
     })
   }

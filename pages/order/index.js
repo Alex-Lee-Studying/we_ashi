@@ -14,6 +14,7 @@ Page({
       need_agent: true,
       details: '',
       freight: '',
+      fee_rate: '',
       channel: 'air'
     },
     responseObj: {},
@@ -47,6 +48,7 @@ Page({
         multiIndex: [0, 0]
       })
     }
+    this.getFeerate()
   },
 
   pickerCountry(e) {
@@ -328,7 +330,15 @@ Page({
     if (this.data.departure === '' || this.data.departure === null) {
       return
     }
+    if (this.data.departure.substr(this.data.departure.indexOf('@') + 1) !== 'CN') {
+      wx.showToast({ title: '出发地只能选择中国', icon: 'none' })
+      return
+    }
     if (this.data.destination === '' || this.data.destination === null) {
+      return
+    }
+    if (this.data.destination.substr(this.data.destination.indexOf('@') + 1) === 'CN') {
+      wx.showToast({ title: '目的地不能选择中国', icon: 'none' })
       return
     }
     if (this.data.formdata.weight === '' || this.data.formdata.weight === null) {
@@ -428,6 +438,33 @@ Page({
       },
       complete: function (res) {
         // wx.hideLoading()
+      }
+    })
+  },
+
+  // 获取平台费率
+  getFeerate() {
+    var self = this
+
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/feerate',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.data.formdata.fee_rate = res.data.fee_rate
+          self.setData({ formdata: self.data.formdata })
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
       }
     })
   }

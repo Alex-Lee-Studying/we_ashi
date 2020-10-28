@@ -43,7 +43,7 @@
   </view>
 
   <view class="priceWrap" style="bottom: {{isIphoneX? '168rpx': '99rpx'}}">
-    <text>运费：¥{{expressFee}}</text><text>服务费：¥{{serviceFee}}</text><text class="total">总计运费：¥{{expressFee + serviceFee}}</text>
+    <text>运费：¥{{expressFee}}</text><text>服务费：¥{{expressFee * fee_rate}}</text><text class="total">总计运费：¥{{expressFee + expressFee * fee_rate}}</text>
   </view>
 
 </view>
