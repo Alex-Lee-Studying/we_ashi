@@ -12,7 +12,8 @@ Page({
       item_type: '',
       price: null,
       weight: null,
-      express: ''
+      express: '',
+      channel: 'air'
     },
     typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他'],
     expressFee: 0,
@@ -20,7 +21,9 @@ Page({
     total: 0,
     responseObj: {},
     multiArray: [],
-    multiIndex: [0, 0]
+    multiIndex: [0, 0],
+    showChannels: false,
+    channels: [{ name: '空运', value: 'air', disabled: false }, { name: '陆运', value: 'land', disabled: false }] // { name: '海运', value: 'sea', disabled: true }
   },
   onLoad: function () {
   },
@@ -76,6 +79,18 @@ Page({
         destinationStr: countryStr,
         picker: ''
       })
+      // 目的地为俄罗斯时 显示“运输方式”
+      if (this.data.destination.substr(this.data.destination.indexOf('@') + 1) === 'RU') {
+        this.setData({
+          showChannels: true
+        })
+      } else {
+        this.data.formdata.channel = 'air'
+        this.setData({
+          showChannels: false,
+          formdata: this.data.formdata
+        })
+      }
     }
 
     this.doCalculate()
@@ -117,6 +132,17 @@ Page({
       formdata: this.data[dataset.obj]
     })
   },
+
+  channelChange(e) {
+    let dataset = e.currentTarget.dataset;
+    let channel = e.detail.value;
+    this.data[dataset.obj][dataset.item] = channel;
+    this.setData({
+      formdata: this.data[dataset.obj]
+    })
+    this.doCalculate()
+  },
+
   doCalculate: function() {
     var self = this
     if (this.data.departure === '' || this.data.departure === null) {
@@ -149,6 +175,7 @@ Page({
       item_type: this.data.formdata.item_type,
       price: parseInt(this.data.formdata.price),
       weight: parseInt(this.data.formdata.weight),
+      channel: this.data.formdata.channel
       // express: this.data.formdata.express,
     }
     console.log(params)

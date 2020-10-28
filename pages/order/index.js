@@ -13,7 +13,8 @@ Page({
       weight: null,
       need_agent: true,
       details: '',
-      freight: ''
+      freight: '',
+      channel: 'air'
     },
     responseObj: {},
     typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他'],
@@ -21,6 +22,8 @@ Page({
     address: null,
     multiArray: [],
     multiIndex: [0, 0],
+    showChannels: false,
+    channels: [{ name: '空运', value: 'air', disabled: false }, { name: '陆运', value: 'land', disabled: false }] // { name: '海运', value: 'sea', disabled: true }
   },
 
   onLoad: function () {
@@ -75,6 +78,18 @@ Page({
         destinationStr: countryStr,
         picker: ''
       })
+      // 目的地为俄罗斯时 显示“运输方式”
+      if (this.data.destination.substr(this.data.destination.indexOf('@') + 1) === 'RU') {
+        this.setData({
+          showChannels: true
+        })
+      } else {
+        this.data.formdata.channel = 'air'
+        this.setData({
+          showChannels: false,
+          formdata: this.data.formdata
+        })
+      }
     }
     this.doCalculate()
   },
@@ -117,6 +132,16 @@ Page({
     if (dataset.item === 'weight') {
       this.doCalculate()
     }
+  },
+
+  channelChange(e) {
+    let dataset = e.currentTarget.dataset;
+    let channel = e.detail.value;
+    this.data[dataset.obj][dataset.item] = channel;
+    this.setData({
+      formdata: this.data[dataset.obj]
+    })
+    this.doCalculate()
   },
 
   weightBlur(e) {
@@ -223,7 +248,8 @@ Page({
       address_id: this.data.address.id,
       need_agent: this.data.formdata.need_agent,
       details: this.data.formdata.details,
-      freight: this.data.formdata.freight
+      freight: this.data.formdata.freight,
+      channel: this.data.formdata.channel
     }
     console.log(params)
 
@@ -312,7 +338,8 @@ Page({
     var params = {
       departure: this.data.departure.substr(this.data.departure.indexOf('@') + 1),
       destination: this.data.destination.substr(this.data.destination.indexOf('@') + 1),
-      weight: parseInt(this.data.formdata.weight)
+      weight: parseInt(this.data.formdata.weight),
+      channel: this.data.formdata.channel
     }
     console.log(params)
 

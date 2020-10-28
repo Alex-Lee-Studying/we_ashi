@@ -57,6 +57,14 @@
         <label>重量</label>
         <input type="number" value="{{formdata.weight}}" placeholder="kg" bindinput="inputInfo" data-obj="formdata" data-item="weight" bindblur="weightBlur" bindfocus="weightFocus"></input>
       </view>
+      <view class="formItem" wx:if="{{showChannels}}">
+        <label>运输方式</label>
+        <radio-group bindchange="channelChange" data-obj="formdata" data-item="channel">
+          <label class="formRadio" wx:for="{{channels}}" wx:key="index">
+            <radio value="{{item.value}}" color="#033150" checked="{{formdata.channel === item.value}}" disabled="{{item.disabled}}"/>{{item.name}}
+          </label>
+        </radio-group>
+      </view>
       <view class="formItem">
         <label>是否需要代购</label>
         <text style="flex:1;color:#989898;">{{formdata.need_agent? '是': '否'}}</text><switch checked="{{formdata.need_agent}}" bindchange="switchAgent" color="#033150"/>
