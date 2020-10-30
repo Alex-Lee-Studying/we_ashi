@@ -24,7 +24,7 @@
         <view class="status blue" wx:if="{{delivery.status === 'delivering'}}">送货中</view>
         <view class="status green" wx:if="{{delivery.status === 'eol'}}">已完成</view>
         <view class="status gray" wx:if="{{delivery.status === 'canceled'}}">已取消</view>
-        <button type="primary" plain class="btnPrimary" bindtap="cancel" wx:if="{{delivery.status === 'normal' && user.id === delivery.user.id}}">
+        <button type="primary" plain class="btnPrimary" bindtap="cancel" wx:if="{{(delivery.status === 'normal' || delivery.status === 'waiting_for_pay' || delivery.status === 'delivering') && user.id === delivery.user.id}}">
         取消
         </button>
         <button type="primary" class="btnPrimary" wx:if="{{delivery.status === 'waiting_for_pay' && user.id === delivery.user.id}}">
@@ -32,13 +32,14 @@
             去支付
           </navigator>
         </button>
-        <button type="primary" class="btnPrimary">
+        <button type="primary" class="btnPrimary" wx:if="{{delivery.type === 'offical'}}">
           <navigator url="{{'/pages/contact/contact?sessionId=internal_customer_service'}}" hover-class="none">
             联系客服
           </navigator>
         </button>
-        <button type="primary" class="btnPrimary" bindtap="toUpdateDeliver" wx:if="{{delivery.status === 'delivering' && user.id === delivery.travel.user.id}}">
-        上传物流
+        <!-- 出行人查看自己同意帮带的订单时可上传单号 或者 官方求带订单可上传单号-->
+        <button type="primary" class="btnPrimary" bindtap="toUpdateDeliver" wx:if="{{(delivery.status === 'delivering' && user.id === delivery.travel.user.id) || (delivery.type === 'offical' && delivery.status === 'delivering')}}">
+        上传单号
         </button>
         <button type="primary" class="btnPrimary" bindtap="finish" wx:if="{{delivery.status === 'delivering' && user.id === delivery.user.id}}">
         确认收货
@@ -128,17 +129,19 @@
     </view>
   </view>
 
-  <view class="listStatus" wx:if="{{delivery.type === 'normal'}}">
+  <view class="listStatus">
     <view class="title"><text>物流状态</text></view>
-    <view class="listWrap" wx:if="{{delivery.expresses !== null}}">
-      <view class="listItem success" wx:if="{{delivery.expresses.details.length}}" wx:for="{{delivery.expresses.details}}" wx:key="index">
-        <text class="iconfont iconsuccess"></text>
-        <view>
-          <text class="datetime">{{item.timestamp}}</text>
-          <text class="info">{{item.content}}</text>
-        </view>        
+    <block wx:if="{{delivery.expresses !== null && delivery.expresses.length}}">
+      <view class="listWrap" wx:for="{{delivery.expresses}}" wx:for-item="expressItem"  wx:for-index="idx" wx:key="idx">
+        <view class="listItem success" wx:if="{{expressItem.details.length}}" wx:for="{{expressItem.details}}" wx:key="index">
+          <text class="iconfont iconsuccess"></text>
+          <view>
+            <text class="datetime">{{item.timestamp}}</text>
+            <text class="info">{{item.content}}</text>
+          </view>        
+        </view>
       </view>
-    </view>
+    </block>
     <view wx:else style="font-size: 26rpx;color: #989898;text-align: center;">还没有物流信息！</view>
   </view>
 </view>
