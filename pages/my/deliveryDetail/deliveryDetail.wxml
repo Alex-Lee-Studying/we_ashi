@@ -32,6 +32,11 @@
             去支付
           </navigator>
         </button>
+        <button type="primary" class="btnPrimary" wx:if="{{delivery.type === 'normal' && delivery.travel && delivery.travel.user && delivery.travel.user.id}}">
+          <navigator url="{{'/pages/contact/contact?targetUid=' + delivery.travel.user.id}}" hover-class="none">
+            联系出行人
+          </navigator>
+        </button>
         <button type="primary" class="btnPrimary" wx:if="{{delivery.type === 'offical'}}">
           <navigator url="{{'/pages/contact/contact?sessionId=internal_customer_service'}}" hover-class="none">
             联系客服
