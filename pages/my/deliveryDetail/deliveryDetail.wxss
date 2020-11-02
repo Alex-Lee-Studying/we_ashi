@@ -102,6 +102,33 @@ page {
 .listStatus .listWrap .listItem:last-child {
   padding-bottom: 0;
 }
+.listStatus .expressInfo {
+  display: flex;
+  align-items: center;
+  height: 90rpx;
+  line-height: 90rpx;
+  padding: 0 30rpx;
+}
+.listStatus .expressInfo .exname {
+  font-size: 32rpx;
+  color: #033150;
+}
+.listStatus .expressInfo .excode {
+  flex: 1;
+  font-size: 30rpx;
+  color: #999;
+  margin-left: 15rpx;
+}
+.listStatus .expressInfo .iconjiantou {
+  font-size: 28rpx;
+  color: #033150;
+}
+.listStatus .expressInfo .iconjiantou.down {
+  width: 90rpx;
+  height: 90rpx;
+  text-align: center;
+  transform: rotateZ(90deg);
+}
 
 .mask {
   position: fixed;

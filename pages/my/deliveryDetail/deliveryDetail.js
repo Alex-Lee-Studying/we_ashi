@@ -7,7 +7,7 @@ Page({
     delivery: {},
     showExpressForm: false,
     exnames: [], //快递公司列表
-    exDetail: [],
+    exDetail: {},
     formdata: {
       expressName: {},
       expressNum: ''
@@ -59,6 +59,15 @@ Page({
     })
   },
 
+  toggleExShow(e) {
+    let dataset = e.currentTarget.dataset
+    let code = dataset.code
+    this.data.exDetail[code].ifShow = !this.data.exDetail[code].ifShow
+    this.setData({
+      exDetail: this.data.exDetail
+    })
+  },
+
   getDelivery: function () {
     var self = this
 
@@ -76,7 +85,11 @@ Page({
           res.data.destination = res.data.destination.indexOf('@') === 0 ? res.data.destination.slice(1) : res.data.destination
           res.data.departure = res.data.departure ? res.data.departure.replace('@', ',') : ''
           res.data.destination = res.data.destination ? res.data.destination.replace('@', ',') : ''
-          self.setData({ delivery: res.data, exDetail: res.data.expresses || [] })
+
+          self.setData({ delivery: res.data })
+          if (res.data.expresses && res.data.expresses.length) {
+            self.getExDetails(res.data.expresses)            
+          }
         } else {
           console.log(res)
           wx.showToast({ title: res.data.msg, icon: 'none' })
@@ -118,7 +131,10 @@ Page({
                 wx.showToast({ title: '确认收货成功' })
                 var delivery = self.data.delivery
                 delivery.status = 'eol'
-                self.setData({ delivery: delivery, exDetail: delivery.expresses || [] })
+                self.setData({ delivery: delivery })
+                if (delivery.expresses && delivery.expresses.length) {
+                  self.getExDetails(delivery.expresses)
+                }
               } else {
                 console.log(res)
                 if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
@@ -171,7 +187,10 @@ Page({
                 wx.showToast({ title: '取消成功' })
                 var delivery = self.data.delivery
                 delivery.status = 'canceled'
-                self.setData({ delivery: delivery, exDetail: delivery.expresses || [] })
+                self.setData({ delivery: delivery })
+                if (delivery.expresses && delivery.expresses.length) {
+                  self.getExDetails(delivery.expresses)
+                }
               } else {
                 console.log(res)
                 if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
@@ -275,60 +294,55 @@ Page({
   updateDeliver() {
     var self = this
 
-    // if (this.data.formdata.expressNum === '' || this.data.formdata.expressName.exname === '') {
-    //   wx.showToast({ title: '请填写快递单号和快递公司', icon: 'none' })
-    //   return
-    // }
-    if (!this.data.exDetail) {
-      wx.showToast({ title: '快递详情为空', icon: 'none' })
-      return
+    var params = {
+      code: self.data.formdata.expressNum,
+      name: self.data.formdata.expressName.name,
+      exname: self.data.formdata.expressName.exname
     }
+    var oldEx = this.data.delivery.expresses || []
+    oldEx.push(params)
 
-          
-          // var params = {
-          //   code: self.data.formdata.expressNum,
-          //   exname: self.data.formdata.expressName.exname
-          // }
-          if (hasClick) return
-          hasClick = true
-          wx.showLoading()
+    if (hasClick) return
+    hasClick = true
+    wx.showLoading()
 
-          wx.request({
-            url: app.globalData.baseUrl + '/app/v1/deliveries/' + self.data.deliveryId,
-            method: 'PUT',
-            header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
-            data: { expresses: self.data.exDetail },
-            success: function (res) {
-              if (res.statusCode >= 200 && res.statusCode < 300) {
-                res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
-                res.data.departure = res.data.departure.indexOf('@') === 0 ? res.data.departure.slice(1) : res.data.departure
-                res.data.destination = res.data.destination.indexOf('@') === 0 ? res.data.destination.slice(1) : res.data.destination
-                res.data.departure = res.data.departure ? res.data.departure.replace('@', ',') : ''
-                res.data.destination = res.data.destination ? res.data.destination.replace('@', ',') : ''
-                var formD = {
-                  expressName: {},
-                  expressNum: ''
-                }
-                self.setData({ 
-                  delivery: res.data,
-                  exDetail: res.data.expresses || [],
-                  formdata: formD
-                })
-                self.closeExpressForm()
-              } else {
-                console.log(res)
-                wx.showToast({ title: res.data.msg, icon: 'none' })
-              }
-            },
-            fail: function (res) {
-              wx.showToast({ title: '系统错误', icon: 'none' })
-            },
-            complete: function (res) {
-              wx.hideLoading()
-              hasClick = false
-            }
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/deliveries/' + self.data.deliveryId,
+      method: 'PUT',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: { expresses: oldEx },
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
+          res.data.departure = res.data.departure.indexOf('@') === 0 ? res.data.departure.slice(1) : res.data.departure
+          res.data.destination = res.data.destination.indexOf('@') === 0 ? res.data.destination.slice(1) : res.data.destination
+          res.data.departure = res.data.departure ? res.data.departure.replace('@', ',') : ''
+          res.data.destination = res.data.destination ? res.data.destination.replace('@', ',') : ''
+          var formD = {
+            expressName: {},
+            expressNum: ''
+          }
+          self.setData({ 
+            delivery: res.data,
+            formdata: formD
           })
-
+          self.closeExpressForm()
+          if (res.data.expresses && res.data.expresses.length) {
+            self.getExDetails(res.data.expresses)
+          }
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+        hasClick = false
+      }
+    })
   },
 
   getExnames () {
@@ -368,6 +382,21 @@ Page({
         wx.hideLoading()
         hasClick = false
       }
+    })
+  },
+
+  getExDetails(oldEx) {
+    var self = this
+    oldEx.map((item, idx, arr) => {
+      self.getExDetail(item.code, item.exname).then(function (res) {
+        self.data.exDetail[item.code] = res
+        self.data.exDetail[item.code].ifShow = false
+        self.setData({
+          exDetail: self.data.exDetail
+        })
+      }).catch(function (error) {
+        console.log('sorry, 请求失败了, 这是失败信息:', error)
+      })
     })
   },
 
@@ -434,22 +463,7 @@ Page({
       // cancelText: '次要操作',
       success: function (res) {
         if (res.confirm) {
-
-          self.getExDetail(self.data.formdata.expressNum, self.data.formdata.expressName.exname).then(function (res) {
-            console.log('返回的数据:', res)
-            self.setData({
-              exDetail: []
-            })
-            var exArr = self.data.exDetail
-            exArr = exArr.push(res)
-            self.setData({
-              exDetail: exArr
-            })
-            // self.updateDeliver()
-          }).catch(function (error) {
-            console.log('sorry, 请求失败了, 这是失败信息:', error)
-          })
-
+          self.updateDeliver()
         } else if (res.cancel) {
           console.log('用户点击次要操作')
         }
