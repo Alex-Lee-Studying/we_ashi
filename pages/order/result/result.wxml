@@ -11,7 +11,7 @@
       <view class="notice" wx:if="{{delivery.offical_address && delivery.offical_address.id}}">
         <text class="title">请将物品送到</text>
         <text class="cont1">{{delivery.offical_address.country_desc}} {{delivery.offical_address.details}} </text>
-        <text class="cont2">{{delivery.offical_address.recipient}}收</text>
+        <text class="cont2">（自己名字）脚递转（{{delivery.offical_address.recipient}}）收</text>
       </view>
     </view>
     <view class="successWrap" wx:else>

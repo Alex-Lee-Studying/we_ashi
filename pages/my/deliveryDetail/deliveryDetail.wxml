@@ -86,7 +86,7 @@
     <view class="addressWrap">
       <view class="item">
         <text class="iconfont iconuser"></text>
-        <text>（自己的名字）收</text>
+        <text>（自己名字）脚递转（{{delivery.offical_address.recipient}}）收</text>
       </view>
       <view class="item">
         <text class="iconfont iconlocation"></text>
