@@ -22,11 +22,11 @@
     </view>
     <view class="formItem">
       <label>物品价格</label>
-      <input type="number" value="{{formdata.price}}" placeholder="请输入物品价格" bindinput="inputInfo" data-obj="formdata" data-item="price" bindblur="doCalculate"></input>
+      <input type="number" value="{{formdata.price}}" placeholder="请输入物品价格" bindinput="inputInfo" data-obj="formdata" data-item="price" bindfocus="priceFocus" bindblur="priceBlur"></input>
     </view>
     <view class="formItem">
       <label>重量</label>
-      <input type="number" value="{{formdata.weight}}" placeholder="请输入物品重量" bindinput="inputInfo" data-obj="formdata" data-item="weight" bindblur='doCalculate' bindconfirm='doCalculate'></input>
+      <input type="number" value="{{formdata.weight}}" placeholder="请输入物品重量" bindinput="inputInfo" data-obj="formdata" data-item="weight" bindfocus="weightFocus" bindblur='weightBlur' bindconfirm='doCalculate'></input>
     </view>
     <view class="formItem" wx:if="{{showChannels}}">
       <label>运输方式</label>
