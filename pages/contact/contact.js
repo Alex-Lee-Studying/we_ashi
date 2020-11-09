@@ -510,6 +510,7 @@ Page({
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           const messageList = self.data.messageList
+          res.data.created = res.data.created ? app.globalData.moment(res.data.created).format('YYYY-MM-DD HH:mm:ss') : ''
           if (res.data.travel) {
             res.data.travel.dt_departure = res.data.travel.dt_departure ? app.globalData.moment.utc(res.data.travel.dt_departure).format('YYYY-MM-DD') : ''
           }
@@ -645,6 +646,7 @@ Page({
           }
 
           res.data.forEach((item, index, array) => {
+            item.created = item.created ? app.globalData.moment(item.created).format('YYYY-MM-DD HH:mm:ss') : ''
             if (item.type === 'travel') {
               item.travel.created = item.travel.created ? app.globalData.moment.utc(item.travel.created).format('YYYY-MM-DD') : ''
               item.travel.dt_departure = item.travel.dt_departure ? app.globalData.moment.utc(item.travel.dt_departure).format('YYYY-MM-DD') : ''
@@ -707,6 +709,7 @@ Page({
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
+          res.data.created = res.data.created ? app.globalData.moment(res.data.created).format('YYYY-MM-DD HH:mm:ss') : ''
           if (res.data.author.id === self.data.target_user_id) {
             if (res.data.travel) {
               res.data.travel.created = res.data.travel.created ? app.globalData.moment.utc(res.data.travel.created).format('YYYY-MM-DD') : ''
@@ -779,6 +782,7 @@ Page({
           var data = JSON.parse(res.data)
           if (res.statusCode >= 200 && res.statusCode < 300) {
             const messageList = that.data.messageList
+            res.data.created = res.data.created ? app.globalData.moment(res.data.created).format('YYYY-MM-DD HH:mm:ss') : ''
             messageList.push(data)
             that.setData({
               messageList: messageList,
