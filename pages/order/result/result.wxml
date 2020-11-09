@@ -6,7 +6,7 @@
         <text class="statusstr">支付成功</text>
       </view>
       <view class="notice">
-        <text class="title">我们会尽快为您匹配！</text>
+        <text class="title">我们会尽快为您配送！</text>
       </view>
       <view class="notice" wx:if="{{delivery.offical_address && delivery.offical_address.id}}">
         <text class="title">请将物品送到</text>
