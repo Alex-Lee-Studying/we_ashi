@@ -98,6 +98,7 @@
           <image src="{{item.author.avatar}}" mode="aspectFill"></image>
         </view>
       </view>
+      <view class="createdWrap {{item.author.id !== user.id ? 'leftCreated' : 'rightCreated'}}">{{item.created}}</view>
 
     </block>
     <!-- 客服欢迎语 start -->
