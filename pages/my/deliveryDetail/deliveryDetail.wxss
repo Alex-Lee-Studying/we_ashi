@@ -259,3 +259,9 @@ page {
   font-size: 30rpx;
   margin-right: 20rpx;
 }
+.lefttimeWrap {
+  margin-top: 30rpx;
+  text-align: right;
+  font-size: 30rpx;
+  color: #f76260;
+}

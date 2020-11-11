@@ -1,4 +1,5 @@
 <view class="container">
+  <view class="lefttimeWrap" wx:if="{{lefttime}}">{{lefttime}}</view>
   <view class="orderItem orderDetailQD">
     <view class="orderinfo">
       <view class="left" wx:if="{{delivery.resources.length}}">

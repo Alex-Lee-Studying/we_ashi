@@ -5,13 +5,15 @@ Page({
     user: {},
     deliveryId: null,
     delivery: {},
+    payment: {},
     showExpressForm: false,
     exnames: [], //快递公司列表
     exDetail: {},
     formdata: {
       expressName: {},
       expressNum: ''
-    }
+    },
+    lefttime: ''
   },
   
   onLoad(option) {
@@ -89,6 +91,9 @@ Page({
           self.setData({ delivery: res.data })
           if (res.data.expresses && res.data.expresses.length) {
             self.getExDetails(res.data.expresses)            
+          }
+          if (res.data.status === 'waiting_for_pay') {
+            self.getPayResult()
           }
         } else {
           console.log(res)
@@ -491,5 +496,70 @@ Page({
         })
       }
     }
+  },
+
+  getPayResult() {
+    var self = this
+
+    var params = {
+      delivery_id: this.data.deliveryId
+    }
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/transaction/v1/payments',
+      method: 'GET',
+      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.setData({
+            payment: res.data[0] || {}
+          })
+          if (self.data.payment.expiry) {
+            var expirySeconds = app.globalData.moment.utc(self.data.payment.expiry).valueOf()
+            // var expirySeconds = app.globalData.moment.utc('2020-11-11T10:15:05Z').valueOf()
+            var nowSeconds = app.globalData.moment().valueOf()
+            if (expirySeconds > nowSeconds) {
+              var diff = app.globalData.moment(expirySeconds).diff(app.globalData.moment(nowSeconds), 'seconds')
+              console.log(diff)
+              countdown(diff, self)
+            }
+          }
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })
   }
 })
+
+// 倒计时
+function countdown(diff,that) {
+  var dura = app.globalData.moment.duration(diff, 'seconds')
+  var duraStr = `剩${dura._data.days}天${dura._data.hours}时${dura._data.minutes}分${dura._data.seconds}秒自动关闭`
+  // 渲染倒计时时钟
+  that.setData({
+    lefttime: duraStr
+  })
+
+  if (diff <= 0) {
+    that.setData({
+      lefttime: "支付超时"
+    })
+    // timeout则跳出递归
+    return
+  }
+  // settimeout实现倒计时效果
+  setTimeout(function () {
+    diff -= 1
+    countdown(diff, that)
+  }, 1000)
+}
