@@ -155,7 +155,7 @@
         </view>
       </block>
     </block>
-    <view wx:else style="font-size: 26rpx;color: #989898;text-align: center;">还没有物流信息！</view>
+    <view wx:else style="margin-bottom:30rpx;font-size: 26rpx;color: #989898;text-align: center;">还没有物流信息！</view>
   </view>
 </view>
 

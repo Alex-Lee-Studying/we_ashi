@@ -544,7 +544,7 @@ Page({
 // 倒计时
 function countdown(diff,that) {
   var dura = app.globalData.moment.duration(diff, 'seconds')
-  var duraStr = `剩${dura._data.days}天${dura._data.hours}时${dura._data.minutes}分${dura._data.seconds}秒自动关闭`
+  var duraStr = `剩${dura._data.hours}时${dura._data.minutes}分${dura._data.seconds}秒自动关闭`
   // 渲染倒计时时钟
   that.setData({
     lefttime: duraStr
