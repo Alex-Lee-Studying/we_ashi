@@ -36,7 +36,7 @@ Page({
 
     var that = this
     interval = setInterval(function () {
-      if (that.data.payment && that.data.payment.delivery_id) {
+      if ((that.data.delivery.status === 'normal' || that.data.delivery.status === 'waiting_for_pay') || (that.data.payment && that.data.payment.delivery_id)) {
         clearInterval(interval)
       } else {
         if (that.data.second <= 0) {
