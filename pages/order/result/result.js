@@ -1,10 +1,12 @@
 var app = getApp()
 var hasClick = false
+var interval = null
 Page({
   data: {
     deliveryId: null,
     delivery: {},
-    payment: null
+    payment: null,
+    second: 3, // 3秒后调用支付查询接口
   },
 
   onLoad(option) {
@@ -12,12 +14,36 @@ Page({
     if (option.id) {
       this.setData({ deliveryId: option.id })
       this.getDelivery()
-      this.getPayResult()
     } else {
       wx.redirectTo({
         url: '/pages/order/index'
       })
     }
+  },
+  
+  onShow: function () {
+    var that = this
+    interval = setInterval(function () {
+      if (that.data.payment && that.data.payment.delivery_id) {
+        clearInterval(interval)
+      } else {
+        if (that.data.second <= 0) {
+          that.getPayResult()
+        }
+        var second = that.data.second - 1
+        that.setData({
+          second: second
+        })
+      }
+    }, 1000);
+  },
+
+  onHide: function () {
+    clearInterval(interval)
+  },
+
+  onUnload: function () {
+    clearInterval(interval)
   },
 
   getDelivery: function () {
@@ -61,7 +87,6 @@ Page({
     }
     if (hasClick) return
     hasClick = true
-    wx.showLoading()
 
     wx.request({
       url: app.globalData.baseUrl + '/transaction/v1/payments' ,
@@ -82,7 +107,6 @@ Page({
         wx.showToast({ title: '系统错误', icon: 'none' })
       },
       complete: function (res) {
-        wx.hideLoading()
         hasClick = false
       }
     })

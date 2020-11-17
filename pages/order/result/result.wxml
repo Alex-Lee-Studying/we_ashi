@@ -21,4 +21,18 @@
       </view>
     </view>
   </block>
+  <block wx:else>
+    <view class="waitWrap">
+      <view class="waitTitle">等待支付结果返回</view>
+      <image class="waitImg" mode="widthFix" src="../../../images/waiting.gif"></image>
+    </view>
+  </block>
+  <view class="subWrap">
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover">
+      <navigator url="/pages/index/index" open-type="switchTab" hover-class="none">回首页</navigator>
+    </button>
+    <button type="primary" plain class="btnPrimary" hover-class="btnHover">
+      <navigator url="{{'/pages/my/deliveryDetail/deliveryDetail?id=' + delivery.id}}" open-type="redirect" hover-class="none">查看订单</navigator>
+    </button>
+  </view>
 </view>

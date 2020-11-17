@@ -2,10 +2,12 @@
   display: flex;
   align-items: center;
   width: 100vw;
-  height: 50vh;
+  height: 70vh;
+  flex-direction: column;
+  justify-content: center;
 }
 .successWrap {
-  width: 380rpx;
+  width: 690rpx;
   margin: 0 auto;
   text-align: center;
 }
@@ -38,4 +40,22 @@
   font-size: 32rpx;
   color: #333;
   margin-top: 20rpx;
+}
+
+.waitWrap {
+  width: 690rpx;
+  margin: 0 auto;
+  text-align: center;
+}
+.waitWrap .waitTitle {
+  font-size: 36rpx;
+  color: #033150;
+}
+.waitWrap .waitImg {
+  width: 350rpx;
+}
+
+.subWrap {
+  width: 580rpx;
+  margin: 80rpx auto 0;
 }
