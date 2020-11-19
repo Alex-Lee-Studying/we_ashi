@@ -65,16 +65,15 @@ page {
   white-space: nowrap;
 }
 .msgWrap .msgItem .unread {
-  width: 35rpx;
-  height: 35rpx;
-  line-height: 35rpx;
   background-color: #f00;
   text-align: center;
   border-radius: 20rpx;
   font-size: 25rpx;
   color: #fff;
 }
-.msgWrap .msgItem .unread text {
-  height: 50rpx;
-  line-height: 50rpx;
+.msgWrap .msgItem .unread text {  
+  width: 35rpx;
+  height: 35rpx;
+  line-height: 35rpx;
+  display: inline-block;
 }
