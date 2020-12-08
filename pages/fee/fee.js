@@ -9,13 +9,13 @@ Page({
     departure: "",
     destination: "",
     formdata: {
-      item_type: '',
+      item_type: {},
       price: null,
       weight: null,
       express: '',
       channel: 'air'
     },
-    typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他'],
+    typearray: [],
     expressFee: 0,
     total: 0,
     responseObj: {},
@@ -48,6 +48,7 @@ Page({
       })
     }
     this.getFeerate()
+    this.getItemTypes()
   },
 
   pickerCountry(e) {
@@ -184,7 +185,7 @@ Page({
       wx.showToast({ title: '请选择目的地', icon: 'none' })
       return
     }
-    if (this.data.formdata.item_type === '' || this.data.formdata.item_type === null) {
+    if (!this.data.formdata.item_type || !this.data.formdata.item_type.name) {
       wx.showToast({ title: '请选择物品类型', icon: 'none' })
       return
     }
@@ -207,7 +208,7 @@ Page({
     var params = {
       departure: this.data.departure,
       destination: this.data.destination,
-      item_type: this.data.formdata.item_type,
+      item_id: this.data.formdata.item_type.id,
       price: parseInt(this.data.formdata.price),
       weight: parseInt(this.data.formdata.weight),
       channel: this.data.formdata.channel
@@ -301,6 +302,32 @@ Page({
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           self.setData({ fee_rate: res.data.fee_rate })
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })
+  },
+
+  // 获取物品类型列表
+  getItemTypes() {
+    var self = this
+
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/items',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.setData({ typearray: res.data })
         } else {
           console.log(res)
           wx.showToast({ title: res.data.msg, icon: 'none' })

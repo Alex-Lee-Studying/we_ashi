@@ -8,7 +8,7 @@ Page({
     departure: '',
     destination: '',
     formdata: {
-      item_type: '',
+      item_type: {},
       price: null,
       weight: null,
       need_agent: true,
@@ -18,7 +18,7 @@ Page({
       channel: 'air'
     },
     responseObj: {},
-    typearray: ['文件', '化妆品', '衣物鞋子', '电子产品', '液体', '其他'],
+    typearray: [],
     images: [],
     address: null,
     multiArray: [],
@@ -49,6 +49,7 @@ Page({
       })
     }
     this.getFeerate()
+    this.getItemTypes()
   },
 
   pickerCountry(e) {
@@ -121,6 +122,7 @@ Page({
     this.setData({
       formdata: this.data[dataset.obj]
     })
+    this.doCalculate()
   },
 
   //input表单数据绑定
@@ -227,6 +229,10 @@ Page({
       wx.showToast({ title: '目的地不能选择中国', icon: 'none' })
       return
     }
+    if (!this.data.formdata.item_type || !this.data.formdata.item_type.name) {
+      wx.showToast({ title: '请选择物品类型', icon: 'none' })
+      return
+    }
     if (this.data.formdata.price === 'RMB' || this.data.formdata.price === null) {
       wx.showToast({ title: '请填写物品价格', icon: 'none' })
       return
@@ -244,7 +250,7 @@ Page({
       type: 'offical',
       departure: this.data.departure,
       destination: this.data.destination,
-      item_type: this.data.formdata.item_type,
+      item_type: this.data.formdata.item_type.name,
       price: parseInt(this.data.formdata.price),
       weight: parseInt(this.data.formdata.weight),
       address_id: this.data.address.id,
@@ -341,6 +347,10 @@ Page({
       wx.showToast({ title: '目的地不能选择中国', icon: 'none' })
       return
     }
+    if (!this.data.formdata.item_type || !this.data.formdata.item_type.name) {
+      // wx.showToast({ title: '请选择物品类型', icon: 'none' })
+      return
+    }
     if (this.data.formdata.weight === '' || this.data.formdata.weight === null) {
       return
     }
@@ -348,6 +358,7 @@ Page({
     var params = {
       departure: this.data.departure.substr(this.data.departure.indexOf('@') + 1),
       destination: this.data.destination.substr(this.data.destination.indexOf('@') + 1),
+      item_id: this.data.formdata.item_type.id,
       weight: parseInt(this.data.formdata.weight),
       channel: this.data.formdata.channel
     }
@@ -455,6 +466,32 @@ Page({
         if (res.statusCode >= 200 && res.statusCode < 300) {
           self.data.formdata.fee_rate = res.data.fee_rate
           self.setData({ formdata: self.data.formdata })
+        } else {
+          console.log(res)
+          wx.showToast({ title: res.data.msg, icon: 'none' })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: '系统错误', icon: 'none' })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })
+  },
+
+  // 获取物品类型列表
+  getItemTypes() {
+    var self = this
+
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/items',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          self.setData({ typearray: res.data })
         } else {
           console.log(res)
           wx.showToast({ title: res.data.msg, icon: 'none' })

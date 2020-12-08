@@ -43,9 +43,9 @@
     <view class="formWrap">
       <view class="formItem">
         <label>物品类型</label>
-        <picker mode="selector" range="{{typearray}}" value="{{formdata.item_type}}" bindchange="bindTypeChange" data-obj="formdata" data-item="item_type">
+        <picker mode="selector" range="{{typearray}}" range-key="name" value="{{formdata.item_type}}" bindchange="bindTypeChange" data-obj="formdata" data-item="item_type">
           <view class="picker">
-            {{formdata.item_type || '请选择'}}
+            {{formdata.item_type.name || '请选择'}}
           </view>
         </picker>
       </view>
