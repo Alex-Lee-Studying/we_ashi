@@ -13,7 +13,16 @@ Page({
       expressName: {},
       expressNum: ''
     },
-    lefttime: ''
+    lefttime: '',
+    statusObj: {
+      normal: '正常',
+      waiting_for_pay: '待支付',
+      waiting_for_logistics: '支付成功', // 等待用户上传物流信息
+      waiting_for_collect: '等待揽件', // 待揽收
+      delivering: '订单派送', // 送货中
+      eol: '已完成',
+      canceled: '已取消'
+    }
   },
   
   onLoad(option) {

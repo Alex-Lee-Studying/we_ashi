@@ -20,11 +20,7 @@
         <view class="fee" wx:if="{{delivery.type === 'offical'}}"><text class="label">合计：</text><text>￥{{delivery.price + delivery.freight + delivery.freight * delivery.fee_rate}}</text></view>
       </view>
       <view class="right" style="align-self:stretch;display: flex;flex-direction: column;justify-content: space-between;">
-        <view class="status blue" wx:if="{{delivery.status === 'normal'}}">正常</view>
-        <view class="status blue" wx:if="{{delivery.status === 'waiting_for_pay'}}">待支付</view>
-        <view class="status blue" wx:if="{{delivery.status === 'delivering'}}">送货中</view>
-        <view class="status green" wx:if="{{delivery.status === 'eol'}}">已完成</view>
-        <view class="status gray" wx:if="{{delivery.status === 'canceled'}}">已取消</view>
+        <view class="status blue">{{statusObj[delivery.status]}}</view>
         <button type="primary" plain class="btnPrimary" bindtap="cancel" wx:if="{{(delivery.status === 'normal' || delivery.status === 'waiting_for_pay' || delivery.status === 'delivering') && user.id === delivery.user.id}}">
         取消
         </button>
@@ -44,7 +40,7 @@
           </navigator>
         </button>
         <!-- 出行人查看自己同意帮带的订单时可上传单号 或者 官方求带订单可上传单号-->
-        <button type="primary" class="btnPrimary" bindtap="toUpdateDeliver" wx:if="{{(delivery.status === 'delivering' && user.id === delivery.travel.user.id) || (delivery.type === 'offical' && delivery.status === 'delivering')}}">
+        <button type="primary" class="btnPrimary" bindtap="toUpdateDeliver" wx:if="{{(delivery.type === 'normal' && delivery.status === 'delivering' && user.id === delivery.travel.user.id) || (delivery.type === 'offical' && delivery.status === 'waiting_for_logistics')}}">
         上传单号
         </button>
         <button type="primary" class="btnPrimary" bindtap="finish" wx:if="{{delivery.status === 'delivering' && user.id === delivery.user.id}}">
@@ -107,22 +103,22 @@
   <view class="listStatus" wx:if="{{delivery.type === 'offical'}}">
     <view class="title"><text>订单状态</text></view>
     <view class="listWrap">
-      <view class="{{(delivery.status === 'waiting_for_pay' || delivery.status === 'delivering' || delivery.status === 'eol')? 'success listItem' : 'listItem'}}">
+      <view class="{{(delivery.status === 'waiting_for_pay' || delivery.status === 'waiting_for_logistics' || delivery.status === 'waiting_for_collect' || delivery.status === 'delivering' || delivery.status === 'eol')? 'success listItem' : 'listItem'}}">
         <text class="iconfont iconsuccess"></text>
         <text class="info">等待付款</text>
         <text class="datetime"></text>
       </view>
-      <view class="{{(delivery.status === 'eol' || delivery.status === 'delivering')? 'success listItem' : 'listItem'}}">
+      <view class="{{(delivery.status === 'waiting_for_logistics' || delivery.status === 'waiting_for_collect' || delivery.status === 'delivering' || delivery.status === 'eol')? 'success listItem' : 'listItem'}}">
         <text class="iconfont iconsuccess"></text>
         <text class="info">订单支付成功</text>
         <text class="datetime"></text>
       </view>
-      <view class="{{(delivery.status === 'eol' || delivery.status === 'delivering')? 'success listItem' : 'listItem'}}">
+      <view class="{{(delivery.status === 'waiting_for_collect' || delivery.status === 'delivering' || delivery.status === 'eol')? 'success listItem' : 'listItem'}}">
         <text class="iconfont iconsuccess"></text>
         <text class="info">等待揽收</text>
         <text class="datetime"></text>
       </view>
-      <view class="{{(delivery.status === 'eol' || delivery.status === 'delivering')? 'success listItem' : 'listItem'}}">
+      <view class="{{(delivery.status === 'delivering' || delivery.status === 'eol')? 'success listItem' : 'listItem'}}">
         <text class="iconfont iconsuccess"></text>
         <text class="info">订单派送中</text>
         <text class="datetime"></text>
