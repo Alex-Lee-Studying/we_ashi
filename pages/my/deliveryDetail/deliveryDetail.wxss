@@ -124,9 +124,9 @@ page {
   color: #033150;
 }
 .listStatus .expressInfo .iconjiantou.down {
-  width: 90rpx;
+  /* width: 90rpx;
   height: 90rpx;
-  text-align: center;
+  text-align: center; */
   transform: rotateZ(90deg);
 }
 

@@ -82,8 +82,8 @@ Page({
   getDelivery: function () {
     var self = this
 
-    if (hasClick) return
-    hasClick = true
+    // if (hasClick) return
+    // hasClick = true
     wx.showLoading()
 
     wx.request({
@@ -114,7 +114,7 @@ Page({
       },
       complete: function (res) {
         wx.hideLoading()
-        hasClick = false
+        // hasClick = false
       }
     })
   },
@@ -293,7 +293,7 @@ Page({
     })
   },
 
-  toUpdateDeliver() {
+  openExpressForm() {
     this.setData({
       showExpressForm: true
     })
@@ -302,60 +302,6 @@ Page({
   closeExpressForm() {
     this.setData({
       showExpressForm: false
-    })
-  },
-
-  updateDeliver() {
-    var self = this
-
-    var params = {
-      code: self.data.formdata.expressNum,
-      name: self.data.formdata.expressName.name,
-      exname: self.data.formdata.expressName.exname
-    }
-    var oldEx = this.data.delivery.expresses || []
-    oldEx.push(params)
-
-    if (hasClick) return
-    hasClick = true
-    wx.showLoading()
-
-    wx.request({
-      url: app.globalData.baseUrl + '/app/v1/deliveries/' + self.data.deliveryId,
-      method: 'PUT',
-      header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
-      data: { expresses: oldEx },
-      success: function (res) {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          res.data.created = res.data.created ? app.globalData.moment.utc(res.data.created).format('YYYY-MM-DD') : ''
-          res.data.departure = res.data.departure.indexOf('@') === 0 ? res.data.departure.slice(1) : res.data.departure
-          res.data.destination = res.data.destination.indexOf('@') === 0 ? res.data.destination.slice(1) : res.data.destination
-          res.data.departure = res.data.departure ? res.data.departure.replace('@', ',') : ''
-          res.data.destination = res.data.destination ? res.data.destination.replace('@', ',') : ''
-          var formD = {
-            expressName: {},
-            expressNum: ''
-          }
-          self.setData({ 
-            delivery: res.data,
-            formdata: formD
-          })
-          self.closeExpressForm()
-          if (res.data.expresses && res.data.expresses.length) {
-            self.getExDetails(res.data.expresses)
-          }
-        } else {
-          console.log(res)
-          wx.showToast({ title: res.data.msg, icon: 'none' })
-        }
-      },
-      fail: function (res) {
-        wx.showToast({ title: '系统错误', icon: 'none' })
-      },
-      complete: function (res) {
-        wx.hideLoading()
-        hasClick = false
-      }
     })
   },
 
@@ -477,7 +423,47 @@ Page({
       // cancelText: '次要操作',
       success: function (res) {
         if (res.confirm) {
-          self.updateDeliver()
+          var params = {
+            code: self.data.formdata.expressNum,
+            name: self.data.formdata.expressName.name,
+            exname: self.data.formdata.expressName.exname,
+            status: 'normal',
+            delivery_id: self.data.deliveryId
+          }
+
+          if (hasClick) return
+          hasClick = true
+          wx.showLoading()
+
+          wx.request({
+            url: app.globalData.baseUrl + '/app/v1/expresses',
+            method: 'POST',
+            header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+            data: params,
+            success: function (res) {
+              if (res.statusCode >= 200 && res.statusCode < 300) {
+                var formD = {
+                  expressName: {},
+                  expressNum: ''
+                }
+                self.setData({
+                  formdata: formD
+                })
+                self.closeExpressForm()
+                self.getDelivery()
+              } else {
+                console.log(res)
+                wx.showToast({ title: res.data.msg, icon: 'none' })
+              }
+            },
+            fail: function (res) {
+              wx.showToast({ title: '系统错误', icon: 'none' })
+            },
+            complete: function (res) {
+              wx.hideLoading()
+              hasClick = false
+            }
+          })
         } else if (res.cancel) {
           console.log('用户点击次要操作')
         }

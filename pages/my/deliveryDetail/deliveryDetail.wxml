@@ -40,7 +40,7 @@
           </navigator>
         </button>
         <!-- 出行人查看自己同意帮带的订单时可上传单号 或者 官方求带订单可上传单号-->
-        <button type="primary" class="btnPrimary" bindtap="toUpdateDeliver" wx:if="{{(delivery.type === 'normal' && delivery.status === 'delivering' && user.id === delivery.travel.user.id) || (delivery.type === 'offical' && delivery.status === 'waiting_for_logistics')}}">
+        <button type="primary" class="btnPrimary" bindtap="openExpressForm" wx:if="{{(delivery.type === 'normal' && delivery.status === 'delivering' && user.id === delivery.travel.user.id) || (delivery.type === 'offical' && (delivery.status === 'waiting_for_logistics' || delivery.status === 'waiting_for_collect'))}}">
         上传单号
         </button>
         <button type="primary" class="btnPrimary" bindtap="finish" wx:if="{{delivery.status === 'delivering' && user.id === delivery.user.id}}">
