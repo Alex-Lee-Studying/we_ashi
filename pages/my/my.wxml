@@ -24,13 +24,13 @@
     </view>
   </view>
   <view class="navWrap">
-    <navigator url="/pages/my/my" class="navItem curr" hover-class="none">
-      <text class="iconfont iconicon--copy"></text>
-      <text class="navText">我的订单</text>
-    </navigator>
     <navigator url="/pages/my/wallet/index" class="navItem" hover-class="none">
       <text class="iconfont iconqianbao"></text>
       <text class="navText">我的钱包</text>
+    </navigator>
+    <navigator url="/pages/my/card/index" class="navItem" hover-class="none">
+      <text class="iconfont iconweixinqiabao1"></text>
+      <text class="navText">我的卡包</text>
     </navigator>
     <navigator url="/pages/help/index" class="navItem" hover-class="none">
       <text class="iconfont iconfaq"></text>
@@ -43,13 +43,13 @@
   </view>
   <view class="ordersWrap">
     <view class="tabs-my">
-      <view class="tabItem selected" wx:if="{{tabname === 'delivery'}}">
-        <view class="tabLeft"><text class="iconfont iconsuitcase-2-fill"></text></view>
-        <view class="tabRight"><text class="t1">求带</text><text class="t2">Take things</text></view>
+      <view class="tabItem selected" wx:if="{{tabname === 'offical'}}">
+        <view class="tabLeft"><text class="iconfont icongouwudai1"></text></view>
+        <view class="tabRight"><text class="t1">官方订单</text><text class="t2">Take things</text></view>
       </view>
-      <view class="tabItem" data-tab="delivery" bindtap="changeTab" wx:else>
-        <view class="tabLeft"><text class="iconfont iconsuitcase-2-fill"></text></view>
-        <view class="tabRight"><text class="t1">求带</text><text class="t2">Take things</text></view>
+      <view class="tabItem" data-tab="offical" bindtap="changeTab" wx:else>
+        <view class="tabLeft"><text class="iconfont icongouwudai1"></text></view>
+        <view class="tabRight"><text class="t1">官方订单</text><text class="t2">Take things</text></view>
       </view>
       <view class="tabItem selected" wx:if="{{tabname === 'travel'}}">
         <view class="tabLeft"><text class="iconfont iconplane"></text></view>
@@ -59,13 +59,13 @@
         <view class="tabLeft"><text class="iconfont iconplane"></text></view>
         <view class="tabRight"><text class="t1">出行</text><text class="t2">Travel</text></view>
       </view>
-      <view class="tabItem selected" wx:if="{{tabname === 'offical'}}">
-        <view class="tabLeft"><text class="iconfont icongouwudai1"></text></view>
-        <view class="tabRight"><text class="t1">官方订单</text><text class="t2">Take things</text></view>
+      <view class="tabItem selected" wx:if="{{tabname === 'delivery'}}">
+        <view class="tabLeft"><text class="iconfont iconsuitcase-2-fill"></text></view>
+        <view class="tabRight"><text class="t1">求带</text><text class="t2">Take things</text></view>
       </view>
-      <view class="tabItem" data-tab="offical" bindtap="changeTab" wx:else>
-        <view class="tabLeft"><text class="iconfont icongouwudai1"></text></view>
-        <view class="tabRight"><text class="t1">官方订单</text><text class="t2">Take things</text></view>
+      <view class="tabItem" data-tab="delivery" bindtap="changeTab" wx:else>
+        <view class="tabLeft"><text class="iconfont iconsuitcase-2-fill"></text></view>
+        <view class="tabRight"><text class="t1">求带</text><text class="t2">Take things</text></view>
       </view>
     </view>
 

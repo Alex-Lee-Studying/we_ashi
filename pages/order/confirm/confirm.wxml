@@ -52,5 +52,8 @@
     <!-- <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toOrder" wx:if="{{delivery.status === 'waiting_for_pay'}}">去支付</button>
     <button type="primary" class="btnGray" hover-class="btnHover" wx:else>去支付</button> -->
     <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toOrder">去支付</button>
+  </view>  
+  <view class="subWrap" style="margin-top: 0;">
+    <button type="primary" plain class="btnPrimary"><navigator url="/pages/my/card/discountCoupons/index" hover-class="none">使用优惠券</navigator></button>
   </view>
 </view>

@@ -73,14 +73,14 @@
         <label>备注</label>
         <input value="{{formdata.details}}" bindinput="inputInfo" data-obj="formdata" data-item="details"></input>
       </view>
-      <view class="formItem">
+      <!-- <view class="formItem">
         <label>运费</label>
         <input value="{{formdata.freight}}" bindinput="inputInfo" data-obj="formdata" data-item="freight" disabled="true"></input>
       </view>
       <view class="formItem">
         <label>服务费</label>
         <text style="flex:1;color:#989898;">{{formdata.freight !== '' ? formdata.freight * formdata.fee_rate : ''}}</text>
-      </view>
+      </view> -->
     </view>
     <view class="notice" bindtap="notice"><text class="iconfont iconfaq"></text><text>温馨提示</text></view>
   </view>

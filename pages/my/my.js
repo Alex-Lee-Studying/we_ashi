@@ -8,7 +8,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isLogin: false,
     user: null,
-    tabname: 'delivery',
+    tabname: 'offical',
     travelList: [],
     deliveryList: [],
     officalList: [],
