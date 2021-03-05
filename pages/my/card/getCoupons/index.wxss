@@ -1,127 +1,84 @@
-/**index.wxss**/
 page {
   background-color: #f2f2f2;
-  padding-bottom: 100rpx;
 }
-.bannerWrap image {
-  display: block;
-  width: 750rpx;
-  height: 300rpx;
-}
-.btn-area {
-  margin-top: 20rpx;
-  background-color: #fff;
-}
-.btn-area .btn-item {
+.totalWrap {
   position: relative;
-  display: flex;
-  align-items: center;
-  padding: 0 90rpx;
-  height: 120rpx;
-  font-size: 32rpx;
-  color: #333;
-  line-height: 120rpx;
-  border-bottom: 2rpx solid #f2f2f2;
+  padding-top: 40rpx;
+  padding-bottom: 130rpx;
+  background: -webkit-gradient(linear, top left, top right, color-stop(0%,#0d6fb1), color-stop(100%,#033150));
+  background: -webkit-linear-gradient(left, #0d6fb1 0%,#033150 100%);
+  background: linear-gradient(left right, #0d6fb1 0%,#033150 100%);
 }
-.btn-area .btn-item .btnicon {
-  width: 54rpx;
-  margin-right: 10rpx;
-  font-size: 46rpx;
-  color: #033150;
+.totalWrap .titleWrap {
+  height: 280rpx;
+  line-height: 280rpx;
+  text-align: center;
+  font-size: 40rpx;
+  color: #fff;
 }
-.btn-area .btn-item .title {
-  flex: 1
+.totalWrap .titleWrap .num {
+  font-size: 50rpx;
+  color: #f4bc41;
+  margin: 0 5rpx;
+  font-weight: bold;
 }
-.btn-area .btn-item .iconjiantou {
-  font-size: 24rpx;
-  color: #656565;
+.totalWrap .bottomimg {
+  position: absolute;
+  bottom: -10rpx;
+  left: 0;
+  width: 100%;
 }
-.tabs-index {
-  display: flex;
-  justify-content: space-between;
-  padding: 17rpx 30rpx;
-  height: 70rpx;
-  line-height: 70rpx;
-  font-size: 24rpx;
-  color: #989898;
+
+.listWrap {
+  width: 690rpx;
+  margin: 0 auto;
 }
-.tabs-index.fixed {
-  position: fixed;
-  width: calc(100% - 60rpx);
+.listWrap .itemWrap {
+  position: relative;
+  width: 690rpx;
+  height: 140rpx;
+  margin-bottom: 35rpx;
+}
+.listWrap .bgImg{  
+  width: 690rpx;
+  height: 140rpx;
+}
+.listWrap .listItem {
+  position: absolute;
   top: 0;
   left: 0;
-  background-color: #fff;
-  border-bottom: 1rpx solid #f2f2f2
+  width: 630rpx;
+  height: 140rpx;
+  padding: 0 30rpx;
 }
-.tabs-index .tab {
-  margin-left: 30rpx;
-}
-.tabs-index .checked {
-  color: #033150;
-  font-size: 28rpx;
-}
-.tabs-index .search {
-}
-.tabs-index .iconfilter {
-  font-size: 26rpx;
-  color: #989898;
-  margin: 0 30rpx 0 10rpx;
-}
-.orders-index {
-  margin: 0 30rpx;
-  padding-bottom: 30rpx;
-}
-.orderItem .uinfo {
-  margin: 0 0 20rpx 35rpx;  
-  line-height: 38rpx;
+.listWrap .listItem {
+  height: 140rpx;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
-.orderItem .uinfo .uimg {
-  width: 38rpx;
-  height: 38rpx;
-  border-radius: 38rpx;
-  margin-right: 20rpx;
+.listWrap .listItem .big {
+  font-size: 74rpx;
+  color: #fff;
 }
-.orderItem .uinfo .uname {
-  font-size: 24rpx;
+.listWrap .listItem .small {
+  font-size: 23rpx;
+  color: #fff;
 }
-
-.orderItemXQD .uinfo {
-  padding-top: 20rpx;
-}
-.orderItemXQD .orderinfo {
-  padding: 0 0 20rpx 0;
-}
-
-.orderItemKBD {
-}
-.orderItemKBD .orderinfo {
-  padding: 40rpx 0;
-}
-.orderItemKBD .orderinfo .left {
-  margin-right: 20rpx;
-}
-.orderItemKBD .orderinfo .left image {
-  width: 90rpx;
-  height: 90rpx;
-  border-radius: 90rpx;
-}
-.orderItemKBD .orderinfo .left text {
-  display: block;
-  font-size: 24rpx;
-  margin-top: 10rpx;
-}
-
-.nomore {
-  height: 45rpx;
-  line-height: 45rpx;
-  font-size: 28rpx;
-  color: #333;
+.listWrap .listItem .btn {
+  padding: 0;
+  font-weight: normal;
+  width: 120rpx;
+  height: 50rpx;
+  line-height: 48rpx;
   text-align: center;
+  border-radius: 10rpx;
+  border: 2rpx solid #fff;
+  font-size: 28rpx;
+  color: #fff;
+  background-color: transparent;
 }
-
-/* 优惠券 弹出层 */
+/* 弹出层 */
 .couponDialog__mask {
   position: fixed;
   top: 0;

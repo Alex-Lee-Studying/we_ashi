@@ -1,0 +1,122 @@
+page {
+  background-color: #f2f2f2;
+}
+.container {
+  padding: 0 30rpx;
+}
+.linkWrap {
+  margin: 45rpx 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  background-color: transparent;
+}
+.linkWrap .linkOne{
+  width: 324rpx;
+  height: 81rpx;
+}
+.linkWrap .linkOne image{
+  width: 324rpx;
+  height: 81rpx;
+}
+.contWrap .title {
+  margin-top: 50rpx;
+  margin-bottom: 45rpx;
+  text-align: left;
+  font-size: 30rpx;
+  color: #333;
+}
+.contWrap .title .iconfont {
+  font-size: 30rpx;
+  color: #2c629d;
+  margin-right: 15rpx;
+}
+.contWrap .listWrap {
+}
+.contWrap .listWrap .itemWrap {
+  position: relative;
+  width: 690rpx;
+  height: 250rpx;
+  margin-bottom: 25rpx;
+}
+.contWrap .listWrap .bgImg{  
+  width: 690rpx;
+  height: 250rpx;
+}
+.contWrap .listWrap .listItem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 630rpx;
+  height: 250rpx;
+  padding: 0 30rpx;
+}
+.contWrap .listWrap .listItem .top {
+  height: 140rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.contWrap .listWrap .listItem .top .big {
+  font-size: 74rpx;
+  color: #fff;
+}
+.contWrap .listWrap .listItem .top .small {
+  font-size: 23rpx;
+  color: #fff;
+}
+.contWrap .listWrap .listItem .top .notice {
+  font-size: 24rpx;
+  color: #fff;
+}
+.contWrap .listWrap .listItem .bottom {
+  height: 110rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.contWrap .listWrap .listItem .bottom .date {
+  font-size: 28rpx;
+  color: #666
+}
+.contWrap .listWrap .listItem .bottom .btnLink {
+  width: 120rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  border: 2rpx solid #1e4872;
+  font-size: 28rpx;
+  color: #1e4872;
+}
+
+
+.discountCode {
+  position: relative;
+}
+.discountCode .inputWrap {
+  height: 76rpx;
+  line-height: 76rpx;
+  background-color: #fff;
+  padding: 0 160rpx 0 50rpx;  
+  border-radius: 38rpx;
+}
+.discountCode .inputWrap input {
+  height: 76rpx;
+  line-height: 76rpx;
+  font-size: 28rpx;
+}
+.discountCode .btnWrap {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 160rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  border-radius: 38rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background-color: #1e4872;
+  text-align: center;
+  letter-spacing: 10rpx;
+}

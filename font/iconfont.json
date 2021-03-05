@@ -6,6 +6,27 @@
   "description": "脚递",
   "glyphs": [
     {
+      "icon_id": "1443587",
+      "name": "close",
+      "font_class": "close1",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "10561807",
+      "name": "Code",
+      "font_class": "Code",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "19989347",
+      "name": "coupon-fill",
+      "font_class": "coupon-fill",
+      "unicode": "ea24",
+      "unicode_decimal": 59940
+    },
+    {
       "icon_id": "8505317",
       "name": "微信卡包",
       "font_class": "weixinqiabao1",

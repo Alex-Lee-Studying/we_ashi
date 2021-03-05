@@ -28,6 +28,8 @@
     "pages/my/setup/bind/bind",
     "pages/my/address/index",
     "pages/my/address/add/add",
+    "pages/my/card/index",
+    "pages/my/card/getCoupons/index",
     "pages/help/index",
     "pages/help/detailComplain/detailComplain",
     "pages/help/detailContact/detailContact",

@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="totalWrap">
+    <view class="titleWrap"><text class="title">你今日还可免费领取<text class="num">2</text>张</text></view>
+    <image src="/images/wallerBg1.png" class="bottomimg" mode="widthFix"></image>
+  </view>
+  <view class="listWrap">
+    <view class="itemWrap">
+      <image class="bgImg" src="/images/coupon/couponItemBgTop.png" mode="aspectFit"></image>
+      <view class="listItem">
+        <view><text class="big">8折</text><text class="small">优惠券</text></view>
+        <view><button class="btn" bindtap="getCoupon">领取</button></view>
+      </view>
+    </view>
+    <view class="itemWrap">
+      <image class="bgImg" src="/images/coupon/couponItemBgTop.png" mode="aspectFit"></image>
+      <view class="listItem">
+        <view><text class="big">满100-20</text><text class="small">优惠券</text></view>
+        <view><button class="btn" bindtap="getCoupon">领取</button></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="couponDialog {{ showSuccess ? 'couponDialogShow' : '' }}">
+    <!-- 如果想点击弹窗外不隐藏，取消bindtap点击事件即可 -->
+    <view class="couponDialog__mask" bindtap="hideSuccessDialog" />
+    <view class="couponDialog__container">
+      <view class="dialogCont">
+        <view class="couponItem">
+          <image class="bgImg" src="/images/coupon/couponItemBgTop.png" mode="aspectFit"></image>
+          <view class="listItem">
+            <view><text class="big">8折</text><text class="small">优惠券</text></view>
+            <view>
+              <view class="notice"><text>仅限官方订单使用</text></view>
+              <view class="date"><text>2021-11-11到期</text></view>
+            </view>
+          </view>
+        </view>
+        <image class="successImg" src="/images/coupon/success.png" mode="aspectFit"></image>
+        <view>
+          <navigator url="/pages/order/index" hover-class="none" class="btnUse">使用</navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

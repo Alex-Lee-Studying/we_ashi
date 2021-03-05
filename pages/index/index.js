@@ -28,7 +28,8 @@ Page({
     currPageTravel: 0,
     currPageDelivery: 0,
     noMoreTravelsFlag: false,
-    noMoreDeliverysFlag: false
+    noMoreDeliverysFlag: false,
+    showCoupons: true
   },
 
   onLoad: function () {
@@ -255,5 +256,11 @@ Page({
         wx.hideLoading()
       }
     })
+  },
+  onShareAppMessage() {},
+  hideSuccessDialog: function () {
+    this.setData({
+      showCoupons: false
+    });
   }
 })

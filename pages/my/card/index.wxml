@@ -1,0 +1,54 @@
+<view class="container">
+  <view class="linkWrap">
+    <navigator class="linkOne" url="/pages/my/card/getCoupons/index" hover-class="none">
+      <image mode="aspectFit" src="/images/coupon/mianfeiLQ.png"></image>
+    </navigator>
+    <navigator class="linkOne" url="/pages/my/card/getCoupons/index" hover-class="none">
+      <image mode="aspectFit" src="/images/coupon/fenxiangLQ.png"></image>
+    </navigator>
+  </view>
+  <view class="contWrap">
+    <view class="title"><text class="iconfont iconcoupon-fill"></text><text>红包抵用券</text></view>
+    <view class="listWrap">
+      <view class="itemWrap">
+      <image class="bgImg" src="/images/coupon/couponItemBg.png" mode="aspectFit"></image>
+        <view class="listItem">
+          <view class="top">
+            <view><text class="big">8折</text><text class="small">优惠券</text></view>
+            <view><text class="notice">仅限官方订单使用</text></view>
+          </view>
+          <view class="bottom">
+            <view><text class="date">2021-11-11到期</text></view>
+            <view>
+              <navigator url="/pages/index/index" hover-class="none" open-type="switchTab" class="btnLink">去使用</navigator>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="itemWrap">
+      <image class="bgImg" src="/images/coupon/couponItemBg.png" mode="aspectFit"></image>
+        <view class="listItem">
+          <view class="top">
+            <view><text class="big">满100-20</text><text class="small">优惠券</text></view>
+            <view><text class="notice">仅限官方订单使用</text></view>
+          </view>
+          <view class="bottom">
+            <view><text class="date">2021-11-11到期</text></view>
+            <view>
+              <navigator url="/pages/index/index" hover-class="none" open-type="switchTab" class="btnLink">去使用</navigator>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="contWrap">
+    <view class="title"><text class="iconfont iconCode"></text><text>优惠码兑换</text></view>
+    <view class="discountCode">
+      <view class="inputWrap">
+        <input value="{{code}}" placeholder="请输入优惠码"></input>
+      </view>
+      <view class="btnWrap"><text>兑换</text></view>
+    </view>
+  </view>
+</view>
