@@ -97,10 +97,6 @@ Page({
   },
 
   addAddress() {
-    if (this.data.formdata.id) {
-      this.updateAddress()
-      return
-    }
     var self = this
     if (this.data.formdata.recipient === '' || this.data.formdata.recipient === null) {
       wx.showToast({ title: '请填写收件人', icon: 'none' })
@@ -113,13 +109,18 @@ Page({
     if (this.data.formdata.zipcode === '' || this.data.formdata.zipcode === null) {
       wx.showToast({ title: '请填写邮编', icon: 'none' })
       return
-    }    
+    }
     if (this.data.country === '') {
       wx.showToast({ title: '请选择国家城市', icon: 'none' })
       return
     }
     if (this.data.formdata.details === '' || this.data.formdata.details === null) {
       wx.showToast({ title: '请填写详细地址', icon: 'none' })
+      return
+    }
+
+    if (this.data.formdata.id) {
+      this.updateAddress()
       return
     }
 
@@ -199,7 +200,7 @@ Page({
           self.setData({ 
             formdata: res.data,
             // region: [res.data.province_code, res.data.city_code, res.data.area_code]
-            countryStr: res.data.country_code + ' ' + res.data.city_code
+            // countryStr: res.data.country_code + ' ' + res.data.city_code
           })
         } else {
           console.log(res)
