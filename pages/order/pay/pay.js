@@ -7,6 +7,7 @@ Page({
    */
   data: {
     deliveryId: null,
+    discountId: '',
     pay: 'wechat'
   },
 
@@ -14,6 +15,12 @@ Page({
     console.log(option)
     if (option.id) {
       this.setData({ deliveryId: option.id })
+      // this.getDelivery()
+    } else {
+     
+    }
+    if (option.discountId) {
+      this.setData({ discountId: option.discountId })
       // this.getDelivery()
     } else {
      
@@ -36,7 +43,7 @@ Page({
       url: app.globalData.baseUrl + '/transaction/v1/payments',
       method: 'POST',
       header: { 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
-      data: { delivery_id: this.data.deliveryId, method: 'miniprogram' }, 
+      data: { delivery_id: this.data.deliveryId, method: 'miniprogram', discount: this.data.discountId }, 
       success: function (res) {
         if (res.statusCode >= 200 && res.statusCode < 300) {
           self.doPay(res.data.params)

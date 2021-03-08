@@ -29,7 +29,7 @@ Page({
     currPageDelivery: 0,
     noMoreTravelsFlag: false,
     noMoreDeliverysFlag: false,
-    showCoupons: true
+    showCoupons: false
   },
 
   onLoad: function () {

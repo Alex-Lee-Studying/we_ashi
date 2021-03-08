@@ -1,21 +1,24 @@
 <view class="container">
   <view class="totalWrap">
-    <view class="titleWrap"><text class="title">你今日还可免费领取<text class="num">2</text>张</text></view>
+    <view class="titleWrap"><text class="title">你今日还可免费领取<text class="num">{{canReceiveNum}}</text>张</text></view>
     <image src="/images/wallerBg1.png" class="bottomimg" mode="widthFix"></image>
   </view>
   <view class="listWrap">
-    <view class="itemWrap">
+    <view class="itemWrap" wx:for="{{availableCoupons}}" wx:key="index">
       <image class="bgImg" src="/images/coupon/couponItemBgTop.png" mode="aspectFit"></image>
       <view class="listItem">
-        <view><text class="big">8折</text><text class="small">优惠券</text></view>
-        <view><button class="btn" bindtap="getCoupon">领取</button></view>
-      </view>
-    </view>
-    <view class="itemWrap">
-      <image class="bgImg" src="/images/coupon/couponItemBgTop.png" mode="aspectFit"></image>
-      <view class="listItem">
-        <view><text class="big">满100-20</text><text class="small">优惠券</text></view>
-        <view><button class="btn" bindtap="getCoupon">领取</button></view>
+        <view>
+          <text class="big" wx:if="{{item.type === 'percent'}}">{{item.percent * 10}}折</text>
+          <text class="big" wx:elif="{{item.type === 'reduce'}}">满{{item.base_amount}}-{{item.discount_amount}}</text>
+          <text class="small">优惠券</text>
+        </view>
+        <view>
+          <button wx:if="{{item.status === 'normal'}}" class="btn" bindtap="getCoupon" data-item="{{item}}" data-id="{{item.id}}" data-index="{{index}}">领取</button>
+          <button wx:elif="{{item.status === 'expired'}}" class="btn">已过期</button>
+          <button wx:elif="{{item.status === 'eol'}}" class="btn">已使用</button>
+          <button wx:elif="{{item.status === 'invalid'}}" class="btn">已无效</button>
+          <button wx:elif="{{item.status === 'received'}}" class="btn">已领取</button>
+        </view>
       </view>
     </view>
   </view>
@@ -24,20 +27,25 @@
     <!-- 如果想点击弹窗外不隐藏，取消bindtap点击事件即可 -->
     <view class="couponDialog__mask" bindtap="hideSuccessDialog" />
     <view class="couponDialog__container">
-      <view class="dialogCont">
+      <view class="dialogCont" wx:if="{{checkedCoupon && checkedCoupon.id}}">
         <view class="couponItem">
           <image class="bgImg" src="/images/coupon/couponItemBgTop.png" mode="aspectFit"></image>
           <view class="listItem">
-            <view><text class="big">8折</text><text class="small">优惠券</text></view>
+            <view>
+              <text class="big" wx:if="{{checkedCoupon.type === 'percent'}}">{{checkedCoupon.percent * 10}}折</text>
+              <text class="big" wx:elif="{{checkedCoupon.type === 'reduce'}}">满{{checkedCoupon.base_amount}}-{{checkedCoupon.discount_amount}}</text>
+              <text class="small">优惠券</text>
+            </view>
             <view>
               <view class="notice"><text>仅限官方订单使用</text></view>
-              <view class="date"><text>2021-11-11到期</text></view>
+              <view class="date"><text>{{checkedCoupon.expiry}}到期</text></view>
             </view>
           </view>
         </view>
         <image class="successImg" src="/images/coupon/success.png" mode="aspectFit"></image>
         <view>
-          <navigator url="/pages/order/index" hover-class="none" class="btnUse">使用</navigator>
+          <!-- <navigator url="/pages/order/index" hover-class="none" class="btnUse">使用</navigator> -->
+          <navigator url="/pages/my/card/index" hover-class="none" class="btnUse" open-type="redirect">查看</navigator>
         </view>
       </view>
     </view>

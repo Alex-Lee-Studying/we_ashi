@@ -3,52 +3,50 @@
     <navigator class="linkOne" url="/pages/my/card/getCoupons/index" hover-class="none">
       <image mode="aspectFit" src="/images/coupon/mianfeiLQ.png"></image>
     </navigator>
-    <navigator class="linkOne" url="/pages/my/card/getCoupons/index" hover-class="none">
+    <navigator class="linkOne" url="/pages/my/card/share/index" hover-class="none">
       <image mode="aspectFit" src="/images/coupon/fenxiangLQ.png"></image>
     </navigator>
   </view>
   <view class="contWrap">
     <view class="title"><text class="iconfont iconcoupon-fill"></text><text>红包抵用券</text></view>
     <view class="listWrap">
-      <view class="itemWrap">
-      <image class="bgImg" src="/images/coupon/couponItemBg.png" mode="aspectFit"></image>
+
+      <view class="itemWrap" wx:for="{{myCoupons}}" wx:key="index">
+        <image class="bgImg" src="/images/coupon/couponItemBg.png" mode="aspectFit"></image>
         <view class="listItem">
           <view class="top">
-            <view><text class="big">8折</text><text class="small">优惠券</text></view>
+            <view>
+              <text class="big" wx:if="{{item.type === 'percent'}}">{{item.percent * 10}}折</text>
+              <text class="big" wx:elif="{{item.type === 'reduce'}}">满{{item.base_amount}}-{{item.discount_amount}}</text>
+              <text class="small">优惠券</text>
+            </view>
             <view><text class="notice">仅限官方订单使用</text></view>
           </view>
           <view class="bottom">
-            <view><text class="date">2021-11-11到期</text></view>
+            <view><text class="date">{{item.expiry}}到期</text></view>
             <view>
-              <navigator url="/pages/index/index" hover-class="none" open-type="switchTab" class="btnLink">去使用</navigator>
+              <block wx:if="{{from === 'order'}}">
+                <button wx:if="{{item.type === 'reduce' && orderTotal < item.base_amount}}" class="btnLink disabled">去使用</button>
+                <button wx:else class="btnLink" bindtap="useCoupon" data-item="{{item}}" data-id="{{item.id}}" data-index="{{index}}">去使用</button>
+              </block>
+              <block wx:else>
+                <navigator url="/pages/order/index" hover-class="none" class="btnLink">去使用</navigator>
+              </block>
             </view>
           </view>
         </view>
       </view>
-      <view class="itemWrap">
-      <image class="bgImg" src="/images/coupon/couponItemBg.png" mode="aspectFit"></image>
-        <view class="listItem">
-          <view class="top">
-            <view><text class="big">满100-20</text><text class="small">优惠券</text></view>
-            <view><text class="notice">仅限官方订单使用</text></view>
-          </view>
-          <view class="bottom">
-            <view><text class="date">2021-11-11到期</text></view>
-            <view>
-              <navigator url="/pages/index/index" hover-class="none" open-type="switchTab" class="btnLink">去使用</navigator>
-            </view>
-          </view>
-        </view>
-      </view>
+
     </view>
+    <view class="nomore" wx:if="{{noMoreCouponsFlag}}"><text>没有更多数据啦~</text></view>
   </view>
-  <view class="contWrap">
+  <view class="contWrap" wx:if="{{from === 'order'}}">
     <view class="title"><text class="iconfont iconCode"></text><text>优惠码兑换</text></view>
     <view class="discountCode">
       <view class="inputWrap">
-        <input value="{{code}}" placeholder="请输入优惠码"></input>
+        <input type="text" placeholder="请输入优惠码" value="{{codeInput}}" bindinput="inputInfo"></input>
       </view>
-      <view class="btnWrap"><text>兑换</text></view>
+      <view class="btnWrap" bindtap="checkDiscountCode"><text>兑换</text></view>
     </view>
   </view>
 </view>

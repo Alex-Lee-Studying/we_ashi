@@ -70,6 +70,11 @@
 .totalWrap .item .value {
   color: #033150;
 }
+.totalWrap .item .iconfont {
+  font-size: 25rpx;
+  margin-left: 10rpx;
+  color: #666;
+}
 .subWrap {
   margin: 40rpx 30rpx;
 }

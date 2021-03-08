@@ -91,10 +91,10 @@ page {
 }  
 .couponDialog__container {
   position: fixed;
-  bottom: 400rpx;
+  left: 30rpx;
+  top: 350rpx;
   width: 690rpx;    /*弹窗布局宽*/
   height: 570rpx;   /*弹窗布局高，与下面弹出距离transform有关*/
-  margin-left: 30rpx;
   background: #fff;
   transform: translateY(300%);  /*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度 */
   transition: all 0.4s ease;

@@ -80,19 +80,27 @@ page {
   color: #666
 }
 .contWrap .listWrap .listItem .bottom .btnLink {
+  background-color: transparent;
+  padding: 0;
+  font-weight: normal;
   width: 120rpx;
   height: 50rpx;
-  line-height: 50rpx;
+  line-height: 46rpx;
   text-align: center;
   border-radius: 10rpx;
   border: 2rpx solid #1e4872;
   font-size: 28rpx;
   color: #1e4872;
 }
+.contWrap .listWrap .listItem .bottom .btnLink.disabled {
+  border: 2rpx solid #666;
+  color: #666;
+}
 
 
 .discountCode {
   position: relative;
+  margin-bottom: 40rpx;
 }
 .discountCode .inputWrap {
   height: 76rpx;
@@ -119,4 +127,12 @@ page {
   background-color: #1e4872;
   text-align: center;
   letter-spacing: 10rpx;
+}
+
+.nomore {
+  height: 45rpx;
+  line-height: 45rpx;
+  font-size: 28rpx;
+  color: #333;
+  text-align: center;
 }

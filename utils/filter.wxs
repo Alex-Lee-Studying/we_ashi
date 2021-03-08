@@ -37,8 +37,13 @@ var indexOf = function (str, search) {
   return str.indexOf(search)
 }
 
+var numberToFixed = function (value){
+  return value.toFixed(2)
+}
+
 module.exports = {
   formatTime: formatTime,
   getBirth: getBirth,
-  indexOf: indexOf
+  indexOf: indexOf,
+  numberToFixed: numberToFixed
 }

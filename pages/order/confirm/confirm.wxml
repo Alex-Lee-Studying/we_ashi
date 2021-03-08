@@ -1,3 +1,4 @@
+<wxs module="filter" src="../../../utils/filter.wxs"></wxs>
 <view class="container">
   <view class="addressWrap">
     <view class="item">
@@ -42,9 +43,17 @@
       <text class="label">物品价格</text>
       <text class="value">￥{{delivery.price}}</text>
     </view>
+    <navigator class="item" url="{{'/pages/my/card/index?from=order&orderTotal='+orderTotal}}" hover-class="none">
+      <text class="label">优惠券/优惠码</text>
+      <view>
+        <text class="value" wx:if="{{orderDiscountTotal > 0}}">-￥{{filter.numberToFixed(orderTotal - orderDiscountTotal)}}</text>
+        <text class="value" wx:else>未使用</text>
+        <text class="iconfont iconjiantou"></text>
+      </view>
+    </navigator>
     <view class="item">
       <text class="label">总计</text>
-      <text class="value">￥{{delivery.need_agent? delivery.price + delivery.freight + delivery.freight * delivery.fee_rate : delivery.freight + delivery.freight * delivery.fee_rate}}</text>
+      <text class="value">￥{{(orderDiscountTotal > 0) ? orderDiscountTotal : orderTotal}}</text>
     </view>
   </view>
 
@@ -52,8 +61,5 @@
     <!-- <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toOrder" wx:if="{{delivery.status === 'waiting_for_pay'}}">去支付</button>
     <button type="primary" class="btnGray" hover-class="btnHover" wx:else>去支付</button> -->
     <button type="primary" class="btnPrimary" hover-class="btnHover" bindtap="toOrder">去支付</button>
-  </view>  
-  <view class="subWrap" style="margin-top: 0;">
-    <button type="primary" plain class="btnPrimary"><navigator url="/pages/my/card/discountCoupons/index" hover-class="none">使用优惠券</navigator></button>
   </view>
 </view>
