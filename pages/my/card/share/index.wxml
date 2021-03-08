@@ -2,7 +2,7 @@
   <view class="miniProImgWrap">
     <image class="bg" src="/images/coupon/share.png" mode="aspectFit"></image>
     <view class="contWrap">
-      <image class="miniProImg" src="/images/coupon/miniProImg.png" mode="aspectFit"></image>
+      <image class="miniProImg" src="/images/coupon/miniProImg.jpg" mode="aspectFit"></image>
       <view class="miniProText"><text>长按小程序码下单</text></view>
     </view>
   </view>
