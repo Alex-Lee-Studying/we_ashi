@@ -1,18 +1,27 @@
-// pages/my/card/share/index.js
+var hasClick = false
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    userId: null,
+    user: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if (app.globalData.user.id) {
+      this.setData({ userId: app.globalData.user.id, user: app.globalData.user })
+      // this.getUser()
+    } else {
+      wx.switchTab({
+        url: '/pages/my/my'
+      })
+    }
   },
 
   /**
@@ -62,5 +71,16 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  // 分享到朋友圈
+  onShareTimeline: function() {
+    imageUrl = '/images/logo-login.png'
+    return {
+      title: this.data.user.nick_name + '邀请你领券 下单更优惠',
+      // query: '',
+      imageUrl: imageUrl
+    }
   }
+
 })

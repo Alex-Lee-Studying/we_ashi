@@ -10,6 +10,20 @@ page {
   width: 750rpx;
   height: 1225rpx;
 }
+.miniProImgWrap .userWrap {
+  position: absolute;
+  width: 750rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  left: 0;
+  top: 220rpx;
+  text-align: center;
+}
+.miniProImgWrap .userWrap text {
+  font-size: 35rpx;
+  color: #fff;
+  letter-spacing: 10rpx;
+}
 .miniProImgWrap .contWrap {
   position: absolute;
   width: 290rpx;

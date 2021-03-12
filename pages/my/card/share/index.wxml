@@ -1,6 +1,7 @@
 <view class="container">
   <view class="miniProImgWrap">
     <image class="bg" src="/images/coupon/share.png" mode="aspectFit"></image>
+    <view class="userWrap"><text>{{user.nick_name}}</text></view>
     <view class="contWrap">
       <image class="miniProImg" src="/images/coupon/miniProImg.jpg" mode="aspectFit"></image>
       <view class="miniProText"><text>长按小程序码下单</text></view>
@@ -8,7 +9,7 @@
   </view>
   <view class="btnWrap">
     <button open-type="share" class="shareBtn">分享给朋友</button>
-    <button open-type="share" class="shareBtn">分享到朋友圈</button>
-    <button open-type="share" class="shareBtn">保存分享图</button>
+    <button class="shareBtn">分享到朋友圈</button>
+    <button class="shareBtn">保存分享图</button>
   </view>
 </view>
