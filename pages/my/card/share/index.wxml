@@ -1,6 +1,6 @@
 <view class="container">
   <view class="miniProImgWrap">
-    <image class="bg" src="/images/coupon/share.png" mode="aspectFit"></image>
+    <image class="bg" src="/images/coupon/canvas_shareBg.png" mode="aspectFit"></image>
     <view class="userWrap"><text>{{user.nick_name}}</text></view>
     <view class="contWrap">
       <image class="miniProImg" src="/images/coupon/miniProImg.jpg" mode="aspectFit"></image>
@@ -8,8 +8,15 @@
     </view>
   </view>
   <view class="btnWrap">
-    <button open-type="share" class="shareBtn">分享给朋友</button>
-    <button class="shareBtn">分享到朋友圈</button>
-    <button class="shareBtn">保存分享图</button>
+    <view><button open-type="share" class="shareBtn">分享给朋友</button></view>
+    <view>
+      <button class="shareBtn" bindtap="save">分享到朋友圈</button>
+      <button class="authorBtn" open-type="openSetting" bindopensetting='handleSetting' hidden='{{openSettingBtnHidden}}'>去授权</button>
+    </view>
+    <view>
+      <button class="shareBtn" bindtap="save">保存分享图</button>
+      <button class="authorBtn" open-type="openSetting" bindopensetting='handleSetting' hidden='{{openSettingBtnHidden}}'>去授权</button>
+    </view>
   </view>
+  <canvas canvas-id="canvas"></canvas>
 </view>

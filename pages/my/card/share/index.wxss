@@ -5,10 +5,16 @@ page {
 }
 .miniProImgWrap {
   position: relative;
+  width: 750rpx;
+  height: 1226rpx;
 }
 .miniProImgWrap .bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
   width: 750rpx;
-  height: 1225rpx;
+  height: 787rpx;
 }
 .miniProImgWrap .userWrap {
   position: absolute;
@@ -18,6 +24,7 @@ page {
   left: 0;
   top: 220rpx;
   text-align: center;
+  z-index: 3;
 }
 .miniProImgWrap .userWrap text {
   font-size: 35rpx;
@@ -26,12 +33,18 @@ page {
 }
 .miniProImgWrap .contWrap {
   position: absolute;
-  width: 290rpx;
-  height: 290rpx;
-  left: 230rpx;
-  top: 835rpx;
+  width: 620rpx;
+  height: 530rpx;
+  left: 65rpx;
+  top: 695rpx;
+  background-color: #fff;
+  text-align: center;
+  border-bottom-left-radius: 100rpx;
+  border-bottom-right-radius: 100rpx;
+  z-index: 1;
 }
 .miniProImgWrap .contWrap .miniProImg {
+  margin: 130rpx auto 0;
   width: 290rpx;
   height: 290rpx;
 }
@@ -45,8 +58,11 @@ page {
 .btnWrap {
   margin: 70rpx 20rpx;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+}
+.btnWrap view {
+  position: relative;
 }
 .btnWrap .shareBtn {
   padding: 0;
@@ -60,4 +76,33 @@ page {
   font-size: 28rpx;
   color: #173d60;
   background-color: transparent;
+}
+.btnWrap .authorBtn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  padding: 0;
+  font-weight: normal;
+  width: 180rpx;
+  height: 68rpx;
+  line-height: 64rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  border: 2rpx solid #173d60;
+  font-size: 28rpx;
+  color: #173d60;
+  background-color: transparent;
+}
+
+canvas {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 750rpx;
+  height: 1225rpx;
+  border-radius: 0;
+  margin: 0 auto;
+  overflow-y: hidden;
 }
