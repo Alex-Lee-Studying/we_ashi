@@ -1,6 +1,8 @@
 <view class="container" style="padding-bottom: {{isIphoneX? '68rpx': '0'}}">
   <view class="bannerWrap">
-    <image src="/images/banner.jpg"></image>
+    <navigator url="/pages/article/article" class="btn-item" hover-class="none">
+      <image src="/images/banner.jpg" ></image>
+    </navigator>
   </view>
   <view class="btn-area">
     <navigator url="/pages/travel/travel" class="btn-item" hover-class="none">

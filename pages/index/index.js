@@ -29,7 +29,8 @@ Page({
     currPageDelivery: 0,
     noMoreTravelsFlag: false,
     noMoreDeliverysFlag: false,
-    showCoupons: false
+    showCoupons: false,
+    banner_list: []
   },
 
   onLoad: function () {
@@ -41,6 +42,7 @@ Page({
     if (app.globalData.user && app.globalData.user.id) {
       this.setData({ user: app.globalData.user })
     }
+    this.getBanners()
 
     this.setData({
       deliveryList: [],
@@ -121,7 +123,74 @@ Page({
       this.getTravels()
     }
   },
+  getBanners() {
+    var self = this
+    var params = {
+      departure: this.data.filter.departure,
+      destination: this.data.filter.destination,
+      // start_time: this.data.travelSearch.start_time,
+      // end_time: this.data.travelSearch.end_time
+    }
 
+    if (!this.data.getTravelsFlag) return
+    this.setData({ getTravelsFlag: false })
+    wx.showLoading()
+
+    wx.request({
+      url: app.globalData.baseUrl + '/app/v1/travels',
+      method: 'GET',
+      header: { 'page': this.data.currPageTravel, 'page-size': this.data.pageSize, 'Authorization': 'Bearer ' + wx.getStorageSync('ashibro_Authorization') },
+      data: params,
+      success: function (res) {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          if (res.data.length < self.data.pageSize) {
+            var reqState = false
+            self.setData({
+              noMoreTravelsFlag: true
+            })
+          } else {
+            var reqState = true
+          }
+          res.data.forEach((item,index,array) => {
+            item.created = item.created ? app.globalData.moment.utc(item.created).format('YYYY-MM-DD') : ''
+            item.dt_departure = item.dt_departure ? app.globalData.moment.utc(item.dt_departure).format('YYYY-MM-DD') : ''
+            item.departure = item.departure.indexOf('@') === 0 ? item.departure.slice(1) : item.departure
+            item.destination = item.destination.indexOf('@') === 0 ? item.destination.slice(1) : item.destination
+            item.departure = item.departure ? item.departure.replace('@', ',') : ''
+            item.destination = item.destination ? item.destination.replace('@', ',') : ''
+          })
+
+          var list = self.data.travelList.concat(res.data)
+          var nextPage = ++self.data.currPageTravel
+          self.setData({
+            travelList: list,
+            getTravelsFlag: reqState,
+            currPageTravel: nextPage
+          })
+        } else {
+          self.setData({
+            getTravelsFlag: true
+          })
+          if (res.data.msg && res.data.msg.indexOf('Token Expired') !== -1) {
+            wx.navigateTo({
+              url: '/pages/user/auth/auth',
+            })
+          } else {
+            wx.showToast({ title: res.data.msg, icon: 'none' })
+          }
+        }
+      },
+      fail: function (res) {
+        wx.showToast({ title: res.errMsg, icon: 'none' })
+        self.setData({
+          getTravelsFlag: true
+        })
+      },
+      complete: function (res) {
+        wx.hideLoading()
+      }
+    })
+  },
   getTravels() {
     var self = this
     var params = {

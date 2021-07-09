@@ -1,0 +1,38 @@
+/* pages/article/article.wxss */
+.step image{
+  width: 100%;
+}
+.title {
+  font-weight: 900;
+  display: block;
+  text-align: center;
+}
+.step{
+  /* height: 50rpx; */
+  width: 690rpx;
+  border:1px solid #ccc;
+  margin:35rpx auto;
+  border-radius: 10rpx;
+  padding-left:15rpx;
+}
+.step text{
+  line-height: 100rpx;
+  color:#2440B3;
+}
+.step .no{
+  color:#FE2D46;
+}
+.specil_point{
+  font-weight: 900;
+}
+.ps .specil_point{
+  color:#FE2D46;
+}
+.ps {
+  width: 690rpx;
+  margin:0 auto;
+}
+.ps text{
+  font-size: 24rpx;
+  width: 690rpx;
+}

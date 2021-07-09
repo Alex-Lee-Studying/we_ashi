@@ -3,10 +3,17 @@ page {
   background-color: #f2f2f2;
   padding-bottom: 100rpx;
 }
-.bannerWrap image {
-  display: block;
+.bannerWrap{
+  padding: 0 30rpx;
+  background-color: white;
   width: 750rpx;
   height: 300rpx;
+}
+.bannerWrap image {
+  display: block;
+  width: 690rpx;
+  height: 300rpx;
+  border-radius: 20rpx;
 }
 .btn-area {
   margin-top: 20rpx;

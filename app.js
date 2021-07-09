@@ -6,8 +6,8 @@ App({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   globalData: {
-    baseUrl: 'https://api.ashibro.com',
-    // baseUrl: 'https://dev.api.ashibro.com',
+    // baseUrl: 'https://api.ashibro.com',
+    baseUrl: 'https://dev.api.ashibro.com',
     moment: moment,
     countries: [],
     isLogin: false,
