@@ -1,7 +1,7 @@
 <view class="container" style="padding-bottom: {{isIphoneX? '68rpx': '0'}}">
   <view class="bannerWrap">
     <navigator url="/pages/article/article" class="btn-item" hover-class="none">
-      <image src="/images/banner.jpg" ></image>
+      <image  wx:for="{{banner_list}}" wx:key="id" src="{{item.resource.name}}" ></image>
     </navigator>
   </view>
   <view class="btn-area">
