@@ -1,28 +1,46 @@
 <!--pages/article/article.wxml-->
 <view class="container">
-  <text class="title">官方订单下单流程</text>
-  <view class="step">
-    <text><text class="no">1</text> 小程序首页点击 <text class="specil_point">脚递官方下单</text></text> 
+  <view class="header">
+    <text class="title">官方订单下单流程</text>
   </view>
-  <view class="step">
-    <text><text class="no">2</text> 填写物品信息，图片，价格，收货地址</text>
-  </view>
-  <view class="ps">
-    <text>如果需要代买，请务必将上传清晰的<text class="specil_point">产品图片</text>,并确定好<text class="specil_point">价格</text></text>
-  </view>
-  <view class="ps">
-    <text>在选择目的地时，如果没有您要找的城市，可以选择<text class="specil_point">不限</text>,再将您的收货地址写明即可</text>
-  </view>
-  <view class="ps">
-    <text>收货地址中的<text class="specil_point">邮编</text>,请务必查明后写明，因各地方快递业政策不同，错误的邮编可能耽误您收货的时间</text>
-  </view>
-  <view class="step">
-    <text><text class="no">3</text> 确认下单，信息<text class="specil_point">填写无误</text>后，付款</text>
-  </view>
-  <view class="step">
-    <text><text class="no">4</text> 下单后，将物品寄送到页面显示的<text class="specil_point">仓库地址</text></text>
-  </view>
-  <view class="ps">
-    <text>仓库收到您的货品后，会根据您的物品情况重新打包，称重，最终物品重量可能与您自己称重有误差，届时可能会有<text class="specil_point">补差价</text>情况</text>
+  <view class="main">
+    <view class="step first">
+      <view class="no">1</view> 
+      <view class="step1">小程序首页点击 <br/>"脚递官方下单"</view>
+      <view class="step_right">
+        <view class="step_index">
+          <image src="/images/index.jpg" mode="aspectFit" style="width:268rpx; height:295rpx;"></image>
+        </view>
+        <view class="step_index_1">
+          <image src="/images/offical_button.png" mode="aspectFit" style="width:454rpx; height:78rpx;"></image>
+        </view>
+      </view>
+    </view>
+    <view class="step">
+      <view class="no">2</view>
+      <view class="step2"> 
+        <view>填写物品信息，图片，价格、收货地址</view>
+        <view class="step2_ps">
+          如果需要代买，请务必将上传清晰的产品图片,并确定好价格
+          在选择目的地时，如果没有您要找的城市，可以选择不限,再将您的收货地址写明即可
+          收货地址中的邮编,请务必查明后写明，因各地方快递业政策不同，错误的邮编可能耽误您收货的时间
+        </view>
+      </view>
+      <view class="step_right">
+        <view class="step_index1">
+          <image src="/images/step2.png" mode="aspectFit" style="width:268rpx; height:503rpx;"></image>
+        </view>
+      </view>
+    </view>
+    
+    <view class="step">
+      <text><text class="no">3</text> 确认下单，信息<text class="specil_point">填写无误</text>后，付款</text>
+    </view>
+    <view class="step">
+      <text><text class="no">4</text> 下单后，将物品寄送到页面显示的<text class="specil_point">仓库地址</text></text>
+    </view>
+    <view class="ps">
+      <text>仓库收到您的货品后，会根据您的物品情况重新打包，称重，最终物品重量可能与您自己称重有误差，届时可能会有<text class="specil_point">补差价</text>情况</text>
+    </view>
   </view>
 </view>
